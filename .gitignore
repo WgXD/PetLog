@@ -1,24 +1,54 @@
-# Compiled class file
+# Eclipse / STS 설정 무시 (공통 설정은 포함, 개인 설정만 무시)
+.metadata/
+.settings/
+.springBeans
+.recommenders/
+.apt_generated/
+.factorypath
+.externalToolBuilders/
+.sts4-cache/
+
+# 로컬 환경 / 임시 파일
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.loadpath
+
+# 실행 환경 설정 파일
+*.launch
+
+# Java 빌드 산출물
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
-*.nar
 *.ear
-*.zip
-*.tar.gz
-*.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# 로그
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 보안 / 환경 설정
+.env
+*.local
+application-*.yml
+application-*.properties
+
+# IntelliJ 사용하지 않으면 아래는 생략해도 됨
+#.idea/
+#*.iml
