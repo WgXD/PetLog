@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.mbc.pet.usertems.UsertemsService">
+
+	<insert id="insert_usertem">
+	    INSERT INTO usertems (usertem_id, user_id, item_id, usertem_equip)
+	    VALUES (usertems_seq.NEXTVAL, #{user_id}, #{item_id}, #{usertem_equip})
+	</insert>
+	
+<!-- <select id="item_list" resultType="com.mbc.pet.items.ItemsDTO">
+	    SELECT i.item_id, i.item_name, i.item_category, i.item_image, u.usertem_equip
+	    FROM usertems u
+	    JOIN items i ON u.item_id = i.item_id
+	    WHERE u.user_id = #{user_id}
+	</select> -->
+
+	<select id="get_items" resultType="com.mbc.pet.usertems.UsertemsDTO">
+		select
+			u.usertem_id,
+	        u.user_id,
+	        u.item_id,
+	        u.usertem_equip, 
+	        i.item_name,
+	        i.item_category,
+	        i.item_image
+	    from USERTEMS u
+	    join ITEMS i on u.item_id = i.item_id
+	    where u.user_id = #{user_id}
+	</select>
+
+</mapper>

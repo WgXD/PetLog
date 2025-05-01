@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.mbc.pet.point.PointService">
+    
+
+	<insert id="insert_point" parameterType="com.mbc.pet.point.PointDTO"> <!-- grape_point_seq 못 찾아서 seletKey 넣음 -->
+	  <selectKey keyProperty="point_id" resultType="int" order="BEFORE">
+	    SELECT grape_point_seq.NEXTVAL FROM dual
+	  </selectKey>
+	  INSERT INTO grape_point (
+	    point_id, user_id, point_action, point_action_id, point_earned_grapes
+	  ) VALUES (
+	    #{point_id}, #{user_id}, #{point_action}, #{point_action_id}, #{point_earned_grapes}
+	  )
+	</insert>
+
+
+
+
+
+    </mapper>

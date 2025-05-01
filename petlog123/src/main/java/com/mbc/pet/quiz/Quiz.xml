@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mbc.pet.quiz.QuizService">
+<!-- 퀴즈 등록 -->
+<insert id="insertQuiz">
+	insert into quiz values(quiznum_seq.nextval, #{quiz_question}, #{quiz_option1}, #{quiz_option2}, #{quiz_option3}, #{quiz_option4}, #{quiz_answer})
+</insert>
+
+<!-- 랜덤 퀴즈 가져오기 -->
+<select id="getRandomQuiz" resultType="com.mbc.pet.quiz.QuizDTO">
+	    SELECT *
+  FROM (
+    SELECT quiz_id, quiz_question FROM quiz
+    ORDER BY DBMS_RANDOM.VALUE
+  )
+  WHERE ROWNUM &lt;= 5
+</select>
+
+<!-- 퀴즈 아이디로 퀴즈 가져오기 -->
+<select id="getQuizId" parameterType="int" resultType="com.mbc.pet.quiz.QuizDTO">
+	select quiz_id, quiz_option1, quiz_option2, quiz_option3, quiz_option4,  quiz_question, quiz_answer
+	from quiz where quiz_id = #{quiz_id}
+</select>
+
+<!-- 퀴즈 결과 저장 -->
+<insert id="insertQuizResult" parameterType="com.mbc.pet.quiz.QuizResultDTO">
+    insert into quiz_result
+    (result_id, result_score, result_rank, result_time, user_id, quiz_id, get_grape)
+    values (quiz_result_seq.NEXTVAL, #{result_score}, #{result_rank}, #{result_time},
+    #{user_id}, #{quiz_id}, #{get_grape})
+</insert>
+</mapper>

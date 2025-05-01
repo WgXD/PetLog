@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mbc.pet.user.UserService">
+<select id="idcheck" parameterType="String" resultType="int">
+  <!-- parameterType="String" => 아이디:문자열 
+		resultType="int" => count: 정수형 -->
+	select count(*) from user1 where user_login_id=#{user_login_id}
+</select>
+
+<insert id="insertsignup" parameterType="com.mbc.pet.user.UserDTO">
+	insert into user1 (user_id,user_login_id,password,name,phone,address,profileimg,rank,user_role,grape_count)
+	values(user_id_seq.nextval,#{user_login_id},#{password},#{name},#{phone},#{address},
+	#{profileimg,jdbcType=VARCHAR},#{rank,jdbcType=VARCHAR},#{user_role},#{grape_count,jdbcType=INTEGER})
+</insert>
+
+<select id="pwsave" parameterType="String" resultType="String">
+	select password
+	from user1
+	where user_login_id = #{user_login_id}
+</select>
+
+<select id="selectUserByLoginId" resultType="com.mbc.pet.user.UserDTO">
+	select user_id, user_login_id, name, phone, address, profileimg, rank, grape_count
+	from user1 where user_login_id=#{user_login_id}
+</select>
+
+<select id="editid" resultType="com.mbc.pet.user.UserDTO">
+	select user_id, user_login_id, password, name, phone, address, profileimg, rank, grape_count
+	from user1 where user_login_id=#{user_login_id}
+</select>
+
+<update id="updateProfile" parameterType="com.mbc.pet.user.UserDTO">
+	update user1 set 
+	password=#{password, jdbcType=VARCHAR}, 
+	name=#{name, jdbcType=VARCHAR}, 
+	phone=#{phone, jdbcType=VARCHAR},
+    address=#{address, jdbcType=VARCHAR}, 
+    profileimg=#{profileimg,jdbcType=VARCHAR},
+    rank=#{rank,jdbcType=VARCHAR}, 
+    grape_count=#{grape_count,jdbcType=INTEGER}
+    where user_login_id = #{user_login_id, jdbcType=VARCHAR}
+</update>
+</mapper>

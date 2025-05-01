@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.mbc.pet.diary.DiaryService">
+     
+    <resultMap type="com.mbc.pet.pet.PetDTO" id="petdto">
+    <result property="pet_id" column="pet_id"/>
+    <result property="pet_name" column="pet_name"/>
+    <result property="pet_bog" column="pet_bog"/>
+    <result property="pet_hbd" column="pet_hbd"/>
+    <result property="user_id" column="user_id"/>
+    <result property="pet_img" column="pet_img"/>
+    <result property="pet_neuter" column="pet_neuter"/>
+    </resultMap>
+    
+    <resultMap type="com.mbc.pet.user.UserDTO" id="petuserdto">
+    <result property="user_id" column="user_id"/>
+    <result property="user_login_id" column="user_login_id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="phone" column="phone"/>
+    <result property="address" column="address"/>
+    <result property="profileimg" column="profileimg"/>
+    <result property="rank" column="rank"/>
+    <result property="user_role" column="user_role"/> 
+    <result property="grape_count" column="grape_count"/> 
+    </resultMap>
+    
+    <resultMap type="com.mbc.pet.diary.DiaryDTO" id="diarydto">
+    <result property="diary_id" column="diary_id"/>
+    <result property="diary_title" column="diary_title"/>
+    <result property="diary_date" column="diary_date" jdbcType="VARCHAR" javaType="String"/>
+    <result property="diary_image" column="diary_image"/>
+    <result property="diary_content" column="diary_content"/>
+    <result property="get_grape" column="get_grape"/>
+   <!--  
+    <association property="user_id" resultMap="petuserdto"/>
+    <association property="pet_id" resultMap="petdto"/>
+   -->
+    </resultMap> 
+    
+<insert id="diary_save" parameterType="com.mbc.pet.diary.DiaryDTO">
+  insert into diary 
+  (diary_id, diary_title, diary_date, diary_image, diary_content, get_grape, user_id, pet_id)
+  values (
+    diary_seq.nextval,
+    #{diary_title},
+    to_date(#{diary_date}, 'yyyy-MM-dd'),
+    #{diary_image},
+    #{diary_content},
+    0,
+    #{user_id},
+    #{pet_id}
+  )
+</insert>
+	
+	<update id="grape_check" parameterType="int"> <!-- '1' = 글 썼으니까 포도알이 적립되었다는 뜻임 // 1개 적립해준다는거 아님!! -->
+	    UPDATE diary
+	    SET get_grape = 1
+	    WHERE diary_id = #{diary_id} <!-- 0 = false, 1 = true 임 -->
+	</update>
+    
+    <!-- 페이징 처리 -->
+    <select id="total_diary" resultType="int">
+    	select count(*) from diary
+    </select>
+    
+    
+	<select id="diary_out" resultType="com.mbc.pet.diary.DiaryDTO">
+		   SELECT * FROM (
+		       SELECT a.*, ROW_NUMBER() OVER (ORDER BY diary_id DESC) AS rnum
+		       FROM (
+		           SELECT diary_id, diary_title, TO_CHAR(diary_date, 'yyyy-MM-dd') AS diary_date,
+		                  diary_image, diary_content, user_id, pet_id
+		           FROM diary
+		       ) a
+		   )
+		   WHERE rnum BETWEEN #{start} + 1 AND #{end}
+	</select>
+
+
+    <select id="diary_detail" resultType="com.mbc.pet.diary.DiaryDTO">
+		select diary_id, diary_title, to_char(diary_date,'yyyy-MM-dd')diary_date, diary_image, diary_content, get_grape, user_id, pet_id from diary where diary_id=#{param1}
+	</select>
+    
+    <select id="diary_update" resultType="com.mbc.pet.diary.DiaryDTO">
+    	select diary_id, diary_title, to_char(diary_date,'yyyy-MM-dd')diary_date, diary_image, diary_content, get_grape, user_id, pet_id from diary where diary_id=#{param1}
+    </select>
+	    
+	<update id="update_save">
+	    UPDATE diary 
+	    SET diary_title = #{param2},
+	        diary_date = #{param3},
+	        diary_image = #{param4},
+	        diary_content = #{param5},
+	        user_id = #{param6},
+	        pet_id = #{param7}
+	    WHERE diary_id = #{param1}
+	</update>
+	
+	<select id="delete_check" resultType="com.mbc.pet.diary.DiaryDTO">
+		select diary_id, diary_title, to_char(diary_date,'yyyy-MM-dd')diary_date, diary_image, diary_content, get_grape, user_id, pet_id from diary where diary_id=#{param1}
+	</select>
+	
+	<delete id="delete_page" parameterType="int">
+		delete from diary where diary_id=#{diary_id}
+	</delete>
+    
+    <select id="get_id" resultType="int">
+    	select diary_seq.nextval from dual
+    </select>
+    
+
+    </mapper>

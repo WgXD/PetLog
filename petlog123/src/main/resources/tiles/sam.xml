@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+   <definition name="baseLayout" template="/WEB-INF/views/layout.jsp">
+      <put-attribute name="title" value=""/>
+      <put-attribute name="top" value="/WEB-INF/views/top.jsp"/>
+      <put-attribute name="body" value=""/>
+      <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+   </definition>
+ 
+ <!-- 여기는 jsp파일 열기 위해 적은 곳...! -->
+   
+   <!-- main -->
+   <definition name="main" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
+   </definition>
+    
+<!-- user 부분 -->
+
+   <definition name="UserLogin" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/UserLogin.jsp"/>
+   </definition>
+  
+   <definition name="UserMypage" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/UserMypage.jsp"/>
+   </definition>
+  
+   <definition name="UserSignup" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/UserSignup.jsp"/>
+   </definition>
+  
+  <definition name="UserEditProfile" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/UserEditProfile.jsp"/>
+   </definition>
+
+<!-- user 부분 end -->
+
+   <!-- pet_input -->
+    <definition name="pet_input" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/pet/pet_input.jsp"/>
+   </definition>   
+   
+   <!-- pet_out -->
+    <definition name="pet_out" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/pet/pet_out.jsp"/>
+   </definition>  
+   
+   <!-- pet_detail -->
+    <definition name="pet_detail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/pet/pet_detail.jsp"/>
+   </definition>  
+
+   <!-- pet_update -->
+    <definition name="pet_update" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/pet/pet_update.jsp"/>
+   </definition>  
+
+   <!-- pet_delete -->
+    <definition name="pet_delete" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/pet/pet_delete.jsp"/>
+   </definition>  
+
+   <!-- diary_input -->
+    <definition name="diary_input" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/diary/diary_input.jsp"/>
+   </definition>   
+   
+   <!-- diary_out -->
+    <definition name="diary_out" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/diary/diary_out.jsp"/>
+   </definition>   
+   
+   <!-- diary_detail -->
+    <definition name="diary_detail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/diary/diary_detail.jsp"/>
+   </definition>      
+   
+   <!-- diary_update -->
+    <definition name="diary_update" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/diary/diary_update.jsp"/>
+    </definition>  
+   
+   <!-- diary_delete -->
+    <definition name="diary_delete" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/diary/diary_delete.jsp"/>
+    </definition>     
+   
+   <!-- 포도송이 출력 (포도알 몇개인지?) -->
+    <definition name="stamp_grapes" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/point/stamp_grapes.jsp"/>
+    </definition>  
+   
+    <!-- 포도알로 아이템 사는 상점 //포도알 쓰러가기 누르면 여기로 연결 -->
+    <definition name="items_out" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_out.jsp"/>
+    </definition>   
+   
+   <!-- 판매할 아이템 input(관리자용) -->
+    <definition name="items_input" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_input.jsp"/>
+    </definition>  
+    
+   <!-- 아이템 구매 페이지 -->
+    <definition name="items_detail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_detail.jsp"/>
+    </definition>  
+   
+	 <!-- 내 아이템 -->
+	<definition name="buy_items" extends="baseLayout">
+	    <put-attribute name="title" value="메인화면"/>
+	    <put-attribute name="body" value="/WEB-INF/views/items/buy_items.jsp"/>
+	</definition>
+
+   <!-- snack_input -->
+    <definition name="snack_input" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/snack/snack_input.jsp"/>
+    </definition>     
+   
+   <!-- snack_out -->
+    <definition name="snack_out" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/snack/snack_out.jsp"/>
+    </definition>   
+    
+   <!-- snack_detail -->
+    <definition name="snack_detail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/snack/snack_detail.jsp"/>
+    </definition> 
+   
+   <!-- snack_update -->
+    <definition name="snack_update" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/snack/snack_update.jsp"/>
+    </definition> 
+    
+    <!-- snack_delete -->
+    <definition name="snack_delete" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/snack/snack_delete.jsp"/>
+    </definition> 
+   
+   <!-- 커뮤니티 인풋 --> 
+   <definition name="CommunityInput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunityInput.jsp"/>
+   </definition> 
+   
+   <!-- 커뮤니티 출력 -->
+   <definition name="CommunityOut" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunityOut.jsp"/>
+   </definition> 
+   
+   <!-- 커뮤니티 자세히 보기 -->
+   <definition name="CommunityDetail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunityDetail.jsp"/>
+   </definition> 
+   
+   <!-- 커뮤니티 삭제 확인 -->
+   <definition name="CommunityDeleteView" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunityDeleteView.jsp"/>
+   </definition> 
+      
+    <!-- 커뮤니티 수정 -->  
+   <definition name="CommunityModify" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunityModify.jsp"/>
+   </definition>  
+   
+   <!--  -->
+   <definition name="CommunitySearchView" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Community/CommunitySearchView.jsp"/>
+   </definition> 
+  
+  <!-- 게시판 인풋 -->
+   <definition name="BoardInput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Board/BoardInput.jsp"/>
+   </definition>
+  
+  <!--  -->
+  <definition name="BoardView" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Board/BoardView.jsp"/>
+   </definition>
+   
+   <!--  -->
+     <definition name="BoardDetail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Board/BoardDetail.jsp"/>
+   </definition>
+   
+   <!-- 관리자 전용!!! (퀴즈 입력하기) -->
+   <definition name="QuizInsert" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizInsert.jsp"/>
+   </definition>
+   
+   <!--  -->
+    <definition name="QuizList" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizList.jsp"/>
+   </definition>
+   
+   <!--  -->
+    <definition name="QuizResult" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizResult.jsp"/>
+   </definition>
+  
+</tiles-definitions>

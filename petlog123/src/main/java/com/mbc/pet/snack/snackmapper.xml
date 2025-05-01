@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.mbc.pet.snack.SnackService">
+    
+    <resultMap type="com.mbc.pet.user.UserDTO" id="petuserdto">
+    <result property="user_id" column="user_id"/>
+    <result property="user_login_id" column="user_login_id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="phone" column="phone"/>
+    <result property="address" column="address"/>
+    <result property="profileimg" column="profileimg"/>
+    <result property="rank" column="rank"/>
+    <result property="user_role" column="user_role"/> 
+    <result property="grape_count" column="grape_count"/> 
+    </resultMap>
+    
+    
+ 	<insert id="snack_save" parameterType="com.mbc.pet.snack.SnackDTO">
+	    insert into snack
+	    values (
+	        snack_seq.nextval,
+	        #{snack_title},
+	        #{snack_recipe},
+	        #{snack_image},
+	        to_date(#{snack_date}, 'yyyy-MM-dd'),
+	        #{user_id}
+	    )
+	</insert>
+
+    <!-- 페이징 처리 -->
+    <select id="total_recipe" resultType="int">
+    	select count(*) from snack
+    </select>
+    
+    <select id="snack_out" resultType="com.mbc.pet.snack.SnackDTO">
+    	select * from (
+    			       SELECT a.*, ROW_NUMBER() OVER (ORDER BY snack_id DESC) AS rnum
+		       FROM (
+		           SELECT snack_id, snack_title, snack_recipe, snack_image, TO_CHAR(snack_date, 'yyyy-MM-dd') AS snack_date, user_id
+		           FROM snack
+		       ) a
+		   )
+		   WHERE rnum BETWEEN #{start} + 1 AND #{end}    
+    </select>
+
+	<select id="snack_detail" resultType="com.mbc.pet.snack.SnackDTO">
+		select snack_id, snack_title, snack_recipe, snack_image, to_char(snack_date,'yyyy-MM-dd')snack_date, user_id from snack where snack_id = #{param1}
+	</select>
+	
+	<select id="snack_update" resultType="com.mbc.pet.snack.SnackDTO">
+		select snack_id,snack_title,snack_recipe,snack_image, to_char(snack_date,'yyyy-MM-dd')snack_date, user_id from snack where snack_id = #{param1}
+	</select>
+	
+		
+	<update id="snackupdate_save" parameterType="com.mbc.pet.snack.SnackDTO">
+	    update snack
+	    set snack_title = #{dto.snack_title},
+	        snack_recipe = #{dto.snack_recipe},
+	        snack_image = #{dto.snack_image},
+	        snack_date = TO_DATE(#{dto.snack_date}, 'yyyy-MM-dd'),
+	        user_id = #{dto.user_id}
+	    where snack_id = #{dto.snack_id}
+	</update>
+
+	<select id="snackdelete_check" parameterType="int" resultType="com.mbc.pet.snack.SnackDTO">
+		select snack_id, snack_title, snack_recipe, snack_image, to_char(snack_date,'yyyy-MM-dd')snack_date, user_id from snack where snack_id = #{param1} 
+	</select>
+
+	<delete id="delete_recipe" parameterType="int">
+		delete from snack where snack_id = #{param1}
+	</delete>
+
+
+    </mapper>

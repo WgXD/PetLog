@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.mbc.pet.pet.PetService">
+
+    <resultMap type="com.mbc.pet.user.UserDTO" id="petuserdto">
+    <result property="user_id" column="user_id"/>
+    <result property="user_login_id" column="user_login_id"/>
+    <result property="password" column="password"/>
+    <result property="name" column="name"/>
+    <result property="phone" column="phone"/>
+    <result property="address" column="address"/>
+    <result property="profileimg" column="profileimg"/>
+    <result property="rank" column="rank"/>
+    <result property="user_role" column="user_role"/> 
+    <result property="grape_count" column="grape_count"/> 
+    </resultMap>
+    
+	<select id="petsbyuser" parameterType="int" resultType="com.mbc.pet.pet.PetDTO">
+	  SELECT * FROM pet WHERE user_id = #{user_id}
+	</select> <!-- 여러 마리일 경우 선택하기 -->
+    
+    
+    <insert id="pet_save" parameterType="com.mbc.pet.pet.PetDTO">
+    	insert into pet
+    	values (
+    		pet_seq.nextval,
+    		#{pet_name},
+    		#{pet_bog},
+    		#{pet_hbd},
+    		#{user_id},
+    		#{pet_img},
+    		#{pet_neuter}
+    	)
+    </insert>
+    
+    <select id="pet_out" resultType="com.mbc.pet.pet.PetDTO">
+    	select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet
+    </select>
+    
+    
+    <select id="pet_detail" resultType="com.mbc.pet.pet.PetDTO">
+    	select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet where pet_id = #{param1}
+    </select>
+    
+    <select id="pet_update" resultType="com.mbc.pet.pet.PetDTO">
+    	select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet where pet_id = #{param1}
+    </select>
+    
+    <update id="pet_update_save">
+    	update pet
+    	set pet_name = #{param2},
+    		pet_bog = #{param3},
+    		pet_hbd = #{param4},
+    		user_id = #{param5},
+    		pet_img = #{param6},
+    		pet_neuter = #{param7}
+    	where pet_id = #{param1}
+    </update>
+    
+    <select id="delete1" resultType="com.mbc.pet.pet.PetDTO">
+    	select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet where pet_id = #{param1}
+    </select>
+    
+    <delete id="delete_check" parameterType="int">
+    	delete from pet where per_id = #{param1}
+    </delete>
+    
+    </mapper>
