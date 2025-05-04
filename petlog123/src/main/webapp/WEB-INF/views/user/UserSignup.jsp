@@ -141,10 +141,10 @@ input[type="password"]:focus {
       <input type="text" id="phone" name="phone" placeholder="숫자만 입력하세요." oninput="formatPhoneNumber(this)" maxlength="13" required>
       <!-- 전화번호 입력시 실시간 하이픈(-) 자동 생성 -->
     </div>
-    <!-- 주소 입력 -->
+    <!-- 이메일 입력(((주소->이메일로 수정함)) -->
     <div class="form-group">
-      <label for="address">주소</label>
-      <input type="text" id="address" name="address" placeholder="주소를 입력하세요.">
+      <label for="email">이메일</label>
+      <input type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
       <!-- 추가 hidden값 (초기 프로필, 등급, 권한) -->
       <input type="hidden" name="profileimg" value="default.png">
       <input type="hidden" name="rank" value="브론즈">
