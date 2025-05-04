@@ -29,14 +29,15 @@ public class ItemsController {
 	
 	
 	@RequestMapping(value = "/items_out") //"아이템 전체출력" 페이지 매핑 -> items 리스트 출력
-    public String items(Model mo, HttpServletRequest request,@RequestParam(defaultValue = "1") int page) {
+    public String items(Model mo,HttpSession session, HttpServletRequest request,@RequestParam(defaultValue = "1") int page) {
 		
-		//로그인 확인
-	    HttpSession hs = request.getSession();
-	    Integer user_id = (Integer) hs.getAttribute("user_id");
-	    if (user_id == null) {
-	        return "redirect:/login?error=login_required";
-	    }
+		// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		//페이징 처리 1
 		int page_size = 5; //한 페이지당 보기 5개로 설정!!
@@ -73,18 +74,27 @@ public class ItemsController {
     @RequestMapping("/items_input") //아이템 입력!!! - 아이템 등록 페이지 이동
     public String items1(HttpSession session) {
     	
-		//로그인 확인
-	    Integer user_id = (Integer) session.getAttribute("user_id");
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // 로그인 안 된 경우 + alert 처리
-	    }
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
         return "items_input";  //jsp 이름
     }
     
     @RequestMapping(value = "/items_save") //아이템 등록 처리
-    public String items1_1(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
+    public String items1_1(MultipartHttpServletRequest mul, HttpSession session) throws IllegalStateException, IOException {
+    	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
     	
     	String path = mul.getSession().getServletContext().getRealPath("/image");
     	
@@ -106,8 +116,16 @@ public class ItemsController {
     
     
     @RequestMapping(value="/items_detail") //아이템 상세 페이지
-    public String items2(Model mo, HttpServletRequest request) {
+    public String items2(Model mo, HttpServletRequest request, HttpSession session) {
     	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
     	int num = Integer.parseInt(request.getParameter("num"));
     	ItemsService is = sql.getMapper(ItemsService.class);
     	ItemsDTO dto = is.items_detail(num);
@@ -119,16 +137,14 @@ public class ItemsController {
     
     @RequestMapping(value="/buy_items", method=RequestMethod.POST)
     public String item3(HttpSession session, @RequestParam int item_id) {
-    	Integer user_id = (Integer) session.getAttribute("user_id");
+    
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-    	System.out.println("user_id: " + user_id);
-    
-    	if (user_id == null) {
-        	// 비회원 접근 차단 처리
-        	return "redirect:/login?error=login_required"; // 로그인 페이지로
-    	}
-    
-    	System.out.println("user_id: " + user_id);
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
     
     	UsertemsService us = sql.getMapper(UsertemsService.class);
     	us.insert_usertem(user_id, item_id, "N"); // 기본 장착 상태 N으로 저장

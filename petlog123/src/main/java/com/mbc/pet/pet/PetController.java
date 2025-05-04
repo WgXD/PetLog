@@ -27,23 +27,32 @@ public class PetController {
 	@RequestMapping(value = "/pet_input") //top에서 누르고 들어오는 곳
 	public String pet(HttpSession session) {
 		
-		//로그인 확인
-	    Integer user_id = (Integer) session.getAttribute("user_id");
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // 로그인 안 된 경우 + alert 처리
-	    }
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		return "pet_input"; //jsp file name
 	}
 	
 	@RequestMapping(value = "/pet_save")
-	public String pet1(MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+	public String pet1(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		String path = request.getSession().getServletContext().getRealPath("/image");
 		
 		//int user_id = 0; ///???
-		Integer user_id = (Integer) request.getSession().getAttribute("user_id");
+		//Integer user_id = (Integer) request.getSession().getAttribute("user_id");
 		
 		String pet_name = request.getParameter("pet_name");
 		String pet_bog = request.getParameter("pet_bog");
@@ -72,15 +81,15 @@ public class PetController {
 	}
 	
 	@RequestMapping(value = "/pet_out") 
-	public String pet2(Model mo, HttpServletRequest req) {
+	public String pet2(Model mo, HttpServletRequest req, HttpSession session) {
 		
-	    HttpSession hs = req.getSession(); //현재 요청과 관련된 세션 객체를 가져옴
-	    Integer user_id = (Integer) hs.getAttribute("user_id"); //user_id 값을 가져옴 (로그인 시 세션에 저장된 값)
-	    
-	    //로그인 확인
-	    if (user_id == null) {
-	        return "redirect:/login?error=login_required";
-	    }
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		PetService ps = sqlSession.getMapper(PetService.class);
 		
@@ -93,8 +102,16 @@ public class PetController {
 	
 	
 	@RequestMapping(value = "/pet_detail") 
-	public String pet3(Model mo, HttpServletRequest req) {
+	public String pet3(Model mo, HttpServletRequest req, HttpSession session) {
 		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
 		int update1 = Integer.parseInt(req.getParameter("update1"));
 		
 		PetService ps = sqlSession.getMapper(PetService.class);
@@ -106,7 +123,15 @@ public class PetController {
 	
 	
 	@RequestMapping(value = "/pet_update")
-	public String pet4(Model mo, HttpServletRequest req) {
+	public String pet4(Model mo, HttpServletRequest req, HttpSession session) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int update = Integer.parseInt(req.getParameter("update"));
 		
@@ -118,50 +143,63 @@ public class PetController {
 		return "pet_update"; //jsp file name
 	}
 	
-	@RequestMapping(value = "/pet_update_save") //from pet_detail .. 수정 후 저장하고 다시 출력
-	public String pet4_1(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
-		
-		String path = mul.getSession().getServletContext().getRealPath("/image");
-		
-		int user_id = 0; ///???
-		
-		int pet_id = Integer.parseInt(mul.getParameter("pet_id"));
-		String pet_name = mul.getParameter("pet_name");
-		String pet_bog = mul.getParameter("pet_bog");
-		String pet_neuter = mul.getParameter("pet_neuter");
-		String pet_hbd = mul.getParameter("pet_hbd");
-		MultipartFile mf = mul.getFile("pet_img"); //이미지
- 		String dfimage = mul.getParameter("himage");
-		String fname = mf.getOriginalFilename();
-		
-		// >> 이미지 처리 추가한 부분
-		
-		if (mf != null && !mf.isEmpty()) {
-		    // 새 이미지가 있는 경우
-		    fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
-		    mf.transferTo(new File(path + "\\" + fname));
+	
+	@RequestMapping(value = "/pet_update_save") // from pet_detail .. 수정 후 저장하고 다시 출력
+	public String pet4_1(HttpSession session, MultipartHttpServletRequest mul, HttpServletRequest req) throws IllegalStateException, IOException {
+	    
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-		    // 기존 이미지 삭제
-		    if (dfimage != null && !dfimage.trim().equals("")) {
-		        File ff = new File(path + "\\" + dfimage);
-		        if (ff.exists()) ff.delete();
-		    }
-		} else {
-		    // 새 이미지가 없는 경우 기존 이미지 그대로 사용
-		    fname = dfimage;
-		}
-		
-		// << 이미지 처리 끝
-		
-		PetService ps = sqlSession.getMapper(PetService.class);
-		ps.pet_update_save(pet_id, pet_name, pet_bog, pet_hbd, user_id, fname, pet_neuter);
-				
-		return "redirect:/pet_out";
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+	    
+	    String path = mul.getSession().getServletContext().getRealPath("/image");
+	    
+	    int pet_id = Integer.parseInt(mul.getParameter("pet_id"));
+	    String pet_name = mul.getParameter("pet_name");
+	    String pet_bog = mul.getParameter("pet_bog");
+	    String pet_neuter = mul.getParameter("pet_neuter");
+	    String pet_hbd = mul.getParameter("pet_hbd");
+	    MultipartFile mf = mul.getFile("pet_img"); // 업로드된 이미지
+	    String dfimage = mul.getParameter("himage"); // 기존 이미지명
+	    String fname = null; // [안전] 초기화
+	    
+	    // [이미지 처리 시작]
+	    if (mf != null && !mf.isEmpty()) {
+	        // 새 이미지가 있는 경우: UUID를 이용한 고유 파일명 생성
+	        fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
+	        mf.transferTo(new File(path + "\\" + fname)); // 파일 저장
+
+	        // 기존 이미지 삭제
+	        if (dfimage != null && !dfimage.trim().equals("")) {
+	            File ff = new File(path + "\\" + dfimage);
+	            if (ff.exists()) ff.delete();
+	        }
+	    } else {
+	        // 새 이미지가 없는 경우 기존 이미지 유지
+	        fname = dfimage;
+	    }
+	    // [이미지 처리 끝]
+
+	    PetService ps = sqlSession.getMapper(PetService.class);
+	    ps.pet_update_save(pet_id, pet_name, pet_bog, pet_hbd, user_id, fname, pet_neuter);
+	    
+	    return "redirect:/pet_out";
 	}
 	
 	
 	@RequestMapping(value = "/pet_delete") //삭제 전 확인 페이지
-	public String pet5(Model mo, HttpServletRequest req) {
+	public String pet5(Model mo, HttpServletRequest req, HttpSession session) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int delete = Integer.parseInt(req.getParameter("delete"));
 		
@@ -174,7 +212,15 @@ public class PetController {
 	}
 	
 	@RequestMapping(value = "/pet_delete_check") //삭제 전 확인 페이지
-	public String pet5_1(Model mo, HttpServletRequest req) {
+	public String pet5_1(Model mo, HttpServletRequest req, HttpSession session) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		String path = req.getSession().getServletContext().getRealPath("/image");
 		

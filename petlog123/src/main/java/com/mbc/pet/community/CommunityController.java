@@ -35,7 +35,7 @@ public class CommunityController {
         String user_login_id = (String) session.getAttribute("user_login_id");
 
         if (user_id == null || user_login_id == null) {
-            return "redirect:/login";
+            return "redirect:/login?error=login_required";
         }
         return "CommunityInput";
     }
@@ -47,7 +47,7 @@ public class CommunityController {
         String user_login_id = (String) session.getAttribute("user_login_id");
 
         if (user_id == null || user_login_id == null) {
-            return "redirect:/login";
+            return "redirect:/login?error=login_required";
         }
         return "BoardInput";
     }
@@ -65,7 +65,7 @@ public class CommunityController {
         String user_login_id = (String) session.getAttribute("user_login_id");
 
         if (user_id == null || user_login_id == null) {
-            return "redirect:/login";
+            return "redirect:/login?error=login_required";
         }
 
         // post_type 기본값 보정
@@ -118,7 +118,7 @@ public class CommunityController {
 	    String user_login_id = (String) session.getAttribute("user_login_id");
 	   
 	    if (user_id == null || user_login_id == null) {
-	        return "redirect:/login"; // 로그인 안 했을 경우
+	        return "redirect:/login?error=login_required"; // 로그인 안 했을 경우
 	    }
     	
     	//페이징 처리 1
@@ -147,7 +147,7 @@ public class CommunityController {
 	    String user_login_id = (String) session.getAttribute("user_login_id");
 
 	    if (user_id == null || user_login_id == null) {
-	        return "redirect:/login";
+	        return "redirect:/login?error=login_required";
 	    }
 
 	    int page_size = 10;
@@ -170,14 +170,22 @@ public class CommunityController {
 //게시글 상세 보기----------------------------------------------------
     @RequestMapping(value = "/PostDetail")
     public String cc3(Model mo, HttpServletRequest request,HttpSession session) {
-        int pnum = Integer.parseInt(request.getParameter("pnum"));
+      
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
+    	int pnum = Integer.parseInt(request.getParameter("pnum"));
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
         cs.readcnt(pnum);
         CommunityDTO dto = cs.detailview(pnum);
         mo.addAttribute("dto", dto);
 
         // 로그인된 사용자 ID
-        Integer user_id = (Integer) session.getAttribute("user_id");
+       // Integer user_id = (Integer) session.getAttribute("user_id");
         mo.addAttribute("user_id", user_id);
         
         List<CommentsDTO> comments = cs.getCommentsByPostId(pnum);
@@ -194,7 +202,15 @@ public class CommunityController {
 
 //삭제-----------------------------------------------------
     @RequestMapping(value = "/PostDelete")
-    public String cc4(HttpServletRequest request, Model mo) {
+    public String cc4(HttpServletRequest request, Model mo, HttpSession session) {
+    	
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
         int dnum = Integer.parseInt(request.getParameter("dnum"));
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
         CommunityDTO dto = cs.deleteview(dnum);
@@ -204,11 +220,19 @@ public class CommunityController {
 
     @RequestMapping(value = "/PostDeleteSave", method = RequestMethod.GET)
     public String deletePost(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) {
-        String path = request.getSession().getServletContext().getRealPath("/image");
+     
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
+    	String path = request.getSession().getServletContext().getRealPath("/image");
     	int dnum = Integer.parseInt(request.getParameter("dnum"));
         String dfname = request.getParameter("dfimage");
 
-        Integer user_id = (Integer) session.getAttribute("user_id");
+        //Integer user_id = (Integer) session.getAttribute("user_id");
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
 
         CommunityDTO dto = cs.getPostById(dnum);
@@ -234,7 +258,15 @@ public class CommunityController {
 
 //수정----------------------------------------------------
     @RequestMapping(value = "/PostModify")
-    public String cc6(HttpServletRequest request, Model mo) {
+    public String cc6(HttpServletRequest request, Model mo, HttpSession session) {
+    	
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
         int mnum = Integer.parseInt(request.getParameter("mnum"));
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
         CommunityDTO dto = cs.modifyview(mnum);
@@ -244,10 +276,18 @@ public class CommunityController {
 
     @RequestMapping(value = "/PostModifySave", method = RequestMethod.POST)
     public String modifyPost(MultipartHttpServletRequest mul, HttpSession session, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+    	
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
     	String path = mul.getSession().getServletContext().getRealPath("/image");
 
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        String user_login_id = (String) session.getAttribute("user_login_id");
+        //Integer user_id = (Integer) session.getAttribute("user_id");
+        //String user_login_id = (String) session.getAttribute("user_login_id");
         if (user_id == null || user_login_id == null) return "redirect:/login";
 
         int mnum = Integer.parseInt(mul.getParameter("mnum"));
@@ -287,6 +327,13 @@ public class CommunityController {
 //검색----------------------------------------------------
 	@RequestMapping(value = "/searchview")
 	public String cc8(HttpServletRequest request,Model mo,  HttpSession session, RedirectAttributes redirectAttributes) {
+		
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
 		
 		String skey=request.getParameter("skey");
 		String svalue=request.getParameter("keyword");
@@ -338,7 +385,7 @@ public class CommunityController {
 		Integer user_id = (Integer) session.getAttribute("user_id");
 	    String user_login_id = (String) session.getAttribute("user_login_id");
 	    if (user_id == null || user_login_id == null) {
-	        return "redirect:/login";
+	        return "redirect:/login?error=login_required";
 	    }
 	    //댓글 DTO 객체 생성 및 저장
 	    UserDTO user=new UserDTO();
@@ -366,7 +413,7 @@ public class CommunityController {
 		Integer user_id = (Integer) session.getAttribute("user_id");
 	    String user_login_id = (String) session.getAttribute("user_login_id");
 	    if (user_id == null || user_login_id == null) {
-	        return "redirect:/login";
+	        return "redirect:/login?error=login_required";
 	    }
 	    
 	    CommunityService cs=sqlSession.getMapper(CommunityService.class);
