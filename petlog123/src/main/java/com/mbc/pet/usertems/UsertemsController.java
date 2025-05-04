@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@RequestMapping("/items") //<-itemsÆú´õ¿¡ ÀÖ´Â buy_items °¡Á®´Ù ¾²·Á¸é ÀÌ°Å ½á¾ßÇÔ!!
+@RequestMapping("/items") //<-itemsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ buy_items ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½!!
 public class UsertemsController {
 	
 	@Autowired
@@ -26,11 +26,11 @@ public class UsertemsController {
 //    @RequestMapping(value = "/myitem") 
 //    public String utem1(@RequestParam("item_id") int item_id, HttpServletRequest request) {
 //    	
-//    	//int user_id = 1; //user_id ÀÓ½Ã°ª!!!
+//    	//int user_id = 1; //user_id ï¿½Ó½Ã°ï¿½!!!
 //    	
-//    	int user_id = (int) request.getSession().getAttribute("user_id"); //·Î±×ÀÎÇÑ »ç¶÷ id
+//    	int user_id = (int) request.getSession().getAttribute("user_id"); //ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ id
 //    	
-//    	String usertem_equip = "N"; // ±âº»°ª: ¹ÌÂø¿ë
+//    	String usertem_equip = "N"; // ï¿½âº»ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //    	
 //    	UsertemsService us = sql.getMapper(UsertemsService.class);
 //    	us.insert_usertem(user_id, item_id, usertem_equip);
@@ -38,7 +38,7 @@ public class UsertemsController {
 //        return "items/buy_items"; //jsp file name
 //    }
     
-	//¾ÆÀÌÅÛ ¸ñ·Ï º¸¿©ÁÖ´Â ¿ëµµ
+	// ì•„ì´í…œ êµ¬ë§¤ í˜ì´ì§€ ì¶œë ¥ ë§¤í•‘
 	@RequestMapping(value = "/buy_items", method = RequestMethod.GET)
 	public String showBuyItems(HttpServletRequest request, Model mo) {
 	    int user_id = (int) request.getSession().getAttribute("user_id");
@@ -47,28 +47,28 @@ public class UsertemsController {
 	    ArrayList<UsertemsDTO> list = us.get_items(user_id);
 	    mo.addAttribute("list", list);
 
-	    return "buy_items"; // º¸¿©ÁÙ JSP °æ·Î
+	    return "buy_items";
 	}
 	
-	 //Ajax·Î ±¸¸Å Ã³¸® ¿ëµµ
-	@RequestMapping(value = "/buy_items", method = RequestMethod.POST) //³» ¾ÆÀÌÅÛ ¹öÆ° ´©¸£°í µé¾î¿Ã ¶§
+	// Ajaxë¡œ ì•„ì´í…œ êµ¬ë§¤ ì²˜ë¦¬ ë§¤í•‘
+	@RequestMapping(value = "/buy_items", method = RequestMethod.POST) // êµ¬ë§¤ ë²„íŠ¼ í´ë¦­ ì‹œ í˜¸ì¶œë¨
 	@ResponseBody
 	public String utem2(@RequestParam("item_id") int item_id, HttpServletRequest request) {
 	    int user_id = (int) request.getSession().getAttribute("user_id");
-	    String usertem_equip = "N";
+	    String usertem_equip = "N"; //ë””í´íŠ¸=N(ì°©ìš©x)
 
 	    UsertemsService us = sql.getMapper(UsertemsService.class);
 	    us.insert_usertem(user_id, item_id, usertem_equip);
 
-	    return "success";  // Å¬¶óÀÌ¾ğÆ®¿¡¼­ success ¸Ş½ÃÁö ¹Ş±â ¿ë
+	    return "success";  // í´ë¼ì´ì–¸íŠ¸ë¡œ success ë©”ì‹œì§€ ë°˜í™˜
 	}
       
 
-//    @RequestMapping(value = "/buy_items", method = RequestMethod.POST) //¾ÆÀÌÅÛ ±¸¸Å ÈÄ ÀÚµ¿À¸·Î ±¸¸ÅÇÑ ¾ÆÀÌÅÛ ¸ñ·ÏÀ¸·Î ³Ñ¾î°¥ ¶§
+//    @RequestMapping(value = "/buy_items", method = RequestMethod.POST) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¥ ï¿½ï¿½
 //    public String utem3(@RequestParam("item_id") int item_id, HttpServletRequest request, Model mo) {
 //        int user_id = (int) request.getSession().getAttribute("user_id");
 //
-//    	String usertem_equip = "N"; // ±âº»°ª: ¹ÌÂø¿ë
+//    	String usertem_equip = "N"; // ï¿½âº»ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //    	
 //    	UsertemsService us = sql.getMapper(UsertemsService.class);
 //    	us.insert_usertem(user_id, item_id, usertem_equip);

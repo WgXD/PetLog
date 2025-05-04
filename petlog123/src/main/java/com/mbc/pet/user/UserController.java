@@ -36,122 +36,122 @@ public class UserController {
 		return "UserSignup";
 	}
 
-//È¸¿ø°¡ÀÔ-------------------------------------------------------------	
-	//¾ÆÀÌµğ Áßº¹ °Ë»ç
+//íšŒì›ê°€ì…-------------------------------------------------------------	
+	//ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
 	@ResponseBody
 	@RequestMapping(value = "/idcheck")
 	public String signup2(String user_login_id) {
-		System.out.println("³Ñ°Ü¹ŞÀº ¾ÆÀÌµğ: "+user_login_id);
-		//³Ñ°Ü¹ŞÀº ¾ÆÀÌµğ·Î µğºñ¿¡¼­ µ¿ÀÏÇÑ ¾ÆÀÌµğ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©
+		System.out.println("íšŒì›ê°€ì… ì•„ì´ë””: "+user_login_id);
+		//íšŒì›ê°€ì… ì•„ì´ë””ë¥¼ DBì—ì„œ ë™ì¼í•œ ì•„ì´ë”” ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬
 		UserService us=sqlSession.getMapper(UserService.class);
-		int count = us.idcheck(user_login_id);  // 1ÀÌ¸é Á¸Àç, 0ÀÌ¸é »ç¿ë °¡´É
-	      return count == 0 ? "ok" : "no";	
+		int count = us.idcheck(user_login_id);  // 1ì´ë©´ ì¤‘ë³µ, 0ì´ë©´ ì‚¬ìš© ê°€ëŠ¥
+	    return count == 0 ? "ok" : "no";	
 	}
 	
 	@RequestMapping("/SignupSave")
 	public String signup3(UserDTO dto) {
-		// null Ã¼Å© ¹× ±âº»°ª ¼³Á¤
+		// null ì²´í¬ í›„ ê¸°ë³¸ê°’ ì„¤ì •
 	    if (dto.getProfileimg() == null || dto.getProfileimg().trim().isEmpty()) {
 	        dto.setProfileimg("default.png");
 	    }
 	    if (dto.getRank() == null || dto.getRank().trim().isEmpty()) {
-	        dto.setRank("ºê·ĞÁî");
+	        dto.setRank("ì¼ë°˜íšŒì›");
 	    }
 		String user_login_id=dto.getUser_login_id();
 		String password=dto.getPassword();
 		String name=dto.getName();
 		String phone=dto.getPhone();
 		String address=dto.getAddress();
-		//String user_role = "user";  //È¸¿ø°¡ÀÔ -> 'ÀÏ¹İÀ¯Àú' ÀÚµ¿ µî·Ï
+		//String user_role = "user";  //íšŒì›ê°€ì… -> 'ì¼ë°˜íšŒì›' ìë™ ë¶€ì—¬
 		String profilimg = dto.getProfileimg();
 		String rank = dto.getRank();
 		int grape_count = dto.getGrape_count();
 		
-		//ÆĞ½º¿öµå ¾ÏÈ£È­ ¼³Á¤
+		//ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ì²˜ë¦¬
 		PasswordEncoder pe=new BCryptPasswordEncoder();
 		password=pe.encode(password);
-		dto.setPassword(password); //insert¸¦ dto·Î ³Ñ±â±â ¶§¹®¿¡ ¾ÏÈ£È­ µÈ ºñ¹Ğ¹øÈ£¸¦ dto·Î ³Ö¾îÁÜ
+		dto.setPassword(password); //insertí•  dtoì— ì•”í˜¸í™” ëœ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë„£ì–´ì„œ ë„˜ê¹€
 		
-		//ÀúÀå
+		//DBì €ì¥
 		UserService us=sqlSession.getMapper(UserService.class);
 		us.insertsignup(dto);
 		return "redirect:/main";
 	}
 	
-// ·Î±×ÀÎ-------------------------------------------------------------
+// ë¡œê·¸ì¸-------------------------------------------------------------
 	@RequestMapping(value = "/LoginSave", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    String user_login_id = request.getParameter("user_login_id").trim();
 	    String pw = request.getParameter("password").trim();
 	    
-	    // DB¿¡¼­ ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£ °¡Á®¿À±â
+	    // DBì—ì„œ ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ ê°€ì ¸ì˜¤ê¸°
 	    UserService us = sqlSession.getMapper(UserService.class);
 	    String cpw = us.pwsave(user_login_id);
 
-	    System.out.println("Æû¿¡¼­ ³Ñ¾î¿Â id°ª: [" + user_login_id + "], ±æÀÌ: " + user_login_id.length());
-	    System.out.println("Æû¿¡¼­ ³Ñ¾î¿Â id°ª: " + user_login_id);
-	    System.out.println("DB¿¡¼­ °¡Á®¿Â ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£: " + cpw);
-	    System.out.println("ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£: " + pw);
+	    System.out.println("ì…ë ¥ë°›ì€ idê¸¸ì´: [" + user_login_id + "], ê¸¸ì´: " + user_login_id.length());
+	    System.out.println("ì…ë ¥ë°›ì€ id: " + user_login_id);
+	    System.out.println("DBì—ì„œ ê°€ì ¸ì˜¨ ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸: " + cpw);
+	    System.out.println("ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸: " + pw);
 
-	    // ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£ ºñ±³
+	    // ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ ë¹„êµ
 	    PasswordEncoder pe = new BCryptPasswordEncoder();
 	    boolean flag = pe.matches(pw, cpw);
 
 	    if (flag) {
-	        // ·Î±×ÀÎ ¼º°ø
+	        // ë¡œê·¸ì¸ ì„±ê³µ
 	        HttpSession hs = request.getSession();
 	        UserDTO user = us.selectUserByLoginId(user_login_id);
 
 	        hs.setAttribute("loginstate", true);
 	        
-	        //
+	        // ì´ë¦„ ì €ì¥
 	        String name = user.getName();
 	        hs.setAttribute("name", name);
-	        //
 	        
 	        hs.setAttribute("user_login_id", user_login_id);
 	        hs.setAttribute("user_id", user.getUser_id());
 
 	        return "redirect:/main";
 	    } else {
-	        // ·Î±×ÀÎ ½ÇÆĞ
+	        // ë¡œê·¸ì¸ ì‹¤íŒ¨
 	        response.setContentType("text/html;charset=utf-8");
 	        PrintWriter pww = response.getWriter();
-	        pww.print("<script>alert('·Î±×ÀÎ Á¤º¸°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.')</script>");
+	        pww.print("<script>alert('ë¡œê·¸ì¸ ì •ë³´ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.')</script>");
 	        pww.print("<script>location.href='login'</script>");
 	        pww.close();
 	        return null;
 	    }
 	}
-	//·Î±×¾Æ¿ô
-		@RequestMapping(value = "/logout")
-		public String logout(HttpServletRequest request)
-		{
-			HttpSession hs=request.getSession();
-			hs.removeAttribute("loginstate");
-			hs.removeAttribute("user_login_id"); //·Î±×¾Æ¿ô ½Ã ¼¼¼Ç¿¡ ÀúÀåµÈ À¯Àú Á¤º¸ Á¦°Å
-			return "redirect:/";
-		}
+
+	//ë¡œê·¸ì•„ì›ƒ
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession hs=request.getSession();
+		hs.removeAttribute("loginstate");
+		hs.removeAttribute("user_login_id"); //ë¡œê·¸ì•„ì›ƒ ì‹œ ì„¸ì…˜ì— ì €ì¥ëœ ì •ë³´ ì œê±°
+		return "redirect:/";
+	}
 	
-//¸¶ÀÌÆäÀÌÁö-------------------------------------------------------------
+//ë§ˆì´í˜ì´ì§€-------------------------------------------------------------
 	@RequestMapping("/mypage")
 	public String mypage(HttpServletRequest request, Model mo) {
-		 // ·Î±×ÀÎ µÈ »ç¿ëÀÚ ¾ÆÀÌµğ °¡Á®¿À±â
+		 // ë¡œê·¸ì¸ ëœ ì‚¬ìš©ì ì•„ì´ë”” ê°€ì ¸ì˜¤ê¸°
 		 String user_login_id = (String) request.getSession().getAttribute("user_login_id");
 
 		 if (user_login_id == null) { 
-		 return "redirect:/login";
+		 	 return "redirect:/login";
 		 }
 
-		 // Mapper¿¡¼­ ·Î±×ÀÎ Á¤º¸ È£Ãâ
+		 // Mapperì—ì„œ ë¡œê·¸ì¸ ì •ë³´ í˜¸ì¶œ
 		 UserService us = sqlSession.getMapper(UserService.class);
 		 UserDTO dto = us.editid(user_login_id);
 
-		 // ¸ğµ¨¿¡ Á¤º¸ Àü´Ş
+		 // ëª¨ë¸ì— ìœ ì € ì •ë³´ ì „ë‹¬
 		 mo.addAttribute("dto", dto);
 		 return "UserMypage";
-		}
-	//¼öÁ¤ Æû
+	}
+
+	//ì •ë³´ ìˆ˜ì •
 	@RequestMapping("/UserEditProfile")
 	public String showEditProfileForm(HttpServletRequest request, Model mo) {
 	    String user_login_id = (String) request.getSession().getAttribute("user_login_id");
@@ -163,7 +163,7 @@ public class UserController {
 	    UserDTO dto = us.editid(user_login_id);
 	    mo.addAttribute("dto", dto);
 
-	    return "UserEditProfile"; // ¼öÁ¤ Æû jsp·Î º¸³»±â
+	    return "UserEditProfile"; // íšŒì› ì •ë³´ ìˆ˜ì • jspë¡œ ì´ë™
 	}
 
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
@@ -189,18 +189,18 @@ public class UserController {
 	    dto.setRank(originalUser.getRank());
 	    dto.setGrape_count(originalUser.getGrape_count());
 
-	    // ÆÄÀÏ ÀúÀåÇÒ °æ·Î ¼³Á¤
+	    // ì´ë¯¸ì§€ ì—…ë¡œë“œ ê²½ë¡œ ì„¤ì •
 	    String uploadPath = request.getSession().getServletContext().getRealPath("/image/");
 
 	    if (profileimgfile != null && !profileimgfile.isEmpty()) {
 	        String fileName = profileimgfile.getOriginalFilename();
-	        dto.setProfileimg(fileName); // DTO¿¡ ÆÄÀÏ ÀÌ¸§ ÀúÀå
+	        dto.setProfileimg(fileName); // DTOì— íŒŒì¼ ì´ë¦„ ì„¤ì •
 
-	        // ¼­¹ö¿¡ ½ÇÁ¦·Î ÆÄÀÏ ÀúÀå
+	        // ì„œë²„ì— ì´ë¯¸ì§€ íŒŒì¼ ì €ì¥
 	        File saveFile = new File(uploadPath, fileName);
 	        profileimgfile.transferTo(saveFile);
 	    } else {
-	        dto.setProfileimg(originalUser.getProfileimg()); // ÆÄÀÏ ¾øÀ¸¸é ±âÁ¸°Å À¯Áö
+	        dto.setProfileimg(originalUser.getProfileimg()); // ê¸°ì¡´ ì´ë¯¸ì§€ ìœ ì§€
 	    }
 
 	    us.updateProfile(dto);

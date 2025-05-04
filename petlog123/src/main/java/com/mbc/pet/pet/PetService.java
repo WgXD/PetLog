@@ -4,23 +4,23 @@ import java.util.ArrayList;
 
 public interface PetService {
 
-	void pet_save(PetDTO dto); //ÀÔ·ÂÇÑ ÆêÁ¤º¸ DB¿¡ ÀúÀå
+	void pet_save(PetDTO dto); //ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	ArrayList<PetDTO> pet_out(); //Ãâ·Â
+	ArrayList<PetDTO> pet_out(); //ï¿½ï¿½ï¿½
 
 	PetDTO pet_detail(int update1); //pet_detail
 
-	PetDTO pet_update(int update); //pet_update ¼öÁ¤
+	PetDTO pet_update(int update); //pet_update ï¿½ï¿½ï¿½ï¿½
 
 	void pet_update_save(int pet_id, String pet_name, String pet_bog, String pet_hbd, int user_id, String fname,
-			String pet_neuter); //update ÈÄ ´Ù½Ã save
+			String pet_neuter); //update ï¿½ï¿½ ï¿½Ù½ï¿½ save
 
-	PetDTO delete1(int delete); //»èÁ¦
+	PetDTO delete1(int delete); //ï¿½ï¿½ï¿½ï¿½
 
-	void delete_check(int delete); //»èÁ¦ È®ÀÎ ÆäÀÌÁö
+	void delete_check(int delete); //ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	ArrayList<PetDTO> petsbyuser(Integer user_id); //¹İ·Áµ¿¹° ¼±ÅÃÇÏ±â(¿©·¯ ¸¶¸® ÀÖ´Â °æ¿ì)
-	
+	ArrayList<PetDTO> petsbyuser(Integer user_id); //íšŒì›ë³„ ë°˜ë ¤ë™ë¬¼ ì¶œë ¥!!!
+
 	
 	
 	

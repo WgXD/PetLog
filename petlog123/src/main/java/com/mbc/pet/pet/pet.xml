@@ -19,8 +19,8 @@
     </resultMap>
     
 	<select id="petsbyuser" parameterType="int" resultType="com.mbc.pet.pet.PetDTO">
-	  SELECT * FROM pet WHERE user_id = #{user_id}
-	</select> <!-- 여러 마리일 경우 선택하기 -->
+		select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet where user_id = #{user_id}
+	</select> <!-- 회원별 반려동물 출력!! -->
     
     
     <insert id="pet_save" parameterType="com.mbc.pet.pet.PetDTO">

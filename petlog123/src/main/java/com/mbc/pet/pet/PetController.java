@@ -21,18 +21,18 @@ public class PetController {
 	
 	@Autowired
 	SqlSession sqlSession;
-	//String path = "C:\\1MBC\\spring\\PetLog\\src\\main\\webapp\\image";
+	//String path = "C:\\1MBC\\spring\\PetLog\\src\\main\\webapp\\image"; //ì ˆëŒ€ ê²½ë¡œ ì‚¬ìš© XXXXX
 
 	
-	@RequestMapping(value = "/pet_input") //top¿¡¼­ ´©¸£°í µé¾î¿À´Â °÷
+	@RequestMapping(value = "/pet_input") //topì—ì„œ ëˆ„ë¥´ê³  ë“¤ì–´ì˜¤ëŠ” ê³³
 	public String pet(HttpSession session) {
 		
-		//ºñÈ¸¿ø ¸·±â
+		//ë¡œê·¸ì¸ í™•ì¸
 	    Integer user_id = (Integer) session.getAttribute("user_id");
 
 	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // ºñÈ¸¿ø Á¢±Ù Â÷´Ü + alert À¯µµ
-	    } //
+	    	return "redirect:/login?error=login_required"; // ë¡œê·¸ì¸ ì•ˆ ëœ ê²½ìš° + alert ì²˜ë¦¬
+	    }
 		
 		return "pet_input"; //jsp file name
 	}
@@ -74,16 +74,17 @@ public class PetController {
 	@RequestMapping(value = "/pet_out") 
 	public String pet2(Model mo, HttpServletRequest req) {
 		
-		//ºñÈ¸¿ø ¸·±â
-	    HttpSession hs = req.getSession();
-	    Integer user_id = (Integer) hs.getAttribute("user_id");
+	    HttpSession hs = req.getSession(); //í˜„ì¬ ìš”ì²­ê³¼ ê´€ë ¨ëœ ì„¸ì…˜ ê°ì²´ë¥¼ ê°€ì ¸ì˜´
+	    Integer user_id = (Integer) hs.getAttribute("user_id"); //user_id ê°’ì„ ê°€ì ¸ì˜´ (ë¡œê·¸ì¸ ì‹œ ì„¸ì…˜ì— ì €ì¥ëœ ê°’)
+	    
+	    //ë¡œê·¸ì¸ í™•ì¸
 	    if (user_id == null) {
 	        return "redirect:/login?error=login_required";
-	    }//
+	    }
 		
 		PetService ps = sqlSession.getMapper(PetService.class);
 		
-		ArrayList<PetDTO> list = ps.pet_out();
+		ArrayList<PetDTO> list = ps.petsbyuser(user_id); //íšŒì›ë³„ ë°˜ë ¤ë™ë¬¼ ì¶œë ¥!!!
 		
 		mo.addAttribute("list", list);
 		
@@ -117,7 +118,7 @@ public class PetController {
 		return "pet_update"; //jsp file name
 	}
 	
-	@RequestMapping(value = "/pet_update_save") //from pet_detail .. ¼öÁ¤ ÈÄ ¼öÁ¤ÇÑ °Å ´Ù½Ã ÀúÀå
+	@RequestMapping(value = "/pet_update_save") //from pet_detail .. ìˆ˜ì • í›„ ì €ì¥í•˜ê³  ë‹¤ì‹œ ì¶œë ¥
 	public String pet4_1(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
 		
 		String path = mul.getSession().getServletContext().getRealPath("/image");
@@ -129,37 +130,37 @@ public class PetController {
 		String pet_bog = mul.getParameter("pet_bog");
 		String pet_neuter = mul.getParameter("pet_neuter");
 		String pet_hbd = mul.getParameter("pet_hbd");
-		MultipartFile mf = mul.getFile("pet_img"); //ÀÌ¹ÌÁö
+		MultipartFile mf = mul.getFile("pet_img"); //ì´ë¯¸ì§€
  		String dfimage = mul.getParameter("himage");
 		String fname = mf.getOriginalFilename();
 		
-		// >> ¿©±âºÎÅÍ Ãß°¡ÇÑ ºÎºĞ
+		// >> ì´ë¯¸ì§€ ì²˜ë¦¬ ì¶”ê°€í•œ ë¶€ë¶„
 		
 		if (mf != null && !mf.isEmpty()) {
-		    // »õ ÀÌ¹ÌÁö°¡ ÀÖÀ» °æ¿ì
+		    // ìƒˆ ì´ë¯¸ì§€ê°€ ìˆëŠ” ê²½ìš°
 		    fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
 		    mf.transferTo(new File(path + "\\" + fname));
 
-		    // ±âÁ¸ ÀÌ¹ÌÁö »èÁ¦
+		    // ê¸°ì¡´ ì´ë¯¸ì§€ ì‚­ì œ
 		    if (dfimage != null && !dfimage.trim().equals("")) {
 		        File ff = new File(path + "\\" + dfimage);
 		        if (ff.exists()) ff.delete();
 		    }
 		} else {
-		    // »õ ÀÌ¹ÌÁö°¡ ¾øÀ» °æ¿ì ±âÁ¸ ÀÌ¹ÌÁö ±×´ë·Î »ç¿ë
+		    // ìƒˆ ì´ë¯¸ì§€ê°€ ì—†ëŠ” ê²½ìš° ê¸°ì¡´ ì´ë¯¸ì§€ ê·¸ëŒ€ë¡œ ì‚¬ìš©
 		    fname = dfimage;
 		}
 		
-		// << ¿©±â±îÁö
+		// << ì´ë¯¸ì§€ ì²˜ë¦¬ ë
 		
 		PetService ps = sqlSession.getMapper(PetService.class);
-		ps.pet_update_save(pet_id,pet_name,pet_bog,pet_hbd,user_id,fname,pet_neuter);
+		ps.pet_update_save(pet_id, pet_name, pet_bog, pet_hbd, user_id, fname, pet_neuter);
 				
-		return "redirect:/pet_out"; //
+		return "redirect:/pet_out";
 	}
 	
 	
-	@RequestMapping(value = "/pet_delete") //»èÁ¦ Àü È®ÀÎ ÆäÀÌÁö
+	@RequestMapping(value = "/pet_delete") //ì‚­ì œ ì „ í™•ì¸ í˜ì´ì§€
 	public String pet5(Model mo, HttpServletRequest req) {
 		
 		int delete = Integer.parseInt(req.getParameter("delete"));
@@ -172,7 +173,7 @@ public class PetController {
 		return "pet_delete"; //jsp file name
 	}
 	
-	@RequestMapping(value = "/pet_delete_check") //»èÁ¦ Àü È®ÀÎ ÆäÀÌÁö
+	@RequestMapping(value = "/pet_delete_check") //ì‚­ì œ ì „ í™•ì¸ í˜ì´ì§€
 	public String pet5_1(Model mo, HttpServletRequest req) {
 		
 		String path = req.getSession().getServletContext().getRealPath("/image");
@@ -184,11 +185,9 @@ public class PetController {
 		PetService ps = sqlSession.getMapper(PetService.class);
 		ps.delete_check(delete);
 		
-		File ff = new File(path+"\\"+dfname);
+		File ff = new File(path + "\\" + dfname);
 		ff.delete();
 		
 		return "redirect:/pet_out"; //jsp file name
 	}
-	
-	
 }

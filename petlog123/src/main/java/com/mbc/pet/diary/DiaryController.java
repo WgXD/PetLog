@@ -32,21 +32,21 @@ public class DiaryController {
 	Principal principa;
 	
 	
-	@RequestMapping(value = "/diary_input") //top¿¡¼­ ´©¸£°í µé¾î¿À´Â °÷
+	@RequestMapping(value = "/diary_input") // topì—ì„œ ë‹¤ì´ì–´ë¦¬ ì‘ì„± ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
 	public String diary(HttpSession session, Model mo) {
-		
-		//ºñÈ¸¿ø ¸·±â
+	    
+	    // ë¡œê·¸ì¸í•œ íšŒì› ì •ë³´ í™•ì¸
 	    Integer user_id = (Integer) session.getAttribute("user_id");
 
 	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // ºñÈ¸¿ø Á¢±Ù Â÷´Ü + alert À¯µµ
+	        return "redirect:/login?error=login_required"; // ë¡œê·¸ì¸ ì•ˆ ëœ ê²½ìš° ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸ + alert ì²˜ë¦¬
 	    }
 	    
-	    // ¹İ·Áµ¿¹° ¸ñ·Ï ºÒ·¯¿À±â (¿©·¯ ¸¶¸® ÀÖÀ» ¼öµµ ÀÖÀ¸´Ï±î)
+	    // ï¿½İ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½)
 	    PetService petService = sqlSession.getMapper(PetService.class);
 	    ArrayList<PetDTO> list = petService.petsbyuser(user_id);
 
-	    // JSP¿¡ ³Ñ±â±â
+	    // JSPï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½
 	    mo.addAttribute("list", list);
 
         return "diary_input"; //jsp file name
@@ -58,12 +58,12 @@ public class DiaryController {
 		
 		String path = request.getSession().getServletContext().getRealPath("/image");
 		
-	    // ·Î±×ÀÎµÈ »ç¿ëÀÚ user_id ²¨³¿
+	    // ï¿½Î±ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ user_id ï¿½ï¿½ï¿½ï¿½
 	    Integer user_id = (Integer) request.getSession().getAttribute("user_id");
 	    
-	    // null Ã¼Å© (¿¹: ·Î±×ÀÎ Ç®·È°Å³ª ºñÁ¤»ó Á¢±Ù ¹æÁö)
+	    // null Ã¼Å© (ï¿½ï¿½: ï¿½Î±ï¿½ï¿½ï¿½ Ç®ï¿½È°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	    if (user_id == null) {
-	        return "redirect:/login"; // ¶Ç´Â ¿¡·¯ ÆäÀÌÁö·Î
+	        return "redirect:/login"; // ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    }
 	    
 	    int pet_id = Integer.parseInt(request.getParameter("pet_id"));
@@ -78,32 +78,32 @@ public class DiaryController {
 		UUID ud = UUID.randomUUID();
 		filename = ud.toString()+"_"+filename;
 		
-		//Serviceµé È£ÃâºÎºĞ
+		//Serviceï¿½ï¿½ È£ï¿½ï¿½Îºï¿½
 		DiaryService ds = sqlSession.getMapper(DiaryService.class);
 		PointService ps = sqlSession.getMapper(PointService.class);
 		
-		//Oracle ½ÃÄö½º¿¡¼­ ´ÙÀ½ diary_id ¹Ì¸® »Ì´Â °Å
+		//Oracle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ diary_id ï¿½Ì¸ï¿½ ï¿½Ì´ï¿½ ï¿½ï¿½
 		int next_diaryid = ds.get_id();
 		//
 		
-		//¿©±âºÎÅÍ Æ÷ÀÎÆ® Àû¸³ ·ÎÁ÷ Ãß°¡ Àü¿ë
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
 		DiaryDTO dd = new DiaryDTO();
 		dd.setDiary_id(next_diaryid);
 		dd.setDiary_title(diary_title);
 		dd.setDiary_date(diary_date);
 		dd.setDiary_image(filename);
 		dd.setDiary_content(diary_content);
-		dd.setGet_grape(0); //±Û ¾Æ¹«°Íµµ ÀÛ¼º¾ÈÇÏ¸é Æ÷µµ¾Ë 0°³¶ó -> 0		
+		dd.setGet_grape(0); //ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ -> 0		
 		dd.setPet_id(pet_id);
 		dd.setUser_id(user_id);
-		//¿©±â±îÁö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		ds.diary_save(dd);
 		
 		image.transferTo(new File(path+"\\"+filename));
 		
 		
-		//¿©±âºÎÅÍ Æ÷µµ¾Ë Àû¸³ -> ÀÛ¼ºÇÑ °Ô½Ã¹°·Î Æ÷µµ¾ËÀÌ Àû¸³µÇ¾ú´ÂÁö check
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ check
 		if(dd.getGet_grape()==0) {
 			
 			PointDTO point = new PointDTO();
@@ -121,10 +121,10 @@ public class DiaryController {
 	}
 
 	
-	@RequestMapping(value = "/diary_out") //top¿¡¼­ ´©¸£°í µé¾î¿À´Â °÷ //@RequestParam(defaultValue = "1") µğÆúÆ®·Î 1ÆäÀÌÁö º¸¿©ÁÜ
+	@RequestMapping(value = "/diary_out") //topï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ //@RequestParam(defaultValue = "1") ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String diary2(Model mo, HttpServletRequest request, @RequestParam(value = "page", defaultValue = "1") int page) {
 		
-		//ºñÈ¸¿ø ¸·±â
+		//ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    HttpSession hs = request.getSession();
 	    Integer user_id = (Integer) hs.getAttribute("user_id");
 	    if (user_id == null) {
@@ -132,34 +132,34 @@ public class DiaryController {
 	    }
 	
 	    
-		//ÆäÀÌÂ¡ Ã³¸® 1
-		int page_size = 5; //ÇÑ ÆäÀÌÁö¿¡ ÀÏ±â 5°³¾¿ º¸ÀÌ±â!!
-		int start = (page-1) * page_size; //ÇöÀç ÆäÀÌÁö¿¡¼­ ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍÀÇ À§Ä¡¸¦ °è»êÇÏ´Â °ø½Ä
+		//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ 1
+		int page_size = 5; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ 5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½!!
+		int start = (page-1) * page_size; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int end = start + page_size;
-		//ÆäÀÌÂ¡ 1 end
+		//ï¿½ï¿½ï¿½ï¿½Â¡ 1 end
 		
 		DiaryService ds = sqlSession.getMapper(DiaryService.class);
 		
-		//ÆäÀÌÂ¡ Ã³¸® 2
-		int total_count = ds.total_diary(); //ÀüÃ¼ ÀÏ±â °¹¼ö //ceil ¼ıÀÚ ¿Ã¸²
+		//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ 2
+		int total_count = ds.total_diary(); //ï¿½ï¿½Ã¼ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ //ceil ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
 		
 		int page_count = (int) Math.ceil((double)total_count / page_size);
-		//ÆäÀÌÂ¡ 2 end
+		//ï¿½ï¿½ï¿½ï¿½Â¡ 2 end
 		
-		//ÆäÀÌÂ¡ Ã³¸® 3
+		//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ 3
 		
 		System.out.println("start: " + start);
 		System.out.println("end: " + end);
 		
 		 ArrayList<DiaryDTO> list = ds.diary_out(start, end);
 		 
-		 //System.out.println("list size: " + list.size()); // °á°ú ¸ñ·ÏÀÇ Å©±â Ãâ·Â for test
+		 //System.out.println("list size: " + list.size()); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ for test
 		 
 		mo.addAttribute("list", list);
 		mo.addAttribute("page", page);
 		mo.addAttribute("page_count", page_count);
 		mo.addAttribute("page_size", page_size);
-		//ÆäÀÌÂ¡3 end
+		//ï¿½ï¿½ï¿½ï¿½Â¡3 end
 		
 		return "diary_out"; //jsp file name
 	}
@@ -169,13 +169,13 @@ public class DiaryController {
 
 	            int unum = Integer.parseInt(request.getParameter("unum"));
 	            DiaryService ds = sqlSession.getMapper(DiaryService.class);
-	            DiaryDTO dto = ds.diary_detail(unum);  // ÇØ´ç ÀÏ±â µ¥ÀÌÅÍ¸¦ °¡Á®¿È
+	            DiaryDTO dto = ds.diary_detail(unum);  // ï¿½Ø´ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	            mo.addAttribute("dto", dto); 
 
 	    return "diary_detail";
 	}
 	
-	@RequestMapping(value = "/diary_update") //detail ´©¸£°í µé¾î¿À´Â °÷ (¿¬ÇÊ)
+	@RequestMapping(value = "/diary_update") //detail ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 	public String diary4(Model mo, HttpServletRequest request) {
 		
 			int update = Integer.parseInt(request.getParameter("update"));
@@ -187,7 +187,7 @@ public class DiaryController {
 	}
 
 	
-	@RequestMapping(value = "/update_save") //update¿¡¼­ ´©¸£°í µé¾î¿À´Â °÷
+	@RequestMapping(value = "/update_save") //updateï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public String diary5(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
 		
 		String path = mul.getSession().getServletContext().getRealPath("/image");
@@ -199,9 +199,9 @@ public class DiaryController {
 		    try {
 		        int parsedId = Integer.parseInt(principa.getName());
 		        pet_id = parsedId;
-		        user_id = parsedId; // µÑ ´Ù µ¿ÀÏÇÑ ¾ÆÀÌµğÀÏ °æ¿ì
+		        user_id = parsedId; // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		    } catch (NumberFormatException e) {
-		        // ¿¹¿Ü ¹ß»ı ½Ã ±âº»°ª À¯Áö
+		        // ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		        pet_id = 0;
 		        user_id = 0;
 		    }
@@ -215,24 +215,24 @@ public class DiaryController {
 		String dfimage = mul.getParameter("himage");
 		String fname = mf.getOriginalFilename();
 		
-		// >> ¿©±âºÎÅÍ Ãß°¡ÇÑ ºÎºĞ
+		// >> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		
 		if (mf != null && !mf.isEmpty()) {
-		    // »õ ÀÌ¹ÌÁö°¡ ÀÖÀ» °æ¿ì
+		    // ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		    fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
 		    mf.transferTo(new File(path + "\\" + fname));
 
-		    // ±âÁ¸ ÀÌ¹ÌÁö »èÁ¦
+		    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		    if (dfimage != null && !dfimage.trim().equals("")) {
 		        File ff = new File(path + "\\" + dfimage);
 		        if (ff.exists()) ff.delete();
 		    }
 		} else {
-		    // »õ ÀÌ¹ÌÁö°¡ ¾øÀ» °æ¿ì ±âÁ¸ ÀÌ¹ÌÁö ±×´ë·Î »ç¿ë
+		    // ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½
 		    fname = dfimage;
 		}
 		
-		// << ¿©±â±îÁö
+		// << ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		DiaryService ds = sqlSession.getMapper(DiaryService.class);
 		ds.update_save(diary_id, diary_title, diary_date, fname, diary_content,user_id, pet_id);
@@ -243,7 +243,7 @@ public class DiaryController {
 	}
 	
 	
-	@RequestMapping(value = "/diary_delete") //diary_detail.jsp ´©¸£°í µé¾î¿À´Â °÷ (ÈŞÁöÅë)
+	@RequestMapping(value = "/diary_delete") //diary_detail.jsp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	public String diary6(HttpServletRequest request,Model mo) {
 		
 		int delete = Integer.parseInt(request.getParameter("delete"));
@@ -255,7 +255,7 @@ public class DiaryController {
 		return "diary_delete"; //jsp file name
 	}
 	
-	@RequestMapping(value = "/delete_page") //diary_delete.jsp ´©¸£°í µé¾î¿À´Â °÷
+	@RequestMapping(value = "/delete_page") //diary_delete.jsp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public String diary7(HttpServletRequest request,Model mo) {
 		
 		String path = request.getSession().getServletContext().getRealPath("/image");

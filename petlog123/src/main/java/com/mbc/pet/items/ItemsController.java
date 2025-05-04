@@ -28,71 +28,62 @@ public class ItemsController {
 	//String path = "C:\\1MBC\\spring\\PetLog\\src\\main\\webapp\\image";
 	
 	
-	@RequestMapping(value = "/items_out") //"Æ÷µµ¾Ë ¾²·¯°¡±â" ´©¸£°í µé¾î¿È -> items »ç·¯ °¡±â
+	@RequestMapping(value = "/items_out") //"ì•„ì´í…œ ì „ì²´ì¶œë ¥" í˜ì´ì§€ ë§¤í•‘ -> items ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
     public String items(Model mo, HttpServletRequest request,@RequestParam(defaultValue = "1") int page) {
 		
-		//ºñÈ¸¿ø ¸·±â
+		//ë¡œê·¸ì¸ í™•ì¸
 	    HttpSession hs = request.getSession();
 	    Integer user_id = (Integer) hs.getAttribute("user_id");
 	    if (user_id == null) {
 	        return "redirect:/login?error=login_required";
 	    }
 		
-		
-		//ÆäÀÌÂ¡ Ã³¸® 1
-		int page_size = 5; //ÇÑ ÆäÀÌÁö¿¡ ÀÏ±â 5°³¾¿ º¸ÀÌ±â!!
-		int start = (page-1) * page_size; //ÇöÀç ÆäÀÌÁö¿¡¼­ ½ÃÀÛÇÏ´Â µ¥ÀÌÅÍÀÇ À§Ä¡¸¦ °è»êÇÏ´Â °ø½Ä
+		//í˜ì´ì§• ì²˜ë¦¬ 1
+		int page_size = 5; //í•œ í˜ì´ì§€ë‹¹ ë³´ê¸° 5ê°œë¡œ ì„¤ì •!!
+		int start = (page-1) * page_size; //í˜„ì¬ í˜ì´ì§€ì—ì„œ ì¶œë ¥í•˜ëŠ” ì‹œì‘ ìœ„ì¹˜ë¥¼ êµ¬í•˜ëŠ” ê³µì‹
 		int end = page * page_size;
-	
-		//ÆäÀÌÂ¡ 1 end
-		
+		//í˜ì´ì§• 1 end
 		
     	ItemsService is = sql.getMapper(ItemsService.class);
     	
-		//ÆäÀÌÂ¡ Ã³¸® 2
-		int total_count = is.total_items(); //ÀüÃ¼ ÀÏ±â °¹¼ö //ceil ¼ıÀÚ ¿Ã¸²
-		
+		//í˜ì´ì§• ì²˜ë¦¬ 2
+		int total_count = is.total_items(); //ì „ì²´ ê°œìˆ˜ êµ¬í•¨ //ceil ì²˜ë¦¬ í•„ìš”
 		int page_count = (int) Math.ceil((double)total_count / page_size);
-		//ÆäÀÌÂ¡ 2 end
+		//í˜ì´ì§• 2 end
     	
-		//ÆäÀÌÂ¡ Ã³¸® 3
-		
+		//í˜ì´ì§• ì²˜ë¦¬ 3
 		System.out.println("start: " + start);
 		System.out.println("end: " + end);
 		
-    	//±âÁ¸
+    	//ë¦¬ìŠ¤íŠ¸
     	ArrayList<ItemsDTO> list = is.items_out(start, end);
-    	
     	System.out.println("list.size = " + list.size());
-    	//
     	
-    	//±âÁ¸
+    	//ì „ì†¡
     	mo.addAttribute("list",list);
-    	//
     	mo.addAttribute("page", page);
 		mo.addAttribute("page_count", page_count);
 		mo.addAttribute("page_size", page_size);
-		//ÆäÀÌÂ¡3 end
+		//í˜ì´ì§• 3 end
     	
         return "items_out";
     }	
     
     
-    @RequestMapping("/items_input") //°ü¸®ÀÚ Àü¿ë!!! - ¾ÆÀÌÅÛ ¸ñ·Ï ÀÔ·Â
+    @RequestMapping("/items_input") //ì•„ì´í…œ ì…ë ¥!!! - ì•„ì´í…œ ë“±ë¡ í˜ì´ì§€ ì´ë™
     public String items1(HttpSession session) {
     	
-		//ºñÈ¸¿ø ¸·±â
+		//ë¡œê·¸ì¸ í™•ì¸
 	    Integer user_id = (Integer) session.getAttribute("user_id");
 
 	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // ºñÈ¸¿ø Á¢±Ù Â÷´Ü + alert À¯µµ
+	    	return "redirect:/login?error=login_required"; // ë¡œê·¸ì¸ ì•ˆ ëœ ê²½ìš° + alert ì²˜ë¦¬
 	    }
 		
-    	
-        return "items_input";  //jsp ÀÌ¸§
+        return "items_input";  //jsp ì´ë¦„
     }
     
-    @RequestMapping(value = "/items_save") //¾ÆÀÌÅÛ ¸ñ·Ï ÀúÀå
+    @RequestMapping(value = "/items_save") //ì•„ì´í…œ ë“±ë¡ ì²˜ë¦¬
     public String items1_1(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
     	
     	String path = mul.getSession().getServletContext().getRealPath("/image");
@@ -107,16 +98,14 @@ public class ItemsController {
     	filename = ud.toString()+"_"+filename;
     	
     	ItemsService is = sql.getMapper(ItemsService.class);
-    	
     	is.items_save(item_name, item_cost, item_category, filename);
-    	
     	image.transferTo(new File(path+"\\"+filename));
     	
         return "redirect:/items_input";
     }	    
     
     
-    @RequestMapping(value="/items_detail") //¾ÆÀÌÅÛ ±¸¸Å ÆäÀÌÁö
+    @RequestMapping(value="/items_detail") //ì•„ì´í…œ ìƒì„¸ í˜ì´ì§€
     public String items2(Model mo, HttpServletRequest request) {
     	
     	int num = Integer.parseInt(request.getParameter("num"));
@@ -124,34 +113,26 @@ public class ItemsController {
     	ItemsDTO dto = is.items_detail(num);
     	mo.addAttribute("dto", dto);
     	
-        return "items_detail";  //jsp ÀÌ¸§
+        return "items_detail";  //jsp ì´ë¦„
     }  
 
     
     @RequestMapping(value="/buy_items", method=RequestMethod.POST)
     public String item3(HttpSession session, @RequestParam int item_id) {
-    Integer user_id = (Integer) session.getAttribute("user_id");
+    	Integer user_id = (Integer) session.getAttribute("user_id");
 
-    System.out.println("user_id: " + user_id);
+    	System.out.println("user_id: " + user_id);
     
-    if (user_id == null) {
-        // ºñÈ¸¿øÀº ±¸¸Å ºÒ°¡ Ã³¸®
-        return "redirect:/login?error=login_required"; // ·Î±×ÀÎ ÆäÀÌÁö·Î
-    }
+    	if (user_id == null) {
+        	// ë¹„íšŒì› ì ‘ê·¼ ì°¨ë‹¨ ì²˜ë¦¬
+        	return "redirect:/login?error=login_required"; // ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ
+    	}
     
-    System.out.println("user_id: " + user_id);
+    	System.out.println("user_id: " + user_id);
     
     	UsertemsService us = sql.getMapper(UsertemsService.class);
-    	us.insert_usertem(user_id, item_id, "N"); // ±âº» ÀåÂø »óÅÂ NÀ¸·Î ÀúÀå
+    	us.insert_usertem(user_id, item_id, "N"); // ê¸°ë³¸ ì¥ì°© ìƒíƒœ Nìœ¼ë¡œ ì €ì¥
     	
-    return "redirect:/my_items";
+    	return "redirect:/my_items";
+	}
 }
-   
-    
-    
-    
-    
-    
-}
-
-
