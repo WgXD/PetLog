@@ -132,6 +132,12 @@
 	    <put-attribute name="title" value="메인화면"/>
 	    <put-attribute name="body" value="/WEB-INF/views/items/buy_items.jsp"/>
 	</definition>
+	
+	<!-- 아이템 사용 -->
+	<definition name="put_on_item" extends="baseLayout">
+	    <put-attribute name="title" value="메인화면"/>
+	    <put-attribute name="body" value="/WEB-INF/views/items/put_on_item.jsp"/>
+	</definition>
 
    <!-- snack_input -->
     <definition name="snack_input" extends="baseLayout">

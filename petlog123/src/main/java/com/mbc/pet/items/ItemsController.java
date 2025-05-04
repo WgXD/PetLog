@@ -158,4 +158,13 @@ public class ItemsController {
     	
     	return "redirect:/my_items";
 	}
+    
+    
+    @RequestMapping("/put_on_item")
+    public String item4(@RequestParam("puton") String itemName, Model model) {
+        model.addAttribute("itemName", itemName);
+        
+        return "put_on_item";  // tiles에 등록된 이름
+    }
+    
 }

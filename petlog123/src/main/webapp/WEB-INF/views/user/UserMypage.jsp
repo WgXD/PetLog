@@ -91,7 +91,7 @@
     <!-- 버튼 그룹 -->
     <div class="btn-group">
         <a href="UserEditProfile">회원정보 수정</a>
-        <a href="petProfile">펫 정보</a>
+        <a href="pet_out">펫 정보</a> <!-- 링크 수정했음!!! dasom -->
     </div>
 </div>
 </body>

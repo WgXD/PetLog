@@ -77,8 +77,8 @@
         <label for="phone">전화번호</label>
         <input type="text" name="phone" value="${dto.phone}">
         
-        <label for="address">주소</label>
-        <input type="text" name="address" value="${dto.address}">
+        <label for="email">이메일</label>
+        <input type="text" name="email" value="${dto.email}">
         
         <label for="profileimg">프로필 이미지</label>
         <input type="file" name="profileimg">

@@ -87,6 +87,7 @@ button:active, input[type="submit"]:active, input[type="reset"]:active {
             <th>아이템 이름</th>
             <th>카테고리</th>
             <th>착용 여부</th>
+            <th>아이템 사용</th>
         </tr>
     </thead>
     <tbody>
@@ -103,6 +104,7 @@ button:active, input[type="submit"]:active, input[type="reset"]:active {
                         <c:otherwise>❌ 미착용</c:otherwise>
                     </c:choose>
                 </td>
+                <td><a href="${pageContext.request.contextPath}/items/put_on_item?puton=${item.item_name}">사용하기🎀</a></td>
             </tr>
         </c:forEach>
     </tbody>
