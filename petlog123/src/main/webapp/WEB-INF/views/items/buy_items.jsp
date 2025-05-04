@@ -104,7 +104,12 @@ button:active, input[type="submit"]:active, input[type="reset"]:active {
                         <c:otherwise>❌ 미착용</c:otherwise>
                     </c:choose>
                 </td>
-                <td><a href="${pageContext.request.contextPath}/items/put_on_item?puton=${item.item_name}">사용하기🎀</a></td>
+                <td>
+                	<form action="${pageContext.request.contextPath}/put_on_frame" method="post" style="display:inline;">
+                    <input type="hidden" name="item_id" value="${item.item_id}" />
+    				<input type="submit" value="사용하기🎀" />	
+                	</form>
+                </td>
             </tr>
         </c:forEach>
     </tbody>

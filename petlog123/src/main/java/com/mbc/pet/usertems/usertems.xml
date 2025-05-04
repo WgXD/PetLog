@@ -30,5 +30,35 @@
 	    join ITEMS i on u.item_id = i.item_id
 	    where u.user_id = #{user_id}
 	</select>
+	
+	<update id="frame_wearing"> <!-- 프로필 프레임 착용 -->
+		update usertems
+		set usertem_equip = case
+		when item_id = #{item_id} then 'Y'
+		else 'N'
+		end
+		where user_id = #{user_id}
+		and item_id in (
+			select item_id from items where item_category = '프레임')
+	</update>
+	
+	<select id="frame_item" resultType="com.mbc.pet.items.ItemsDTO"> <!-- 프레임 착용 표시 -->
+		select i.*, u.usertem_equip
+   		FROM usertems u
+     	JOIN items i ON u.item_id = i.item_id
+    	WHERE u.user_id = #{user_id}
+      	AND i.item_category = '프레임'
+	</select>
+	
+	<!-- 프로필 프레임 씌우기!!!!!!!!!!!!!! -->
+	<!-- 착용 중인 프레임 1개 조회 -->
+	<select id="getEquippedFrame" resultType="com.mbc.pet.items.ItemsDTO">
+	    SELECT i.*
+	    FROM usertems u
+	    JOIN items i ON u.item_id = i.item_id
+	    WHERE u.user_id = #{user_id}
+	      AND u.usertem_equip = 'Y'
+	      AND i.item_category = '프레임'
+	</select>
 
 </mapper>

@@ -158,13 +158,40 @@ public class ItemsController {
     	
     	return "redirect:/my_items";
 	}
+   
     
-    
-    @RequestMapping("/put_on_item")
-    public String item4(@RequestParam("puton") String itemName, Model model) {
-        model.addAttribute("itemName", itemName);
-        
-        return "put_on_item";  // tiles에 등록된 이름
+ //프레임 아이템 목록 출력 (착용 가능 페이지)
+    @RequestMapping(value = "/put_on_item", method = RequestMethod.GET)
+    public String showPutOnItemPage(Model model, HttpSession session) {
+    	
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        UsertemsService us = sql.getMapper(UsertemsService.class);
+        ArrayList<ItemsDTO> list = us.frame_item(user_id); // 프레임 아이템만 조회
+        model.addAttribute("list", list);
+
+        return "put_on_item"; // JSP
     }
-    
+
+    //프로필 프레임 착용 처리
+    @RequestMapping(value = "/put_on_frame", method = RequestMethod.POST)
+    public String wearFrame(@RequestParam("item_id") int item_id, HttpSession session) {
+    	
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        UsertemsService us = sql.getMapper(UsertemsService.class);
+        us.frame_wearing(user_id, item_id); // 착용 처리 (기존 프레임 해제)
+
+        return "redirect:/put_on_item"; // 다시 프레임 리스트로
+    }
 }

@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mbc.pet.items.ItemsDTO;
+import com.mbc.pet.usertems.UsertemsService;
+
 @Controller
 public class UserController {
 
@@ -132,23 +135,26 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-//마이페이지-------------------------------------------------------------
+//마이페이지------------------------------------------------------------- +프로필 프레임 씌우기 추가함
 	@RequestMapping("/mypage")
-	public String mypage(HttpServletRequest request, Model mo) {
-		 // 로그인 된 사용자 아이디 가져오기
-		 String user_login_id = (String) request.getSession().getAttribute("user_login_id");
+	public String mypage(HttpSession session, Model model) {
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    if (user_login_id == null || user_id == null) {
+	        return "redirect:/login";
+	    }
 
-		 if (user_login_id == null) { 
-		 	 return "redirect:/login";
-		 }
+	    // 유저 정보
+	    UserService userService = sqlSession.getMapper(UserService.class);
+	    UserDTO dto = userService.editid(user_login_id);
+	    model.addAttribute("dto", dto);
 
-		 // Mapper에서 로그인 정보 호출
-		 UserService us = sqlSession.getMapper(UserService.class);
-		 UserDTO dto = us.editid(user_login_id);
+	    // 착용 프레임 정보
+	    UsertemsService usertemsService = sqlSession.getMapper(UsertemsService.class);
+	    ItemsDTO equippedFrame = usertemsService.getEquippedFrame(user_id);
+	    model.addAttribute("equippedFrame", equippedFrame);
 
-		 // 모델에 유저 정보 전달
-		 mo.addAttribute("dto", dto);
-		 return "UserMypage";
+	    return "UserMypage"; // 또는 "mypage" → 네가 실제 사용하는 JSP 이름으로
 	}
 
 	//정보 수정
@@ -207,4 +213,7 @@ public class UserController {
 
 	    return "redirect:/mypage";
 	}
+	
+	
+	
 }
