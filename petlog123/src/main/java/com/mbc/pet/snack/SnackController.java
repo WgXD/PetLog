@@ -25,41 +25,44 @@ public class SnackController {
 	SqlSession sql;
 	//String path = "C:\\1MBC\\spring\\PetLog\\src\\main\\webapp\\image";
 	
-//	@RequestMapping("/login-temp") //?„?‹œ ë¡œê·¸?¸!!!!!!!!!!!!!!!!
+//	@RequestMapping("/login-temp") //?ï¿½ï¿½?ï¿½ï¿½ ë¡œê·¸?ï¿½ï¿½!!!!!!!!!!!!!!!!
 //	public String hh(HttpSession session) {
 //		
-//	// ?„?‹œë¡? user_id?? user_login_idë¥? ?„¤? • (?˜ˆ?‹œ)
-//    session.setAttribute("user_id", 1); // ?„?‹œ user_id (?˜ˆ: 1)
-//    session.setAttribute("user_login_id", "tester"); // ?„?‹œ user_login_id (?˜ˆ: "tester")
+//	// ?ï¿½ï¿½?ï¿½ï¿½ï¿½? user_id?? user_login_idï¿½? ?ï¿½ï¿½?ï¿½ï¿½ (?ï¿½ï¿½?ï¿½ï¿½)
+//    session.setAttribute("user_id", 1); // ?ï¿½ï¿½?ï¿½ï¿½ user_id (?ï¿½ï¿½: 1)
+//    session.setAttribute("user_login_id", "tester"); // ?ï¿½ï¿½?ï¿½ï¿½ user_login_id (?ï¿½ï¿½: "tester")
 //
-//    return "redirect:/main"; // ?™ˆ?œ¼ë¡? ë¦¬ë””? ‰?…˜
+//    return "redirect:/main"; // ?ï¿½ï¿½?ï¿½ï¿½ï¿½? ë¦¬ë””?ï¿½ï¿½?ï¿½ï¿½
 //}
 	
 	
 	@RequestMapping(value = "/snack_input")
 	public String snack(HttpSession session) {
 		
-		//ë¹„íšŒ?› ë§‰ê¸°
-	    Integer user_id = (Integer) session.getAttribute("user_id");
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-	    if (user_id == null) {
-	    	return "redirect:/login?error=login_required"; // ë¹„íšŒ?› ? ‘ê·? ì°¨ë‹¨ + alert ?œ ?„
-	    }
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		
 		return "snack_input";
 	}
 	
 	@RequestMapping(value = "/snack_save", method = RequestMethod.POST)
-	public String snack1(MultipartHttpServletRequest request, HttpSession hs) throws IllegalStateException, IOException {
+	public String snack1(MultipartHttpServletRequest request, HttpSession hs, HttpSession session) throws IllegalStateException, IOException {
 		
 		String path = request.getSession().getServletContext().getRealPath("/image");
 		
-		Integer user_id = (Integer) hs.getAttribute("user_id");
-		
-		if (user_id == null) {
-			return  "redirect:/login-temp";
-		} //ë¡œê·¸?¸ ?•ˆ??„?•Œ..?
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		//---
 		
@@ -88,7 +91,7 @@ public class SnackController {
 		SnackService ss = sql.getMapper(SnackService.class);
 		
 		int result = ss.snack_save(dto);
-		System.out.println("insert ê²°ê³¼: " + result); //?´ê²? ì½˜ì†”?— ?•ˆ ?œ¨ë©? ë§¤í¼ ?—°ê²? ?ì²´ê? ?•ˆ ?œ ê±°ì•¼
+		System.out.println("insert ê²°ê³¼: " + result); //?ï¿½ï¿½ï¿½? ì½˜ì†”?ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ë§¤í¼ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ì²´ï¿½? ?ï¿½ï¿½ ?ï¿½ï¿½ ê±°ì•¼
 
 		
 		image.transferTo(new File(path+"\\"+fname));
@@ -98,45 +101,54 @@ public class SnackController {
 	
 	
 	@RequestMapping(value = "/snack_out")
-	public String snack2(Model mo, HttpServletRequest request, @RequestParam(defaultValue ="1") int page) {
+	public String snack2(HttpSession session, Model mo, HttpServletRequest request, @RequestParam(defaultValue ="1") int page) {
 		
-		//ë¹„íšŒ?› ë§‰ê¸°
-	    HttpSession hs = request.getSession();
-	    Integer user_id = (Integer) hs.getAttribute("user_id");
-	    if (user_id == null) {
-	        return "redirect:/login?error=login_required";
-	    }
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 	
-		//?˜?´ì§? ì²˜ë¦¬ 1
-		int page_size = 5; //?•œ ?˜?´ì§??— ?¼ê¸? 5ê°œì”© ë³´ì´ê¸?!!
-		int start = (page-1) * page_size; //?˜„?¬ ?˜?´ì§??—?„œ ?‹œ?‘?•˜?Š” ?°?´?„°?˜ ?œ„ì¹˜ë?? ê³„ì‚°?•˜?Š” ê³µì‹
+		//í˜ì´ì§• ì²˜ë¦¬ 1
+		int page_size = 5; //1í˜ì´ì§€ 5ê²Œì‹œë¬¼
+		int start = (page-1) * page_size;
 		int end = start + page_size;
-		//?˜?´ì§? 1 end
+		//í˜ì´ì§• ì²˜ë¦¬ 1 end
 		
 		
 		SnackService ss = sql.getMapper(SnackService.class);
 		
-		//?˜?´ì§? ì²˜ë¦¬ 2
-		int total_count = ss.total_recipe(); //? „ì²? ? ˆ?‹œ?”¼ ê°??ˆ˜ //ceil ?ˆ«? ?˜¬ë¦?
+		//í˜ì´ì§• ì²˜ë¦¬ 2
+		int total_count = ss.total_recipe(); 
 		int page_count = (int) Math.ceil((double)total_count / page_size);
-		//?˜?´ì§? 2 end
+		//í˜ì´ì§• ì²˜ë¦¬ 2 end
 		
-		//?˜?´ì§? 3
+		//í˜ì´ì§• ì²˜ë¦¬ 3
 		ArrayList<SnackDTO> list = ss.snack_out(start,end);
 		
 		mo.addAttribute("list", list);
 		mo.addAttribute("page", page);
 		mo.addAttribute("page_count", page_count);
 		mo.addAttribute("page_size", page_size);
-		//?˜?´ì§?3 end
+		//í˜ì´ì§• ì²˜ë¦¬ 3 end
 		
 		return "snack_out";
 	}
 		
 	
 	@RequestMapping(value = "/snack_detail")
-	public String snack3(Model mo, HttpServletRequest request) {
+	public String snack3(Model mo, HttpServletRequest request, HttpSession session) {
+		
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int dnum = Integer.parseInt(request.getParameter("dnum"));
 		SnackService ss = sql.getMapper(SnackService.class);
@@ -148,8 +160,16 @@ public class SnackController {
 	}
 		
 	
-	@RequestMapping(value = "/snack_update") //? ˆ?‹œ?”¼ ?ˆ˜? •
-	public String snackup(Model mo, HttpServletRequest request) { 
+	@RequestMapping(value = "/snack_update")
+	public String snackup(Model mo, HttpServletRequest request, HttpSession session) { 
+		
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int update = Integer.parseInt(request.getParameter("update"));
 		SnackService ss = sql.getMapper(SnackService.class);
@@ -161,14 +181,18 @@ public class SnackController {
 	
 	
 	@RequestMapping(value = "/snackupdate_save", method = RequestMethod.POST)
-	public String snack4(MultipartHttpServletRequest mul, HttpSession hs) throws IllegalStateException, IOException {
+	public String snack4(MultipartHttpServletRequest mul, HttpSession hs, HttpSession session) throws IllegalStateException, IOException {
 
 		String path = mul.getSession().getServletContext().getRealPath("/image");
 		
-	    Integer user_id = (Integer) hs.getAttribute("user_id");
-	    if (user_id == null) return "redirect:/login-temp";
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
 
-	    // ?°?´?„° ?ŒŒ?‹±
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
 	    int snack_id = Integer.parseInt(mul.getParameter("snack_id"));
 	    String snack_title = mul.getParameter("snack_title");
 	    String snack_recipe = mul.getParameter("snack_recipe");
@@ -181,7 +205,7 @@ public class SnackController {
 	        fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
 	        mf.transferTo(new File(path + "\\" + fname));
 
-	        // ê¸°ì¡´ ?´ë¯¸ì? ?‚­? œ
+	        // ê¸°ì¡´ image ì‚­ì œ
 	        if (dfimage != null && !dfimage.trim().equals("")) {
 	            File ff = new File(path + "\\" + dfimage);
 	            if (ff.exists()) ff.delete();
@@ -190,7 +214,7 @@ public class SnackController {
 	        fname = dfimage;
 	    }
 
-	    // DTO ?„¸?Œ…
+	    // DTO
 	    SnackDTO dto = new SnackDTO();
 	    dto.setSnack_id(snack_id);
 	    dto.setSnack_title(snack_title);
@@ -199,17 +223,25 @@ public class SnackController {
 	    dto.setSnack_date(snack_date);
 	    dto.setUser_id(user_id);
 
-	    // DB update ?‹¤?–‰
+	    // DB update ?ï¿½ï¿½?ï¿½ï¿½
 	    SnackService ss = sql.getMapper(SnackService.class);
 	    int result = ss.snackupdate_save(dto);
-	    System.out.println("?—…?°?´?Š¸ ê²°ê³¼: " + result);
+	    System.out.println("ìˆ˜ì • ì²˜ë¦¬ ê²°ê³¼: " + result);
 
 	    return "redirect:/snack_out";
 	}
 
 	
-	@RequestMapping(value = "/snack_delete") //?‚­? œ ?• ê±°ëƒê³? ë³´ì—¬ì£¼ëŠ” ?˜?´ì§?
-	public String snack5(HttpServletRequest request,Model mo) {
+	@RequestMapping(value = "/snack_delete") //ì‚­ì œ ì „ í™•ì¸
+	public String snack5(HttpServletRequest request,Model mo, HttpSession session) {
+		
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int delete = Integer.parseInt(request.getParameter("delete"));
 		SnackService ss = sql.getMapper(SnackService.class);
@@ -220,10 +252,18 @@ public class SnackController {
 		return "snack_delete"; //jsp file name
 	}
 	
-	@RequestMapping(value = "/delete_recipe", method = RequestMethod.POST) //? ˆ?‹œ?”¼ ?‚­? œ
-	public String snack6(HttpServletRequest request,Model mo) {
+	@RequestMapping(value = "/delete_recipe", method = RequestMethod.POST) //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½
+	public String snack6(HttpServletRequest request,Model mo, HttpSession session) {
 		
 		String path = request.getSession().getServletContext().getRealPath("/image");
+		
+    	// ë¡œê·¸ì¸ ì²´í¬
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 		
 		int delete = Integer.parseInt(request.getParameter("snack_id"));
 

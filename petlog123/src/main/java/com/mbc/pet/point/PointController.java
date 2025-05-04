@@ -8,15 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	@Controller
 	public class PointController {
 
-	    @RequestMapping(value = "/stamp_grapes") //Æ÷µµ¼ÛÀÌ Ãâ·Â
+	    @RequestMapping(value = "/stamp_grapes") //
 	    public String point(HttpSession session) {
 	    	
-			//ºñÈ¸¿ø ¸·±â
-		    Integer user_id = (Integer) session.getAttribute("user_id");
+	    	// ë¡œê·¸ì¸ ì²´í¬
+	        Integer user_id = (Integer) session.getAttribute("user_id");
+	        String user_login_id = (String) session.getAttribute("user_login_id");
 
-		    if (user_id == null) {
-		    	return "redirect:/login?error=login_required"; // ºñÈ¸¿ø Á¢±Ù Â÷´Ü + alert À¯µµ
-		    }
+	        if (user_id == null || user_login_id == null) {
+	            return "redirect:/login?error=login_required";
+	        }
 	    	
 		    
 	        return "stamp_grapes"; //jsp file name

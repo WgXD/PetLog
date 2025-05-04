@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class QuizController {
+public class QuizController { // ê´€ë¦¬ì ì „ìš©!!!!!
 
 	@Autowired
 	SqlSession sqlSession;
 	
 //	@RequestMapping(value = "/QuizInput")
 //	public String quiz(HttpSession session) {
-//	   // ¼¼¼Ç Ã¼Å©
+//	   // ë¡œê·¸ì¸ ì²´í¬
 //		Integer user_id = (Integer) session.getAttribute("user_id");
 //		String user_login_id = (String) session.getAttribute("user_login_id");
 //
@@ -27,64 +27,65 @@ public class QuizController {
 //	    return "QuizList";
 //	 }
 	 
-	 //ÄûÁî µî·Ï ÆäÀÌÁö
+	 // í€´ì¦ˆ ë¬¸ì œ ë“±ë¡ í™”ë©´
 	@RequestMapping(value = "/QuizInsertPage")
 	public String quizinsert() {    	
 		return "QuizInsert";
-	 }
+	}
 	 
-	//ÄûÁî µî·Ï Ã³¸®
+	// í€´ì¦ˆ ë“±ë¡ ì²˜ë¦¬
 	@RequestMapping(value = "/QuizInsertSave")
 	public String quizinsert1(QuizDTO dto) {    
-		QuizService qs=sqlSession.getMapper(QuizService.class);
+		QuizService qs = sqlSession.getMapper(QuizService.class);
 		qs.insertQuiz(dto);
 		return "QuizList";
 	}
 	
+	// ì‚¬ìš©ì í€´ì¦ˆ í’€ì´ í™”ë©´
 	@RequestMapping(value = "/QuizInput")
 	public String quiz1(Model mo, HttpSession session) {
-		// ¼¼¼Ç Ã¼Å©
+		// ë¡œê·¸ì¸ ì²´í¬
 		Integer user_id = (Integer) session.getAttribute("user_id");
 		String user_login_id = (String) session.getAttribute("user_login_id");
 
 		if (user_id == null || user_login_id == null) {
-		return "redirect:/login";
+			return "redirect:/login";
 		}
 		
-		//·£´ı ÄûÁî ºÒ·¯¿À±â
-		QuizService qs= sqlSession.getMapper(QuizService.class);
-		ArrayList<QuizDTO> dto= qs.getRandomQuiz();
+		// ëœë¤ í€´ì¦ˆ ê°€ì ¸ì˜¤ê¸°
+		QuizService qs = sqlSession.getMapper(QuizService.class);
+		ArrayList<QuizDTO> dto = qs.getRandomQuiz();
 		mo.addAttribute("dto", dto);
 		return "QuizList";
-	 }
+	}
 	 
+	// í€´ì¦ˆ ê²°ê³¼ ì €ì¥
 	@RequestMapping(value = "/QuizSave")
-	public String quiz2(Model mo, @ModelAttribute QuizDTO dto,HttpSession session) {
-		//»ç¿ëÀÚ Á¤º¸
-		int quiz_id=dto.getQuiz_id();
-		String userAnswer=dto.getQuiz_answer(); //À¯Àú°¡ ¼±ÅÃÇÑ ´ä
-		 	
-		//ÄûÁî Á¤´ä ºÒ·¯¿À±â
-		QuizService qs= sqlSession.getMapper(QuizService.class);
+	public String quiz2(Model mo, @ModelAttribute QuizDTO dto, HttpSession session) {
+		// ì‚¬ìš©ìê°€ ì„ íƒí•œ ê°’
+		int quiz_id = dto.getQuiz_id();
+		String userAnswer = dto.getQuiz_answer(); // ì‚¬ìš©ìê°€ ì„ íƒí•œ ë³´ê¸°
+		
+		// DBì—ì„œ ì •ë‹µ ê°€ì ¸ì˜¤ê¸°
+		QuizService qs = sqlSession.getMapper(QuizService.class);
 		QuizDTO dbQuiz = qs.getQuizId(quiz_id);
-		String correctAnswer = dbQuiz.getQuiz_answer(); // DB¿¡ ÀúÀåµÈ ÁøÂ¥ Á¤´ä
-	        
-		//Á¤´ä ºñ±³ ¹× Àü¼Û
-		//boolean isCorrect = quiz_answer.equalsIgnoreCase(correctanswer);
-		boolean isCorrect =  userAnswer!= null && userAnswer.equalsIgnoreCase(correctAnswer);
-		 	
-		// °á°ú ÀúÀå
+		String correctAnswer = dbQuiz.getQuiz_answer(); // DBì— ì €ì¥ëœ ì •ë‹µ
+		
+		// ì •ë‹µ ë¹„êµ
+		boolean isCorrect = userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer);
+		
+		// ê²°ê³¼ ì €ì¥
 		QuizResultDTO resultDTO = new QuizResultDTO();
 		resultDTO.setResult_score(isCorrect ? 1 : 0);
-		resultDTO.setResult_rank(null); // ³ªÁß¿¡ ·©Å© °è»êÇÒ ¼öµµ ÀÖÀ½
-		resultDTO.setResult_time(30); // ¹®Á¦ Çª´Â µ¥ °É¸° ½Ã°£ ¿¹½Ã
-		resultDTO.setUser_id((Integer)session.getAttribute("user_id"));
+		resultDTO.setResult_rank(null); // ë‚˜ì¤‘ì— ë­í¬ ì¶”ê°€ ì‹œ ì„¤ì •
+		resultDTO.setResult_time(30);   // ì¶”í›„ ì‹¤ì œ ì‹œê°„ ì¸¡ì •ìœ¼ë¡œ ë³€ê²½ ê°€ëŠ¥
+		resultDTO.setUser_id((Integer) session.getAttribute("user_id"));
 		resultDTO.setQuiz_id(quiz_id);
-		resultDTO.setGet_grape(isCorrect ? 10 : 0); // Á¤´äÀÌ¸é Æ÷µµ¾Ë 10°³ Áö±Ş
+		resultDTO.setGet_grape(isCorrect ? 10 : 0); // ë§ìœ¼ë©´ í¬ë„ì•Œ 10ê°œ
 
 		qs.insertQuizResult(resultDTO);
 
 		mo.addAttribute("isCorrect", isCorrect);
 		return "QuizResult";
-	 }
+	}
 }

@@ -3,6 +3,7 @@ package com.mbc.pet.usertems;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,16 @@ public class UsertemsController {
     
 	// 아이템 구매 페이지 출력 매핑
 	@RequestMapping(value = "/buy_items", method = RequestMethod.GET)
-	public String showBuyItems(HttpServletRequest request, Model mo) {
-	    int user_id = (int) request.getSession().getAttribute("user_id");
+	public String showBuyItems(HttpServletRequest request, Model mo, HttpSession session) {
+	    //int user_id = (int) request.getSession().getAttribute("user_id");
+	    
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
 
 	    UsertemsService us = sql.getMapper(UsertemsService.class);
 	    ArrayList<UsertemsDTO> list = us.get_items(user_id);
@@ -53,8 +62,17 @@ public class UsertemsController {
 	// Ajax로 아이템 구매 처리 매핑
 	@RequestMapping(value = "/buy_items", method = RequestMethod.POST) // 구매 버튼 클릭 시 호출됨
 	@ResponseBody
-	public String utem2(@RequestParam("item_id") int item_id, HttpServletRequest request) {
-	    int user_id = (int) request.getSession().getAttribute("user_id");
+	public String utem2(@RequestParam("item_id") int item_id, HttpServletRequest request, HttpSession session) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
+	   // int user_id = (int) request.getSession().getAttribute("user_id");
 	    String usertem_equip = "N"; //디폴트=N(착용x)
 
 	    UsertemsService us = sql.getMapper(UsertemsService.class);
