@@ -10,8 +10,8 @@
 </select>
 
 <insert id="insertsignup" parameterType="com.mbc.pet.user.UserDTO">
-	insert into user1 (user_id,user_login_id,password,name,phone,address,profileimg,rank,user_role,grape_count)
-	values(user_id_seq.nextval,#{user_login_id},#{password},#{name},#{phone},#{address},
+	insert into user1 (user_id,user_login_id,password,name,phone,email,profileimg,rank,user_role,grape_count)
+	values(user_id_seq.nextval,#{user_login_id},#{password},#{name},#{phone},#{email},
 	#{profileimg,jdbcType=VARCHAR},#{rank,jdbcType=VARCHAR},#{user_role},#{grape_count,jdbcType=INTEGER})
 </insert>
 
@@ -22,12 +22,12 @@
 </select>
 
 <select id="selectUserByLoginId" resultType="com.mbc.pet.user.UserDTO">
-	select user_id, user_login_id, name, phone, address, profileimg, rank, grape_count
+	select user_id, user_login_id, name, phone, email, profileimg, rank, grape_count
 	from user1 where user_login_id=#{user_login_id}
 </select>
 
 <select id="editid" resultType="com.mbc.pet.user.UserDTO">
-	select user_id, user_login_id, password, name, phone, address, profileimg, rank, grape_count
+	select user_id, user_login_id, password, name, phone, email, profileimg, rank, grape_count
 	from user1 where user_login_id=#{user_login_id}
 </select>
 
@@ -36,7 +36,7 @@
 	password=#{password, jdbcType=VARCHAR}, 
 	name=#{name, jdbcType=VARCHAR}, 
 	phone=#{phone, jdbcType=VARCHAR},
-    address=#{address, jdbcType=VARCHAR}, 
+    email=#{email, jdbcType=VARCHAR}, 
     profileimg=#{profileimg,jdbcType=VARCHAR},
     rank=#{rank,jdbcType=VARCHAR}, 
     grape_count=#{grape_count,jdbcType=INTEGER}

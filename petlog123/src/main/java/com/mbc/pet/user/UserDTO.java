@@ -2,8 +2,8 @@ package com.mbc.pet.user;
 
 public class UserDTO {
 int user_id;
-String user_login_id, password, name, phone, address, profileimg;
-String rank;   //int -> String ¼öÁ¤
+String user_login_id, password, name, phone, email, profileimg;
+String rank;   //int -> String ï¿½ï¿½ï¿½ï¿½
 String user_role;
 int grape_count;
 
@@ -39,12 +39,15 @@ public String getPhone() {
 public void setPhone(String phone) {
 	this.phone = phone;
 }
-public String getAddress() {
-	return address;
+
+public String getEmail() {
+	return email;
 }
-public void setAddress(String address) {
-	this.address = address;
+
+public void setEmail(String email) {
+	this.email = email;
 }
+
 public String getProfileimg() {
 	return profileimg;
 }

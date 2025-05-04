@@ -61,7 +61,7 @@ public class UserController {
 		String password=dto.getPassword();
 		String name=dto.getName();
 		String phone=dto.getPhone();
-		String address=dto.getAddress();
+		String email=dto.getEmail();
 		//String user_role = "user";  //회원가입 -> '일반회원' 자동 부여
 		String profilimg = dto.getProfileimg();
 		String rank = dto.getRank();
@@ -170,7 +170,7 @@ public class UserController {
 	public String updateProfile(
 	    @RequestParam("name") String name,
 	    @RequestParam("phone") String phone,
-	    @RequestParam("address") String address,
+	    @RequestParam("email") String email,
 	    @RequestParam(value = "profileimg", required = false) MultipartFile profileimgfile,
 	    HttpSession session,
 	    HttpServletRequest request
@@ -184,7 +184,7 @@ public class UserController {
 	    dto.setUser_login_id(user_login_id);
 	    dto.setName(name);
 	    dto.setPhone(phone);
-	    dto.setAddress(address);
+	    dto.setEmail(email);
 	    dto.setPassword(originalUser.getPassword());
 	    dto.setRank(originalUser.getRank());
 	    dto.setGrape_count(originalUser.getGrape_count());
