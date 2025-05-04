@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,11 +90,27 @@ input[type="reset"]:active {
 <title>Insert title here</title>
 </head>
 <body>
-
 <header>✨ 아이템 목록 ✨</header>
 <br>
+
+<%
+    String role = (String) session.getAttribute("user_role");
+    if (role == null || !role.equals("admin")) {
+%>
+    <script>
+        alert("관리자만 접근 가능합니다.");
+
+    </script>
+<%
+	return;
+    }
+%>
+
+<!-- 관리자일 때만 페이지 내용 보여줌 -->
+<c:if test="${sessionScope.user_role eq 'admin'}">
+
 <form action="items_save" method="post" enctype="multipart/form-data">
-<table>
+<table class="dotted-rounded-table">
 
       <tr>
         <th><label for="item_name">아이템명 : </label></th>
@@ -126,6 +143,7 @@ input[type="reset"]:active {
       </td>
       </tr>
 </table>
-</form> 
+</form>
+</c:if>
 </body>
 </html>

@@ -71,19 +71,26 @@ public class ItemsController {
     }	
     
     
-    @RequestMapping("/items_input") //아이템 입력!!! - 아이템 등록 페이지 이동
-    public String items1(HttpSession session) {
-    	
-    	// 로그인 체크
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        String user_login_id = (String) session.getAttribute("user_login_id");
+	@RequestMapping("/items_input") //아이템 입력!!! - 아이템 등록 페이지 이동
+	public String items1(HttpSession session) {
+	    
+	    // 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    //String user_role = (String) session.getAttribute("user_role"); // 관리자 권한 체크용
 
-        if (user_id == null || user_login_id == null) {
-            return "redirect:/login?error=login_required";
-        }
-		
-        return "items_input";  //jsp 이름
-    }
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+//	    // 관리자 체크
+//	    if (user_role == null || !user_role.equals("admin")) {
+//	        return "redirect:/?error=not_authorized"; // 홈으로 보내거나 접근 불가 안내
+//	    }
+
+	    return "items_input";  //jsp 이름
+	}
+	
     
     @RequestMapping(value = "/items_save") //아이템 등록 처리
     public String items1_1(MultipartHttpServletRequest mul, HttpSession session) throws IllegalStateException, IOException {

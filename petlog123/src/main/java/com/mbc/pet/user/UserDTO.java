@@ -3,7 +3,7 @@ package com.mbc.pet.user;
 public class UserDTO {
 int user_id;
 String user_login_id, password, name, phone, email, profileimg;
-String rank;   //int -> String ����
+String rank;   //int -> String 수정
 String user_role;
 int grape_count;
 
