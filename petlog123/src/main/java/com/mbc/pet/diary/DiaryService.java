@@ -9,29 +9,28 @@ public interface DiaryService {
 
 	void diary_save(DiaryDTO dd);
 
-	ArrayList<DiaryDTO> diary_out(); //ÀÏ±â Ãâ·Â
+	ArrayList<DiaryDTO> diary_out();
 
-	DiaryDTO diary_detail(int unum); //ÀÏ±â ÀÚ¼¼È÷ º¸±â
+	DiaryDTO diary_detail(int unum); 
 
-	DiaryDTO diary_update(int update); //ÀÏ±â ¼öÁ¤
+	DiaryDTO diary_update(int update); 
 
 	void update_save(int diary_id, String diary_title, String diary_date, String diary_image, String diary_content,
-			int user_id, int pet_id); // ÀÏ±â ¼öÁ¤ÇÑ ³»¿ë ÀúÀå
+			int user_id, int pet_id); 
 
-	void delete1(String delete_image); //¼öÁ¤ÇÏ°í ¼öÁ¤ Àü ÀÌ¹ÌÁö ÆÄÀÏ »èÁ¦
+	void delete1(String delete_image); 
 
-	DiaryDTO delete_check(int delete); //»èÁ¦ Àü È®ÀÎ ÆäÀÌÁö
+	DiaryDTO delete_check(int delete); 
 
-	void delete_page(int delete); //»èÁ¦
+	void delete_page(int delete); 
 
-	int total_diary(); //ÀÏ±â ¸ñ·Ï ÆäÀÌÂ¡ Ã³¸®
+	int total_diary(); // ì¼ê¸° ì „ì²´ ìˆ˜ (í˜ì´ì§• ì²˜ë¦¬ìš©)
 	
-	ArrayList<DiaryDTO> diary_out(@Param("start") int start, @Param("end") int end);
-	// ÆäÀÌÂ¡ Ã³¸®¸¦ ÅëÇØ¼­ ÇØ´ç ÆäÀÌÁö¿¡ ¸Â´Â ÀÏ±â ¸ñ·Ï °¡Á®¿À±â
+	ArrayList<DiaryDTO> diary_out(@Param("start") int start, @Param("end") int end, @Param("user_id") int user_id);
 
-	void grape_check(int diary_id); //ÀÛ¼ºÇÑ °Ô½Ã¹°·Î Æ÷µµ¾ËÀÌ Àû¸³µÇ¾ú´ÂÁö?
+	void grape_check(int diary_id); //ì‘ì„±í•œ ê²Œì‹œë¬¼ë¡œ í¬ë„ì•Œ ë°›ì•˜ëŠ”ì§€? 
 
-	int get_id(); //Oracle ½ÃÄö½º¿¡¼­ ´ÙÀ½ diary_id ¹Ì¸® »Ì´Â °Å
+	int get_id(); // Oracle ì‹œí€€ìŠ¤ë¡œë¶€í„° diary_id ê°€ì ¸ì˜¤ê¸°
 
 	
 

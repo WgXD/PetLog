@@ -147,7 +147,7 @@ public class DiaryController {
 		int page_count = (int) Math.ceil((double)total_count / page_size);
 
 		// 페이징 처리 3
-		ArrayList<DiaryDTO> list = ds.diary_out(start, end);
+		ArrayList<DiaryDTO> list = ds.diary_out(start, end, user_id);
 		 
 		mo.addAttribute("list", list);
 		mo.addAttribute("page", page);
