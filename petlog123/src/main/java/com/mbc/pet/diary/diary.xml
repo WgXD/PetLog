@@ -75,6 +75,7 @@
 		           SELECT diary_id, diary_title, TO_CHAR(diary_date, 'yyyy-MM-dd') AS diary_date,
 		                  diary_image, diary_content, user_id, pet_id
 		           FROM diary
+		           where user_id = #{user_id}
 		       ) a
 		   )
 		   WHERE rnum BETWEEN #{start} + 1 AND #{end}
