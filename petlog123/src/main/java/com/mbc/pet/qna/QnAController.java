@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Objects;
 
 @Controller
-public class QnAController {
+public class QnAController { 
 
 	@Autowired
 	SqlSession sqlSession;
@@ -20,8 +20,17 @@ public class QnAController {
 	// qna 입력 화면으로 이동
 	@RequestMapping(value = "/QnAinput")
 	public String qna(HttpSession session) {
-		Integer user_id = (Integer) session.getAttribute("user_id");
-	    String user_login_id = (String) session.getAttribute("user_login_id");
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+		
+		//Integer user_id = (Integer) session.getAttribute("user_id");
+	    //String user_login_id = (String) session.getAttribute("user_login_id");
 
 	    if (user_id == null || user_login_id == null) {
 	    return "redirect:/login";
@@ -32,8 +41,17 @@ public class QnAController {
 	//qna 등록
 	@RequestMapping(value = "/submitContact")
 	public String qna1(HttpSession session, HttpServletRequest request) {
-		Integer user_id = (Integer) session.getAttribute("user_id");
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
         String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+		
+		//Integer user_id = (Integer) session.getAttribute("user_id");
+        //String user_login_id = (String) session.getAttribute("user_login_id");
         String qna_title = request.getParameter("qna_title");
         String qna_content = request.getParameter("qna_content");
         
@@ -51,8 +69,17 @@ public class QnAController {
 	//qna 목록 출력
 	@RequestMapping(value = "/qnalist")
 	public String qna0(HttpSession session, Model mo) {
-		Integer user_id = (Integer) session.getAttribute("user_id");
-	    String user_login_id = (String) session.getAttribute("user_login_id");
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
+		//Integer user_id = (Integer) session.getAttribute("user_id");
+	    //String user_login_id = (String) session.getAttribute("user_login_id");
 
 	    if (user_id == null || user_login_id == null) {
 	    return "redirect:/login";
@@ -67,8 +94,17 @@ public class QnAController {
 	//작성글 자세히 보기(작성자, 관리자만 접근)
 	@RequestMapping(value = "/qnadetail")
 	public String qna5(HttpSession session, Model mo, HttpServletRequest request, RedirectAttributes redirectAttr) {
-		Integer user_id = (Integer) session.getAttribute("user_id");
-	    String user_login_id = (String) session.getAttribute("user_login_id");
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
+		//Integer user_id = (Integer) session.getAttribute("user_id");
+	    //String user_login_id = (String) session.getAttribute("user_login_id");
 	    String user_role = (String)session.getAttribute("user_role");
 	    Integer qnum = Integer.parseInt(request.getParameter("qnum"));
 
@@ -89,7 +125,16 @@ public class QnAController {
 	
 	//관리자용 답변
 	@RequestMapping(value = "/updateAnswer")
-	public String qna6(HttpServletRequest request, RedirectAttributes redirectAttr) {
+	public String qna6(HttpServletRequest request, RedirectAttributes redirectAttr, HttpSession session) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
 		Integer qna_id = Integer.parseInt(request.getParameter("qna_id"));
 		String qna_answer = request.getParameter("qna_answer");
 		String qna_status= request.getParameter("qna_status");
