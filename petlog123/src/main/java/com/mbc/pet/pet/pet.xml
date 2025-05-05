@@ -65,7 +65,7 @@
     </select>
     
     <delete id="delete_check" parameterType="int">
-    	delete from pet where per_id = #{param1}
+    	delete from pet where pet_id = #{param1}
     </delete>
     
     </mapper>

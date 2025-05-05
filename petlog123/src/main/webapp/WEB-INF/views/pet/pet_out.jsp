@@ -129,12 +129,11 @@
 
 <tr>
 <td> ${pet.pet_id} </td>
-<td><a href="pet_detail?dnum=${pet.pet_id}">${pet.pet_name}</a></td>
+<td><a href="pet_detail?update1=${pet.pet_id}">${pet.pet_name}</a></td>
 <td> ${pet.pet_bog} </td>
 <td> ${pet.pet_neuter} </td> <!-- 중성화 순서 바꿈 -->
 <td> ${pet.pet_hbd} </td>
 <td><img src="./image/${pet.pet_img}" width="100px"></td>
-
 </tr>
 
 </c:forEach>

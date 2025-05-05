@@ -118,14 +118,14 @@
 
       <tr>
         <th><label for="pet_bog">성별 : </label></th>
-        <td><input type="radio" name="pet_bog" value="수컷💙">
-            <input type="radio" name="pet_bog" value="암컷💛"></td>
+        <td><input type="radio" name="pet_bog" value="수컷💙"> 수컷💙
+            <input type="radio" name="pet_bog" value="암컷💛"> 암컷💛</td>
       </tr>
       
       <tr> <!-- 중성화 순서 바꿈 -->
         <th><label for="pet_neuter">중성화 여부 : </label></th>
-        <td><input type="radio" name="pet_neuter" value="⭕">
-            <input type="radio" name="pet_neuter" value="❌"></td>
+        <td><input type="radio" name="pet_neuter" value="⭕"> ⭕
+            <input type="radio" name="pet_neuter" value="❌"> ❌</td>
       </tr>
 
       <tr>

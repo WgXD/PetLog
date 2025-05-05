@@ -113,34 +113,15 @@
     
       <tr>
         <th><label for="pet_name">이름 : </label></th>
-        <td><input type="text" id="pet_name" name="pet_name" readonly="readonly"></td>
+        <td><input type="text" id="pet_name" name="pet_name" value="${dto.pet_name}" readonly="readonly"></td>
       </tr>
 
-      <tr>
-        <th><label for="pet_bog">성별 : </label></th>
-        <td>
-        <input type="radio" name="pet_bog_radio" value="수컷💙" <c:if test="${dto.pet_bog eq '수컷💙'}">checked</c:if> disabled> 수컷💙
-        <input type="radio" name="pet_bog_radio" value="암컷💛" <c:if test="${dto.pet_bog eq '암컷💛'}">checked</c:if> disabled> 암컷💛
-      	</td>
-      </tr>
-      
-      <tr> <!-- 중성화 순서 바꿈 -->
-        <th><label for="pet_neuter">중성화 여부 : </label></th>
-        <td>
-        <input type="radio" name="pet_neuter_radio" value="⭕" <c:if test="${dto.pet_neuter eq '⭕'}">checked</c:if> disabled> ⭕
-        <input type="radio" name="pet_neuter_radio" value="❌" <c:if test="${dto.pet_neuter eq '❌'}">checked</c:if> disabled> ❌
-      	</td>
-      </tr>
-
-      <tr>
-        <th><label for="pet_hbd">생일 : </label></th>
-        <td><input type="date" id="pet_hbd" name="pet_hbd" readonly="readonly"></td>
-      </tr>
-
-      <tr>
-        <th><label for="pet_img">사진 : </label></th>
-        <td><input type="file" id="pet_img" name="pet_img"></td> <!-- image에는 readonly 할 수 x -->
-      </tr>
+	<tr>
+	  <th>사진 : </th>
+	  <td>
+	    <img src="image/${dto.pet_img}" alt="반려동물 사진" style="max-height: 120px; border-radius: 12px;">
+	  </td>
+	</tr>
       
       <tr>
       <td colspan="2" style="text-align: center">
