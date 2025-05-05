@@ -42,4 +42,13 @@
     grape_count=#{grape_count,jdbcType=INTEGER}
     where user_login_id = #{user_login_id, jdbcType=VARCHAR}
 </update>
+
+<!-- 포도알 적립용!!! dasom -->
+<update id="plusGrapeCount" parameterType="int">
+  UPDATE user1
+  SET grape_count = grape_count + 1
+  WHERE user_id = #{user_id}
+</update>
+
+
 </mapper>

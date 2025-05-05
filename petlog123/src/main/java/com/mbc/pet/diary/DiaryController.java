@@ -22,6 +22,8 @@ import com.mbc.pet.pet.PetDTO;
 import com.mbc.pet.pet.PetService;
 import com.mbc.pet.point.PointDTO;
 import com.mbc.pet.point.PointService;
+import com.mbc.pet.user.UserDTO;
+import com.mbc.pet.user.UserService;
 
 @Controller
 public class DiaryController {
@@ -110,7 +112,15 @@ public class DiaryController {
 			ds.grape_check(dd.getDiary_id()); // 지급 여부 체크 및 플래그 변경
 		}
 
-		return "diary_input";
+		//일기 작성 완료시 포도알 +1--------------------------------------------------------------------------------
+		// 포도알 개수 +1 (user1.grape_count 증가)
+		sqlSession.getMapper(UserService.class).plusGrapeCount(user_id);
+
+		// 세션 갱신 (메뉴바 포도알 실시간 반영)
+		UserDTO updated = sqlSession.getMapper(UserService.class).selectUserByLoginId(user_login_id);
+		session.setAttribute("loginUser", updated);
+		
+		return "redirect:/diary_input";
 	}
 
 	
@@ -272,4 +282,6 @@ public class DiaryController {
 
 		return "redirect:/diary_out";
 	}
+	
+	
 }

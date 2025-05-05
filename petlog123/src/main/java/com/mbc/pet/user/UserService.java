@@ -13,4 +13,6 @@ public interface UserService {
 	void updateProfile(UserDTO dto);
 
 	UserDTO selectUserByLoginId(String id);
+
+	void plusGrapeCount(int user_id);  // 일기 작성 완료시 포도알 +1
 }
