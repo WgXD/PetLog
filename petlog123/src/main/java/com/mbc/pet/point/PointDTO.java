@@ -3,65 +3,63 @@ package com.mbc.pet.point;
 import com.mbc.pet.user.UserDTO;
 
 public class PointDTO {
-	
-	int point_id; //Æ÷ÀÎÆ® °íÀ¯ id, PK
-	String point_action; //¾î¶² È°µ¿À¸·Î Æ÷µµ¾Ë ¾ò¾ú´ÂÁö? ex.´ÙÀÌ¾î¸®¿¡ ±Û 1°³ °Ô½Ã -> 1¾Ë
-	int point_action_id; //È°µ¿id
-	int point_earned_grapes; //´©ÀûÆ÷µµ¾Ë -> ÇØ´ç È°µ¿À¸·Î Æ÷µµ¾Ë ¸î°³ Àû¸³? -> ÃßÈÄ¿¡ ÀÌº¥Æ® °°Àº°Å ÇÏ¸é Æ÷µµ¾Ë 3°³ ÁÖ±âµµ °¡´É
-	
-	UserDTO petuser; //¿Ü·¡Å° -> PetuserDTO °¡Á®¿À±â
-	
-	int user_id; //¿Ü·¡Å°
+    
+    int point_id; // í¬ì¸íŠ¸ ê¸°ë¡ id, PK
+    String point_action; // ì–´ë–¤ í™œë™ìœ¼ë¡œ ì ë¦½ëœ í¬ì¸íŠ¸ì¸ì§€ ex. ë‹¤ì´ì–´ë¦¬ ì‘ì„± â†’ "diary"
+    int point_action_id; // í™œë™ id (ì˜ˆ: ë‹¤ì´ì–´ë¦¬ ë²ˆí˜¸, ê²Œì‹œê¸€ ë²ˆí˜¸ ë“±)
+    int point_earned_grapes; // ì ë¦½ëœ í¬ë„ì•Œ ìˆ˜ (í•´ë‹¹ í™œë™ì—ì„œ ì–¼ë§ˆë‚˜ ì ë¦½ë˜ì—ˆëŠ”ì§€)
 
-	public PointDTO() {     }
+    UserDTO petuser; // ìœ ì € ì •ë³´ ê°ì²´ (UserDTO ì°¸ì¡°)
 
-	public int getPoint_id() {
-		return point_id;
-	}
+    int user_id; // ì™¸ë˜í‚¤ - ìœ ì € ID
 
-	public void setPoint_id(int point_id) {
-		this.point_id = point_id;
-	}
+    public PointDTO() { }
 
-	public String getPoint_action() {
-		return point_action;
-	}
+    public int getPoint_id() {
+        return point_id;
+    }
 
-	public void setPoint_action(String point_action) {
-		this.point_action = point_action;
-	}
+    public void setPoint_id(int point_id) {
+        this.point_id = point_id;
+    }
 
-	public int getPoint_action_id() {
-		return point_action_id;
-	}
+    public String getPoint_action() {
+        return point_action;
+    }
 
-	public void setPoint_action_id(int point_action_id) {
-		this.point_action_id = point_action_id;
-	}
+    public void setPoint_action(String point_action) {
+        this.point_action = point_action;
+    }
 
-	public int getPoint_earned_grapes() {
-		return point_earned_grapes;
-	}
+    public int getPoint_action_id() {
+        return point_action_id;
+    }
 
-	public void setPoint_earned_grapes(int point_earned_grapes) {
-		this.point_earned_grapes = point_earned_grapes;
-	}
+    public void setPoint_action_id(int point_action_id) {
+        this.point_action_id = point_action_id;
+    }
 
-	public UserDTO getPetuser() {
-		return petuser;
-	}
+    public int getPoint_earned_grapes() {
+        return point_earned_grapes;
+    }
 
-	public void setPetuser(UserDTO petuser) {
-		this.petuser = petuser;
-	}
+    public void setPoint_earned_grapes(int point_earned_grapes) {
+        this.point_earned_grapes = point_earned_grapes;
+    }
 
-	public int getUser_id() {
-		return user_id;
-	}
+    public UserDTO getPetuser() {
+        return petuser;
+    }
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+    public void setPetuser(UserDTO petuser) {
+        this.petuser = petuser;
+    }
 
-	
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 }

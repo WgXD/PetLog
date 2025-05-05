@@ -5,17 +5,19 @@
     
     <mapper namespace="com.mbc.pet.point.PointService">
     
-
+	<!-- point_earned_grapes <-default값 1이라 생략 가능 -->
 	<insert id="insert_point" parameterType="com.mbc.pet.point.PointDTO"> <!-- grape_point_seq 못 찾아서 seletKey 넣음 -->
 	  <selectKey keyProperty="point_id" resultType="int" order="BEFORE">
 	    SELECT grape_point_seq.NEXTVAL FROM dual
 	  </selectKey>
 	  INSERT INTO grape_point (
-	    point_id, user_id, point_action, point_action_id, point_earned_grapes
+	    point_id, user_id, point_action, point_action_id
 	  ) VALUES (
-	    #{point_id}, #{user_id}, #{point_action}, #{point_action_id}, #{point_earned_grapes}
+	    #{point_id}, #{user_id}, #{point_action}, #{point_action_id}
 	  )
 	</insert>
+	
+	
 
 
 

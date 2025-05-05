@@ -108,6 +108,7 @@
       <c:choose>
         <c:when test="${loginstate}">
           <li><a href="${pageContext.request.contextPath}/mypage">${name}님의 마이페이지</a></li>
+          <li style="padding-top:15px; color:#fff;">🍇 ${loginUser.grape_count}개</li> <!-- 포도알 갯수 출력 -->
           <li><a href="${pageContext.request.contextPath}/pet_out">펫 정보</a></li>
           <li><a href="${pageContext.request.contextPath}/items/buy_items">내 아이템</a></li>
           <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>

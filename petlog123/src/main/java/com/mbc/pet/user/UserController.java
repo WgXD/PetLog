@@ -113,6 +113,8 @@ public class UserController {
 	        
 	        hs.setAttribute("user_login_id", user_login_id);
 	        hs.setAttribute("user_id", user.getUser_id());
+	        
+	        hs.setAttribute("loginUser", user); //메뉴바에 포도알 갯수 출력용 -dasom-
 
 	        return "redirect:/main";
 	    } else {
