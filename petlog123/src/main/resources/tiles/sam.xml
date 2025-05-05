@@ -241,4 +241,27 @@
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizResult.jsp"/>
    </definition>
   
+  
+  <!-- QnA --> 
+   <definition name="QnAInput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/QnA/QnAInput.jsp"/>
+    </definition> 
+   
+    <definition name="QnASaveView" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/QnA/QnASaveView.jsp"/>
+   </definition>
+   
+   <definition name="QnAList" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/QnA/QnAList.jsp"/>
+   </definition>
+   
+   <definition name="QnADetail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/QnA/QnADetail.jsp"/>
+   </definition>
+   
+  
 </tiles-definitions>

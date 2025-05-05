@@ -102,6 +102,11 @@
           </c:if>
         </ul>
       </li>
+            
+      <li class="dropdown">
+        <a href="${pageContext.request.contextPath}/qnalist">❓ Q&A<span class="caret"></span></a>
+        </li>
+            
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
