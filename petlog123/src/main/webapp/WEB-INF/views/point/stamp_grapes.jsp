@@ -1,164 +1,124 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- 포도알 하나씩 찍어주는 페이지 -->
+<%
+    com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
+    if (loginUser == null) {
+        response.sendRedirect(request.getContextPath() + "/login?error=login_required");
+        return;
+    }
+
+    int grapeCount = loginUser.getGrape_count();
+    int maxGrape = 100;
+    request.setAttribute("grapeCount", grapeCount);
+    request.setAttribute("maxGrape", maxGrape);
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포도송이</title>
+    <title>포도송이 성장 게이지</title>
     <style>
-        /* 포도송이를 감싸는 부분 */
-        .grape-bunch {
-            display: flex;
-            flex-direction: column-reverse; /* 역삼각형 모양으로 배치 */
-            align-items: center;
-            gap: 15px;
-            margin: 30px auto;
+        body {
+            font-family: "Nanum Gothic", sans-serif;
+            background-image: url("${pageContext.request.contextPath}/image/vineyard_bg.png"); /* 배경이미지 있으면 여기로 */ /*지금은 없음!!!!*/
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 50px;
         }
 
-        /* 각 포도알 스타일 */
-        .grape-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        .grape-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 20px;
+            padding: 40px;
         }
 
-        .grape {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%; /* 원 모양으로 만들기 */
-            background-color: #c38ec7; /* 보라색 포도 */
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .grape-label {
+            font-size: 22px;
+            font-weight: bold;
+            color: #6c3483;
+            margin-bottom: 15px;
         }
 
-        /* 포도알에 애니메이션 추가 */
-        .grape:hover {
-            transform: scale(1.1); /* 마우스 올리면 커짐 */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 마우스 올리면 그림자 강해짐 */
+.grape-bar {
+    width: 100%;
+    background-color: #e8d8f0; /* 연한 보라색 배경 */
+    border-radius: 30px;
+    height: 30px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.grape-fill {
+    height: 100%;
+    background: linear-gradient(to right, #a678b3, #7b3fa1); /* 진한 보라 그라디언트 */
+    width: ${grapeCount * 100 / maxGrape}%;
+    transition: width 0.5s ease;
+}
+
+        .grape-count {
+            margin-top: 15px;
+            color: #6c3483;
+            font-weight: bold;
+            font-size: 16px;
         }
 
-        /* 보라색 포도 색깔 조정 */
-        .filled {
-            background-color: #9b59b6;
+        .grape-button {
+            margin-top: 40px;
+            background-color: #fcdfff;
+            color: #6e2e90;
+            font-weight: bold;
+            padding: 12px 22px;
+            border-radius: 70px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
-        /* 마우스를 올렸을 때 색상 변경 */
-        .grape:hover {
-            background-color: #9b59b6; /* 마우스 올리면 색상 변경 */
-            transform: scale(1.1); /* 마우스 올리면 커짐 */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* 그림자 강해짐 */
+        .grape-button:hover {
+            background-color: #fdeef4;
+            transform: scale(1.1);
         }
 
-        /* 포도알을 더 동글동글하게 보이게 하는 효과 */
-        .grape:before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+	.grape-bar-wrapper {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 15px;
+	    margin-bottom: 10px;
+	}
+	
+	.grape-img {
+	    height: 75px;   /* 게이지바와 같은 높이 */
+	    width: auto;    /* 비율 유지하면서 자동 조정 */
+	}       
     </style>
 </head>
 <body>
 
-<!-- 누적 포도알 몇 개인지 보여주는 부분!!! -->
+<div class="grape-container">
+    <div class="grape-label">🍇 포도 성장률</div>
 
-<form action="${pageContext.request.contextPath}/items_out" method="get">
-<!-- get:조회 // post:등록/수정 -->
-
-
-    <div class="grape-bunch">
-        <!-- 1개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
+    <div class="grape-bar-wrapper">
+        <div class="grape-bar">
+            <div class="grape-fill"></div>
         </div>
-    
-        <!-- 2개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
-            <div class="grape"></div>
-        </div>
-
-        <!-- 3개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-        </div>
-
-        <!-- 4개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-        </div>
-
-        <!-- 5개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-        </div>
-
-        <!-- 6개 포도알 -->
-        <div class="grape-row">
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-            <div class="grape"></div>
-        </div>
+        <img src="${pageContext.request.contextPath}/image/vine.png" class="grape-img" alt="vine"/>
     </div>
 
-    <!-- 포도가 열렸어요 버튼 -> item shop으로 이동 -->
-    <input type="submit" value="포도 쓰러가기 🍇" class="grape-button">
+    <div class="grape-count">${grapeCount} / ${maxGrape}개</div>
 
+    <form action="${pageContext.request.contextPath}/items_out" method="get">
+        <input type="submit" value="포도 쓰러가기 🍇" class="grape-button">
+    </form>
+</div>
 
-<br> <br> <br> <br> <br> <br>
-
-
-</form>   
 </body>
-
-<!-- 포도가 열렸어요 버튼 스타일! -->
-<style>
-    /* 버튼 스타일링 */
-    .grape-button {
-        background-color: #fcdfff; /* 보라색 */
-        color: white; /* 텍스트 색 */
-        font-size: 15px; /* 텍스트 크기 */
-        font-weight: bold; /* 텍스트 굵게 */
-        padding: 12px 22px; /* 버튼 크기 */
-        border-radius: 70px; /* 동글동글한 모서리 */
-        border: none; /* 테두리 없애기 */
-        cursor: pointer; /* 마우스 커서 변경 */
-        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* 버튼에 마우스를 올렸을 때 */
-    .grape-button:hover {
-        background-color: fdeef4; /* 밝은 보라색 */
-        transform: scale(1.1); /* 버튼이 커지는 효과 */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    }
-
-    /* 버튼 클릭 시 애니메이션 */
-    .grape-button:active {
-        transform: scale(0.95); /* 클릭할 때 조금 작아짐 */
-    }
-</style>
-
 </html>
-
