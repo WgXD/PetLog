@@ -90,22 +90,28 @@
         </ul>
       </li>
 
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">🗨️ 커뮤니티 💬<span class="caret"></span></a>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">🗨️ 커뮤니티<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="${pageContext.request.contextPath}/NoticeBoard">📢 PetLog 공지사항 📢</a></li>
-          <li><a href="${pageContext.request.contextPath}/CommunityView">📝 게시판 📝</a></li>
-          <li class="divider"></li>
-          <li><a href="${pageContext.request.contextPath}/QuizInput">퀴즈</a></li>
+          <li><a href="${pageContext.request.contextPath}/NoticeBoard">📢 PetLog 공지사항</a></li>
+          <li><a href="${pageContext.request.contextPath}/CommunityView">📝 게시판</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">🧠 멍냥 퀴즈방<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="${pageContext.request.contextPath}/QuizInput">🐾 오늘의 멍냥</a></li>
           <c:if test="${sessionScope.user_role eq 'admin'}">
-            <li><a href="QuizInsertPage">퀴즈등록</a></li>
+            <li><a href="QuizInsertPage">📝 퀴즈 등록</a></li>
           </c:if>
         </ul>
       </li>
-            
+      
       <li class="dropdown">
         <a href="${pageContext.request.contextPath}/qnalist">❓ Q&A<span class="caret"></span></a>
         </li>
+      
             
     </ul>
 
