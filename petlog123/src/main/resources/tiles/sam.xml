@@ -224,23 +224,25 @@
    </definition>
    
    <!-- 관리자 전용!!! (퀴즈 입력하기) -->
-   <definition name="QuizInsert" extends="baseLayout">
+     <definition name="QuizInsert" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizInsert.jsp"/>
    </definition>
    
-   <!--  -->
     <definition name="QuizList" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizList.jsp"/>
    </definition>
    
-   <!--  -->
     <definition name="QuizResult" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizResult.jsp"/>
    </definition>
-  
+   
+   <definition name="quiz_done" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/quiz_done.jsp"/>
+   </definition>
   
   <!-- QnA --> 
    <definition name="QnAInput" extends="baseLayout">
