@@ -22,7 +22,7 @@
     <style>
         body {
             font-family: "Nanum Gothic", sans-serif;
-            background-image: url("${pageContext.request.contextPath}/image/vineyard_bg.png"); /* 배경이미지 있으면 여기로 */ /*지금은 없음!!!!*/
+            background-image: url("${pageContext.request.contextPath}/image/vineyard_bg.png");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -34,33 +34,70 @@
             width: 80%;
             margin: 0 auto;
             text-align: center;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
             padding: 40px;
         }
 
-        .grape-label {
-            font-size: 22px;
-            font-weight: bold;
-            color: #6c3483;
+        .grape-label-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
-.grape-bar {
-    width: 100%;
-    background-color: #e8d8f0; /* 연한 보라색 배경 */
-    border-radius: 30px;
-    height: 30px;
-    overflow: hidden;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
+        .grape-label-img {
+            height: 50px;
+        }
 
-.grape-fill {
-    height: 100%;
-    background: linear-gradient(to right, #a678b3, #7b3fa1); /* 진한 보라 그라디언트 */
-    width: ${grapeCount * 100 / maxGrape}%;
-    transition: width 0.5s ease;
-}
+        .grape-label-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6c3483;
+        }
+
+        .grape-bar-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .grape-bar-position {
+            position: relative;
+            width: 100%;
+        }
+
+        .grape-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #e8d8f0;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .grape-fill {
+            height: 100%;
+            background: linear-gradient(to right, #a678b3, #7b3fa1);
+            width: ${grapeCount * 100 / maxGrape}%;
+            transition: width 0.5s ease;
+        }
+
+        .grape-indicator {
+            position: absolute;
+            top: -35px;
+            font-size: 24px;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+        }
+
+        .grape-img {
+            height: 75px;
+            width: auto;
+        }
 
         .grape-count {
             margin-top: 15px;
@@ -86,29 +123,22 @@
             background-color: #fdeef4;
             transform: scale(1.1);
         }
-
-	.grape-bar-wrapper {
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    gap: 15px;
-	    margin-bottom: 10px;
-	}
-	
-	.grape-img {
-	    height: 75px;   /* 게이지바와 같은 높이 */
-	    width: auto;    /* 비율 유지하면서 자동 조정 */
-	}       
     </style>
 </head>
 <body>
 
 <div class="grape-container">
-    <div class="grape-label">🍇 포도 성장률</div>
+    <div class="grape-label-flex">
+        <img src="${pageContext.request.contextPath}/image/grape_icon.png" alt="포도" class="grape-label-img">
+        <span class="grape-label-text">포도 성장률</span>
+    </div>
 
     <div class="grape-bar-wrapper">
-        <div class="grape-bar">
-            <div class="grape-fill"></div>
+        <div class="grape-bar-position">
+            <div class="grape-indicator" style="left: ${grapeCount * 100 / maxGrape}%;">🍇</div>
+            <div class="grape-bar">
+                <div class="grape-fill"></div>
+            </div>
         </div>
         <img src="${pageContext.request.contextPath}/image/vine.png" class="grape-img" alt="vine"/>
     </div>
