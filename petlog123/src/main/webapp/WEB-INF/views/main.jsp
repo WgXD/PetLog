@@ -14,9 +14,18 @@
 
     <div class="box calendar">📅<br>캘린더</div>
     <div class="box grapes">🍇<br>포도알</div>
-    <div class="box mini shop">🛍️<br>아이템샵</div>
-    <div class="box mini quiz">❓<br>퀴즈</div>
-    <div class="box mini snack">❤️<br>간식레시피</div>
+    
+    <a href="${pageContext.request.contextPath}/items_out" class="box mini shop">
+  		🛍️<br>아이템샵
+	</a>
+	
+    <a href="${pageContext.request.contextPath}/QuizInput" class="box mini quiz">
+    	❓<br>퀴즈
+    </a>
+    
+	<a href="${pageContext.request.contextPath}/snack_out" class="box mini snack">
+	  🍖<br>간식레시피
+	</a>
 
     <div class="box post full">🔥 인기 게시물</div>
     <div class="box notice full">📢 공지사항</div>
@@ -25,4 +34,5 @@
 </div>
 
 </body>
+<br><br><br><br><br><br><br><br><br><br>
 </html>
