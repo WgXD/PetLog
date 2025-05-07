@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.mbc.pet.community.PageDTO;
+
 import java.util.Objects;
 
 @Controller
@@ -68,7 +72,7 @@ public class QnAController {
 	
 	//qna 목록 출력
 	@RequestMapping(value = "/qnalist")
-	public String qna0(HttpSession session, Model mo) {
+	public String qna0(HttpSession session, PageDTO dto,Model mo, @RequestParam(defaultValue = "1") int page) {
 		
     	// 로그인 체크
         Integer user_id = (Integer) session.getAttribute("user_id");
@@ -77,17 +81,24 @@ public class QnAController {
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
+        //페이징 처리 1
+        int page_size = 10; //한 페이지에 출력할 게시물 갯수
+        int start = (page-1) * page_size; //현재 페이지에서 시작하는 데이터의 위치를 계산하는 공식
+        int end = start + page_size;
+        //페이징 1 end
         
-		//Integer user_id = (Integer) session.getAttribute("user_id");
-	    //String user_login_id = (String) session.getAttribute("user_login_id");
-
-	    if (user_id == null || user_login_id == null) {
-	    return "redirect:/login";
-	    }
-	    
 	    QnAService qs = sqlSession.getMapper(QnAService.class);
-	    List<QnADTO> list = qs.allqnalist();
+
+	    //페이징 처리 2
+        int total_count = qs.totalByType(); //전체 갯수 //ceil 숫자 올림
+        int page_count = (int) Math.ceil((double)total_count / page_size);
+        //페이징 2 end
+        
+	    List<QnADTO> list = qs.allqnalist(start, end);  //페이징 쿼리 호출
 	    mo.addAttribute("list", list);
+	    mo.addAttribute("page", page);
+		mo.addAttribute("page_count", page_count);
+		mo.addAttribute("page_size", page_size);
 		return "QnAList";
 	}
 	

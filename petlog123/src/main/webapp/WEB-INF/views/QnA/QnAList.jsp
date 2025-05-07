@@ -92,5 +92,13 @@
     alert("${requestScope.alertMsg}");
   </script>
 </c:if>
+
+
+<!-- 페이징 -->
+<div class="pagination">
+  <c:forEach var="i" begin="1" end="${page_count}">
+    <a href="QnAList?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
+  </c:forEach>
+</div>
 </body>
 </html>

@@ -9,11 +9,22 @@
 	values(qna_seq.nextval, #{user_id},#{qna_title},#{qna_content})
 </insert>
 
-<!-- QnA 목록(누구나 조회 가능) -->
+
+<!-- QnA 목록(누구나 조회 가능) +페이징 -->
 <select id="allqnalist" resultType="com.mbc.pet.qna.QnADTO">
-	select q.qna_id, q.qna_title, q.qna_date, q.qna_status, qna_answer, u.user_login_id
-	from qna q join user1 u on q.user_id = u.user_id
-	order by q.qna_id desc
+	SELECT * FROM (
+		       SELECT a.*, ROW_NUMBER() OVER (ORDER BY qna_id DESC) AS rnum
+		       FROM (
+		           SELECT  qna_id, user_id, qna_title, qna_content, qna_status, qna_date, qna_answer
+		           FROM qna
+		       ) a
+		   )
+    WHERE rnum BETWEEN #{start} + 1 AND #{end}
+</select>
+
+<!-- 페이징 처리2 -->
+<select id="totalByType" parameterType="String" resultType="int">
+  select count(*) FROM qna
 </select>
 
 <!-- 자세히보기 -->
