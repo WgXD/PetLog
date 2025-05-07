@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title><t:insertAttribute name="title"/></title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <style type="text/css">
 
 header

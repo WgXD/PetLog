@@ -1,14 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<footer>
-petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog petlog 
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<footer style="text-align: center; padding: 20px; background-color: #f8f8f8;">
+<div class="footer">
+    <p>&copy; 2025 PetLog. All rights reserved.</p>
+</div>
 </footer>
-</body>
-</html>

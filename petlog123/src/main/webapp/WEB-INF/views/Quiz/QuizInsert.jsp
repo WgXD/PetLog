@@ -42,37 +42,37 @@
     </div>
     
     <div class="form-group">
-      <label for="quiz_option1">보기 1</label>
+      <label for="quiz_option1">1번</label>
       <input type="text" class="form-control" name="quiz_option1" id="quiz_option1" required>
     </div>
 
     <div class="form-group">
-      <label for="quiz_option2">보기 2</label>
+      <label for="quiz_option2">2번</label>
       <input type="text" class="form-control" name="quiz_option2" id="quiz_option2" required>
     </div>
 
     <div class="form-group">
-      <label for="quiz_option3">보기 3</label>
+      <label for="quiz_option3">3번</label>
       <input type="text" class="form-control" name="quiz_option3" id="quiz_option3" required>
     </div>
 
     <div class="form-group">
-      <label for="quiz_option4">보기 4</label>
+      <label for="quiz_option4">4번</label>
       <input type="text" class="form-control" name="quiz_option4" id="quiz_option4" required>
     </div>
     
     <div class="form-group">
-      <label for="quiz_answer">정답 번호(1~4)</label>
+      <label for="quiz_answer">정답 등록</label>
       <select class="form-control" name="quiz_answer" id="quiz_answer" required>
       	<option value="">==선택==</option>
-      	<option value="1">1번 보기</option>
-      	<option value="2">2번 보기</option>
-      	<option value="3">3번 보기</option>
-      	<option value="4">4번 보기</option>
+      	<option value="1">1번</option>
+      	<option value="2">2번</option>
+      	<option value="3">3번</option>
+      	<option value="4">4번</option>
       </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">등록하기</button>
+    <button type="submit" class="btn btn-primary">문제등록</button>
   </form>
 <!-- Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
