@@ -11,12 +11,12 @@ public class DiaryDTO {
 	String diary_image;
 	String diary_content;
 	
-	int get_grape; //¾´ ±Û·Î Æ÷µµ¾ËÀÌ Àû¸³µÇ¾ú´ÂÁö ¿©ºÎ ÆÇ´Ü
+	int get_grape; // ê¸€ ì‘ì„± ì‹œ í¬ë„ì•Œì´ ì ë¦½ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
 	
 	UserDTO petdto;
 	PetDTO petuserdto;
 	
-	int user_id; //¿Ü·¡Å°
+	int user_id;
 	int pet_id;
 	
 	

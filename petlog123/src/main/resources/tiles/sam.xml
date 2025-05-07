@@ -211,13 +211,11 @@
       <put-attribute name="body" value="/WEB-INF/views/Board/BoardInput.jsp"/>
    </definition>
   
-  <!--  -->
   <definition name="BoardView" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Board/BoardView.jsp"/>
    </definition>
    
-   <!--  -->
      <definition name="BoardDetail" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Board/BoardDetail.jsp"/>
@@ -238,7 +236,7 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizResult.jsp"/>
    </definition>
-   
+
    <definition name="quiz_done" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/quiz_done.jsp"/>
@@ -264,6 +262,12 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/QnA/QnADetail.jsp"/>
    </definition>
+   
+   <!-- 달력 보기 -->
+   <definition name="calendar_view" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_view.jsp"/>
+    </definition>    
    
   
 </tiles-definitions>
