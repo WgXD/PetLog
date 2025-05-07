@@ -33,7 +33,13 @@
 		)
 	</insert>
 
-
+	<!-- 메인페이지에 오늘 일정 미리보기 -->
+	<select id="today_sche" resultType="com.mbc.pet.calendar.CalDTO">
+		SELECT cal_id, cal_title, cal_content, pet_id, user_id, TO_CHAR(cal_date, 'YYYY-MM-DD') AS cal_date
+		FROM calendar
+		WHERE user_id = #{user_id}
+		AND TO_CHAR(cal_date, 'YYYY-MM-DD') = #{today}
+	</select>
 
 
 

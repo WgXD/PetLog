@@ -10,6 +10,8 @@ public interface CalService {
 	 //로그인한 유저의 특정 년도와 월에 있는 일정 데이터 불러오기용
 
 	void cal_save(CalDTO cdto); //달력에 직접 추가한 일정 저장용
+
+	ArrayList<CalDTO> today_sche(@Param("user_id") int user_id, @Param("today") String today); //메인 페이지에서 오늘 일정 미리보기
 	
 	
 

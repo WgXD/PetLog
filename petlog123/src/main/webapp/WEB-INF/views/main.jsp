@@ -12,7 +12,22 @@
 <div class="main-wrapper">
   <div class="grid-container">
 
-    <div class="box calendar">📅<br>캘린더</div>
+		<div class="box calendar">
+		  📅<br>캘린더
+		  <div style="margin-top: 10px; font-size: 14px;">
+		    <c:choose>
+		      <c:when test="${not empty todaySchedule}">
+		        <c:forEach items="${todaySchedule}" var="sch">
+		          <div>📌 ${sch.cal_title}</div>
+		        </c:forEach>
+		      </c:when>
+		      <c:otherwise>
+		        <div>오늘은 일정이 없어요!</div>
+		      </c:otherwise>
+		    </c:choose>
+		  </div>
+		</div>
+		
     <div class="box grapes">🍇<br>포도알</div>
     
     <a href="${pageContext.request.contextPath}/items_out" class="box mini shop">
