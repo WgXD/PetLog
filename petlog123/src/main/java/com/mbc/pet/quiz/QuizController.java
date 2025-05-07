@@ -104,6 +104,11 @@ public class QuizController {
         mo.addAttribute("isCorrect", isCorrect);
         mo.addAttribute("top10", top10);
         mo.addAttribute("redto", redto);
+        
+        //퀴즈 오답시 정답 알려주기 dasom
+        mo.addAttribute("quiz", dbQuiz);
+        //
+
         return "QuizResult";
     }
     
