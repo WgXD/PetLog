@@ -264,5 +264,10 @@
       <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_view.jsp"/>
     </definition>    
    
+   <!-- 달력에 직접 일정 추가 -->
+   <definition name="calendar_input" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_input.jsp"/>
+    </definition> 
   
 </tiles-definitions>
