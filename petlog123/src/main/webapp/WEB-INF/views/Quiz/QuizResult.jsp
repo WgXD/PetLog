@@ -96,6 +96,21 @@
   </c:when>
   <c:otherwise>
     <p class="result-text">😮 오답입니다. 다음에 다시 도전!</p>
+    
+    <!-- 오답일 때 정답 알려주기 dasom -->
+      <p class="info">정답은 
+    <strong>
+      ${quiz.quiz_answer}번 - 
+      <c:choose>
+        <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
+        <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
+        <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
+        <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
+      </c:choose>
+    </strong>
+  입니다.</p>
+    <!--  -->
+  
   </c:otherwise>
 </c:choose>
 
@@ -117,6 +132,78 @@
 </table>
 
 <a href="./QuizInput" class="btn-next">다음 문제 풀기 ➡</a>
+
+
+<!-- 오답일 때 modal 띄워서 정답 알려주기 dasom -->
+<div id="answerModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>
+      😢 오답입니다.<br>
+      정답은 <strong>${quiz.quiz_answer}번 - 
+      <c:choose>
+        <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
+        <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
+        <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
+        <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
+      </c:choose></strong> 입니다.
+    </p>
+  </div>
+</div>
+
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 120px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 30px 40px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 450px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 1.4rem;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #333;
+}
+</style>
+
+<script>
+window.onload = function() {
+  const isCorrect = "${isCorrect}";
+  if (isCorrect === "false") {
+    document.getElementById("answerModal").style.display = "block";
+  }
+
+  document.querySelector(".close").onclick = function() {
+    document.getElementById("answerModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById("answerModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+</script>
+<!--  -->
 
 </body>
 </html>
