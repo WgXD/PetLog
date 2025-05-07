@@ -157,7 +157,6 @@
 	<input type="submit" value="검색">
 </form>
 <!-- 페이징 숫자 출력 1 2 3... -->
-<br><br>
 <div class="pagination">
   <c:forEach var="i" begin="1" end="${page_count}">
     <a href="CommunityView?page=${i}" 

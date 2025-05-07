@@ -1,9 +1,8 @@
 package com.mbc.pet.quiz;
 
 public class QuizResultDTO {
-int result_id, result_score;
-String result_rank;
-int result_time, user_id, quiz_id, get_grape;
+int result_id, result_score, result_rank, result_time, user_id, quiz_id, get_grape;
+String user_login_id;
 
 public QuizResultDTO() {  }
 
@@ -19,10 +18,10 @@ public int getResult_score() {
 public void setResult_score(int result_score) {
 	this.result_score = result_score;
 }
-public String getResult_rank() {
+public int getResult_rank() {
 	return result_rank;
 }
-public void setResult_rank(String result_rank) {
+public void setResult_rank(int result_rank) {
 	this.result_rank = result_rank;
 }
 public int getResult_time() {
@@ -48,5 +47,11 @@ public int getGet_grape() {
 }
 public void setGet_grape(int get_grape) {
 	this.get_grape = get_grape;
+}
+public String getUser_login_id() {
+	return user_login_id;
+}
+public void setUser_login_id(String user_login_id) {
+	this.user_login_id = user_login_id;
 }
 }

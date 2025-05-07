@@ -5,17 +5,14 @@
 <mapper namespace="com.mbc.pet.quiz.QuizService">
 <!-- 퀴즈 등록 -->
 <insert id="insertQuiz">
-	insert into quiz values(quiznum_seq.nextval, #{quiz_question}, #{quiz_option1}, #{quiz_option2}, #{quiz_option3}, #{quiz_option4}, #{quiz_answer})
+	insert into quiz values(quiznum_seq.nextval, #{quiz_question}, #{quiz_option1}, #{quiz_option2}, 
+	#{quiz_option3}, #{quiz_option4}, #{quiz_answer})
 </insert>
 
 <!-- 랜덤 퀴즈 가져오기 -->
 <select id="getRandomQuiz" resultType="com.mbc.pet.quiz.QuizDTO">
-	    SELECT *
-  FROM (
-    SELECT quiz_id, quiz_question FROM quiz
-    ORDER BY DBMS_RANDOM.VALUE
-  )
-  WHERE ROWNUM &lt;= 5
+	select * from (select quiz_id, quiz_question, quiz_option1, quiz_option2, quiz_option3, quiz_option4, quiz_answer 
+    from quiz order by dbms_random.value) where rownum = 1
 </select>
 
 <!-- 퀴즈 아이디로 퀴즈 가져오기 -->
@@ -31,4 +28,36 @@
     values (quiz_result_seq.NEXTVAL, #{result_score}, #{result_rank}, #{result_time},
     #{user_id}, #{quiz_id}, #{get_grape})
 </insert>
+
+<!-- 퀴즈 푸는 시간으로 순위 정하기 -->
+<select id="time_rank" resultType="int">
+	select result_rank from
+	  (select user_id, rank() over(order by result_time asc) 
+	  as result_rank
+	  from quiz_result where quiz_id=#{quiz_id})
+	where user_id = #{user_id}
+</select>
+
+<!-- 퀴즈 전체 순위 중 top10 봅기 -->
+<select id="top10rank" resultType="com.mbc.pet.quiz.QuizResultDTO">
+	select * from(select qr.user_id, u.user_login_id, qr.quiz_id, qr.result_time,
+      qr.result_score, qr.get_grape, 
+      rank() over(order by qr.result_time asc) as result_rank
+	  from quiz_result qr join user1 u
+	  on qr.user_id = u.user_id where qr.quiz_id=#{quiz_id})
+	where rownum &lt;=10
+	<!-- "<" 기호는 "&lt;"와 동일  -->
+</select>
+
+<!-- 아직 풀지 않은 문제 랜덤 출력 -->
+<select id="UnsolvedQuiz" resultType="com.mbc.pet.quiz.QuizDTO">
+	select * from (select * from quiz where quiz_id not in(select quiz_id from quiz_result where user_id = #{user_id})
+	order by dbms_random.value) where rownum = 1
+</select>
+
+<!-- 이미 푼 문제인지 확인 -->
+<select id="checkAlreadySolved" resultType="boolean">
+	select case when count(*) > 0 then 1 else 0 end
+	from quiz_result where user_id = #{user_id} and quiz_id = #{quiz_id}
+</select>
 </mapper>
