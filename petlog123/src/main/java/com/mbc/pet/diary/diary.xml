@@ -113,5 +113,12 @@
     	select diary_seq.nextval from dual
     </select>
     
+   	<select id="diary_by_months" resultType="com.mbc.pet.diary.DiaryDTO"> <!-- 달력에 작성한 다이어리 출력하기 용 -->
+	 SELECT diary_id, user_id, TO_CHAR(diary_date, 'YYYY-MM-DD') AS diary_date, diary_title from diary
+	 where user_id = #{user_id}
+	 and to_char(diary_date, 'YYYY') = #{current_year}
+	 and to_char(diary_date, 'MM') = LPAD(#{current_month},2,'0') 
+	</select>
+    
 
     </mapper>

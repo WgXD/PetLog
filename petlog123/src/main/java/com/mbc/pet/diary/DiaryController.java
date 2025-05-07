@@ -158,7 +158,7 @@ public class DiaryController {
 	}
 	
 	@RequestMapping(value = "/diary_detail") // 다이어리 상세 보기
-	public String diary3(Model mo, HttpServletRequest request, HttpSession session) {
+	public String diary3(@RequestParam("diary_id") int diary_id, Model mo, HttpServletRequest request, HttpSession session) {
 
     	// 로그인 체크
         Integer user_id = (Integer) session.getAttribute("user_id");
@@ -168,9 +168,10 @@ public class DiaryController {
             return "redirect:/login?error=login_required";
         }
 
-	    int unum = Integer.parseInt(request.getParameter("unum"));
+	    //int unum = Integer.parseInt(request.getParameter("unum"));
 	    DiaryService ds = sqlSession.getMapper(DiaryService.class);
-	    DiaryDTO dto = ds.diary_detail(unum);
+	    //DiaryDTO dto = ds.diary_detail(unum);
+	    DiaryDTO dto = ds.diary_detail(diary_id); //달력에 일기 출력한 거 누르면 -> 자세히 보기로 이동
 	    mo.addAttribute("dto", dto);
 
 	    return "diary_detail";

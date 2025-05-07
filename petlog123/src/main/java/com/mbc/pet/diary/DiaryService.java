@@ -3,6 +3,7 @@ package com.mbc.pet.diary;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.method.P;
 
 public interface DiaryService {
 
@@ -11,7 +12,7 @@ public interface DiaryService {
 
 	ArrayList<DiaryDTO> diary_out();
 
-	DiaryDTO diary_detail(int unum); 
+	DiaryDTO diary_detail(int diary_id); 
 
 	DiaryDTO diary_update(int update); 
 
@@ -32,6 +33,8 @@ public interface DiaryService {
 
 	int get_id(); // Oracle 시퀀스로부터 diary_id 가져오기
 
+	ArrayList<DiaryDTO> diary_by_months(@Param("user_id") Integer user_id, @Param("current_year") int current_year, @Param("current_month") int current_month,@Param("pet_id") int pet_id);
+	//로그인한 유저가 작성한 다이어리 달력에 출력하기 용
 	
 
 	

@@ -129,7 +129,7 @@
 
 <tr>
 <td> ${di.diary_id} </td>
-<td><a href="diary_detail?unum=${di.diary_id}">${di.diary_title}</a> </td>
+<td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a> </td>
 <!-- 위에꺼 공백 있으면 오류남 -->
 <td> ${di.diary_date} </td>
 <td><img src="./image/${di.diary_image}" width="70px"></td>
