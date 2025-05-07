@@ -13,13 +13,15 @@
 <!-- QnA 목록(누구나 조회 가능) +페이징 -->
 <select id="allqnalist" resultType="com.mbc.pet.qna.QnADTO">
 	SELECT * FROM (
-		       SELECT a.*, ROW_NUMBER() OVER (ORDER BY qna_id DESC) AS rnum
-		       FROM (
-		           SELECT  qna_id, user_id, qna_title, qna_content, qna_status, qna_date, qna_answer
-		           FROM qna
-		       ) a
-		   )
-    WHERE rnum BETWEEN #{start} + 1 AND #{end}
+	       SELECT a.*, ROW_NUMBER() OVER (ORDER BY qna_id DESC) AS rnum
+	       FROM (
+	           SELECT  q.qna_id, q.qna_title, q.qna_date, q.qna_status, 
+	                   q.user_id, u.user_login_id
+	           FROM qna q
+	           JOIN user1 u ON q.user_id = u.user_id
+	       ) a
+	   )
+	WHERE rnum BETWEEN #{start} + 1 AND #{end}
 </select>
 
 <!-- 페이징 처리2 -->
