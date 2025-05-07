@@ -111,8 +111,8 @@
 	<td>${dto.diary_date.substring(0, 10)}</td>
 	<td><img src="./image/${dto.diary_image}" width="70px"/></td>
 	<td>${dto.diary_content}</td>
-	<td><a href="diary_update?update=${dto.diary_id }&dfimage=${dto.diary_image}">✏️</a></td>
-	<td><a href="diary_delete?delete=${dto.diary_id }&dfimage=${dto.diary_image}">🗑️</a></td>
+	<td><a href="diary_update?update=${dto.diary_id}&dfimage=${dto.diary_image}">✏️</a></td>
+	<td><a href="diary_delete?delete=${dto.diary_id}&dfimage=${dto.diary_image}">🗑️</a></td>
 	</tr>
 	
 </table>

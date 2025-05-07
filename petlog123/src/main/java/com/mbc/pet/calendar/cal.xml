@@ -5,6 +5,12 @@
     
 <mapper namespace="com.mbc.pet.calendar.CalService">
 
+	<select id="by_months" resultType="com.mbc.pet.calendar.CalDTO">
+	 select cal_id, cal_title, cal_content, pet_id, user_id, to_char(cal_date,'yyyy-MM-dd')cal_date from calendar
+	 where user_id = #{user_id}
+	 and to_char(cal_date, 'YYYY') = #{current_year}
+	 and to_char(cal_date, 'MM') = LPAD(#{current_month},2,'0') 
+	</select>
 
 
 
