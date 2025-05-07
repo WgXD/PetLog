@@ -1,5 +1,7 @@
 package com.mbc.pet.user;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface UserService {
 
 	int idcheck(String user_login_id);
@@ -12,7 +14,17 @@ public interface UserService {
 
 	void updateProfile(UserDTO dto);
 
-	UserDTO selectUserByLoginId(String id);
+	String findIdByEmailName(@Param("email")String email, @Param("name") String name, @Param("phone") String phone);
 
-	void plusGrapeCount(int user_id);  // 일기 작성 완료시 포도알 +1
+	UserDTO selectUserByLoginId(String id);
+	
+	void updatePassword(@Param("user_login_id")String user_login_id, @Param("password") String encTempPw);
+
+	UserDTO UserByLoginIdAndEmail(@Param("user_login_id")String user_login_id,@Param("email") String email);
+
+	UserDTO userPwChange(@Param("user_login_id") String user_login_id);
+
+	void updatePw(@Param("user_login_id") String user_login_id, @Param("password") String encPw);
+
+	void plusGrapeCount(Integer user_id);
 }

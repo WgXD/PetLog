@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
@@ -107,13 +107,12 @@ h3 {
     box-sizing: border-box;
 }
 </style>
-</head>
 
+</head>
 <body>
 <div class="container">
     <h1>마이페이지</h1>
-
-    <div class="profile-frame-container">
+        <div class="profile-frame-container">
         <c:choose>
             <c:when test="${empty equippedFrame}">
                 <img src="${pageContext.request.contextPath}/image/${dto.profileimg != null ? dto.profileimg : 'default.png'}"
@@ -130,9 +129,10 @@ h3 {
                  class="frame-img" alt="프레임">
         </c:if>
     </div>
-
+ 
     <h3>${dto.name}님의 회원정보</h3>
 
+    <!-- 회원 정보 -->
     <div class="info">
         <p><strong>아이디:</strong> ${dto.user_login_id}</p>
         <p><strong>이름:</strong> ${dto.name}</p>
@@ -141,9 +141,11 @@ h3 {
         <p><strong>퀴즈 등급:</strong> ${dto.rank}</p>
     </div>
 
+    <!-- 버튼 그룹 -->
     <div class="btn-group">
+    	<a href="pwcheckPage">비밀번호 변경</a>
         <a href="UserEditProfile">회원정보 수정</a>
-        <a href="pet_out">펫 정보</a>
+        <a href="petProfile">펫 정보</a>
     </div>
 </div>
 </body>

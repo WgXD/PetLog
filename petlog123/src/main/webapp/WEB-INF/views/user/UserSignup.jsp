@@ -141,7 +141,7 @@ input[type="password"]:focus {
       <input type="text" id="phone" name="phone" placeholder="숫자만 입력하세요." oninput="formatPhoneNumber(this)" maxlength="13" required>
       <!-- 전화번호 입력시 실시간 하이픈(-) 자동 생성 -->
     </div>
-    <!-- 이메일 입력(((주소->이메일로 수정함)) -->
+    <!-- 이메일 입력 -->
     <div class="form-group">
       <label for="email">이메일</label>
       <input type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
@@ -172,7 +172,7 @@ $(document).ready(function(){
     }
     $.ajax({
       type: "post",
-      url: "idcheck",
+      url: "${pageContext.request.contextPath}/idcheck",
       data: { user_login_id: id },
       success: function(data){
         if(data === "ok"){
@@ -198,13 +198,13 @@ function checkPasswordMatch() {
     msg.textContent = "";
   }
 }
-<!-- 최종 form 제출할 때 비밀번호 재검사 -->
+
 function validateForm() {
   const pw = document.getElementById("password").value;
   const cpw = document.getElementById("confirm_password").value;
 
   if (pw !== cpw) {
-    alert("비밀번호가 일치하지 않습니다!");
+    alert("비밀번호가 일치하지 않습니다.");
     return false;
   }
   return true;

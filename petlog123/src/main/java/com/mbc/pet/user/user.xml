@@ -22,7 +22,7 @@
 </select>
 
 <select id="selectUserByLoginId" resultType="com.mbc.pet.user.UserDTO">
-	select user_id, user_login_id, name, phone, email, profileimg, rank, grape_count
+	select user_id, user_login_id, name, phone, email, profileimg, rank, user_role, grape_count
 	from user1 where user_login_id=#{user_login_id}
 </select>
 
@@ -43,12 +43,40 @@
     where user_login_id = #{user_login_id, jdbcType=VARCHAR}
 </update>
 
+<!-- 아이디 찾기 -->
+<select id="findIdByEmailName" resultType="String">
+	select user_login_id from user1 
+	where email=#{email} and name=#{name} and phone=#{phone}
+</select>
+
+<!-- 비밀번호 찾기 -->
+<select id="UserByLoginIdAndEmail" resultType="com.mbc.pet.user.UserDTO">
+	select * from user1
+	where user_login_id=#{user_login_id, jdbcType=VARCHAR} 
+	and email=#{email, jdbcType=VARCHAR}
+</select>
+
+<!-- 비밀번호 업데이트 -->
+<update id="updatePassword">
+	update user1 set password=#{password, jdbcType=VARCHAR} 
+	where user_login_id=#{user_login_id, jdbcType=VARCHAR}
+</update>
+
+<!-- 비밀번호 수정 -->
+<select id="userPwChange" resultType="com.mbc.pet.user.UserDTO">
+	select password from user1
+	where user_login_id=#{user_login_id}
+</select>
+
+<update id="updatePw">
+	update user1 set password = #{password}	where user_login_id=#{user_login_id}
+</update>
+
 <!-- 포도알 적립용!!! dasom -->
 <update id="plusGrapeCount" parameterType="int">
   UPDATE user1
   SET grape_count = grape_count + 1
   WHERE user_id = #{user_id}
 </update>
-
 
 </mapper>

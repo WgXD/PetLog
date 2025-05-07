@@ -40,6 +40,26 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/user/UserEditProfile.jsp"/>
    </definition>
+   
+   <definition name="FindID" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/FindID.jsp"/>
+   </definition>
+
+   <definition name="FindPW" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/FindPW.jsp"/>
+   </definition>
+
+   <definition name="mypagePwChange" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/mypagePwChange.jsp"/>
+   </definition>
+
+   <definition name="pwcheckPage" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/user/pwcheckPage.jsp"/>
+   </definition>
 
 <!-- user 부분 end -->
 

@@ -73,7 +73,7 @@
         
         <label for="name">이름</label>
         <input type="text" name="name" value="${dto.name}">
-        
+       
         <label for="phone">전화번호</label>
         <input type="text" name="phone" value="${dto.phone}">
         
@@ -85,7 +85,7 @@
         
         <div>
             <button type="submit">저장</button>
-            <input type="button" value="취소" onclick="history.back()">
+            <input type="button" value="취소"  onclick="location.href='./mypage'">
         </div>
     </form>
 </div>
