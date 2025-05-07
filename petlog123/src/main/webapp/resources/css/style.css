@@ -1,1 +1,303 @@
 @charset "UTF-8";
+
+/*========== 기본 네비 스타일 ==========*/
+.navbar {
+  background-color: #fff8cc; /* 파스텔 옐로우 */
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  margin-bottom: 0;
+  font-family: '맑은 고딕', sans-serif;
+}
+
+/*========== 네비 내부 정렬 ==========*/
+.navbar .navbar-nav > li > a {
+  color: #333 !important;
+  font-weight: 500;
+  padding: 12px 16px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/*========== hover 시 배경 ==========*/
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-nav > li > a:focus {
+  background-color: #fff2a8 !important;
+  border-radius: 10px;
+}
+
+/*========== 드롭다운 메뉴 ==========*/
+.navbar .dropdown-menu {
+  background-color: #fffef5;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.navbar .dropdown-menu > li > a {
+  color: #444;
+  padding: 10px 20px;
+}
+
+.navbar .dropdown-menu > li > a:hover {
+  background-color: #f4f4f4;
+  color: #222;
+  border-radius: 6px;
+}
+
+/*========== 우측 로그인 영역 ==========*/
+.navbar-right > li > a {
+  color: #666 !important;
+}
+
+/*========== 로고 이미지 정렬 ==========*/
+.logo-img {
+  vertical-align: middle;
+  margin-top: -8px;
+}
+
+/*========== 포도알 갯수 표시 ==========*/
+.navbar-right li {
+  padding-top: 5px;
+  font-weight: bold;
+  color: #5d5d5d;
+}
+
+/*========== 전체 배경 ==========*/
+body {
+    margin: 0;
+    font-family: '맑은 고딕', sans-serif;
+    background-color: #eafff5; /* 💚 더 뚜렷한 민트 배경 */
+}
+
+/*========== 메인 영역 ==========*/
+.main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/*========== 그리드 구성 ==========*/
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "calendar grapes shop"
+    "calendar grapes quiz"
+    "calendar grapes snack"
+    "post post post"
+    "notice notice notice";
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 20px;
+}
+
+/*========== 공통 박스 스타일 ==========*/
+.box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05); /* 연한 테두리 */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.02); /* 부드러운 그림자 */
+    text-align: center;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+/*========== hover 효과 ==========*/
+.box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/*========== 개별 색상 ==========*/
+.calendar {
+    grid-area: calendar;
+    height: 250px;
+}
+.grapes {
+    grid-area: grapes;
+    height: 250px;
+}
+.shop {
+    grid-area: shop;
+    background-color: #fff3b0; /* 옐로우 */
+}
+.quiz {
+    grid-area: quiz;
+    background-color: #e3fce1; /* 연민트 */
+}
+.snack {
+    grid-area: snack;
+    background-color: #ffc9de; /* 핑크 */
+}
+.post {
+    grid-area: post;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    min-height: 200px;
+    padding: 25px;
+}
+.notice {
+    grid-area: notice;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    min-height: 200px;
+    padding: 25px;
+}
+
+/*========== 우측 작은 박스 스타일 ==========*/
+.box.mini {
+    padding: 15px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/*========== 전체 너비 박스 ==========*/
+.box.full {
+    grid-column: span 3;
+}
+
+/* ========== 버튼 ========== */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-mint {
+  background-color: #b8e7dc;
+  color: #222;
+}
+
+.btn-yellow {
+  background-color: #fff3b0;
+  color: #222;
+}
+
+.btn-pink {
+  background-color: #ffc9de;
+  color: #222;
+}
+
+/*========== 공통 버튼 ==========*/
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-pink {
+  background-color: #ffc9de;
+  color: #333;
+}
+
+.btn-mint {
+  background-color: #b8e7dc;
+  color: #333;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/*========== 테이블 스타일 ==========*/
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  color: #555;
+}
+
+.table td.left {
+  text-align: left;
+}
+
+.table td a {
+  text-decoration: none;
+  color: #333;
+}
+
+.table td a:hover {
+  text-decoration: underline;
+  color: #db7093;
+}
+
+.meta {
+  margin-left: 8px;
+  font-size: 0.9em;
+}
+
+/*========== 검색 영역 ==========*/
+.search-bar {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.input-box {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/*========== 페이징 ==========*/
+.pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.pagination a {
+  margin: 0 6px;
+  text-decoration: none;
+  color: #666;
+}
+
+.pagination a.current {
+  font-weight: bold;
+  color: #db7093;
+  text-decoration: underline;
+}
+
+/*========== 영역 타이틀 ==========*/
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+/*========== 섹션 래퍼 ==========*/
+.section-box {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.03);
+  margin-bottom: 30px;
+}
+
+/*========== 정렬 ==========*/
+.right {
+  text-align: right;
+}

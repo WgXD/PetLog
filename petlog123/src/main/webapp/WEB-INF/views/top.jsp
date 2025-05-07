@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<%
-    System.out.println("현재 user_role: " + session.getAttribute("user_role"));
-%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,11 +36,10 @@
   <h2>🐶 PetLog 함께하는 반려생활 🐾</h2>
 </header>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="${pageContext.request.contextPath}/main">
-        <img src="${pageContext.request.contextPath}/image/logo.png" alt="Petlog" class="logo-img" width="60px">
       </a>
     </div>
 
@@ -72,13 +66,6 @@
         <ul class="dropdown-menu">
           <li><a href="${pageContext.request.contextPath}/snack_input">🍖 레시피 공유</a></li>
           <li><a href="${pageContext.request.contextPath}/snack_out">🍖 레시피 보기</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">👑 관리자<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="${pageContext.request.contextPath}/items_input">👑 아이템 등록</a></li>
         </ul>
       </li>
 
@@ -111,9 +98,16 @@
       <li class="dropdown">
         <a href="${pageContext.request.contextPath}/qnalist">❓ Q&A<span class="caret"></span></a>
         </li>
-      
-            
-    </ul>
+	      
+	<li class="dropdown">
+	  <c:if test="${sessionScope.user_role eq 'admin'}">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">👑 관리자<span class="caret"></span></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="${pageContext.request.contextPath}/items_input">👑 아이템 등록</a></li>
+	  </c:if>
+	</ul>
+	</li>         
+
 
     <ul class="nav navbar-nav navbar-right">
       <c:choose>
