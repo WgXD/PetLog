@@ -133,7 +133,7 @@ public class UserController {
 		 Integer user_id = (Integer) session.getAttribute("user_id");
 		 String user_login_id = (String) request.getSession().getAttribute("user_login_id");
 		 if (user_login_id == null) { 
-		 return "redirect:/login";
+		 return "redirect:/login?error=login_required";
 		 }
 
 		 // Mapper에서 로그인 정보 호출
@@ -154,7 +154,7 @@ public class UserController {
 	public String showEditProfileForm(HttpServletRequest request, Model mo) {
 	    String user_login_id = (String) request.getSession().getAttribute("user_login_id");
 	    if (user_login_id == null) {
-	        return "redirect:/login";
+	        return "redirect:/login?error=login_required";
 	    }
 
 	    UserService us = sqlSession.getMapper(UserService.class);

@@ -19,13 +19,31 @@ public class QuizController {
     
     //퀴즈 등록 페이지
     @RequestMapping(value = "/QuizInsertPage")
-    public String quizinsert() {    	
+    public String quizinsert(HttpSession session) {
+    	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+    	
         return "QuizInsert";
     }
      
     //퀴즈 등록 처리
     @RequestMapping(value = "/QuizInsertSave")
-    public String quizinsert1(QuizDTO dto) {    
+    public String quizinsert1(QuizDTO dto, HttpSession session) {    
+    	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+    	
         QuizService qs=sqlSession.getMapper(QuizService.class);
         qs.insertQuiz(dto);
         return "QuizList";
@@ -39,7 +57,7 @@ public class QuizController {
         String user_login_id = (String) session.getAttribute("user_login_id");
 
         if (user_id == null || user_login_id == null) {
-            return "redirect:/login";
+            return "redirect:/login?error=login_required";
         }
         
         //풀지 않은 퀴즈 가져오기 / 이미 푼 문제 제외
@@ -59,10 +77,19 @@ public class QuizController {
     //퀴즈 풀기 결과 저장
     @RequestMapping(value = "/QuizSave")
     public String quiz2(HttpServletRequest request, Model mo, @ModelAttribute QuizDTO dto,HttpSession session) {
+    	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+    	
         //사용자 정보
         int quiz_id=dto.getQuiz_id();
         String userAnswer=dto.getQuiz_answer(); //사용자가 선택한 답
-        int user_id=(Integer)session.getAttribute("user_id"); //사용자 아이디 불러오기
+        //int user_id=(Integer)session.getAttribute("user_id"); //사용자 아이디 불러오기
         
         //퀴즈 정답 가져오기
         QuizService qs= sqlSession.getMapper(QuizService.class);
@@ -113,8 +140,17 @@ public class QuizController {
     }
     
     @RequestMapping("/quiz")
-    public String quiz(HttpServletRequest request, Model mo) {
-        Integer user_id=(Integer)request.getSession().getAttribute("user_id");
+    public String quiz(HttpServletRequest request, Model mo, HttpSession session) {
+    	
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+    	
+       // Integer user_id=(Integer)request.getSession().getAttribute("user_id");
         
         QuizService qs= sqlSession.getMapper(QuizService.class);
         QuizDTO quiz = qs.UnsolvedQuiz(user_id);
