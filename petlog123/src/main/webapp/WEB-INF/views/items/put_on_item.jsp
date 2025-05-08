@@ -8,6 +8,6 @@
 </head>
 <body>
     <h2>아이템 착용 완료!</h2>
-    <p>다시 <a href="${pageContext.request.contextPath}/my_items">내 아이템</a>으로 돌아가기</p>
+    <a href="${pageContext.request.contextPath}/items/buy_items">💝 My 아이템 💝</a> 으로 돌아가기
 </body>
 </html>
