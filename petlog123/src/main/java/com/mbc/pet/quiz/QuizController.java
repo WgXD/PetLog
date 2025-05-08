@@ -11,6 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mbc.pet.point.PointDTO;
+import com.mbc.pet.point.PointService;
+import com.mbc.pet.user.UserDTO;
+import com.mbc.pet.user.UserService;
+
 @Controller
 public class QuizController {
 
@@ -109,20 +114,43 @@ public class QuizController {
         //정답 비교 및 전달
         boolean isCorrect =  userAnswer!= null && userAnswer.equalsIgnoreCase(correctAnswer);
         int score = isCorrect ? 1 : 0;
-        int grape = isCorrect ? 10 : 0;
+        int grape = isCorrect ? 3 : 0;
         
         //실제 풀이 시간 받기
         int timeTaken=Integer.parseInt(request.getParameter("result_time"));
 
+        //----------------------정답 포도알 +10 dasom
         // 결과 저장
         QuizResultDTO redto = new QuizResultDTO();
-        redto.setResult_score(score); //순위 가져오기
-        redto.setResult_rank(0); //이후에 반영 예정
-        redto.setResult_time(timeTaken); //전체 단위 풀이시간 가져오기
+        redto.setResult_score(score); // 맞았으면 1, 틀렸으면 0
+        redto.setResult_rank(0);
+        redto.setResult_time(timeTaken); // 풀이 시간
         redto.setUser_id(user_id);
         redto.setQuiz_id(quiz_id);
-        redto.setGet_grape(isCorrect ? 10 : 0); // 정답이면 포도알 10개 지급
+        redto.setGet_grape(isCorrect ? 3 : 0); // 정답 시만 10점 적립
         qs.insertQuizResult(redto);
+
+        //정답일때  포도알 적립 처리
+        if (isCorrect) {
+            PointService ps = sqlSession.getMapper(PointService.class);
+
+            // 포인트 적립 기록
+            PointDTO point = new PointDTO();
+            point.setUser_id(user_id);
+            point.setPoint_action("quiz"); // 적립 타입
+            point.setPoint_action_id(quiz_id); // 퀴즈 ID 기준
+            point.setPoint_earned_grapes(10); // 지급량
+
+            ps.insert_point(point);
+
+            // 유저 테이블 포도알 +3 업데이트
+            sqlSession.getMapper(UserService.class).quiz_grapes(user_id, 3);
+
+            // 세션 갱신 (메뉴바 포도알 실시간 반영용)
+            UserDTO updated = sqlSession.getMapper(UserService.class).selectUserByLoginId(user_login_id);
+            session.setAttribute("loginUser", updated);
+        }
+        //포도알 +10 여기까지
         
         //순위 계산
         int MyRank = qs.time_rank(quiz_id, user_id);

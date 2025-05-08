@@ -64,7 +64,7 @@
     
     <!-- 페이징 처리 -->
     <select id="total_diary" resultType="int">
-    	select count(*) from diary
+    	select count(*) from diary where user_id=#{user_id}
     </select>
     
     

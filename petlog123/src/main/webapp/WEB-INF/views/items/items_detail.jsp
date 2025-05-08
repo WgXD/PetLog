@@ -66,9 +66,14 @@ function buyItem(itemId) {
 
       if (response === "already_owned") {
         alert("이미 보유한 아이템입니다.");
+        
+      } else if (response === "not_enough_grapes") {
+          alert("포도알이 부족합니다!");
+          
       } else if (response === "success") {
         alert("구매 성공!");
         location.reload(); // 새로고침
+        
       } else {
         alert("예상치 못한 응답: " + response);
       }

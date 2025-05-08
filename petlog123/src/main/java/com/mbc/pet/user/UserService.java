@@ -27,4 +27,8 @@ public interface UserService {
 	void updatePw(@Param("user_login_id") String user_login_id, @Param("password") String encPw);
 
 	void plusGrapeCount(Integer user_id);
+
+	void quiz_grapes(@Param("user_id") int user_id, @Param("grape") int grape); //퀴즈 정답일때 포도알 +10
+
+	UserDTO grape_update(String user_login_id); //아이템 구매 후 포도알 갯수 변경 업데이트 하기
 }

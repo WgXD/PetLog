@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 import com.mbc.pet.items.ItemsDTO;
+import com.mbc.pet.user.UserDTO;
 
 public interface UsertemsService {
 
@@ -25,6 +26,12 @@ public interface UsertemsService {
 	void items_delete1(@Param("item_id") int item_id); //유저가 보유한 아이템 삭제
 
 	int check_usertem(@Param("user_id") Integer user_id,@Param("item_id") int item_id);
+
+	int get_user_grapes(Integer user_id); //회원의 총 포도알 갯수 조회
+
+	void minus_grapes(@Param("user_id") int user_id, @Param("cost") int cost); //아이템 구매시 포도알 차감
+
+	UserDTO grape_update(String user_login_id); //아이템 구매 후 포도알 갯수 업데이트
 
 	
 

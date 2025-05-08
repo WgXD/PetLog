@@ -1,29 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
+<title>일기 보기</title>
+<%
+    com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
+    if (loginUser == null) {
+        response.sendRedirect(request.getContextPath() + "/login?error=login_required");
+        return;
+    }
+%>
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #fff8f0;
-    text-align: center;
-    padding: 30px;
-  }
-
-  h2 {
-   color: #5e478e;
-  }
-
-  form {
-    display: inline-block;
-    text-align: left;
-  }
-
   .dotted-rounded-table {
     border-collapse: separate;
     border: 2px dotted #aaa;
@@ -41,114 +32,70 @@
     font-size: 14px;
   }
 
-  input[type="text"],
-  input[type="date"],
-  input[type="file"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
   }
 
-  textarea {
-    resize: vertical;
+  .pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #f2e9ff;
+    color: #5e478e;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
   }
-  
-	  button,
-	input[type="submit"],
-	input[type="reset"] {
-	  background-color: #d7c9f3; /* 연보라 */
-	  border: none;
-	  color: #5e478e; /* 진보라 텍스트 */
-	  padding: 10px 22px;
-	  margin: 12px 6px;
-	  border-radius: 24px;
-	  font-size: 15px;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: background-color 0.3s ease, transform 0.15s ease;
-	  box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
-	}
-	
-	button:hover,
-	input[type="submit"]:hover,
-	input[type="reset"]:hover {
-	  background-color: #e8defc; /* 좀 더 크리미한 보라 */
-	  transform: scale(1.05);
-	}
-	
-	button:active,
-	input[type="submit"]:active,
-	input[type="reset"]:active {
-	  transform: scale(0.95);
-	}
-	
-.pagination { /* 페이징 스타일 */ 
-  margin-top: 20px;
-  text-align: center;
-}
 
-.pagination a {
-  display: inline-block;
-  margin: 0 5px;
-  padding: 8px 12px;
-  background-color: #f2e9ff;
-  color: #5e478e;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
+  .pagination a:hover {
+    background-color: #e0d2f7;
+  }
 
-.pagination a:hover {
-  background-color: #e0d2f7;
-}
-
-.pagination a.current {
-  background-color: #d7c9f3;
-  color: white;
-}
-
-
+  .pagination a.current {
+    background-color: #d7c9f3;
+    color: white;
+  }
 </style>
-
-<meta charset="UTF-8">
-<title>일기 보기</title>
 </head>
 <body>
+
 <header><h2>일기 읽기 📔</h2></header>
 
-<table class="dotted-rounded-table">
-<tr>
-	<th>글번호</th> <th>일기 제목</th> <th>날짜</th> <th>이미지</th> <th>일기 내용</th>
-</tr>
+<c:if test="${empty list}">
+  <p style="margin-top: 20px; font-weight: bold; color: #c0392b;">작성한 일기가 없습니다. ✍️</p>
+  <form action="diary_input" method="get" style="margin-top: 20px;">
+  <input type="submit" value="일기 쓰러 가기"
+         style="padding: 10px 20px; border-radius: 12px; background-color: #d7c9f3; 
+         color: #5e478e; font-weight: bold; border: none; cursor: pointer;">
+  </form>
+</c:if>
 
-<c:forEach items="${list}" var="di" >
+<c:if test="${not empty list}">
+  <table class="dotted-rounded-table">
+    <tr>
+      <th>글번호</th> <th>일기 제목</th> <th>날짜</th> <th>이미지</th> <th>일기 내용</th>
+    </tr>
 
-<tr>
-<td> ${di.diary_id} </td>
-<td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a> </td>
-<!-- 위에꺼 공백 있으면 오류남 -->
-<td> ${di.diary_date} </td>
-<td><img src="./image/${di.diary_image}" width="70px"></td>
-<td> ${di.diary_content} </td>
-</tr>
+    <c:forEach items="${list}" var="di">
+      <tr>
+        <td>${di.diary_id}</td>
+        <td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a></td>
+        <td>${di.diary_date}</td>
+        <td><img src="./image/${di.diary_image}" width="70px"></td>
+        <td>${di.diary_content}</td>
+      </tr>
+    </c:forEach>
+  </table>
 
-</c:forEach>
-</table>
-
-<!-- 페이징 숫자 출력 1 2 3... -->
-<br><br>
-<div class="pagination">
-  <c:forEach var="i" begin="1" end="${page_count}">
-    <a href="diary_out?page=${i}" 
-       class="${i == page ? 'current' : ''}">
-       ${i}
-    </a>
-  </c:forEach>
-</div>
+  <br><br>
+  <div class="pagination">
+    <c:forEach var="i" begin="1" end="${page_count}">
+      <a href="diary_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
+    </c:forEach>
+  </div>
+</c:if>
 
 </body>
 </html>
