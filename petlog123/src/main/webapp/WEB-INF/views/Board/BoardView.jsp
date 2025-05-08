@@ -137,10 +137,8 @@
 <tr>
 	<td>${cc.post_id}</td>
 	<td style="text-align: left;">
-		<a href="PostDetail?pnum=${cc.post_id}">
+		<a href="BoardDetail?pnum=${cc.post_id}">
 			${cc.post_title} 
-			<span style="margin-left:10px;">🗨️ ${cc.comment_count}</span>
-			<span style="margin-left:6px;">❤️ ${cc.like_count}</span>
 		</a>
 	</td>
 	<td>${cc.user_login_id}</td>
@@ -150,18 +148,6 @@
 </c:forEach>
 </tbody>
 </table>
-
-<!-- 검색 기능 -->
-<form action="searchview" method="post">
-	<select name="skey" id="skey">
-		<option value="user_login_id">작성자</option>
-		<option value="post_title">제목</option>
-		<option value="post_content">내용</option>
-		<option value="post_date">작성일자</option>
-	</select>
-	<label><input type="text" name="keyword" placeholder="검색어를 입력하세요."></label>
-	<input type="submit" value="검색">
-</form>
 
 <!-- 페이징 -->
 <div class="pagination">

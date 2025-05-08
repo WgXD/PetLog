@@ -80,7 +80,6 @@
   <td>
     <div id="contentDiv" contenteditable="true">
       ${dto.post_content}
-
     </div>
     <input type="hidden" name="post_content" id="hiddenContent">
   </td>
