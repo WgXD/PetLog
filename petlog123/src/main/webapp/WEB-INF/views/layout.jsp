@@ -47,10 +47,12 @@ nav
       </div>
       <div id="body">
          <t:insertAttribute name="body"/>
+         <div style="height: 100px;"></div> <!-- 본문 하단 여백 추가 -->
       </div>
       <div id="footer">
          <t:insertAttribute name="footer"/>
       </div>
    </div>
+   
 </body>
 </html>

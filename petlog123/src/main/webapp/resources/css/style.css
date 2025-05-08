@@ -2,12 +2,10 @@
 
 /*========== 기본 네비 스타일 ==========*/
 .navbar {
-  background-color: #fff8cc; /* 파스텔 옐로우 */
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
-  margin-bottom: 0;
-  font-family: '맑은 고딕', sans-serif;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /*========== 네비 내부 정렬 ==========*/
@@ -64,9 +62,13 @@
 
 /*========== 전체 배경 ==========*/
 body {
-    margin: 0;
-    font-family: '맑은 고딕', sans-serif;
-    background-color: #eafff5; /* 💚 더 뚜렷한 민트 배경 */
+  margin: 0;
+  font-family: '맑은 고딕', sans-serif;
+  background-image: url("../../image/back.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /*========== 메인 영역 ==========*/
