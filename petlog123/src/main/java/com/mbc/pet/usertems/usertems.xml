@@ -53,12 +53,25 @@
 	<!-- 프로필 프레임 씌우기!!!!!!!!!!!!!! -->
 	<!-- 착용 중인 프레임 1개 조회 -->
 	<select id="getEquippedFrame" resultType="com.mbc.pet.items.ItemsDTO">
-	    SELECT i.*
-	    FROM usertems u
-	    JOIN items i ON u.item_id = i.item_id
-	    WHERE u.user_id = #{user_id}
-	      AND u.usertem_equip = 'Y'
-	      AND i.item_category = '프레임'
+	    SELECT * FROM (
+	        SELECT i.*
+	        FROM usertems u
+	        JOIN items i ON u.item_id = i.item_id
+	        WHERE u.user_id = #{user_id}
+	          AND u.usertem_equip = 'Y'
+	          AND i.item_category = '프레임'
+	    )
+	    WHERE ROWNUM = 1
 	</select>
+
+	<delete id="items_delete1" parameterType="int">
+		delete from usertems where item_id = #{item_id}
+	</delete>
+
+	<select id="check_usertem" resultType="int"> <!-- 아이템 이미 구매한거 없는지 중복체크 -->
+	    SELECT COUNT(*) FROM usertems
+	    WHERE user_id = #{user_id} AND item_id = #{item_id}
+	</select>
+
 
 </mapper>

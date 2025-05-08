@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="UTF-8">
   <title>My 아이템</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -88,6 +89,7 @@
             <th>카테고리</th>
             <th>착용 여부</th>
             <th>아이템 사용</th>
+            <th>아이템 삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -110,6 +112,14 @@
                   <input type="submit" value="사용하기 🎀" class="use-btn" />
                 </form>
               </td>
+              
+			<td>
+				<form action="${pageContext.request.contextPath}/items/items_delete" method="post" style="display:inline;">
+				  <input type="hidden" name="delete" value="${item.item_id}">
+				  <input type="hidden" name="dfimage" value="${item.item_image}">
+				  <button type="submit" style="background:none;border:none;cursor:pointer;">🗑️</button>
+				</form>
+			</td>
             </tr>
           </c:forEach>
         </tbody>

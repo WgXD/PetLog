@@ -19,6 +19,4 @@ public interface ItemsService {
 	void insert_usertem(@Param("user_id") int user_id, @Param("item_id") int item_id, @Param("usertem_equip") String usertem_equip);
 
 
-
-
 }

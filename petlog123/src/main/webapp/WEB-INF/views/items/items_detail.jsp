@@ -61,15 +61,26 @@ function buyItem(itemId) {
     type: "POST",
     url: "${pageContext.request.contextPath}/items/buy_items",
     data: { item_id: itemId },
-    success: function() {
-      alert("구매 성공!");
+    success: function(response) {
+      response = response.trim();// 공백 제거
+
+      if (response === "already_owned") {
+        alert("이미 보유한 아이템입니다.");
+      } else if (response === "success") {
+        alert("구매 성공!");
+        location.reload(); // 새로고침
+      } else {
+        alert("예상치 못한 응답: " + response);
+      }
     },
     error: function() {
-      alert("구매 실패 ㅠㅠ");
+      alert("요청 실패 ㅠㅠ");
     }
   });
 }
 </script>
+
+
 </head>
 
 <body>

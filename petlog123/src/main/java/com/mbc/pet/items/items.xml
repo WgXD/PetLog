@@ -32,5 +32,6 @@
 	<select id="items_detail" resultType="com.mbc.pet.items.ItemsDTO">
 		select item_id, item_name, item_cost, item_category, item_image from items where item_id=#{param1}
 	</select>
+	
 
     </mapper>

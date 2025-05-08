@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@RequestMapping("/items") //<-items������ �ִ� buy_items ������ ������ �̰� �����!!
+@RequestMapping("/items")
 public class UsertemsController {
 	
 	@Autowired
@@ -29,9 +29,9 @@ public class UsertemsController {
 //    	
 //    	//int user_id = 1; //user_id �ӽð�!!!
 //    	
-//    	int user_id = (int) request.getSession().getAttribute("user_id"); //�α����� ��� id
+//    	int user_id = (int) request.getSession().getAttribute("user_id")
 //    	
-//    	String usertem_equip = "N"; // �⺻��: ������
+//    	String usertem_equip = "N";
 //    	
 //    	UsertemsService us = sql.getMapper(UsertemsService.class);
 //    	us.insert_usertem(user_id, item_id, usertem_equip);
@@ -51,8 +51,8 @@ public class UsertemsController {
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
-
-	    UsertemsService us = sql.getMapper(UsertemsService.class);
+        
+        UsertemsService us = sql.getMapper(UsertemsService.class);
 	    ArrayList<UsertemsDTO> list = us.get_items(user_id);
 	    mo.addAttribute("list", list);
 
@@ -76,17 +76,24 @@ public class UsertemsController {
 	    String usertem_equip = "N"; //디폴트=N(착용x)
 
 	    UsertemsService us = sql.getMapper(UsertemsService.class);
+	    
+	    //아이템 이미 있는지 중복 체크
+	    int count = us.check_usertem(user_id, item_id);
+	    if (count > 0) {
+	        return "already_owned"; // 이미 보유한 아이템이면 insert 안 함
+	    }
+	    
 	    us.insert_usertem(user_id, item_id, usertem_equip);
 
 	    return "success";  // 클라이언트로 success 메시지 반환
 	}
       
 
-//    @RequestMapping(value = "/buy_items", method = RequestMethod.POST) //������ ���� �� �ڵ����� ������ ������ ������� �Ѿ ��
+//    @RequestMapping(value = "/buy_items", method = RequestMethod.POST)
 //    public String utem3(@RequestParam("item_id") int item_id, HttpServletRequest request, Model mo) {
 //        int user_id = (int) request.getSession().getAttribute("user_id");
 //
-//    	String usertem_equip = "N"; // �⺻��: ������
+//    	String usertem_equip = "N"; //기본값 = 착용 x
 //    	
 //    	UsertemsService us = sql.getMapper(UsertemsService.class);
 //    	us.insert_usertem(user_id, item_id, usertem_equip);
@@ -97,6 +104,22 @@ public class UsertemsController {
 //        return "buy_items";
 //    }
     
-    
+	@RequestMapping(value = "/items_delete", method = RequestMethod.POST) //유저가 보유한 아이템 삭제
+	public String items4(HttpSession session, HttpServletRequest request) {
+	    
+	    // 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+	    
+	    int delete = Integer.parseInt(request.getParameter("delete"));
+	    UsertemsService us = sql.getMapper(UsertemsService.class);
+	    us.items_delete1(delete);
+
+	    return "redirect:/items/buy_items";
+	}
     
     }

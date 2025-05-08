@@ -1,7 +1,7 @@
 package com.mbc.pet.items;
 
 public class ItemsDTO {
-	//FK ¾øÀ½
+	//FK ì—†ìŒ
 	
 	int item_id; //PK
 	String item_name;

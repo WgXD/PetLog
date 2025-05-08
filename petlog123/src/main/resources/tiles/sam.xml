@@ -159,6 +159,12 @@
 	    <put-attribute name="body" value="/WEB-INF/views/items/put_on_item.jsp"/>
 	</definition>
 
+	<!-- 유저가 보유한 아이템 삭제 -->
+	<definition name="items_delete" extends="baseLayout">
+	    <put-attribute name="title" value="메인화면"/>
+	    <put-attribute name="body" value="/WEB-INF/views/items/items_delete.jsp"/>
+	</definition>
+
    <!-- snack_input -->
     <definition name="snack_input" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>

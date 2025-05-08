@@ -22,6 +22,10 @@ public interface UsertemsService {
 
 	ItemsDTO getEquippedFrame(Integer user_id); //착용된 프레임 조회(from UserController)
 
+	void items_delete1(@Param("item_id") int item_id); //유저가 보유한 아이템 삭제
+
+	int check_usertem(@Param("user_id") Integer user_id,@Param("item_id") int item_id);
+
 	
 
 	

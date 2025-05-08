@@ -194,4 +194,5 @@ public class ItemsController {
 
         return "redirect:/put_on_item"; // 다시 프레임 리스트로
     }
+    
 }
