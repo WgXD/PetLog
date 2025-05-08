@@ -30,7 +30,7 @@
 				<td>
 				  <form action="${pageContext.request.contextPath}/items_restore" method="post" style="display:inline;">
 				    <input type="hidden" name="item_id" value="${item.item_id}">
-				    <button type="submit" style="background:none;border:none;cursor:pointer;">⭕ 판매 중 ⭕</button>
+				    <button type="submit" style="background:none;border:none;cursor:pointer;">판매 시작⭕</button>
 				  </form>
 				</td>
             </tr>

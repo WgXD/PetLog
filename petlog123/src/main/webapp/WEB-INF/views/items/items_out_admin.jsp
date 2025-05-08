@@ -95,7 +95,7 @@
          <form action="${pageContext.request.contextPath}/items_delete_admin" method="post" style="display:inline;">
 			<input type="hidden" name="delete" value="${it.item_id}">
 			<input type="hidden" name="dfimage" value="${it.item_image}">
-			<button type="submit" style="background:none;border:none;cursor:pointer;">❌ 판매 종료 ❌</button>
+			<button type="submit" style="background:none;border:none;cursor:pointer;">판매 종료❌</button>
 	     </form>
 	  </td>
     </tr>
