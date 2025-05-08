@@ -8,6 +8,7 @@ public class ItemsDTO {
 	int item_cost;
 	String item_category;
 	String item_image;
+	String item_status;
 	
 	public ItemsDTO() {    }
 
@@ -50,6 +51,13 @@ public class ItemsDTO {
 	public void setItem_image(String item_image) {
 		this.item_image = item_image;
 	}
-	
 
+	public String getItem_status() {
+		return item_status;
+	}
+
+	public void setItem_status(String item_status) {
+		this.item_status = item_status;
+	}
+	
 }

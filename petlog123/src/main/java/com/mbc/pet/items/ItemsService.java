@@ -18,5 +18,15 @@ public interface ItemsService {
 
 	void insert_usertem(@Param("user_id") int user_id, @Param("item_id") int item_id, @Param("usertem_equip") String usertem_equip);
 
+	ArrayList<ItemsDTO> items_out_admin(@Param("start") int start, @Param("end") int end); //관리자용 아이템 출력
+
+	void items_delete_admin(@Param("item_id") int item_id); //판매중 -> 판매종료 (진짜 지우는거 아님)
+
+	ArrayList<ItemsDTO> items_stopped(); //판매 종료된 아이템 목록 보기(관리자용)
+
+	void items_restore(@Param("item_id") int item_id); //판매종료 -> 판매중
+	
+	
+
 
 }
