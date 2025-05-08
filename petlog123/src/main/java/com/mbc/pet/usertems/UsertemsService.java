@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 import com.mbc.pet.items.ItemsDTO;
+import com.mbc.pet.user.UserDTO;
 
 public interface UsertemsService {
 
@@ -29,6 +30,8 @@ public interface UsertemsService {
 	int get_user_grapes(Integer user_id); //회원의 총 포도알 갯수 조회
 
 	void minus_grapes(@Param("user_id") int user_id, @Param("cost") int cost); //아이템 구매시 포도알 차감
+
+	UserDTO grape_update(String user_login_id); //아이템 구매 후 포도알 갯수 업데이트
 
 	
 

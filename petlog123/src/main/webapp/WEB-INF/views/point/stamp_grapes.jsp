@@ -10,6 +10,7 @@
 
     int grapeCount = loginUser.getGrape_count();
     int maxGrape = 100;
+    int percent = grapeCount * 100 / maxGrape; // 계산된 퍼센트
     request.setAttribute("grapeCount", grapeCount);
     request.setAttribute("maxGrape", maxGrape);
 %>
@@ -64,7 +65,7 @@
         .grape-fill {
             height: 100%;
             background: linear-gradient(to right, #a678b3, #7b3fa1);
-            width: ${grapeCount * 100 / maxGrape}%;
+            width: <%= percent %>%;
             transition: width 0.5s ease;
         }
 
@@ -73,7 +74,7 @@
             top: -35px;
             font-size: 24px;
             transform: translateX(-50%);
-            left: ${grapeCount * 100 / maxGrape}%;
+            left: <%= percent %>%;
             transition: left 0.5s ease;
         }
 

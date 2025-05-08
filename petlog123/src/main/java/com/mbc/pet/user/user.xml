@@ -86,5 +86,14 @@
 	where user_id = #{user_id}
 </select>
 
+<update id="quiz_grapes">
+    UPDATE user1
+    SET grape_count = grape_count + #{grape}
+    WHERE user_id = #{user_id}
+</update>
+
+<select id="grape_update" resultType="com.mbc.pet.user.UserDTO">
+    SELECT * FROM user1 WHERE user_login_id = #{login_id}
+</select>
 
 </mapper>

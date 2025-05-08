@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mbc.pet.items.ItemsService;
+import com.mbc.pet.user.UserDTO;
+import com.mbc.pet.user.UserService;
 
 
 @Controller
@@ -78,6 +80,7 @@ public class UsertemsController {
 
 	    UsertemsService us = sql.getMapper(UsertemsService.class);
 	    ItemsService is = sql.getMapper(ItemsService.class); // 아이템 정보에서 가격 불러옴
+	    UserService uss = sql.getMapper(UserService.class);
 
 	    // 1. 중복 보유 체크
 	    int count = us.check_usertem(user_id, item_id);
@@ -99,6 +102,10 @@ public class UsertemsController {
 	    // 5. 아이템 등록 및 포도알 차감
 	    us.insert_usertem(user_id, item_id, usertem_equip);
 	    us.minus_grapes(user_id, cost);
+	    
+	    // 6. 세션 갱신 (메뉴바 포도알 실시간 반영용)
+	    UserDTO updated = uss.grape_update(user_login_id);
+	    session.setAttribute("loginUser", updated);
 
 	    return "success";
 	}

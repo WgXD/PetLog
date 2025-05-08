@@ -79,7 +79,7 @@
 <body>
 
 <c:if test="${sessionScope.user_role eq 'admin'}">
-  <a href="./QuizInsert" style="display:inline-block; margin-bottom:20px;">➕ 퀴즈 등록</a>
+ 	<a href="QuizInsertPage" style="display:inline-block; margin-bottom:20px;">➕ 퀴즈 등록</a>
 </c:if>
 
 <c:forEach items="${dto}" var="quiz">

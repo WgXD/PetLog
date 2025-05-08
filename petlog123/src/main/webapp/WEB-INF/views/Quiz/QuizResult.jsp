@@ -90,7 +90,7 @@
 
 <c:choose>
   <c:when test="${isCorrect}">
-    <p class="result-text correct">🎉 정답입니다! 포도알 10개 획득 🎉</p>
+    <p class="result-text correct">🎉 정답입니다! 포도알 3개 획득 🎉</p>
     <p class="info">풀이 시간: <strong>${redto.result_time}초</strong></p>
     <p class="info">현재 순위: <strong>${redto.result_rank}위</strong></p>
   </c:when>
