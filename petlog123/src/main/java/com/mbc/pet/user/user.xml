@@ -79,4 +79,12 @@
   WHERE user_id = #{user_id}
 </update>
 
+<!-- 회원 포도알 총 갯수 조회 dasom -->
+<select id="get_user_grapes" resultType="int">
+	select grape_count
+	from user1
+	where user_id = #{user_id}
+</select>
+
+
 </mapper>

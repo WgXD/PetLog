@@ -73,5 +73,12 @@
 	    WHERE user_id = #{user_id} AND item_id = #{item_id}
 	</select>
 
+	<select id="get_user_grapes" resultType="int">
+	    SELECT grape_count FROM user1 WHERE user_id = #{user_id}
+	</select>
+	
+	<update id="minus_grapes"> <!-- 아이템 구매시 포도알 차감 -->
+	    UPDATE user1 SET grape_count = grape_count - #{cost} WHERE user_id = #{user_id}
+	</update>
 
 </mapper>

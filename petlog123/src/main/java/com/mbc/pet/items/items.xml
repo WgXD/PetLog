@@ -57,4 +57,11 @@
 	    WHERE item_id = #{item_id}
 	</update>
 	
+	<!-- 아이템 가격 조회 -->
+	<select id="how_much" resultType="int">
+		select item_cost
+		from items
+		where item_id = #{item_id}
+	</select>
+	
     </mapper>

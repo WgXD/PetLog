@@ -25,6 +25,8 @@ public interface ItemsService {
 	ArrayList<ItemsDTO> items_stopped(); //판매 종료된 아이템 목록 보기(관리자용)
 
 	void items_restore(@Param("item_id") int item_id); //판매종료 -> 판매중
+
+	int how_much(int item_id); //아이템 가격 조회
 	
 	
 

@@ -26,6 +26,10 @@ public interface UsertemsService {
 
 	int check_usertem(@Param("user_id") Integer user_id,@Param("item_id") int item_id);
 
+	int get_user_grapes(Integer user_id); //회원의 총 포도알 갯수 조회
+
+	void minus_grapes(@Param("user_id") int user_id, @Param("cost") int cost); //아이템 구매시 포도알 차감
+
 	
 
 	
