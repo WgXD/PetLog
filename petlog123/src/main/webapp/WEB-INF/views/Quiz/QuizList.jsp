@@ -79,7 +79,7 @@
 <body>
 
 <c:if test="${sessionScope.user_role eq 'admin'}">
-  <a href="./QuizInsert" style="display:inline-block; margin-bottom:20px;">➕ 퀴즈 등록</a>
+  <a href="QuizInsertPage" style="display:inline-block; margin-bottom:20px;">➕ 퀴즈 등록</a>
 </c:if>
 
 <c:forEach items="${dto}" var="quiz">
@@ -118,5 +118,11 @@ function onSubmitQuiz(form){
 	 return true;
 }
 </script>
+<c:if test="${allDone}">
+  <script>
+    alert("🎉 모든 퀴즈를 완료했습니다! 홈으로 이동합니다.");
+    window.location.href = "${pageContext.request.contextPath}/";
+  </script>
+</c:if>
 </body>
 </html>

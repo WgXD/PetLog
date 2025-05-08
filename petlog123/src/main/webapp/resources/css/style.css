@@ -71,6 +71,16 @@ body {
   background-attachment: fixed;
 }
 
+body.bg-pink {
+  background-color: #fef6f9 !important;  /* 아주 연한 핑크 */
+  background-image: none !important;
+}
+
+body.bg-mint {
+  background-color: #f3fcfb !important;  /* 아주 연한 민트 */
+  background-image: none !important;
+}
+
 /*========== 메인 영역 ==========*/
 .main-wrapper {
     max-width: 1200px;

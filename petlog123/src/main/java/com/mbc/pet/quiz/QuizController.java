@@ -64,10 +64,13 @@ public class QuizController {
         QuizService qs=sqlSession.getMapper(QuizService.class);
         QuizDTO quiz = qs.UnsolvedQuiz(user_id);
         
+
+        // 모든 문제 다 풀었을 때 alert 띄우고 홈으로
         if (quiz == null) {
-            mo.addAttribute("message", "모든 퀴즈를 완료하셨습니다!");
-            return "quiz_done";
+            mo.addAttribute("allDone", true);
+            return "QuizList"; // 기존 퀴즈 페이지로 돌아가되, 모달만 보여줌
         }
+
         ArrayList<QuizDTO> dto = new ArrayList<QuizDTO>();
         dto.add(quiz);
         mo.addAttribute("dto", dto);
@@ -149,15 +152,10 @@ public class QuizController {
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
-    	
-       // Integer user_id=(Integer)request.getSession().getAttribute("user_id");
         
         QuizService qs= sqlSession.getMapper(QuizService.class);
         QuizDTO quiz = qs.UnsolvedQuiz(user_id);
     
         return "QuizResult";
     }
-    
-
-    
 }

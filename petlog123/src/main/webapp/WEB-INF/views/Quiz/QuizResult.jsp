@@ -1,121 +1,116 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Quiz Result</title>
+<title>퀴즈 결과</title>
 <style>
   body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
+    font-family: 'Malgun Gothic', sans-serif;
+    background: linear-gradient(to bottom right, #fef6f9, #f3fcfb);
+    margin: 0;
     padding: 60px 20px;
-    background-color: #fff;
-    color: #222;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 40px;
-    font-weight: 700;
-  }
-
-  .result-text {
-    font-size: 2.4rem;
-    font-weight: bold;
-    margin-bottom: 25px;
-    color: #d32f2f;
-  }
-
-  .result-text.correct {
-    color: #388e3c;
-  }
-
-  .info {
-    font-size: 1.8rem;
-    margin-bottom: 12px;
+    text-align: center;
   }
 
   h3 {
-    font-size: 2rem;
-    margin-top: 60px;
-    color: #6d4c41;
+    font-size: 20px;
+    color: #444;
+    margin: 40px 0 15px;
+  }
+
+  .info {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+  }
+
+  .info strong {
+    font-size: 20px;
+    color: #222;
   }
 
   table {
-    margin: 40px auto 30px;
     width: 90%;
-    max-width: 650px;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     border-collapse: collapse;
-    font-size: 1.5rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
   }
 
   th, td {
-    padding: 18px 20px;
+    padding: 14px;
     border-bottom: 1px solid #eee;
+    font-size: 15px;
   }
 
   th {
-    background-color: #f9f9f9;
-    font-weight: bold;
+    background-color: #fdf1f6;
     color: #444;
   }
 
-  tr:nth-child(even) {
-    background-color: #fafafa;
+  tr:last-child td {
+    border-bottom: none;
   }
 
   .btn-next {
-    display: inline-block;
-    margin-top: 50px;
-    padding: 16px 40px;
-    font-size: 1.6rem;
-    background-color: #ffcc80;
-    color: #4e342e;
-    border-radius: 12px;
-    text-decoration: none;
+    background-color: #ffe5ec;
+    color: #333;
+    font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
 
   .btn-next:hover {
-    background-color: #ffb74d;
+    background-color: #ffdce6;
+    transform: scale(1.05);
   }
 </style>
 </head>
 <body>
 
-<h1>퀴즈 결과</h1>
+<script>
+  window.onload = function() {
+    const isCorrect = "${isCorrect}";
+    if (isCorrect === "true") {
+      alert("🎉 정답입니다! 포도알 10개 획득!");
+    } else {
+      alert("❌ 오답입니다. 다음에 다시 도전해주세요!");
+    }
+  }
+</script>
 
 <c:choose>
   <c:when test="${isCorrect}">
-    <p class="result-text correct">🎉 정답입니다! 포도알 10개 획득 🎉</p>
-    <p class="info">풀이 시간: <strong>${redto.result_time}초</strong></p>
-    <p class="info">현재 순위: <strong>${redto.result_rank}위</strong></p>
+    <p class="info">⌛ <strong>${redto.result_time}초 만에 풀었어요!</strong></p>
+    <p class="info">🏅 현재 순위: <strong>${redto.result_rank}위</strong></p>
   </c:when>
   <c:otherwise>
-    <p class="result-text">😮 오답입니다. 다음에 다시 도전!</p>
-    
-    <!-- 오답일 때 정답 알려주기 dasom -->
-      <p class="info">정답은 
-    <strong>
-      ${quiz.quiz_answer}번 - 
-      <c:choose>
-        <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
-        <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
-        <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
-        <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
-      </c:choose>
-    </strong>
-  입니다.</p>
-    <!--  -->
-  
+    <p class="info">정답은 
+      <strong>
+        ${quiz.quiz_answer}번 - 
+        <c:choose>
+          <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
+          <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
+          <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
+          <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
+        </c:choose>
+      </strong>
+      입니다.
+    </p>
   </c:otherwise>
 </c:choose>
 
 <h3>🏆 TOP 10</h3>
-
 <table>
   <tr>
     <th>순위</th>
@@ -123,87 +118,40 @@
     <th>풀이시간</th>
   </tr>
   <c:forEach items="${top10}" var="row">
-    <tr>
-      <td>${row.result_rank}위</td>
-      <td>${row.user_login_id}</td>
-      <td>${row.result_time}초</td>
-    </tr>
+    <c:choose>
+      <c:when test="${row.result_rank == 1}">
+        <tr class="rank-gold">
+          <td>🥇 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:when>
+      <c:when test="${row.result_rank == 2}">
+        <tr class="rank-silver">
+          <td>🥈 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:when>
+      <c:when test="${row.result_rank == 3}">
+        <tr class="rank-bronze">
+          <td>🥉 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:when>
+      <c:otherwise>
+        <tr>
+          <td>${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:otherwise>
+    </c:choose>
   </c:forEach>
 </table>
 
 <a href="./QuizInput" class="btn-next">다음 문제 풀기 ➡</a>
-
-
-<!-- 오답일 때 modal 띄워서 정답 알려주기 dasom -->
-<div id="answerModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>
-      😢 오답입니다.<br>
-      정답은 <strong>${quiz.quiz_answer}번 - 
-      <c:choose>
-        <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
-        <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
-        <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
-        <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
-      </c:choose></strong> 입니다.
-    </p>
-  </div>
-</div>
-
-<style>
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  padding-top: 120px;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5);
-}
-.modal-content {
-  background-color: #fff;
-  margin: auto;
-  padding: 30px 40px;
-  border: 1px solid #ccc;
-  width: 80%;
-  max-width: 450px;
-  border-radius: 14px;
-  text-align: center;
-  font-size: 1.4rem;
-}
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.close:hover {
-  color: #333;
-}
-</style>
-
-<script>
-window.onload = function() {
-  const isCorrect = "${isCorrect}";
-  if (isCorrect === "false") {
-    document.getElementById("answerModal").style.display = "block";
-  }
-
-  document.querySelector(".close").onclick = function() {
-    document.getElementById("answerModal").style.display = "none";
-  }
-
-  window.onclick = function(event) {
-    const modal = document.getElementById("answerModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-}
-</script>
-<!--  -->
 
 </body>
 </html>
