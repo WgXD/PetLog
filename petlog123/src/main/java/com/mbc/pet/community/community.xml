@@ -195,7 +195,19 @@
     select count(*) from likes where post_id = #{param1}
   </select>
 
-<select id="getUserRole" resultType="String">
-    SELECT user_role FROM user1 WHERE user_id = #{user_id}
-</select>
+  <select id="getUserRole" resultType="String">
+	SELECT user_role FROM user1 WHERE user_id = #{user_id}
+  </select>
+  
+  <!-- 인기 게시물 가져오기 -->
+  <select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
+  	select * from
+  	  (select c.post_id, c.post_title, c.user_id, count(l.like_id) AS like_count
+    from community c
+  	join likes l on c.post_id = l.post_id
+  	group by c.post_id, c.post_title, c.user_id
+  	order by count(l.like_id) desc)
+  	where rownum &lt;= 5
+  </select>
+  
 </mapper>

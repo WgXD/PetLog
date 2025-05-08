@@ -39,7 +39,7 @@ public interface CommunityService {
 
 	int total();
 
-	public ArrayList<CommunityDTO> page(PageDTO dto);//ÆäÀÌÁö Á¤º¸ 
+	public ArrayList<CommunityDTO> page(PageDTO dto);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
 	int check_like(@Param("user_id") int user_id, @Param("post_id") int post_id);
 
@@ -60,5 +60,7 @@ public interface CommunityService {
 	void deletePost(int dnum);
 
 	void updatePost(CommunityDTO modifyDto);
+
+	ArrayList<CommunityDTO> getPopularPosts();
 
 }

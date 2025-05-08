@@ -1,142 +1,112 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-
+<meta charset="UTF-8">
+<title>Pet Profile</title>
 <style>
-  body {
+body {
     font-family: 'Arial', sans-serif;
-    background-color: #fff8f0;
+    background-color: #f8f8f8;
     text-align: center;
     padding: 30px;
-  }
-
-  h2 {
-   color: #5e478e;
-  }
-
-  form {
-    display: inline-block;
-    text-align: left;
-  }
-
-  .dotted-rounded-table {
-    border-collapse: separate;
-    border: 2px dotted #aaa;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #fff;
-    margin: 0 auto;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-  }
-
-  .dotted-rounded-table td,
-  .dotted-rounded-table th {
-    border: 1px dotted #ccc;
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-
-  input[type="text"],
-  input[type="date"],
-  input[type="file"],
-  textarea {
+}
+.profile-container {
+    display: grid; /* 그리드 레이아웃 활성화 */
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개의 카드 */
+    gap: 5px; /* 카드 간 간격 */
+    justify-items: center; /* 각 카드가 중앙에 정렬 */
+    margin-left: 20%; /* 왼쪽 여백 추가 */
+    margin-right: 20%; /* 오른쪽 여백 추가 */
+    margin-bottom: 20px;
+}
+.pet-profile {
+    width: 240px;
+    background-color: #fdf6f9; /* 부드러운 핑크-크림 톤 */
+    border: 1px solid #e6d5e5;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    text-align: center;
+}
+.pet-profile img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    display: block;        /* 이미지 블록화 */
+    margin-left: auto;     /* 가운데 정렬 */
+    margin-right: auto;
+    object-fit: cover;
+}
+.pet-profile .pet-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.pet-profile .pet-info {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+.pet-profile .pet-info span {
+    display: block;
+    margin-bottom: 5px;
+}
+.pet-button {
+    display: block;
     width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
-
-  textarea {
-    resize: vertical;
-  }
-  
-	  button,
-	input[type="submit"],
-	input[type="reset"] {
-	  background-color: #d7c9f3; /* 연보라 */
-	  border: none;
-	  color: #5e478e; /* 진보라 텍스트 */
-	  padding: 10px 22px;
-	  margin: 12px 6px;
-	  border-radius: 24px;
-	  font-size: 15px;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: background-color 0.3s ease, transform 0.15s ease;
-	  box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
-	}
-	
-	button:hover,
-	input[type="submit"]:hover,
-	input[type="reset"]:hover {
-	  background-color: #e8defc; /* 좀 더 크리미한 보라 */
-	  transform: scale(1.05);
-	}
-	
-	button:active,
-	input[type="submit"]:active,
-	input[type="reset"]:active {
-	  transform: scale(0.95);
-	}
-	
-.pagination { /* 페이징 스타일 */ 
-  margin-top: 20px;
-  text-align: center;
+    text-align: center;
+    background-color: #6d5da7; /* 부드러운 보라색 */
+    color: white;
+    padding: 8px 0;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
 }
-
-.pagination a {
-  display: inline-block;
-  margin: 0 5px;
-  padding: 8px 12px;
-  background-color: #f2e9ff;
-  color: #5e478e;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.2s;
+.pet-button:hover {
+    background-color: #594789;
 }
-
-.pagination a:hover {
-  background-color: #e0d2f7;
+.pet-info {
+    text-align: left;
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 90%;  /* 너무 양끝 붙지 않게 */
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
 }
-
-.pagination a.current {
-  background-color: #d7c9f3;
-  color: white;
-}
-
-
-</style>
-
-<meta charset="UTF-8">
-<title>My pet</title>
+  </style>
 </head>
 <body>
-<header><h2>My pet</h2></header>
+    <h3>펫 정보 자세히보기</h3>
 
-<table class="dotted-rounded-table">
-<tr>
-	<th>No.</th> <th>이름</th> <th>성별</th> <th>중성화 여부</th> <th>생일</th> <th>사진</th>
-</tr>
+    <!-- 여러 마리 펫 정보 출력 -->
+    <div class="profile-container">
+        <c:forEach items="${list}" var="pet">
+            <div class="pet-profile">
+                <!-- 펫 프로필 이미지 출력 -->
+                <img src="${pageContext.request.contextPath}/image/${pet.pet_img}" alt="Pet Image">
 
-<c:forEach items="${list}" var="pet" >
+                <!-- 펫 이름 출력 -->
+                <div class="pet-name">${pet.pet_name}</div>
 
-<tr>
-<td> ${pet.pet_id} </td>
-<td><a href="pet_detail?update1=${pet.pet_id}">${pet.pet_name}</a></td>
-<td> ${pet.pet_bog} </td>
-<td> ${pet.pet_neuter} </td> <!-- 중성화 순서 바꿈 -->
-<td> ${pet.pet_hbd} </td>
-<td><img src="./image/${pet.pet_img}" width="100px"></td>
-</tr>
+                <!-- 펫 성별, 중성화 여부, 생일 정보 출력 -->
+                <div class="pet-info">
+				    <span>🧸 성별 ${pet.pet_bog}</span>
+				    <span>✨ 중성화 ${pet.pet_neuter}</span>
+				    <span>🎂 생일 ${pet.pet_hbd}</span>
+				</div>
 
-</c:forEach>
-</table>
+                <!-- 펫 프로필 보기 버튼 -->
+                <a href="pet_detail?update1=${pet.pet_id}" class="pet-button">펫 프로필 보기</a>
+            </div>
+        </c:forEach>
+    </div>
 </body>
 </html>

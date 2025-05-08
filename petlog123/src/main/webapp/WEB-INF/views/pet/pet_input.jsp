@@ -1,130 +1,157 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #fff8f0;
-    text-align: center;
-    padding: 30px;
-  }
+  <meta charset="UTF-8">
+  <title>펫 정보 입력하기 🐾</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #e6f7f6, #fff0f4); /* 민트-핑크 그라데이션 */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-  h2 {
-   color: #5e478e;
-  }
+    .container {
+      max-width: 900px;
+      margin: 100px auto 80px auto; /* ✅ 위에서 100px 내려오게 */
+      background: #fff;
+      padding: 50px 60px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e0e0e0;
+    }
 
-  form {
-    display: inline-block;
-    text-align: left;
-  }
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #d85a8a;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
 
-  .dotted-rounded-table {
-    border-collapse: separate;
-    border: 2px dotted #aaa;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #fff;
-    margin: 0 auto;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-  }
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 22px;
+    }
 
-  .dotted-rounded-table td,
-  .dotted-rounded-table th {
-    border: 1px dotted #ccc;
-    padding: 12px 16px;
-    font-size: 14px;
-  }
+    .form-group label {
+      flex: 0 0 140px;
+      font-weight: bold;
+      font-size: 15px;
+      color: #555;
+    }
 
-  input[type="text"],
-  input[type="date"],
-  input[type="file"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="file"] {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
 
-  textarea {
-    resize: vertical;
-  }
-  
-	  button,
-	input[type="submit"],
-	input[type="reset"] {
-	  background-color: #d7c9f3; /* 연보라 */
-	  border: none;
-	  color: #5e478e; /* 진보라 텍스트 */
-	  padding: 10px 22px;
-	  margin: 12px 6px;
-	  border-radius: 24px;
-	  font-size: 15px;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: background-color 0.3s ease, transform 0.15s ease;
-	  box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
-	}
-	
-	button:hover,
-	input[type="submit"]:hover,
-	input[type="reset"]:hover {
-	  background-color: #e8defc; /* 좀 더 크리미한 보라 */
-	  transform: scale(1.05);
-	}
-	
-	button:active,
-	input[type="submit"]:active,
-	input[type="reset"]:active {
-	  transform: scale(0.95);
-	}
+    .form-group input:focus {
+      border-color: #a3d8cd; /* 민트 포인트 */
+      outline: none;
+    }
 
-</style>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    .radio-group {
+      display: flex;
+      gap: 20px;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .form-actions {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      background-color: #d85a8a;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: #c14573;
+    }
+
+    @media screen and (max-width: 768px) {
+      .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-group label {
+        margin-bottom: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
-<header><h2>펫 정보 입력하기 🐾</h2></header>
-  <form action="pet_save" method="post" enctype="multipart/form-data">
-    <table class="dotted-rounded-table">
-      <tr>
-        <th><label for="pet_name">이름 : </label></th>
-        <td><input type="text" id="pet_name" name="pet_name"></td>
-      </tr>
 
-      <tr>
-        <th><label for="pet_bog">성별 : </label></th>
-        <td><input type="radio" name="pet_bog" value="수컷💙"> 수컷💙
-            <input type="radio" name="pet_bog" value="암컷💛"> 암컷💛</td>
-      </tr>
-      
-      <tr> <!-- 중성화 순서 바꿈 -->
-        <th><label for="pet_neuter">중성화 여부 : </label></th>
-        <td><input type="radio" name="pet_neuter" value="⭕"> ⭕
-            <input type="radio" name="pet_neuter" value="❌"> ❌</td>
-      </tr>
+  <div class="container">
+    <h2>펫 정보 입력하기 🐾</h2>
 
-      <tr>
-        <th><label for="pet_hbd">생일 : </label></th>
-        <td><input type="date" id="pet_hbd" name="pet_hbd"></td>
-      </tr>
+    <form action="pet_save" method="post" enctype="multipart/form-data">
 
-      <tr>
-        <th><label for="pet_img">사진 : </label></th>
-        <td><input type="file" id="pet_img" name="pet_img"></td>
-      </tr>
-      
-      <tr>
-      <td colspan="2" style="text-align: center">
-      <input type="submit" value="💾 저장하기">
-      <input type="reset" value="❌ 취소하기" onclick="history.back()">
-      </td>
-      </tr>
-      
-      
-    </table>
-  </form>
+      <div class="form-group">
+        <label for="pet_name">이름</label>
+        <input type="text" id="pet_name" name="pet_name" required>
+      </div>
+
+      <div class="form-group">
+        <label>성별</label>
+        <div class="radio-group">
+          <label><input type="radio" name="pet_bog" value="수컷💙" required> 수컷💙</label>
+          <label><input type="radio" name="pet_bog" value="암컷💛" required> 암컷💛</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>중성화</label>
+        <div class="radio-group">
+          <label><input type="radio" name="pet_neuter" value="⭕" required> ⭕</label>
+          <label><input type="radio" name="pet_neuter" value="❌" required> ❌</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pet_hbd">생일</label>
+        <input type="date" id="pet_hbd" name="pet_hbd" required>
+      </div>
+
+      <div class="form-group">
+        <label for="pet_img">사진</label>
+        <input type="file" id="pet_img" name="pet_img" required>
+      </div>
+
+      <div class="form-actions">
+        <input type="submit" value="💾 저장하기">
+        <input type="reset" value="❌ 취소하기" onclick="history.back()">
+      </div>
+
+    </form>
+  </div>
+
 </body>
 </html>

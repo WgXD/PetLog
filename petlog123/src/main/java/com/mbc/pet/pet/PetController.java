@@ -77,7 +77,7 @@ public class PetController {
 		
 		img.transferTo(new File(path+"\\"+filename));
 		
-		return "pet_input";
+		return "redirect:/pet_out";
 	}
 	
 	@RequestMapping(value = "/pet_out") 

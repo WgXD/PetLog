@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mbc.pet.calendar.CalDTO;
 import com.mbc.pet.calendar.CalService;
+import com.mbc.pet.community.CommunityDTO;
 import com.mbc.pet.community.CommunityService;
 
 @Controller
@@ -26,10 +27,10 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public String home1(HttpServletRequest request) {
 		
-			      HttpSession hs=request.getSession();
-			      hs.setAttribute("loginstate", false);
+		HttpSession hs=request.getSession();
+		hs.setAttribute("loginstate", false);
 		
-		return "main";
+		return "redirect:/main";
 	}
 	
 	
@@ -37,10 +38,9 @@ public class HomeController {
 	public String home(HttpSession session, Model model) {
 
 	    Integer user_id = (Integer) session.getAttribute("user_id");
-	    System.out.println("user_id: " + user_id);
-
+	    CommunityService cs = sqlSession.getMapper(CommunityService.class);
+	    
 	    if (user_id != null) {
-	        CommunityService cs = sqlSession.getMapper(CommunityService.class);
 	        String role = cs.getUserRole(user_id);
 	        session.setAttribute("user_role", role);
 
@@ -50,6 +50,10 @@ public class HomeController {
 	        ArrayList<CalDTO> todaySchedule = cals.today_sche(user_id, today);
 	        model.addAttribute("todaySchedule", todaySchedule);
 	    }
+	    
+	    //인기게시물 가져오기
+	    ArrayList<CommunityDTO> popularPosts = cs.getPopularPosts();
+	    model.addAttribute("popularPosts", popularPosts);
 
 	    return "main";
 	
