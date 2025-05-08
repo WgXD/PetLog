@@ -141,6 +141,24 @@
       <put-attribute name="body" value="/WEB-INF/views/items/items_input.jsp"/>
     </definition>  
     
+   <!-- 판매 아이템 out(관리자용) -->
+    <definition name="items_out_admin" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_out_admin.jsp"/>
+    </definition>  
+    
+   <!-- 판매중 -> 판매종료(관리자용) -->
+    <definition name="items_delete_admin" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_delete_admin.jsp"/>
+    </definition>  
+    
+   <!-- 판매종료된 아이템만 출력 -->
+    <definition name="items_stopped" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_stopped.jsp"/>
+    </definition>  
+    
    <!-- 아이템 구매 페이지 -->
     <definition name="items_detail" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>

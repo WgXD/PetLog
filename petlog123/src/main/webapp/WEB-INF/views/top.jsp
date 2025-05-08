@@ -104,6 +104,7 @@
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">👑 관리자<span class="caret"></span></a>
 	    <ul class="dropdown-menu">
 	      <li><a href="${pageContext.request.contextPath}/items_input">👑 아이템 등록</a></li>
+	      <li><a href="${pageContext.request.contextPath}/items_out_admin">👑 아이템 목록</a></li>
 	  </c:if>
 	</ul>
 	</li>         

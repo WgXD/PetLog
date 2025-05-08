@@ -71,7 +71,7 @@ public class ItemsController {
     }	
     
     
-	@RequestMapping("/items_input") //아이템 입력!!! - 아이템 등록 페이지 이동
+	@RequestMapping("/items_input") //판매할 아이템 등록(관리자용)
 	public String items1(HttpSession session) {
 	    
 	    // 로그인 체크
@@ -92,6 +92,104 @@ public class ItemsController {
 	}
 	
     
+	@RequestMapping("/items_out_admin") //판매 아이템 목록 출력(관리자용)
+	public String items1_out(Model mo,HttpSession session, HttpServletRequest request,@RequestParam(defaultValue = "1") int page) {
+	    
+	    // 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+	    
+		//페이징 처리 1
+		int page_size = 5; //한 페이지당 보기 5개로 설정!!
+		int start = (page-1) * page_size; //현재 페이지에서 출력하는 시작 위치를 구하는 공식
+		int end = page * page_size;
+		//페이징 1 end
+		
+    	ItemsService is = sql.getMapper(ItemsService.class);
+    	
+		//페이징 처리 2
+		int total_count = is.total_items(); //전체 개수 구함 //ceil 처리 필요
+		int page_count = (int) Math.ceil((double)total_count / page_size);
+		//페이징 2 end
+    	
+		//페이징 처리 3
+		System.out.println("start: " + start);
+		System.out.println("end: " + end);
+		
+    	//리스트
+    	ArrayList<ItemsDTO> list = is.items_out_admin(start, end);
+    	System.out.println("list.size = " + list.size());
+    	
+    	//전송
+    	mo.addAttribute("list",list);
+    	mo.addAttribute("page", page);
+		mo.addAttribute("page_count", page_count);
+		mo.addAttribute("page_size", page_size);
+		//페이징 3 end
+
+	    return "items_out_admin";  //jsp 이름
+	}
+	
+	
+	@RequestMapping("/items_delete_admin") //판매중 -> 판매종료 (관리자용)
+	public String items1_delete(HttpSession session, HttpServletRequest request) {
+	    
+	    // 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+	    
+	    int delete = Integer.parseInt(request.getParameter("delete"));
+	    ItemsService is = sql.getMapper(ItemsService.class);
+	    is.items_delete_admin(delete);
+
+	    return "redirect:/items_out_admin";  //jsp 이름
+	}
+	
+	
+	@RequestMapping("/items_stopped") //판매중 -> 판매종료 (관리자용)
+	public String items1_stopped(HttpSession session, HttpServletRequest request, Model mo) {
+	    
+	    // 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+	    
+	    ItemsService is = sql.getMapper(ItemsService.class);
+	    ArrayList<ItemsDTO> list = is.items_stopped();
+	    mo.addAttribute("list", list);
+
+	    return "items_stopped";  //jsp 이름
+	}
+	
+	@RequestMapping(value = "/items_restore", method = RequestMethod.POST) //판매종료 -> 판매중 (관리자용)
+	public String items1_restore(@RequestParam("item_id") int item_id, HttpSession session) {
+	   
+		// 로그인 체크
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    ItemsService is = sql.getMapper(ItemsService.class);
+	    is.items_restore(item_id);
+
+	    return "redirect:/items_out_admin";
+	}
+	
+	
     @RequestMapping(value = "/items_save") //아이템 등록 처리
     public String items1_1(MultipartHttpServletRequest mul, HttpSession session) throws IllegalStateException, IOException {
     	

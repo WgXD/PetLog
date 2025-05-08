@@ -33,5 +33,28 @@
 		select item_id, item_name, item_cost, item_category, item_image from items where item_id=#{param1}
 	</select>
 	
-
+	<select id="items_out_admin" resultType="com.mbc.pet.items.ItemsDTO">
+		select * from items
+		where item_status = '판매중'
+		order by item_id desc
+	</select>
+	
+	<update id="items_delete_admin" parameterType="int"> <!-- 판매중 - 판매종료 -->
+		update items
+		set item_status = '판매종료'
+		where item_id = #{item_id}
+	</update>
+	
+	<select id="items_stopped" resultType="com.mbc.pet.items.ItemsDTO"> <!-- 판매 종료된 아이템 목록 -->
+	    SELECT * FROM items
+	    WHERE item_status = '판매종료'
+	    ORDER BY item_id DESC
+	</select>
+	
+	<update id="items_restore" parameterType="int"> <!-- 판매종료 -> 판매중 -->
+	    UPDATE items
+	    SET item_status = '판매중'
+	    WHERE item_id = #{item_id}
+	</update>
+	
     </mapper>
