@@ -25,7 +25,7 @@ public interface DiaryService {
 
 	void delete_page(int delete); 
 
-	int total_diary(); // 일기 전체 수 (페이징 처리용)
+	int total_diary(int user_id); // 일기 전체 수 (페이징 처리용)
 	
 	ArrayList<DiaryDTO> diary_out(@Param("start") int start, @Param("end") int end, @Param("user_id") int user_id);
 

@@ -143,7 +143,7 @@ public class DiaryController {
 		DiaryService ds = sqlSession.getMapper(DiaryService.class);
 
 		// 페이징 처리 2
-		int total_count = ds.total_diary();
+		int total_count = ds.total_diary(user_id);
 		int page_count = (int) Math.ceil((double)total_count / page_size);
 
 		// 페이징 처리 3
