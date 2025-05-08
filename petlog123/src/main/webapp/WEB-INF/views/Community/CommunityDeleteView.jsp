@@ -63,7 +63,7 @@
   <input type="hidden" name="dfimage" value="${dto.post_image}">
     <input type="hidden" name="dlogin_id" value="${dto.user_id}">
 <table border="1" width="60%" align="center">
-<caption>${dto.user_login_id}님의 삭제 자료를 확인하세요.</caption>
+<caption>${post.user_login_id}님의 삭제 자료를 확인하세요.</caption>
 
 <tr>
   <th>제목</th>
@@ -80,10 +80,7 @@
   <td>
     <div id="contentDiv" contenteditable="true">
       ${dto.post_content}
-      <c:if test="${dto.post_image ne null and not empty dto.post_image and dto.post_image ne 'noimage.png'}">
-        <img src="./image/${dto.post_image}" 
-             style="max-width:200px; height:auto; margin-top:10px; display:block; margin-left:auto; margin-right:auto;"><br>
-      </c:if>
+
     </div>
     <input type="hidden" name="post_content" id="hiddenContent">
   </td>
@@ -92,7 +89,7 @@
 <tr style="text-align: center;">
   <td colspan="2">
     <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
-    <input type="reset" value="취소">
+    <input type="reset" value="취소" onclick="history.back()">
   </td> 
 </tr>
 </table>

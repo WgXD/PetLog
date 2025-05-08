@@ -57,10 +57,10 @@ public interface CommunityService {
 
 	CommunityDTO getPostById(int dnum);
 
-	void deletePost(int dnum);
-
-	void updatePost(CommunityDTO modifyDto);
+	void deletePost(@Param("param1") int post_id, @Param("param2") int user_id);
 
 	ArrayList<CommunityDTO> getPopularPosts();
+
+	void modify(CommunityDTO modifyDto);
 
 }

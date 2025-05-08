@@ -76,7 +76,6 @@
   <th>사진</th>
   <td>
     <c:if test="${dto.post_image ne null and not empty dto.post_image and dto.post_image ne 'noimage.png'}">
-      <img src="./image/${dto.post_image}" width="200px" height="200px"><br>
     </c:if>
     <input type="file" id="post_image" name="post_image" accept="image/*" onchange="insertImage()" multiple>
   </td>

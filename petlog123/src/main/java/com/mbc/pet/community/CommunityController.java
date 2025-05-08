@@ -232,20 +232,18 @@ public class CommunityController {
     	int dnum = Integer.parseInt(request.getParameter("dnum"));
         String dfname = request.getParameter("dfimage");
 
-        //Integer user_id = (Integer) session.getAttribute("user_id");
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
-
         CommunityDTO dto = cs.getPostById(dnum);
         if (dto == null) return "redirect:/errorPage";
         if (!user_id.equals(dto.getUser_id())) return "redirect:/accessDenied";
 
-        cs.deletePost(dnum);
+        cs.deletePost(dnum,user_id);
 
         if (dfname != null && !dfname.equals("noimage.png")) {
             File oldFile = new File(path + "\\" + dfname);
             if (oldFile.exists()) {
                 boolean isDeleted = oldFile.delete();
-                redirectAttributes.addFlashAttribute("msg", isDeleted ? "게시글이 성공적으로 삭제되었습니다" : "게시글은 삭제되었지만 이미지 삭제 실패");
+                redirectAttributes.addFlashAttribute("msg", isDeleted ? "게시글이 삭제되었습니다" : "게시글은 삭제되었지만 이미지 삭제 실패");
             } else {
                 redirectAttributes.addFlashAttribute("msg", "게시글은 삭제되었지만 이미지 파일 없음");
             }
@@ -286,8 +284,6 @@ public class CommunityController {
     	
     	String path = mul.getSession().getServletContext().getRealPath("/image");
 
-        //Integer user_id = (Integer) session.getAttribute("user_id");
-        //String user_login_id = (String) session.getAttribute("user_login_id");
         if (user_id == null || user_login_id == null) return "redirect:/login";
 
         int mnum = Integer.parseInt(mul.getParameter("mnum"));
@@ -315,10 +311,11 @@ public class CommunityController {
 
         CommunityDTO modifyDto = new CommunityDTO();
         modifyDto.setPost_id(mnum);
+        modifyDto.setUser_id(user_id);
         modifyDto.setPost_title(title);
         modifyDto.setPost_content(content);
         modifyDto.setPost_image(fname);
-        cs.updatePost(modifyDto);
+        cs.modify(modifyDto);
 
         redirectAttributes.addFlashAttribute("msg", "수정이 완료되었습니다.");
         return "redirect:/PostDetail?pnum=" + mnum;

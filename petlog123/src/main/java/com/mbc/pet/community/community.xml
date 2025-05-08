@@ -112,17 +112,17 @@
     from community where post_id = #{param1}
   </select>
 
-  <delete id="delete1" parameterType="int">
+  <delete id="deletePost" parameterType="int">
     delete from community where post_id = #{param1} and user_id = #{param2}
   </delete>
 
   <!-- 게시글 수정 -->
   <update id="modify">
     update community set 
-      post_title = #{param2}, 
-      post_content = #{param3}, 
-      post_image = #{param4}
-    where post_id = #{param1} and user_id = #{param5}
+      post_title = #{post_title}, 
+      post_content = #{post_content}, 
+      post_image = #{post_image}
+    where post_id = #{post_id} and user_id = #{user_id}
   </update>
 
   <select id="modifyview" resultMap="communityMap">

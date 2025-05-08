@@ -138,7 +138,7 @@
 </tr>
     <tr>
   <td colspan="2" class="btn-group">
-    <input type="button" value="목록" onclick="history.back()">
+    <input type="button" value="목록" onclick="location.href='CommunityView'">
     
     <!-- 수정 버튼 (작성자일 경우에만) -->
     <c:if test="${user_id eq dto.user_id and dto.post_type ne 'notice'}">

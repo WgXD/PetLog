@@ -89,7 +89,6 @@ public class QuizController {
     	// 로그인 체크
         Integer user_id = (Integer) session.getAttribute("user_id");
         String user_login_id = (String) session.getAttribute("user_login_id");
-
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
@@ -97,7 +96,6 @@ public class QuizController {
         //사용자 정보
         int quiz_id=dto.getQuiz_id();
         String userAnswer=dto.getQuiz_answer(); //사용자가 선택한 답
-        //int user_id=(Integer)session.getAttribute("user_id"); //사용자 아이디 불러오기
         
         //퀴즈 정답 가져오기
         QuizService qs= sqlSession.getMapper(QuizService.class);
@@ -119,7 +117,7 @@ public class QuizController {
         //실제 풀이 시간 받기
         int timeTaken=Integer.parseInt(request.getParameter("result_time"));
 
-        //----------------------정답 포도알 +10 dasom
+        //----------------------정답 포도알 +3 dasom
         // 결과 저장
         QuizResultDTO redto = new QuizResultDTO();
         redto.setResult_score(score); // 맞았으면 1, 틀렸으면 0
@@ -127,7 +125,7 @@ public class QuizController {
         redto.setResult_time(timeTaken); // 풀이 시간
         redto.setUser_id(user_id);
         redto.setQuiz_id(quiz_id);
-        redto.setGet_grape(isCorrect ? 3 : 0); // 정답 시만 10점 적립
+        redto.setGet_grape(isCorrect ? 3 : 0); // 정답 시만 3점 적립
         qs.insertQuizResult(redto);
 
         //정답일때  포도알 적립 처리
@@ -139,7 +137,7 @@ public class QuizController {
             point.setUser_id(user_id);
             point.setPoint_action("quiz"); // 적립 타입
             point.setPoint_action_id(quiz_id); // 퀴즈 ID 기준
-            point.setPoint_earned_grapes(10); // 지급량
+            point.setPoint_earned_grapes(3); // 지급량
 
             ps.insert_point(point);
 
@@ -149,23 +147,20 @@ public class QuizController {
             // 세션 갱신 (메뉴바 포도알 실시간 반영용)
             UserDTO updated = sqlSession.getMapper(UserService.class).selectUserByLoginId(user_login_id);
             session.setAttribute("loginUser", updated);
+	        
+	        //포도알 +10 여기까지
+	        
+	        //순위 계산
+	        int MyRank = qs.time_rank(quiz_id, user_id);
+	        redto.setResult_rank(MyRank);
+	        mo.addAttribute("redto", redto);
+	        mo.addAttribute("top10", qs.top10rank(quiz_id));  //top10 가져오기
+        } else {
+        	mo.addAttribute("redto", null); //오답일 경우 순위 계산 x
+        	mo.addAttribute("top10", null); //오답일 경우 top10 결과 저장 x
         }
-        //포도알 +10 여기까지
-        
-        //순위 계산
-        int MyRank = qs.time_rank(quiz_id, user_id);
-        redto.setResult_rank(MyRank);
-    
-        //top10 가져오기
-        ArrayList<QuizResultDTO> top10 = qs.top10rank(quiz_id);
-        
         mo.addAttribute("isCorrect", isCorrect);
-        mo.addAttribute("top10", top10);
-        mo.addAttribute("redto", redto);
-        
-        //퀴즈 오답시 정답 알려주기 dasom
-        mo.addAttribute("quiz", dbQuiz);
-        //
+        mo.addAttribute("quiz", dbQuiz);  //퀴즈 오답시 정답 알려주기 dasom
 
         return "QuizResult";
     }
