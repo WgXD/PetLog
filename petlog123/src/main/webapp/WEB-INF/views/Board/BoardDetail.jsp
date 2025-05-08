@@ -104,143 +104,53 @@
 </head>
 <body>
 <form action="PostDetail" method="post" enctype="multipart/form-data">
+<input type="hidden" name="mnum" value="${dto.post_id}" readonly>
   <table>
-    <caption>${dto.user_login_id}님의 게시물</caption>
+<caption>${dto.user_login_id}님의 게시물</caption>
   <tr>
   <td colspan="2" style="text-align: right; padding: 5px 10px;">
     <span style="font-size: 15px; color: #8B8386;">👁 ${dto.post_readcnt}</span>
-    <span style="font-size: 15px; color: #e74c3c;">❤️ ${LikeCount}</span>
-    &nbsp;&nbsp;
-    <span style="font-size: 15px; color: #8B8386;">💬 ${fn:length(comments)}</span>
   </td>     
   </tr>
-  <tr>
-  <td colspan="2" style="text-align: right; padding: 5px 10px;">
-    <span style="font-size: 15px; color: #e74c3c;">❤️ ${LikeCount}</span>
-    &nbsp;&nbsp;
-    <span style="font-size: 15px; color: #8B8386;">👁 ${dto.post_readcnt}</span>
-  </td>
-</tr>
-	<tr>
-      <td colspan="2"><input type="hidden" name="mnum" value="${dto.post_id}" readonly></td>
-    </tr>
     <tr>
       <th>제목</th>
       <td><input type="text" name="post_title" value="${dto.post_title}" style="width:100%; padding:8px;" readonly></td>
     </tr>
-   <tr>
-  <th>내용</th>
-  <td>
-    <div id="contentDiv" contenteditable="true" 
-      style="width:100%; min-height:300px; border:1px solid #ccc; padding:10px;">
-      ${dto.post_content}
-      <c:if test="${dto.post_image != null and not empty dto.post_image}">
-        <br>
-        <img src="./image/${dto.post_image}" style="max-width:80%; height:auto; margin-top:10px; display:block; margin-left:auto; margin-right:auto;">
-      </c:if>
-    </div>
-    <!-- 실제 전송될 input 숨기기 -->
-    <input type="hidden" name="post_content" id="hiddenContent">
+	<tr>
+	  <th>내용</th>
+	  <td>
+	    <div id="contentDiv" contenteditable="true">
+	      ${dto.post_content}
+	    </div>
+	    <input type="hidden" name="post_content" id="hiddenContent">
+	  </td>
+	</tr>
+    <tr>
+  <td colspan="2" class="btn-group">
+    <input type="button" value="목록" onclick="location.href='BoardView'">
+ <c:choose>
+  <c:when test="${fn:trim(dto.post_type) == 'notice' and fn:trim(sessionScope.user_role) == 'admin'}">
+    <input type="button" value="수정" onclick="location.href='PostModify?mnum=${dto.post_id}'">
+    <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
+  </c:when>
+</c:choose>
   </td>
 </tr>
-    <tr>
-      <td colspan="2" class="btn-group">
-        <input type="button" value="목록" onclick="history.back()">
-        <input type="button" value="수정" onclick="location.href='PostModify?mnum=${dto.post_id}'">
-        <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
-      </td>
-    </tr>
   </table>
 </form>
-<script type="text/javascript"></script>
+<script>
 <!-- form 전송할 때 div 내용 복사해서 숨은 input에 넣기 -->
 function beforeSubmit() {
     document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
 }
 </script>
-<!--   좋아요 기능 -->
-<div style="text-align: center; margin-top: 20px;">
-  <form action="like" method="post" style="display: inline;">
-    <input type="hidden" name="post_id" value="${dto.post_id}">
-     <c:choose>
-      <c:when test="${userLiked}">
-        <button type="submit" style="color:red; font-size: 20px; border: none; background: none;">❤️ (${LikeCount})</button>
-      </c:when>
-      <c:otherwise>
-        <button type="submit" style="font-size: 20px; border: none; background: none;">🤍 (${LikeCount})</button>
-      </c:otherwise>
-    </c:choose>
-  </form>
-</div>
+
 <script>
 function confirmDelete(postId) {
   if (confirm("정말 삭제하시겠습니까?")) {
     window.location.href = 'PostDelete?dnum=' + postId;
   }
 }
-</script>
-<!-- 댓글 섹션 시작 -->
-<div style="width: 60%; margin: 40px auto 20px auto; padding: 15px 0; text-align: left; border-bottom: 1px solid #ddd;">
-    <h3 style="margin-bottom: 20px;">댓글</h3>
-    
-<!-- 댓글 작성 폼 -->
-<form action="commentInsert" method="post">
-<input type="hidden" name="post_id" value="${dto.post_id}">
-
-<textarea name="com_com" rows="3"
-	style="width: 100%; padding: 10px; font-size: 15px; resize: none;
-	border: none; border-bottom: 1px solid #ccc;
-	background: transparent; outline: none;"
-	placeholder="댓글을 입력하세요" required></textarea>
-<button type="submit"
-	style="margin-top: 8px; padding: 6px 12px;
-	background-color: #FFE4E1; color: #8B7D7B;
-	border: none; border-radius: 4px;
-	font-size: 14px; cursor: pointer;">
-댓글 작성
-</button></form></div>
-
-<!-- 댓글 출력 -->
-<c:forEach items="${comments}" var="com">
-<c:set var="margin" value="${com.depth * 20}" />
-
-<div style="width: 60%; margin: 0 auto; margin-left: calc(20% + ${margin}px); border-bottom: 1px solid #ddd; padding: 15px 10px; text-align: left; position: relative;">
-<div style="font-weight: bold; margin-bottom: 5px;">👤유저 ID: ${com.user_login_id}</div>
-<div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
-
-<!-- 대댓글 버튼 -->
-<button type="button" onclick="toggleReplyForm(${com.com_id})"
-	style="position: absolute; top: 15px; right: 10px; font-size: 12px;
-    padding: 4px 8px; background-color: #eee;
-    border: 1px solid #aaa; border-radius: 4px; cursor: pointer;">
-    답글
-</button>
-
-<!-- 대댓글 입력창 -->
-<div id="replyForm${com.com_id}" style="display: none; margin-top: 10px;">
-	<form action="commentInsert" method="post">
-    <input type="hidden" name="post_id" value="${dto.post_id}">
-    <input type="hidden" name="parent_id" value="${com.com_id}">
-    <input type="hidden" name="depth" value="${com.depth + 1}">
-    <textarea name="com_com" rows="2"
-		style="width: 95%; padding: 8px; border: none;
-        border-bottom: 1px solid #ccc;
-        background: transparent; resize: none; outline: none;"
-        placeholder="답글을 입력하세요" required></textarea>
-<button type="submit"
-        style="margin-top: 5px; padding: 6px 12px;
-        background-color: #FFE4E1; color: #8B7D7B;
-        background-color: #e0e0e0; border: 1px solid #bbb;
-        border-radius: 4px; font-size: 13px;">
-		작성
-</button></form></div></div>
-</c:forEach>
-<!-- 대댓글 폼 토글 -->
-<script>
-   function toggleReplyForm(id) {
-      const form = document.getElementById('replyForm' + id);
-      form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-   }
 </script>
 </body>
 </html>

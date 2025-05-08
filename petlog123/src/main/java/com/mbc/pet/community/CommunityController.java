@@ -2,10 +2,12 @@ package com.mbc.pet.community;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +169,31 @@ public class CommunityController {
 	    return "BoardView"; // 공지사항 출력 JSP
     }
 
-//게시글 상세 보기----------------------------------------------------
+//공지사항 상세 보기----------------------------------------------------
+    @RequestMapping(value = "/BoardDetail")
+    public String cc5(Model mo, HttpServletRequest request,HttpSession session) {
+      
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+    	
+    	int pnum = Integer.parseInt(request.getParameter("pnum"));
+        CommunityService cs = sqlSession.getMapper(CommunityService.class);
+        cs.readcnt(pnum);
+        CommunityDTO dto = cs.detailview(pnum);
+        mo.addAttribute("dto", dto);
+        mo.addAttribute("user_id", user_id);
+        
+        int result = cs.check_like(user_id, pnum);
+        boolean userLiked = result > 0;
+        mo.addAttribute("userLiked", userLiked);
+        return "BoardDetail";
+    }
+
+  //게시글 상세 보기----------------------------------------------------
     @RequestMapping(value = "/PostDetail")
     public String cc3(Model mo, HttpServletRequest request,HttpSession session) {
       
@@ -183,9 +209,6 @@ public class CommunityController {
         cs.readcnt(pnum);
         CommunityDTO dto = cs.detailview(pnum);
         mo.addAttribute("dto", dto);
-
-        // 로그인된 사용자 ID
-       // Integer user_id = (Integer) session.getAttribute("user_id");
         mo.addAttribute("user_id", user_id);
         
         List<CommentsDTO> comments = cs.getCommentsByPostId(pnum);
@@ -200,6 +223,7 @@ public class CommunityController {
         return "CommunityDetail";
     }
 
+    
 //삭제-----------------------------------------------------
     @RequestMapping(value = "/PostDelete")
     public String cc4(HttpServletRequest request, Model mo, HttpSession session) {
@@ -219,39 +243,49 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "/PostDeleteSave", method = RequestMethod.GET)
-    public String deletePost(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) {
-     
-	    Integer user_id = (Integer) session.getAttribute("user_id");
-	    String user_login_id = (String) session.getAttribute("user_login_id");
+    public void deletePost(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 
-	    if (user_id == null || user_login_id == null) {
-	        return "redirect:/login?error=login_required";
-	    }
-    	
-    	String path = request.getSession().getServletContext().getRealPath("/image");
-    	int dnum = Integer.parseInt(request.getParameter("dnum"));
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+        String user_role = (String) session.getAttribute("user_role");
+
+        if (user_id == null || user_login_id == null) {
+            response.sendRedirect("/login?error=login_required");
+            return;
+        }
+
+        int dnum = Integer.parseInt(request.getParameter("dnum"));
         String dfname = request.getParameter("dfimage");
+        String path = request.getSession().getServletContext().getRealPath("/image");
 
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
         CommunityDTO dto = cs.getPostById(dnum);
-        if (dto == null) return "redirect:/errorPage";
-        if (!user_id.equals(dto.getUser_id())) return "redirect:/accessDenied";
 
-        cs.deletePost(dnum,user_id);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
-        if (dfname != null && !dfname.equals("noimage.png")) {
-            File oldFile = new File(path + "\\" + dfname);
-            if (oldFile.exists()) {
-                boolean isDeleted = oldFile.delete();
-                redirectAttributes.addFlashAttribute("msg", isDeleted ? "게시글이 삭제되었습니다" : "게시글은 삭제되었지만 이미지 삭제 실패");
-            } else {
-                redirectAttributes.addFlashAttribute("msg", "게시글은 삭제되었지만 이미지 파일 없음");
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("msg", "게시글이 삭제되었습니다");
+        // 작성자 또는 관리자만 삭제 가능
+        if (dto == null || !user_id.equals(dto.getUser_id())) {
+            out.println("<script>alert('삭제 권한이 없습니다.'); history.back();</script>");
+            return;
         }
 
-        return "redirect:/CommunityView";
+        // 삭제 처리
+        cs.deletePost(dnum, user_id);
+
+        // 이미지 파일 삭제
+        if (dfname != null && !dfname.equals("noimage.png")) {
+            File oldFile = new File(path + "\\" + dfname);
+            if (oldFile.exists()) oldFile.delete();
+        }
+
+        // 게시글 타입에 따라 분기해서 목록으로 리다이렉트
+        String redirectUrl = "CommunityView";
+        if ("notice".equals(dto.getPost_type())) {
+            redirectUrl = "NoticeBoard";
+        }
+
+        out.println("<script>alert('게시글이 삭제되었습니다.'); location.href='" + redirectUrl + "';</script>");
     }
 
 //수정----------------------------------------------------
@@ -273,7 +307,8 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "/PostModifySave", method = RequestMethod.POST)
-    public String modifyPost(MultipartHttpServletRequest mul, HttpSession session, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+    public String modifyPost(MultipartHttpServletRequest mul, HttpSession session, 
+    		RedirectAttributes redirectAttributes, HttpServletResponse response) throws IllegalStateException, IOException {
     	
 	    Integer user_id = (Integer) session.getAttribute("user_id");
 	    String user_login_id = (String) session.getAttribute("user_login_id");
@@ -295,7 +330,12 @@ public class CommunityController {
         CommunityService cs = sqlSession.getMapper(CommunityService.class);
         CommunityDTO dto = cs.getPostById(mnum);
         if (dto == null) return "redirect:/errorPage";
-        if (!user_id.equals(dto.getUser_id())) return "redirect:/accessDenied";
+
+        // 작성자만 수정 가능
+        if (dto == null || !user_id.equals(dto.getUser_id())) {
+            redirectAttributes.addFlashAttribute("msg", "수정 권한이 없습니다.");
+            return "redirect:/PostDetail?pnum=" + mnum;
+        }
 
         String fname = dfname;
         if (mf != null && !mf.isEmpty()) {
@@ -306,8 +346,8 @@ public class CommunityController {
             if (dfname != null && !dfname.equals("noimage.png")) {
                 File oldFile = new File(path + "\\" + dfname);
                 if (oldFile.exists()) oldFile.delete();
-            }
-        }
+        }}
+
 
         CommunityDTO modifyDto = new CommunityDTO();
         modifyDto.setPost_id(mnum);
@@ -318,7 +358,13 @@ public class CommunityController {
         cs.modify(modifyDto);
 
         redirectAttributes.addFlashAttribute("msg", "수정이 완료되었습니다.");
-        return "redirect:/PostDetail?pnum=" + mnum;
+        
+        // 게시글 타입에 따라 분기
+        if ("notice".equals(dto.getPost_type())) {
+            return "redirect:/NoticeBoard";
+        } else {
+            return "redirect:/CommunityView";
+        }
     }
 
 //검색----------------------------------------------------
@@ -352,9 +398,7 @@ public class CommunityController {
 		else if(skey.equals("post_content")){
 			list=cs.searchcontent(svalue);
 		}
-		else{
-			list=cs.searchdate(svalue);
-		}
+
 		mo.addAttribute("list", list);
 		mo.addAttribute("keyword", svalue);
 		

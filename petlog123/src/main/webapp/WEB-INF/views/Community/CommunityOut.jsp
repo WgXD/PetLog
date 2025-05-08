@@ -151,7 +151,6 @@
 		<option value="user_login_id">작성자</option>
 		<option value="post_title">제목</option>
 		<option value="post_content">내용</option>
-		<option value="post_date">작성일자</option>
 	</select>
 	<label><input type="text" name="keyword" placeholder="검색어를 입력하세요."></label>
 	<input type="submit" value="검색">

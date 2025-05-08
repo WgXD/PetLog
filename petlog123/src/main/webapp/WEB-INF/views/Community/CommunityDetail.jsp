@@ -136,19 +136,16 @@
     <input type="hidden" name="post_content" id="hiddenContent">
   </td>
 </tr>
-    <tr>
+<tr>
   <td colspan="2" class="btn-group">
     <input type="button" value="목록" onclick="location.href='CommunityView'">
     
-    <!-- 수정 버튼 (작성자일 경우에만) -->
-    <c:if test="${user_id eq dto.user_id and dto.post_type ne 'notice'}">
-      <input type="button" value="수정" onclick="location.href='PostModify?mnum=${dto.post_id}'">
-    </c:if>
-
-    <!-- 삭제 버튼 (작성자일 경우에만) -->
-    <c:if test="${user_id eq dto.user_id and dto.post_type ne 'notice'}">
-      <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
-    </c:if>
+    <c:choose>
+      <c:when test="${fn:trim(dto.post_type) != 'notice' and (user_id == dto.user_id or sessionScope.user_role == 'admin')}">
+        <input type="button" value="수정" onclick="location.href='PostModify?mnum=${dto.post_id}'">
+        <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
+      </c:when>
+    </c:choose>
   </td>
 </tr>
   </table>

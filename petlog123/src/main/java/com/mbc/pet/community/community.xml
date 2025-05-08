@@ -101,7 +101,7 @@
 
   <!-- 수정, 삭제를 위한 유저 아이디 가져오기 -->
   <select id="getPostById" resultType="com.mbc.pet.community.CommunityDTO">
-  	select post_id, user_id, post_title, post_content, post_image, post_date
+  	select post_id, user_id, post_title, post_content, post_image, post_date, post_type
   	from community where post_id = #{post_id}
   </select>
   
@@ -151,12 +151,6 @@
     select post_id, post_title, post_content, post_readcnt,
     to_char(post_date, 'yyyy-MM-dd') post_date, user_id
     from community where post_content like '%' || #{param1} || '%'
-  </select>
-
-  <select id="searchdate" resultType="com.mbc.pet.community.CommunityDTO">
-    select post_id, post_title, post_content, post_readcnt,
-    to_char(post_date, 'yyyy-MM-dd') post_date, user_id
-    from community where post_date like '%' || #{param1} || '%'
   </select>
 
   <!-- 댓글 등록 -->
