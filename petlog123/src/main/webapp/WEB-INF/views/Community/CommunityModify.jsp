@@ -47,6 +47,15 @@
     background: #fff;
     text-align: left;
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
@@ -55,6 +64,8 @@
   <input type="hidden" name="mnum" value="${dto.post_id}">
   <input type="hidden" name="himage" value="${dto.post_image}">
   <input type="hidden" name="mid" value="${dto.user_id}">
+  
+  <div class="table-wrapper">
 <table>
 <caption>${dto.user_login_id}님의 수정 자료를 확인하세요.</caption>
 <tr>
@@ -88,6 +99,7 @@
   </td> 
 </tr>
 </table>
+</div>
 </form>
 <script>
 // 폼 전송 전에 div 내용을 hidden input에 복사

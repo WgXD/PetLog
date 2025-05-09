@@ -54,6 +54,15 @@
     display: block;
     margin: 10px auto 0 auto;
 }
+.table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 
@@ -62,6 +71,9 @@
   <input type="hidden" name="post_id" value="${dto.post_id}">
   <input type="hidden" name="dfimage" value="${dto.post_image}">
     <input type="hidden" name="dlogin_id" value="${dto.user_id}">
+    
+<div class="table-wrapper">
+    
 <table border="1" width="60%" align="center">
 <caption>${post.user_login_id}님의 삭제 자료를 확인하세요.</caption>
 
@@ -92,6 +104,7 @@
   </td> 
 </tr>
 </table>
+</div>
 </form>
 
 <script>

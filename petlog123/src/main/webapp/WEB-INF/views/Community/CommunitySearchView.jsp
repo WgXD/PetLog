@@ -77,6 +77,15 @@
   .btn-wrap input[type="button"]:hover {
     background-color: #45a049;
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 <meta charset="UTF-8">
 </head>
@@ -87,6 +96,7 @@
         alert('${msg}');
     </script>
 </c:if>
+<div class="table-wrapper">
 <table>
 <caption>"${keyword}" 에 대한 검색 결과</caption>
 <tr>
@@ -108,6 +118,7 @@
 </tr>
 </c:forEach>
 </table>
+</div>
 	<form action="searchview" method="post">
 	<select name="skey" id="skey">
 		<option value="post_id">작성자</option>

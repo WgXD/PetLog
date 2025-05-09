@@ -86,10 +86,20 @@
   .btn-cancel:hover {
     background-color: #e9dbcd; /* 호버 시 살짝 더 진한 살구 */
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
 <form action="CommunitySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
+<div class="table-wrapper">
 <table>
   <caption>게시글 작성</caption>
   <c:if test="${sessionScope.user_role eq 'admin'}">
@@ -128,6 +138,7 @@
     </td>
   </tr>
 </table>
+</div>
 </form>
 <script>
 // 폼 전송 시 div 내용을 숨겨진 input에 넣기

@@ -17,6 +17,8 @@ import com.mbc.pet.calendar.CalDTO;
 import com.mbc.pet.calendar.CalService;
 import com.mbc.pet.community.CommunityDTO;
 import com.mbc.pet.community.CommunityService;
+import com.mbc.pet.pet.PetDTO;
+import com.mbc.pet.pet.PetService;
 
 @Controller
 public class HomeController {
@@ -55,6 +57,10 @@ public class HomeController {
 	    ArrayList<CommunityDTO> popularPosts = cs.getPopularPosts();
 	    model.addAttribute("popularPosts", popularPosts);
 
+	    //펫 프로필 불러오기
+        PetService ps = sqlSession.getMapper(PetService.class);
+        ArrayList<PetDTO> petdto = ps.getpetbyuserid(user_id);
+        model.addAttribute("petdto", petdto);
 	    return "main";
 	
 }

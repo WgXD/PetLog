@@ -23,7 +23,7 @@ public interface PetService {
 
 	ArrayList<Integer> petsbyuser_cal(Integer user_id); //달력 일정 직접 추가용!!!!!!
 	
-	
+	ArrayList<PetDTO> getpetbyuserid(Integer user_id); //메인 페이지에 펫 목록 불러오기
 	
 
 	

@@ -100,12 +100,22 @@
 .btn-group input[value="목록"]:hover {
   background-color: #aaa;
 }
+.table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
 <form action="PostDetail" method="post" enctype="multipart/form-data">
 <input type="hidden" name="mnum" value="${dto.post_id}" readonly>
-  <table>
+<div class="table-wrapper">
+<table>
 <caption>${dto.user_login_id}님의 게시물</caption>
   <tr>
   <td colspan="2" style="text-align: right; padding: 5px 10px;">
@@ -136,7 +146,8 @@
 </c:choose>
   </td>
 </tr>
-  </table>
+</table>
+</div>
 </form>
 <script>
 <!-- form 전송할 때 div 내용 복사해서 숨은 input에 넣기 -->

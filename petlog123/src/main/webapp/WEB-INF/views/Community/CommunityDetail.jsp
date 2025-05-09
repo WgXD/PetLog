@@ -15,7 +15,7 @@
     padding: 0;
   }
   table {
-    width: 60%;
+    width: 80%;
     margin: 50px auto;
     border-collapse: collapse;
     background-color: transparent; /* 배경 제거 */
@@ -100,11 +100,22 @@
 .btn-group input[value="목록"]:hover {
   background-color: #aaa;
 }
+.table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
 <form action="PostDetail" method="post" enctype="multipart/form-data">
   <input type="hidden" name="mnum" value="${dto.post_id}" readonly>
+  
+  <div class="table-wrapper">
   <table>
     <caption>${dto.user_login_id}님의 게시물</caption>
   <tr>
@@ -148,7 +159,8 @@
     </c:choose>
   </td>
 </tr>
-  </table>
+</table>
+</div>
 </form>
 
 <script>

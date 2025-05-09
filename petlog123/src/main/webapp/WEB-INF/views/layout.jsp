@@ -1,58 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="t" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title><t:insertAttribute name="title"/></title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-<style type="text/css">
-
-header
-{
-   text-align: center;
-   width: 100%;
-}
-nav
-{
-      
-}
-#top
-{
-   
-}
-#body
-{
-   text-align: center;
-   width: 100%;
-}
-#footer
-{
-   position: fixed;
-   bottom: 0px;
-   width: 100%;
-   text-align: center;
-   font-size: 15px;
-   line-height: 40px;
-   background-color: #FFF0F5;
-   color: #8B8386; 
-}
-</style>
+    <meta charset="UTF-8">
+    <title><tiles:getAsString name="title"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-   <div id="container">
-      <div id="top">
-         <t:insertAttribute name="top"/>
-      </div>
-      <div id="body">
-         <t:insertAttribute name="body"/>
-         <div style="height: 100px;"></div> <!-- 본문 하단 여백 추가 -->
-      </div>
-      <div id="footer">
-         <t:insertAttribute name="footer"/>
-      </div>
-   </div>
-   
+
+<!-- top 영역 -->
+<tiles:insertAttribute name="top" />
+
+<!-- body 영역 -->
+<tiles:insertAttribute name="body" />
+
+<!-- footer 영역 -->
+<tiles:insertAttribute name="footer" />
+
 </body>
 </html>

@@ -87,12 +87,22 @@
   .btn-cancel:hover {
     background-color: #e9dbcd; /* 호버 시 살짝 더 진한 살구 */
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
 
 <form action="CommunitySave" method="post" enctype="multipart/form-data">
   <h2>공지사항 작성</h2>
+ <div class="table-wrapper">
   <table>
     <!-- 관리자만 공지사항 작성 가능 -->
     <c:if test="${sessionScope.user_role eq 'admin'}">
@@ -123,6 +133,7 @@
       <td><input type="file" name="post_image"></td>
     </tr>
   </table>
+</div>
 
   <div class="btn-area">
     <input type="submit" class="btn btn-submit" value="저장">

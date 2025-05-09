@@ -102,6 +102,15 @@
     color: #db7093; /* 현재 페이지 색: 부드러운 핑크 */
     text-decoration: underline;
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
@@ -121,6 +130,7 @@
 </div>
 
 <!-- 공지사항 테이블 -->
+<div class="table-wrapper">
 <table>
 <caption>PetLog 공지사항</caption>
 <thead>
@@ -148,6 +158,7 @@
 </c:forEach>
 </tbody>
 </table>
+</div>
 
 <!-- 페이징 -->
 <div class="pagination">

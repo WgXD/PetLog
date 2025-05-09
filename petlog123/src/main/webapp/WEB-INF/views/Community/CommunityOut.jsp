@@ -7,101 +7,143 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 <style>
-  body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #ffffff; /* 흰색 배경 유지 */
-    margin: 0;
-    padding: 30px 0;
-  }
-  table {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: #fff;
-  }
-  caption {
-    caption-side: top;
-    font-size: 1.8em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  th, td {
-    padding: 14px 12px;
-    border-bottom: 1px solid #eee;
-    font-size: 1em;
-    text-align: center;
-  }
-  th {
-    background-color: #f7f7f7;
-    color: #555;
-  }
-  td a {
-    color: #555;
-    text-decoration: none;
-  }
-  td a:hover {
-    text-decoration: underline;
-    color: #db7093; /* 부드러운 분홍 계열로 hover */
-  }
-  tr:hover {
-    background-color: #fafafa;
-  }
-  .btn-wrap {
-    text-align: right;
-    width: 80%;
-    margin: 0 auto 20px;
-  }
-  .btn-wrap button {
-    padding: 10px 20px;
-    font-weight: normal;
-    font-size: 1em;
-    border: none;
-    background-color: #f5d7d7; /* 부드러운 연핑크 */
-    color: #555;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .btn-wrap button:hover {
-    background-color: #f0caca; /* hover 시 부드러운 핑크 */
-  }
-  form {
-    width: 80%;
-    margin: 30px auto 0;
-    text-align: center;
-  }
-  select, input[type="text"], input[type="submit"] {
-    padding: 8px 12px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.95em;
-  }
-  input[type="submit"] {
-    background-color: #f0e5d8; /* 연한 베이지색 */
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  input[type="submit"]:hover {
-    background-color: #e9dbcd;
-  }
-  .pagination {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .pagination a {
-    margin: 0 4px;
-    text-decoration: none;
-    color: #666;
-    font-size: 1em;
-  }
-  .pagination a.current {
-    font-weight: bold;
-    color: #db7093; /* 현재 페이지 색: 부드러운 핑크 */
-    text-decoration: underline;
-  }
+ body {
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background-color: #fefefe;
+  margin: 0;
+  padding: 50px 0;
+  color: #333;
+}
+
+table {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+caption {
+  caption-side: top;
+  font-size: 2em;
+  font-weight: bold;
+  padding: 20px;
+  color: #db7093;
+  text-align: center;
+}
+
+th, td {
+  padding: 14px 12px;
+  font-size: 1em;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+th {
+  background-color: #fff0f4;
+  color: #555;
+  font-weight: 600;
+}
+
+td a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+td a:hover {
+  color: #db7093;
+  text-decoration: underline;
+}
+
+tr:hover {
+  background-color: #fff9f9;
+}
+
+.btn-wrap {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  text-align: right;
+}
+
+.btn-wrap input[type="button"] {
+  background-color: #ffe1e1;
+  color: #444;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-wrap input[type="button"]:hover {
+  background-color: #ffcccc;
+}
+
+form {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+select, input[type="text"], input[type="submit"] {
+  padding: 10px 14px;
+  margin: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+input[type="submit"] {
+  background-color: #ffe1b8;
+  color: #555;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #ffd8a6;
+}
+
+.pagination {
+  width: 100%;
+  text-align: center;
+  margin: 40px 0;
+}
+
+.pagination a {
+  margin: 0 6px;
+  padding: 6px 12px;
+  color: #888;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.pagination a.current {
+  background-color: #db7093;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagination a:hover {
+  background-color: #ffe1e1;
+}
+.table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 5000px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
@@ -111,7 +153,10 @@
         alert('${msg}');
     </script>
 </c:if>
+
+<div class="table-wrapper">
 <!-- 게시글 작성 버튼 -->
+
 <div class="btn-wrap">
   <input type="button" value="게시글 작성" onclick="location.href='CommunityIn'">
 </div>
@@ -163,6 +208,7 @@
        ${i}
     </a>
   </c:forEach>
+</div>
 </div>
 </body>
 </html>

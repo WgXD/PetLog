@@ -19,7 +19,8 @@
     </resultMap>
     
 	<select id="petsbyuser" parameterType="int" resultType="com.mbc.pet.pet.PetDTO">
-		select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter from pet where user_id = #{user_id}
+		select pet_id,pet_name,pet_bog,to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd,user_id,pet_img,pet_neuter 
+		from pet where user_id = #{param1}
 	</select> <!-- 회원별 반려동물 출력!! -->
     
     
@@ -73,5 +74,9 @@
     WHERE user_id = #{user_id}
 	</select> <!-- 강아지별 달력에 일정 추가용 -->
 	
-	
+	<!-- 메인 페이지에 펫 정보 불러오기 -->
+    <select id="getpetbyuserid" parameterType="int" resultType="com.mbc.pet.pet.PetDTO">
+	  select pet_id, pet_name, pet_bog, to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd, user_id, 
+	  pet_img, pet_neuter from pet where user_id = #{user_id, jdbcType=INTEGER}
+	</select>
     </mapper>
