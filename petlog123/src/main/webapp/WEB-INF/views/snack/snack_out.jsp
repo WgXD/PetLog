@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>레시피 보기</title>
+
 <%
     com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
     if (loginUser == null) {
@@ -14,33 +13,94 @@
         return;
     }
 %>
+
 <style>
-  .dotted-rounded-table {
-    border-collapse: separate;
-    border: 2px dotted #aaa;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #fff;
-    margin: 0 auto;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  body {
+    background-color: #fefefe;
+    margin: 0;
+    padding: 50px 0;
+    color: #333;
+    text-align: center;
   }
 
-  .dotted-rounded-table td,
-  .dotted-rounded-table th {
-    border: 1px dotted #ccc;
-    padding: 12px 16px;
-    font-size: 14px;
+  .table-wrapper {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 30px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  caption {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #db7093;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 14px 12px;
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+
+  th {
+    background-color: #fff0f4;
+    color: #555;
+    font-weight: 600;
+  }
+
+  td img {
+    max-width: 120px;
+    height: auto;
+  }
+
+  td a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  td a:hover {
+    color: #db7093;
+    text-decoration: underline;
+  }
+
+  .btn {
+    margin-top: 30px;
+    background-color: #ffe1e1;
+    color: #444;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background-color: #ffd2d2;
   }
 
   .pagination {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
   }
 
   .pagination a {
     display: inline-block;
     margin: 0 5px;
-    padding: 8px 12px;
+    padding: 8px 14px;
     background-color: #f2e9ff;
     color: #5e478e;
     border-radius: 10px;
@@ -58,59 +118,59 @@
     color: white;
   }
 
-  .btn {
-    margin-top: 20px;
-    background-color: #d7c9f3;
-    color: #5e478e;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 24px;
+  .no-recipe {
+    color: #c0392b;
     font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    padding: 20px 0;
   }
 
-  .btn:hover {
-    background-color: #e8defc;
-  }
 </style>
 </head>
 <body>
 
-<header><h2>레시피 보기🍬</h2></header>
+<div class="table-wrapper">
 
-<c:if test="${empty list}">
-  <p style="margin-top: 20px; font-weight: bold; color: #c0392b;">작성된 레시피가 없습니다. 🍪</p>
+  <caption>🍩 수제 간식 레시피 보기</caption>
+
+  <c:if test="${empty list}">
+    <p class="no-recipe">작성된 레시피가 없습니다. 🍪</p>
+    <a href="snack_input" class="btn">레시피 작성하러 가기 ✍️</a>
+  </c:if>
+
+  <c:if test="${not empty list}">  <br>  
+  <div style="text-align: right; margin-bottom: 10px;">
   <a href="snack_input" class="btn">레시피 작성하러 가기 ✍️</a>
-</c:if>
-
-<c:if test="${not empty list}">
-  <table class="dotted-rounded-table">
-    <tr>
-      <th>No.</th> <th>레시피명</th> <th>레시피</th> <th>이미지</th> <th>게시일</th>
-    </tr>
-    <c:forEach items="${list}" var="rec">
-      <tr>
-        <td>${rec.snack_id}</td>
-        <td><a href="snack_detail?dnum=${rec.snack_id}">${rec.snack_title}</a></td>
-        <td>${rec.snack_recipe}</td>
-        <td><img src="./image/${rec.snack_image}" width="120px"></td>
-        <td>${rec.snack_date}</td>
-      </tr>
-    </c:forEach>
-  </table>
-  
-<a href="snack_input" class="btn">레시피 작성하러 가기 ✍️</a>
-<br><br>
-
-  <div class="pagination">
-    <c:forEach var="i" begin="1" end="${page_count}">
-      <a href="snack_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
-    </c:forEach>
   </div>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>레시피명</th>
+          <th>레시피</th>
+          <th>이미지</th>
+          <th>게시일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${list}" var="rec">
+          <tr>
+            <td>${rec.snack_id}</td>
+            <td><a href="snack_detail?dnum=${rec.snack_id}">${rec.snack_title}</a></td>
+            <td>${rec.snack_recipe}</td>
+            <td><img src="./image/${rec.snack_image}" alt="레시피 이미지"></td>
+            <td>${rec.snack_date}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <c:forEach var="i" begin="1" end="${page_count}">
+        <a href="snack_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
+      </c:forEach>
+    </div>
+  </c:if>
 
-</c:if>
+</div>
 
 </body>
 </html>

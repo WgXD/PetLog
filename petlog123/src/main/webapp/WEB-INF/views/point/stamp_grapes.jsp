@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     
 <style>
+/* ===== 포도송이 레이블 ===== */
 .grape-label-flex {
     display: flex;
     align-items: center;
@@ -38,6 +39,7 @@
     font-family: 'Segoe UI', '맑은 고딕', sans-serif;
 }
 
+/* ===== 바 & 게이지 영역 ===== */
 .grape-bar-wrapper {
     display: flex;
     align-items: center;
@@ -55,7 +57,7 @@
 .grape-bar {
     width: 100%;
     height: 30px;
-    background: linear-gradient(to right, #f8ebff, #ecdfff); /* 연보라톤 그라데이션 */
+    background: linear-gradient(to right, #f8ebff, #ecdfff); /* 연보라톤 */
     border-radius: 20px;
     overflow: hidden;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -69,6 +71,7 @@
     border-radius: 20px;
 }
 
+/* ===== 게이지 위 이모지 ===== */
 .grape-indicator {
     position: absolute;
     top: -38px;
@@ -89,6 +92,7 @@
     width: auto;
 }
 
+/* ===== 설명 & 수치 ===== */
 .grape-count {
     margin-top: 15px;
     color: #7b3fa1;
@@ -97,22 +101,38 @@
 }
 
 .grape-growth-text {
-  font-weight: bold;
-  color: #b58ed3;
-  animation: textFlash 1.2s ease-in-out infinite;
-}
-
-/* 글자색 밝기 자체가 변화하는 반짝임 */
-@keyframes textFlash {
-  0%, 100% {
+    font-weight: bold;
     color: #b58ed3;
-  }
-  50% {
-    color: #f3e6ff; /* 거의 흰색에 가까운 연한 연보라 */
-  }
+    animation: textFlash 1.2s ease-in-out infinite;
 }
 
+@keyframes textFlash {
+    0%, 100% {
+        color: #b58ed3;
+    }
+    50% {
+        color: #f3e6ff;
+    }
+}
+
+/* ===== 포도 쓰러가기 버튼 ===== */
+.btn.btn-purple {
+    background-color: #b799e0;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.btn-purple:hover {
+    background-color: #a67de0;
+}
 </style>
+
 
 </head>
 <body>
@@ -151,28 +171,31 @@
             <img src="${pageContext.request.contextPath}/image/bar.png" class="grape-img"/>
         </div>
 
-<div class="grape-growth-text">
-    <c:choose>
-        <c:when test="${grapeCount le 10}">
-            씨앗이 심어졌어요! 🌱
-        </c:when>
-        <c:when test="${grapeCount le 40}">
-            새싹이 나왔어요! 🌱
-        </c:when>
-        <c:when test="${grapeCount le 60}">
-            포도가 익어가고 있어요! 🎉
-        </c:when>
-        <c:otherwise>
-            포도가 익었어요! 🍇
-        </c:otherwise>
-    </c:choose>
-</div>
-        <div class="grape-count">${grapeCount} / ${maxGrape}개</div>     
-           
-        <form action="${pageContext.request.contextPath}/items_out" method="get">
-            <input type="submit" value="포도 쓰러가기 🍇" class="btn btn-pink" style="margin-top: 30px;">
-        </form>
-    </div>
+<div style="text-align: center; margin-top: 20px;">
+
+  <div class="grape-growth-text">
+      <c:choose>
+          <c:when test="${grapeCount le 10}">
+              씨앗이 심어졌어요! 🌱
+          </c:when>
+          <c:when test="${grapeCount le 40}">
+              새싹이 나왔어요! 🌱
+          </c:when>
+          <c:when test="${grapeCount le 60}">
+              포도가 익어가고 있어요! 🎉
+          </c:when>
+          <c:otherwise>
+              포도가 익었어요! 🍇
+          </c:otherwise>
+      </c:choose>
+  </div>
+
+  <div class="grape-count">${grapeCount} / ${maxGrape}개</div>     
+
+  <form action="${pageContext.request.contextPath}/items_out" method="get">
+      <input type="submit" value="포도 쓰러가기 🍇" class="btn btn-purple">
+  </form>
+
 </div>
 
 </body>

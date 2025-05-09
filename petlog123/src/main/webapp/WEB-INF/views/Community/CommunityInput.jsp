@@ -7,168 +7,202 @@
 <title>게시글 작성</title>
 <style>
   body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #ffffff; /* 흰색 배경 유지 */
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #e6f7f6, #fff0f4);
     margin: 0;
-    padding: 30px 0;
+    padding: 0;
+    color: #333;
   }
-  form {
-    width: 70%;
-    margin: 0 auto;
-    background: none;
-    padding: 20px 0;
+
+  .container {
+    max-width: 900px;
+    margin: 100px auto 80px auto;
+    background: #fff;
+    padding: 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e0e0e0;
   }
+
   h2 {
     text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-    font-size: 1.8em;
+    font-size: 28px;
+    color: #d85a8a;
+    margin-top: 0;
+    margin-bottom: 40px;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
+
+  .form-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 22px;
   }
-  th {
-    text-align: left;
-    padding: 10px 15px;
-    font-size: 1em;
+
+  .form-group label {
+    flex: 0 0 140px;
+    font-weight: bold;
+    font-size: 15px;
     color: #555;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    width: 20%;
+    margin-top: 10px;
   }
-  td {
-    padding: 10px 15px;
-    border-bottom: 1px solid #eee;
-  }
-  input[type="text"], textarea {
-    width: 100%;
+
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group select,
+  .form-group textarea {
+    flex: 1;
     padding: 10px 12px;
+    font-size: 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-    background-color: #fff;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
     box-sizing: border-box;
   }
-  textarea {
+
+  .form-group textarea {
     resize: vertical;
+    height: 180px;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #a3d8cd;
+    outline: none;
+  }
+
+  #contentDiv {
+    flex: 1;
     min-height: 250px;
-  }
-  input[type="file"] {
-    font-size: 0.9em;
-  }
-  .btn-area {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .btn {
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 1em;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 6px;
+    padding: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+    background: #fff;
+  }
+
+  .form-actions {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  input[type="submit"],
+  input[type="button"] {
+    background-color: #d85a8a;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0 8px;
+    transition: background-color 0.3s ease;
   }
-  .btn-submit {
-    background-color: #f5d7d7; /* 부드러운 연핑크 */
-    color: #333;
+
+  input[type="submit"]:hover,
+  input[type="button"]:hover {
+    background-color: #c14573;
   }
-  .btn-submit:hover {
-    background-color: #f0caca; /* 호버 시 조금 진한 연핑크 */
+
+  .radio-wrapper {
+    display: flex;
+    gap: 20px;
+    padding-top: 5px;
   }
-  .btn-cancel {
-    background-color: #f0e5d8; /* 연베이지/살구색 */
-    color: #333;
+
+  @media screen and (max-width: 768px) {
+    .form-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .form-group label {
+      margin-bottom: 8px;
+    }
+
+    #contentDiv {
+      width: 100%;
+    }
   }
-  .btn-cancel:hover {
-    background-color: #e9dbcd; /* 호버 시 살짝 더 진한 살구 */
-  }
-  .table-wrapper {
-  background-color: white;
-  width: 100%;
-  max-width: 5000px;
-  margin: 20px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 30px;
-}
 </style>
 </head>
 <body>
-<form action="CommunitySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
-<div class="table-wrapper">
-<table>
-  <caption>게시글 작성</caption>
-  <c:if test="${sessionScope.user_role eq 'admin'}">
-    <tr>
-      <th>구분</th>
-      <td>
-        <label><input type="radio" name="post_type" value="notice"> 공지사항</label>
-        <label><input type="radio" name="post_type" value="normal" checked> 일반글</label>
-      </td>
-    </tr>
-  </c:if>
-  <c:if test="${sessionScope.user_role ne 'admin'}">
-    <input type="hidden" name="post_type" value="normal" />
-  </c:if>
-  <tr>
-    <th>제목</th>
-    <td><input type="text" name="post_title" required style="width: 95%;"></td>
-  </tr>
-  <tr>
-    <th>내용</th>
-    <td>
+
+<div class="container">
+  <h2>📝 게시글 작성</h2>
+
+  <form action="CommunitySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
+
+    <c:if test="${sessionScope.user_role eq 'admin'}">
+      <div class="form-group">
+        <label>구분</label>
+        <div class="radio-wrapper">
+          <label><input type="radio" name="post_type" value="notice"> 공지사항</label>
+          <label><input type="radio" name="post_type" value="normal" checked> 일반글</label>
+        </div>
+      </div>
+    </c:if>
+
+    <c:if test="${sessionScope.user_role ne 'admin'}">
+      <input type="hidden" name="post_type" value="normal" />
+    </c:if>
+
+    <div class="form-group">
+      <label for="post_title">제목</label>
+      <input type="text" id="post_title" name="post_title" required>
+    </div>
+
+    <div class="form-group">
+      <label for="post_content">내용</label>
       <div id="contentDiv" contenteditable="true"></div>
       <input type="hidden" name="post_content" id="hiddenContent">
-    </td>
-  </tr>
-  <tr>
-    <th>사진 추가</th>
-    <td>
-      <input type="file" id="post_image" accept="image/*" onchange="insertImage()" multiple>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="text-align:center;">
-      <input type="submit" value="저장">
-      <input type="button" value="취소" onclick="location.href='./main'">
-    </td>
-  </tr>
-</table>
-</div>
-</form>
-<script>
-// 폼 전송 시 div 내용을 숨겨진 input에 넣기
-function beforeSubmit() {
-    document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
-    return true;
-}
-// 파일 선택 시 이미지 삽입
-function insertImage() {
-    const files = document.getElementById('post_image').files;
-    const contentDiv = document.getElementById('contentDiv');
+    </div>
 
-    for (let i = 0; i < files.length; i++) {
-        if (files[i].name) {  // 파일 이름이 있을 때만
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.maxWidth = '80%';
-                img.style.height = 'auto';
-                img.style.display = 'block';
-                img.style.marginTop = '10px';
-                img.style.marginLeft = 'auto';
-                img.style.marginRight = 'auto';
-                contentDiv.appendChild(img);
-            }
-            reader.readAsDataURL(files[i]);
-        }
-    }
-}
+    <div class="form-group">
+      <label for="post_image">사진 추가</label>
+      <input type="file" id="post_image" accept="image/*" onchange="insertImage()" multiple>
+    </div>
+
+    <div class="form-actions">
+      <input type="submit" value="💾 저장">
+      <input type="button" value="❌ 취소" onclick="location.href='./main'">
+    </div>
+
+  </form>
+</div>
+
+<script>
+  // 폼 전송 시 div 내용을 숨겨진 input에 넣기
+  function beforeSubmit() {
+      document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
+      return true;
+  }
+
+  // 파일 선택 시 이미지 삽입
+  function insertImage() {
+      const files = document.getElementById('post_image').files;
+      const contentDiv = document.getElementById('contentDiv');
+
+      for (let i = 0; i < files.length; i++) {
+          if (files[i].name) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                  const img = document.createElement('img');
+                  img.src = e.target.result;
+                  img.style.maxWidth = '80%';
+                  img.style.height = 'auto';
+                  img.style.display = 'block';
+                  img.style.marginTop = '10px';
+                  img.style.marginLeft = 'auto';
+                  img.style.marginRight = 'auto';
+                  contentDiv.appendChild(img);
+              }
+              reader.readAsDataURL(files[i]);
+          }
+      }
+  }
 </script>
+
 </body>
 </html>

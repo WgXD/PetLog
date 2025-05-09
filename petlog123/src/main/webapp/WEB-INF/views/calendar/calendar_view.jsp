@@ -145,24 +145,27 @@
 </head>
 <body>
 
-<h2><%= year %>년 <%= month %>월</h2>
+<div style="text-align: center; margin-bottom: 20px;">
+  <h2><%= year %>년 <%= month %>월</h2>
 
-<form method="get" action="calendar_view">
-    <label for="petSelect">🐶 반려동물 선택: </label>
-    <select name="pet_id" id="petSelect" onchange="this.form.submit()">
-        <c:forEach var="pet" items="${petlist}">
-            <option value="${pet.pet_id}" <c:if test="${param.pet_id == pet.pet_id}">selected</c:if>>
-                ${pet.pet_name}
-            </option>
-        </c:forEach>
-    </select>
-    <input type="hidden" name="year" value="<%= year %>"/>
-    <input type="hidden" name="month" value="<%= month %>"/>
-</form>
+  <form method="get" action="calendar_view" style="display: inline-block;">
+      <label for="petSelect">🐶 반려동물 선택: </label>
+      <select name="pet_id" id="petSelect" onchange="this.form.submit()">
+          <c:forEach var="pet" items="${petlist}">
+              <option value="${pet.pet_id}" <c:if test="${param.pet_id == pet.pet_id}">selected</c:if>>
+                  ${pet.pet_name}
+              </option>
+          </c:forEach>
+      </select>
+      <input type="hidden" name="year" value="<%= year %>"/>
+      <input type="hidden" name="month" value="<%= month %>"/>
+  </form>
 
+  <div style="margin-top: 16px;">
+    <a href="calendar_input" class="schedule-add-btn">➕ 일정 추가</a>
+  </div>
+</div>
 <br>
-<a href="calendar_input" class="schedule-add-btn">➕ 일정 추가</a>
-<br><br>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
   <a href="calendar_view?year=<%=prevYear%>&month=<%=prevMonth%>&pet_id=${param.pet_id}">◀ 이전 달</a>

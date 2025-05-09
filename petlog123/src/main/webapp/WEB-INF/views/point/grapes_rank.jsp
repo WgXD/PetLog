@@ -1,43 +1,95 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <title>포도알 랭킹</title>
+
 <style>
-  .grape-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 30px auto;
-    font-size: 1.2em;
+  body {
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background-color: #fefefe;
+    margin: 0;
+    padding: 50px 0;
+    color: #333;
+    text-align: center;
   }
 
-  .grape-item {
-    background-color: #f8e8f0;
-    border: 1px solid #e0c1d0;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #4a235a;
+  .table-wrapper {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+  }
+
+  caption {
+    font-size: 1.8em;
     font-weight: bold;
-    width: fit-content;
+    color: #db7093;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  th, td {
+    padding: 12px;
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+
+  th {
+    background-color: #fff0f4;
+    color: #555;
+    font-weight: 600;
+  }
+
+  .rank-number {
+    font-weight: bold;
+    color: #5e478e;
+  }
+
+  .grape-count {
+    color: #8e44ad;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
-<h2 style="text-align: center;">전체 회원 포도알 갯수 🍇 (내림차순)</h2>
+<div class="table-wrapper">
 
-<div class="grape-list">
-  <c:forEach var="user" items="${list}">
-    <div class="grape-item">
-      ${user.user_login_id} (ID: ${user.user_id}) 🍇 ${user.grape_count}개
-    </div>
-  </c:forEach>
+  <caption>🍇 전체 회원 포도알 랭킹 (내림차순)</caption>
+
+  <table>
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>회원 ID</th>
+        <th>회원번호</th>
+        <th>포도알 수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach var="user" items="${list}" varStatus="status">
+        <tr>
+          <td class="rank-number">${status.index + 1}</td>
+          <td>${user.user_login_id}</td>
+          <td>${user.user_id}</td>
+          <td class="grape-count">${user.grape_count}개</td>
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+
 </div>
 
 </body>
