@@ -73,6 +73,13 @@ public class PointController {
         PointService ps = sqlSession.getMapper(PointService.class);
         boolean result = ps.grant_grapes(user_id1,grape_amount);
         mo.addAttribute("message", result ? "포도알 지급 완료!" : "유저 없음 또는 지급 실패");
+        
+        // ✅ 관리자 본인에게 지급했을 경우 세션 loginUser 갱신
+        if (user_id.equals(user_id1)) {
+            UserService us = sqlSession.getMapper(UserService.class);
+            UserDTO updatedUser = us.selectUserByLoginId(user_login_id);
+            session.setAttribute("loginUser", updatedUser);
+        }
 
         return "grapes_admin";
     }
@@ -87,8 +94,11 @@ public class PointController {
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
-
+        
         UserService us = sqlSession.getMapper(UserService.class);
+        UserDTO updatedUser = us.selectUserByLoginId(user_login_id);
+        session.setAttribute("loginUser", updatedUser);
+        
         ArrayList<UserDTO> list = us.get_all_users(); // 이미 내림차순 정렬되어 있어야 함
         mo.addAttribute("list", list);
 
