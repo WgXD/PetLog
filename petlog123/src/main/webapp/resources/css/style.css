@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+/*===폰트===*/
+@font-face {
+    font-family: 'Dovemayo-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
+    font-family: 'Dovemayo-Medium', sans-serif !important;
+}
+
 /*========== 기본 네비 스타일 ==========*/
 .navbar {
   background-color: rgba(255, 255, 255, 0.7);
@@ -63,7 +75,7 @@
 /*========== 전체 배경 ==========*/
 body {
   margin: 0;
-  font-family: '맑은 고딕', sans-serif;
+  font-family: 'Dovemayo-Medium';
   background-image: url("../../image/back.png");
   background-size: cover;
   background-repeat: no-repeat;

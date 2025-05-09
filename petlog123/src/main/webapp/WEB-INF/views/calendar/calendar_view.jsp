@@ -24,17 +24,9 @@
 <head>
     <title><%= year %>년 <%= month %>월</title>
     <style>
-    
-@font-face {
-    font-family: 'Ownglyph_ParkDaHyun';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 
         body {
             background: linear-gradient(to bottom right, #e0f7f6, #ffe9ec);
-            font-family: 'Ownglyph_ParkDaHyun', sans-serif;
             margin: 0;
             padding: 20px;
         }
