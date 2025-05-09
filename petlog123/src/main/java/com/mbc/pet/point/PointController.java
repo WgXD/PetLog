@@ -78,6 +78,22 @@ public class PointController {
     }
     
     
+    @RequestMapping(value = "/grapes_rank", method = RequestMethod.GET)
+    public String showGrapeRanking(HttpSession session, Model mo) {
+
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        UserService us = sqlSession.getMapper(UserService.class);
+        ArrayList<UserDTO> list = us.get_all_users(); // 이미 내림차순 정렬되어 있어야 함
+        mo.addAttribute("list", list);
+
+        return "grapes_rank";
+    }
     
 }
  

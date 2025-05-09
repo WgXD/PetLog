@@ -135,6 +135,12 @@
       <put-attribute name="body" value="/WEB-INF/views/point/grapes_admin.jsp"/>
     </definition>  
    
+   <!-- 전체 회원 포도알 갯수 조회(관리자용) -->
+    <definition name="grapes_rank" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/point/grapes_rank.jsp"/>
+    </definition>  
+   
     <!-- 포도알로 아이템 사는 상점 //포도알 쓰러가기 누르면 여기로 연결 -->
     <definition name="items_out" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
