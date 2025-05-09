@@ -102,7 +102,22 @@
 
         <div class="grape-bar-wrapper">
             <div class="grape-bar-position">
-                <div class="grape-indicator">🍇</div>
+            
+            
+		<div class="grape-indicator">
+		    <c:choose>
+		        <c:when test="${grapeCount le 30}">
+		            <img src="${pageContext.request.contextPath}/image/seed.png" alt="씨앗" style="height: 40px;">
+		        </c:when>
+		        <c:when test="${grapeCount le 60}">
+		            <img src="${pageContext.request.contextPath}/image/green_grapes.png" alt="초록포도" style="height: 40px;">
+		        </c:when>
+		        <c:otherwise>
+		            <img src="${pageContext.request.contextPath}/image/purple_grapes.png" alt="보라포도" style="height: 40px;">
+		        </c:otherwise>
+		    </c:choose>
+		</div>
+
                 <div class="grape-bar">
                     <div class="grape-fill"></div>
                 </div>

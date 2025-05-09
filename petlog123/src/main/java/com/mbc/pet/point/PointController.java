@@ -1,21 +1,29 @@
 package com.mbc.pet.point;
 
+import java.util.ArrayList;
+
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mbc.pet.user.UserDTO;
 import com.mbc.pet.user.UserService;
-	
+
+@RequestMapping("/point")	
 @Controller
 public class PointController {
 	
 	@Autowired
 	SqlSession sqlSession;
 
+	
     @RequestMapping(value = "/stamp_grapes") //포도 게이지
     public String point(HttpSession session) {
 
@@ -34,6 +42,43 @@ public class PointController {
 
         return "stamp_grapes";
     }
+    
+    @RequestMapping(value = "/grapes_admin_form", method = RequestMethod.GET) //Get 받기 용
+    public String showGrantForm(HttpSession session, Model mo) {
+
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        UserService us = sqlSession.getMapper(UserService.class);
+        ArrayList<UserDTO> list = us.get_all_users(); //전체 유저 목록 출력하기
+        mo.addAttribute("list", list);
+        
+        return "grapes_admin";  // 폼 있는 JSP 이름
+    }
+    
+    @RequestMapping(value = "/grapes_admin", method = RequestMethod.POST) //관리자용 포도알 관리 페이지
+    public String admin(HttpSession session, @RequestParam("user_id1") int user_id1, @RequestParam("grape_amount") int grape_amount, Model mo) {
+
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        PointService ps = sqlSession.getMapper(PointService.class);
+        boolean result = ps.grant_grapes(user_id1,grape_amount);
+        mo.addAttribute("message", result ? "포도알 지급 완료!" : "유저 없음 또는 지급 실패");
+
+        return "grapes_admin";
+    }
+    
+    
+    
 }
  
 	

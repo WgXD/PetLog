@@ -96,4 +96,8 @@
     SELECT * FROM user1 WHERE user_login_id = #{login_id}
 </select>
 
+<select id="get_all_users" resultType="com.mbc.pet.user.UserDTO">
+	select user_id, user_login_id from user1
+</select>
+
 </mapper>

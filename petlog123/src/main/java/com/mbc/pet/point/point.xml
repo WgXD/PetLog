@@ -17,7 +17,11 @@
 	  )
 	</insert>
 	
-	
+	<update id="grant_grapes">
+	    UPDATE user1
+	    SET grape_count = grape_count + #{grape_amount}
+	    WHERE user_id = #{user_id}
+	</update> <!-- 관리자가 직접 포도알 지급 -->
 
 
 

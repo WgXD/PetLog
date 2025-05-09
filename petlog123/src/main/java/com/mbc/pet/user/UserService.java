@@ -1,5 +1,7 @@
 package com.mbc.pet.user;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
@@ -31,4 +33,6 @@ public interface UserService {
 	void quiz_grapes(@Param("user_id") int user_id, @Param("grape") int grape); //퀴즈 정답일때 포도알 +10
 
 	UserDTO grape_update(String user_login_id); //아이템 구매 후 포도알 갯수 변경 업데이트 하기
+
+	ArrayList<UserDTO> get_all_users(); //관리자가 어느 회원한테 포도알 줄지 고르는 용
 }
