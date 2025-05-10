@@ -31,8 +31,10 @@
 
 <!-- 자세히보기 -->
 <select id="qnadetail" resultType="com.mbc.pet.qna.QnADTO">
-	select qna_id, user_id, qna_title, qna_content, qna_status, qna_date, qna_answer
-	from qna where qna_id = #{qna_id}
+	select q.qna_id, q.qna_title, q.qna_content, q.qna_date, q.qna_status, q.user_id, u.user_login_id
+	from qna q
+	join user1 u on q.user_id = u.user_id
+	where qna_id = #{qna_id}
 </select>
 
 <!-- 관리자 답변 -->
