@@ -2,14 +2,14 @@
 
 /*===폰트===*/
 @font-face {
-    font-family: 'Dovemayo-Medium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff') format('woff');
+    font-family: 'Dovemayo_gothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
-    font-family: 'Dovemayo-Medium', sans-serif !important;
+    font-family: 'Dovemayo_gothic', sans-serif !important;
 }
 
 /*========== 포도알 갯수 표시 ==========*/
@@ -40,7 +40,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
 /*========== 전체 배경 ==========*/
 body {
   margin: 0;
-  font-family: 'Dovemayo-Medium';
+  font-family: 'IM_Hyemin-Bold';
   background-image: url("../../image/back.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -49,15 +49,14 @@ body {
 }
 
 body.bg-pink {
-  background-color: #fef6f9 !important;  /* 아주 연한 핑크 */
+  background-color: #fef6f9 !important;
   background-image: none !important;
 }
 
 body.bg-mint {
-  background-color: #f3fcfb !important;  /* 아주 연한 민트 */
+  background-color: #f3fcfb !important;
   background-image: none !important;
 }
-
 
 /*========== 테이블 스타일 ==========*/
 .table {
@@ -109,7 +108,6 @@ body.bg-mint {
   border: 1px solid #ccc;
 }
 
-
 /*========== 영역 타이틀 ==========*/
 .section-title {
   font-size: 22px;
@@ -132,8 +130,7 @@ body.bg-mint {
   text-align: right;
 }
 
-/*========================================= 위 스타일 변경 금지 ========================================= /
-
+/*========================================= 위 스타일 변경 금지 ========================================= */
 /*========== 기본 네비 스타일 ==========*/
 .navbar {
   background-color: rgba(255, 255, 255, 0.7);
@@ -175,7 +172,8 @@ body.bg-mint {
   color: #222;
   border-radius: 6px;
 }
-/* ===== 메인 대시보드 구성 ===== */
+
+/* ================ 메인 대시보드 구성 ================*/
 .main-dashboard {
   display: flex;
   gap: 20px;
@@ -184,7 +182,7 @@ body.bg-mint {
   margin: 0 auto;
 }
 
-/* ===== 좌측 사이드바 ===== */
+/*================ 좌측 사이드바 ================*/
 .left-sidebar {
   background-color: #ffffff;       /* 흰 배경 유지 */
   display: flex;
@@ -223,7 +221,7 @@ body.bg-mint {
   background-color: #fdf6f9;
   transform: translateY(-2px);
 }
-/* ===== 중앙 콘텐츠 영역 ===== */
+/*================ 중앙 콘텐츠 영역 ================*/
 .main-content {
   flex: 1.5;
   display: flex;
@@ -300,6 +298,11 @@ body.bg-mint {
   box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   margin-top: 20px;
 }
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
 /* ===== 메인화면 공지사항, 커뮤니티 ===== */
 /* 💬 전체 박스 */
@@ -342,4 +345,174 @@ body.bg-mint {
 
 .more-link:hover {
   text-decoration: underline;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* 리스트 박스 안쪽 여백 */
+.tab-pane ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.tab-pane li {
+  border-bottom: 1px solid #ffc4d6;  /* 파스텔 핑크 점선 */
+  padding: 10px 0;
+  margin: 0 10px;
+  font-size: 15px;
+  color: #333;
+  font-family: '맑은 고딕', sans-serif;
+}
+
+.tab-pane li:last-child {
+  border-bottom: none;
+}
+
+.tab-pane a {
+  text-decoration: none;
+  color: #333;
+}
+
+.post-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dotted #ddd;
+}
+
+.post-title {
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-meta-right {
+  white-space: nowrap;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.comment-count {
+  color: orange;
+  font-weight: bold; /* 선택사항 */
+}
+
+/*================ 우측 사이드 바 ================*/
+/*===== 캘린더 =====*/
+.calendar-wrapper-box {
+  background: #fffef9;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.calendar-box {
+  width: 100%;
+  background: #fffef9;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+.calendar th {
+  background: #fce4ec;
+  color: #d81b60;
+  padding: 8px;
+}
+
+.calendar td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+.calendar td:hover {
+  background-color: #fff0f5;
+}
+
+.calendar .dot {
+  color: #ff5722;
+  font-size: 20px;
+  line-height: 0;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.schedule-box {
+  background: #fff4e5;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/*======= 다가올 일정 리스트 =======*/
+.upcoming-schedule-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+    font-family: 'Dovemayo_gothic', sans-serif;
+}
+
+.upcoming-schedule-item {
+    background-color: #fef6f9; /* 노트 느낌의 배경 */
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 5px solid #ff5722; /* 일정 왼쪽에 강조선 */
+}
+
+.schedule-header {
+    font-weight: bold;
+    color: #5d5d5d;
+    margin-bottom: 4px;
+}
+
+.schedule-date {
+    font-size: 14px;
+    color: #777;
+    margin-right: 5px;
+}
+
+.schedule-pet-name {
+    font-size: 14px;
+    color: #009688;
+    font-weight: normal;
+}
+
+.schedule-content {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #444;
+}
+
+.schedule-content strong {
+    color: #333;
+}
+
+.schedule-content p {
+    margin-top: 5px;
+    color: #555;
 }

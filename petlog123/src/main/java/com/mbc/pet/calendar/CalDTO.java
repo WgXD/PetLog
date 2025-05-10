@@ -9,13 +9,14 @@ public class CalDTO {
 	
 	int user_id;
 	int pet_id;
+	String pet_name;
 	
 	public CalDTO() {    }
 
 	public int getCal_id() {
 		return cal_id;
 	}
-
+	
 	public void setCal_id(int cal_id) {
 		this.cal_id = cal_id;
 	}
@@ -58,6 +59,14 @@ public class CalDTO {
 
 	public void setPet_id(int pet_id) {
 		this.pet_id = pet_id;
+	}
+
+	public String getPet_name() {
+		return pet_name;
+	}
+
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
 	}
 
 }

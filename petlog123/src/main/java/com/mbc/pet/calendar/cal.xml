@@ -2,48 +2,82 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="com.mbc.pet.calendar.CalService">
 
+	<!-- 특정 유저의 년/월/펫별 일정 목록 -->
 	<select id="by_months" resultType="com.mbc.pet.calendar.CalDTO">
-		select cal_id, cal_title, cal_content, pet_id, user_id, to_char(cal_date,'yyyy-MM-dd')cal_date from calendar
-		where user_id = #{user_id}
-		and to_char(cal_date, 'YYYY') = #{current_year}
-		and to_char(cal_date, 'MM') = LPAD(#{current_month},2,'0')
-		and pet_id = #{pet_id}
+		SELECT cal_id, cal_title, cal_content, pet_id, user_id, TO_CHAR(cal_date,'yyyy-MM-dd') AS cal_date
+		FROM calendar
+		WHERE user_id = #{user_id}
+		  AND TO_CHAR(cal_date, 'yyyy') = #{current_year}
+		  AND TO_CHAR(cal_date, 'MM') = LPAD(#{current_month}, 2, '0')
+		  AND pet_id = #{pet_id}
 	</select>
 
 	<!-- 달력에서 일정 직접 추가 -->
 	<insert id="cal_save" parameterType="com.mbc.pet.calendar.CalDTO">
-		insert into calendar (
-		        cal_id,
-        		cal_title,
-        		cal_content,
-        		pet_id,
-        		user_id,
-        		cal_date
-    	)
-		values (
+		INSERT INTO calendar (
+			cal_id,
+			cal_title,
+			cal_content,
+			pet_id,
+			user_id,
+			cal_date
+		)
+		VALUES (
 			cal_seq.nextval,
 			#{cal_title},
 			#{cal_content},
 			#{pet_id},
 			#{user_id},
-			TO_DATE(#{cal_date}, 'YYYY-MM-DD')
+			TO_DATE(#{cal_date}, 'yyyy-MM-dd')
 		)
 	</insert>
 
-	<!-- 메인페이지에 오늘 일정 미리보기 -->
+	<!-- 메인 페이지 오늘 일정 미리보기 -->
 	<select id="today_sche" resultType="com.mbc.pet.calendar.CalDTO">
-		SELECT cal_id, cal_title, cal_content, pet_id, user_id, TO_CHAR(cal_date, 'YYYY-MM-DD') AS cal_date
+		SELECT cal_id, cal_title, cal_content, pet_id, user_id, TO_CHAR(cal_date, 'yyyy-MM-dd') AS cal_date
 		FROM calendar
 		WHERE user_id = #{user_id}
-		AND TO_CHAR(cal_date, 'YYYY-MM-DD') = #{today}
+		  AND TO_CHAR(cal_date, 'yyyy-MM-dd') = #{today}
 	</select>
 
-
-
-
-
-
+	<!-- 월간 일정 날짜 (dot 표시용) -->
+	<select id="getMonthScheduleDates" resultType="com.mbc.pet.calendar.CalendarDayDTO">
+	  SELECT 
+	    TO_CHAR(cal_date, 'yyyy-MM-dd') AS "date"
+	  FROM calendar
+	  WHERE user_id = #{user_id}
+	    AND cal_date BETWEEN TO_DATE(#{startDate}, 'yyyy-MM-dd') AND TO_DATE(#{endDate}, 'yyyy-MM-dd')
+	  GROUP BY TO_CHAR(cal_date, 'yyyy-MM-dd')
+	  ORDER BY TO_CHAR(cal_date, 'yyyy-MM-dd')
+	</select>
+	
+	<!-- 일정 미리보기 -->
+	<select id="getUpcomingSchedules" resultType="com.mbc.pet.calendar.CalDTO">
+	    SELECT cal_id, cal_title, cal_content, pet_id, user_id, TO_CHAR(cal_date, 'yyyy-MM-dd') AS cal_date
+	    FROM calendar
+	    WHERE user_id = #{user_id}
+	    AND cal_date BETWEEN TO_DATE(#{startDate}, 'yyyy-MM-dd') AND TO_DATE(#{endDate}, 'yyyy-MM-dd')
+	    ORDER BY cal_date
+	</select>
+			
+	<!-- 주간 일정 출력(dot 표시) -->
+	<select id="getWeekSchedule" parameterType="int" resultType="com.mbc.pet.calendar.CalendarDayDTO">
+	    SELECT TO_CHAR(cal_date, 'yyyy-MM-dd') AS date, TO_CHAR(cal_date, 'DD') AS day, 1 AS hasSchedule
+	    FROM calendar
+	    WHERE user_id = #{user_id}
+	    AND cal_date BETWEEN TO_DATE(#{startDate}, 'yyyy-MM-dd') AND TO_DATE(#{endDate}, 'yyyy-MM-dd')
+	    GROUP BY cal_date 
+	    ORDER BY cal_date
+	</select>
+	
+	<!-- 특정 날짜 일정 목록 조회 (AJAX 호출용) -->
+	<select id="getScheduleByDate" resultType="com.mbc.pet.calendar.CalDTO">
+		SELECT *
+		FROM calendar
+		WHERE user_id = #{user_id}
+		  AND TO_CHAR(cal_date, 'yyyy-MM-dd') = #{date}
+	</select>
 </mapper>

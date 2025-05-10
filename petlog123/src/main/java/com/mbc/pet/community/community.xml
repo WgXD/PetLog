@@ -193,15 +193,62 @@
 	SELECT user_role FROM user1 WHERE user_id = #{user_id}
   </select>
   
-  <!-- 인기 게시물 가져오기 -->
+  <!-- 인기 게시물 가져오기, 댓글 많은 순
   <select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
   	select * from
-  	  (select c.post_id, c.post_title, c.user_id, count(l.like_id) AS like_count
-    from community c
-  	join likes l on c.post_id = l.post_id
-  	group by c.post_id, c.post_title, c.user_id
-  	order by count(l.like_id) desc)
-  	where rownum &lt;= 5
-  </select>
+  		(select a.*, row_number() over(order by count a.comments_count desc) as rn from
+	  		(select c.post_id, u.user_id, u.user_login_id, c.post_title,  c.post_image,
+	  		 c.post_readcnt, count(m.com_id) AS comments_count,
+	  		 to_char(c.post_date, 'yyyy-MM-dd') as post_date, c.post_type 
+		     from community c
+		   	 join comments m on c.post_id = m.post_id
+		   	 join user1 u on u.user_id = c.user_id
+		  	 where c.post_type = 'normal'
+		  	 group by c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_image, c.post_readcnt, c.post_date, c.post_type
+		  	) a
+		  )
+  	where rn &lt;= 5
+  </select>  -->
   
+<select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
+  SELECT *
+  FROM (
+    SELECT 
+      c.post_id,
+      u.user_id,
+      u.user_login_id,
+      c.post_title,
+      c.post_readcnt,
+      TO_CHAR(c.post_date, 'yyyy-MM-dd') AS post_date,
+      c.post_type,
+      COUNT(m.com_id) AS comment_count,
+      ROW_NUMBER() OVER (ORDER BY COUNT(m.com_id) DESC) AS rn
+    FROM community c
+    JOIN comments m ON c.post_id = m.post_id
+    JOIN user1 u ON c.user_id = u.user_id
+    WHERE c.post_type = 'normal'
+    GROUP BY 
+      c.post_id,
+      u.user_id,
+      u.user_login_id,
+      c.post_title,
+      c.post_readcnt,
+      c.post_date,
+      c.post_type
+  )
+  WHERE rn &lt; = 5
+</select>
+  
+  
+  <!-- 공지사항 최신글 불러오기 -->
+  <select id="getRecentNotices" resultType="com.mbc.pet.community.CommunityDTO">
+  	select * from
+  		( select c.post_id, c.post_title, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') post_date, u.user_id, u.user_login_id
+  		  from community c
+  		  join user1 u on u.user_id = c.user_id
+  		  where post_type = 'notice' 
+  		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
+  		  order by post_date desc )
+  	where rownum &lt; = 5
+  </select>
 </mapper>

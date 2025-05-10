@@ -79,4 +79,12 @@
 	  select pet_id, pet_name, pet_bog, to_char(pet_hbd, 'yyyy-MM-dd')pet_hbd, user_id, 
 	  pet_img, pet_neuter from pet where user_id = #{user_id, jdbcType=INTEGER}
 	</select>
+	
+	<!-- 펫 ID로 펫 정보 조회 -->
+    <select id="getPetById" resultType="com.mbc.pet.pet.PetDTO">
+        SELECT pet_id, pet_name, pet_bog, pet_neuter, pet_hbd, pet_img
+        FROM pet
+        WHERE pet_id = #{pet_id}
+    </select>
+	
     </mapper>

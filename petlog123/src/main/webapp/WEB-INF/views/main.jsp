@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +61,7 @@
 
   </aside>
 
-  <!-- 중앙: 펫 프로필 -->
+ <!-- 중앙: 펫 프로필 -->
 <section class="main-content">
   <!-- 펫 프로필 전체 박스 -->
   <div class="content-box large">
@@ -82,77 +83,135 @@
  <!-- 중앙: 공지사항, 커뮤니티 출력 -->
 <div class="tab-box">
   <div class="tab-header">
-  
     <div class="tabs">
       <span id="notice-tab" class="tab active" onclick="switchTab('notice')">공지사항</span>
       <span id="community-tab" class="tab" onclick="switchTab('community')">커뮤니티</span>
     </div>
-    <!-- 더보기 버튼 -->
-    <a id="more-link" href="/notice/list" class="more-link">더보기 &gt;</a>
+    <a id="more-link" class="more-link" href="/notice/list">더보기 &gt;</a>
+  </div>
+  
+<div class="tab-content">
+  <!-- 공지사항 콘텐츠 -->
+  <div id="notice-content" class="tab-pane active">
+    <ul class="post-list">
+      <c:forEach items="${bodto}" var="notice">
+        <li class="post-item">
+          <a href="post_detail?post_id=${notice.post_id}" class="post-title">${notice.post_title}</a>
+          <div class="post-meta-right">
+          	 ${notice.post_date} 
+          </div>
+        </li>
+      </c:forEach>
+    </ul>
   </div>
 
-  <div class="tab-content">
-    공지사항, 커뮤니티 내용 출력
-  </div>
+  <!-- 커뮤니티 콘텐츠 -->
+<div id="community-content" class="tab-pane">
+  <ul class="post-list">
+    <c:forEach items="${csdto}" var="post">
+      <li class="post-item">
+        <a href="post_detail?post_id=${post.post_id}" class="post-title">
+          ${post.post_title}
+          <span class="comment-count">(${post.comment_count})</span>
+        </a>
+      </li>
+    </c:forEach>
+  </ul>
 </div>
-
   </section>
 
-  <!-- 우측: 통합 캘린더 + 일정 + Q&A -->
-  <aside class="right-info">
-    <div class="content-box full-height" style="margin-top: 10px; font-size: 14px;">
-      <h2>📅 오늘, 수요일</h2>
-      📅<br>캘린더
-		  <c:choose>
-			<c:when test="${not empty sessionScope.user_id}">
-			    <c:choose>
-			      <c:when test="${not empty todaySchedule}">
-			        <c:forEach items="${todaySchedule}" var="sch">
-			          <div>📌 ${sch.cal_title}</div>
-			        </c:forEach>
-			      </c:when>
-			      <c:otherwise>
-			        <div>오늘은 일정이 없어요! ✨</div>
-			      </c:otherwise>
-			    </c:choose>
-			</c:when>
-			
-			<%-- 로그인 안했을 때 --%>
-			<c:otherwise>
-			    <div>로그인 후 오늘 일정을 확인해보세요! 🐾</div>
-			  </c:otherwise>
-			</c:choose>
-      <h3>🗓 일정</h3>
-      <ul>
-        <li>18:00 내펭글님과 화상 상담</li>
-        <li>19:00 박펭글 고객 상담</li>
-      </ul>
+  <!-- 우측: 통합 캘린더 + 일정  -->
+<aside class="right-info">
+  <div class="calendar-wrapper-box">
+    <div class="calendar-box">
+      <h2 class="calendar-title">📅 ${year}년 ${month}월</h2>
+      <table class="calendar">
+	  <thead>
+	    <tr>
+	      <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <c:forEach var="week" items="${calendar}">
+	      <tr>
+	        <c:forEach var="day" items="${week}">
+	          <td class="day-cell" onclick="showSchedule('${day.date}')">
+	            <span>${day.day}</span>
+	            <c:if test="${day.hasSchedule}">
+	              <div class="dot">•</div>
+	            </c:if>
+	          </td>
+	        </c:forEach>
+	      </tr>
+	    </c:forEach>
+	  </tbody>
+	</table>
+<h3>다가올 일정</h3>
+<c:if test="${not empty upcomingSchedules}">
+    <c:forEach var="schedule" items="${upcomingSchedules}">
+        <div class="schedule-item">
+            <div class="schedule-header" style="display: flex; align-items: center; gap: 15px;">
+                <!-- 날짜 포맷팅된 값 사용 -->
+                <span class="schedule-date">${schedule.cal_date}</span> 
+                <!-- 펫 정보 가져오기 -->
+                <c:forEach var="pet" items="${petdto}">
+                    <c:if test="${pet.pet_id == schedule.pet_id}">
+                        <span class="schedule-pet-name">${pet.pet_name}</span>
+                    </c:if>
+                </c:forEach>
+                <strong>${schedule.cal_title}</strong>
+            </div>
+        </div>
+    </c:forEach>
+</c:if>
+<c:if test="${empty upcomingSchedules}">
+    <p>다음 일정이 없습니다.</p>
+</c:if>
     </div>
-    
+  </div>
+  
+    <!-- QnA -->
     <div class="qna-box">
-	  <h3>💬 고객 Q&A</h3>
-	  <p>2건 있어요!</p>
-	</div>
+     <h3>💬 고객 Q&A</h3>
+     <p>2건 있어요!</p>
+   </div>
   </aside>
 
 </div>
 
 </body>
+<!-- 커뮤니티, 공지사항 구분 및 바로가기  -->
 <script>
   function switchTab(type) {
     const noticeTab = document.getElementById('notice-tab');
     const communityTab = document.getElementById('community-tab');
+    const noticeContent = document.getElementById('notice-content');
+    const communityContent = document.getElementById('community-content');
     const moreLink = document.getElementById('more-link');
 
     if (type === 'notice') {
       noticeTab.classList.add('active');
       communityTab.classList.remove('active');
-      moreLink.href='${pageContext.request.contextPath}/NoticeBoard';
+      noticeContent.classList.add('active');
+      communityContent.classList.remove('active');
+      moreLink.href = '${pageContext.request.contextPath}/NoticeBoard';
     } else {
-      noticeTab.classList.remove('active');
       communityTab.classList.add('active');
-      moreLink.href='${pageContext.request.contextPath}/CommunityView';
+      noticeTab.classList.remove('active');
+      communityContent.classList.add('active');
+      noticeContent.classList.remove('active');
+      moreLink.href = '${pageContext.request.contextPath}/CommunityView';
     }
   }
+</script>
+<!-- 캘린더 날짜 클릭 시 일정 표시 -->
+<script>
+function showSchedule(date) {
+  fetch("getScheduleForDate?date=" + date)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("scheduleContent").innerHTML = data;
+    });
+}
 </script>
 </html>

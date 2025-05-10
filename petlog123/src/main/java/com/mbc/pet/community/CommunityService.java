@@ -63,4 +63,6 @@ public interface CommunityService {
 
 	void modify(CommunityDTO modifyDto);
 
+	ArrayList<CommunityDTO> getRecentNotices();
+
 }

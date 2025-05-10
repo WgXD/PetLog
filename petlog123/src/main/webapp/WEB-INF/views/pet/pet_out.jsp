@@ -5,15 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%
-    com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
-    if (loginUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login?error=login_required");
-        return;
-    }
-%>
 <style>
 body {
+
     font-family: 'Arial', sans-serif;
     background-color: #f8f8f8;
     text-align: center;
