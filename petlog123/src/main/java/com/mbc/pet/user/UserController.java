@@ -121,8 +121,8 @@ public class UserController {
 		public String logout(HttpServletRequest request)
 		{
 			HttpSession hs=request.getSession();
-			hs.removeAttribute("loginstate");
-			hs.removeAttribute("user_login_id"); //로그아웃 시 세션에 저장된 유저 정보 제거
+			hs.invalidate(); //세션 무효화
+
 			return "redirect:/";
 		}
 	
