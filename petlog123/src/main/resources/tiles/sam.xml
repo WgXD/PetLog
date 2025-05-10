@@ -330,5 +330,22 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_input.jsp"/>
     </definition> 
+    
+   <!-- 일정 자세히 보기 -->
+   <definition name="calendar_detail" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_detail.jsp"/>
+    </definition> 
+
+   <definition name="calendar_update" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_update.jsp"/>
+    </definition> 
+    
+    
+   <definition name="calendar_delete" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_delete.jsp"/>
+    </definition> 
   
 </tiles-definitions>

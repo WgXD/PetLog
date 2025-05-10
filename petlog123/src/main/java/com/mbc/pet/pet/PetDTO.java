@@ -6,8 +6,8 @@ public class PetDTO {
 
 	int pet_id;
 	String pet_name;
-	String pet_bog; // ¼ºº°
-	String pet_hbd; // »ıÀÏ(DB-date)
+	String pet_bog; // ì„±ë³„
+	String pet_hbd; // ìƒì¼
 	int user_id; //FK
 	String pet_img;
 	String pet_neuter;

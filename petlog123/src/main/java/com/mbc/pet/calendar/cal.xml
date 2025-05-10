@@ -80,4 +80,11 @@
 		WHERE user_id = #{user_id}
 		  AND TO_CHAR(cal_date, 'yyyy-MM-dd') = #{date}
 	</select>
+	
+	<!-- 일정 자세히 보기 -->
+	<select id="calendar_detail" resultType="com.mbc.pet.calendar.CalDTO">
+		select c.*, p.pet_name from calendar c
+		join pet p on c.pet_id = p.pet_id
+		where c.cal_id=#{cal_id}
+	</select>
 </mapper>
