@@ -10,7 +10,7 @@ public class SnackDTO {
 	String snack_image;
 	String snack_date;
 	
-	UserDTO petuserdto; //user_ID 가져오려면 필요
+	UserDTO petuserdto;
 	int user_id;
 	
 	public SnackDTO() {     }

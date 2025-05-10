@@ -107,8 +107,9 @@
 	<td>${cdto.cal_title}</td>
 	<td>${cdto.cal_date.substring(0, 10)}</td>
 	<td>${cdto.cal_content}</td>
-	<td><a href="calendar_update?update=${cdto.cal_id}">✏️</a></td>
-	<td><a href="calendar_delete?delete=${cdto.cal_id}">🗑️</a></td>
+	<td><a href="calendar_update?cal_id=${cdto.cal_id}&year=${current_year}&month=${current_month}&pet_id=${cdto.pet_id}">✏️</a></td>
+	<td><a href="calendar_delete?cal_id=${cdto.cal_id}&year=${current_year}&month=${current_month}&pet_id=${cdto.pet_id}"
+		onclick="return confirm('일정을 삭제합니다 😥');">🗑️</a></td>
 	</tr>
 	
 </table>

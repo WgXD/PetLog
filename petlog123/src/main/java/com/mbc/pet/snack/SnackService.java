@@ -14,13 +14,13 @@ public interface SnackService {
 
 	SnackDTO snack_detail(int dnum);
 	
-	SnackDTO snack_update(int update); //레시피 수정
+	SnackDTO snack_update(int update);
 
-	int snackupdate_save(@Param("dto") SnackDTO dto); //수정 후 DB에 저장
+	int snackupdate_save(@Param("dto") SnackDTO dto);
 
-	SnackDTO snackdelete_check(int delete); //삭제 전 확인
+	SnackDTO snackdelete_check(int delete);
 
-	void delete_recipe(int delete); //삭제
+	void delete_recipe(int delete);
 	
 
 	

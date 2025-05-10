@@ -90,7 +90,7 @@
 
 function confirm_delete() {
 	
-	return confirm("정말 삭제하시겠습니까?😥")
+	return confirm("정말 삭제 하시겠습니까?😥")
 	
 }
 
@@ -150,7 +150,6 @@ function confirm_delete() {
       <!-- 전 페이지로 return -->
       </td>
       </tr>
-
 
 </table>
 </form>

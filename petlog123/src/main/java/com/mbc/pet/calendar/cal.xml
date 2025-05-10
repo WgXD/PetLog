@@ -87,4 +87,19 @@
 		join pet p on c.pet_id = p.pet_id
 		where c.cal_id=#{cal_id}
 	</select>
+	
+	<delete id="cal_delete" parameterType="int">
+		delete from calendar where cal_id=#{cal_id}
+	</delete>
+	
+	<update id="update_save">
+	  UPDATE calendar
+	  SET cal_title = #{param2},
+	      cal_date = TO_DATE(#{param3}, 'yyyy-MM-dd'),
+	      cal_content = #{param4},
+	      user_id = #{param5},
+	      pet_id = #{param6}
+	  WHERE cal_id = #{param1}
+	</update>
+	
 </mapper>

@@ -115,12 +115,12 @@
 
       <tr>
         <th><label for="diary_title">제목 : </label></th>
-        <td><input type="text" id="diary_title" name="diary_title" value="${dto.diary_title}"></td>
+        <td><input type="text" id="diary_title" name="diary_title" value="${dto.diary_title}" required></td>
       </tr>
 
       <tr>
         <th><label for="diary_date">날짜 : </label></th>
-        <td><input type="date" id="diary_date" name="diary_date" value="${dto.diary_date}"></td>
+        <td><input type="date" id="diary_date" name="diary_date" value="${dto.diary_date}" required></td>
       </tr>
 
       <tr>
@@ -131,13 +131,12 @@
         <input type="hidden" name="himage" value="${dto.diary_image}">
         <!-- hidden : 이미지는 수정안하고 그대로 둘 경우 필요 -->
         </td>
-        <!-- file은 value 필요x -->
-        
+        <!-- file은 value 필요x -->  
       </tr>
 
       <tr>
         <th><label for="diary_content">내용 : </label></th>
-        <td><textarea rows="10" cols="60" id="diary_content" name="diary_content">${dto.diary_content}</textarea></td>
+        <td><textarea rows="10" cols="60" id="diary_content" name="diary_content" required>${dto.diary_content}</textarea></td>
         <!-- textarea는 value 필요x -->
       </tr>
       
