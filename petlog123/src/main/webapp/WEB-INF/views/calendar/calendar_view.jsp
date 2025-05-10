@@ -204,7 +204,7 @@
             if (calList != null) {
                 for (com.mbc.pet.calendar.CalDTO e : calList) {
                     if (e.getCal_date().substring(8, 10).equals(dayStr)) {
-                        out.print("<div class='schedule-item'>📌 " + e.getCal_title() + "</div>");
+                    	out.print("<div class='schedule-item'>📌 <a href='calendar_detail?cal_id=" + e.getCal_id() + "'>" + e.getCal_title() + "</a></div>");
                     }
                 }
             }

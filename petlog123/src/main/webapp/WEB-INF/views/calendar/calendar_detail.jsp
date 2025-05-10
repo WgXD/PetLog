@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 
 <style>
   body {
-    font-family: 'Arial', sans-serif;
     background-color: #fff8f0;
     text-align: center;
     padding: 30px;
@@ -85,11 +84,11 @@
 
 </style>
 <meta charset="UTF-8">
-<title>내 일기</title>
+<title></title>
 </head>
 <body>
 
-<header><h2>내 일기 📔</h2></header>
+<header><h2>🗓 내 일정</h2></header>
 
 <div style="margin-bottom: 20px;">
   <input type="reset" value="⬅ 뒤로가기" onclick="history.back()" 
@@ -100,18 +99,16 @@
 
 <table class="dotted-rounded-table">
 	<tr style="">
-	<th>글번호</th> <th>일기 제목</th> <th>날짜</th> <th>이미지</th> <th>일기 내용</th>
-	<th>수정</th> <th>삭제</th>
+	<th>반려동물 이름</th> <th>제목</th> <th>날짜</th> <th>내용</th> <th>수정</th> <th>삭제</th>
 	</tr>
 	
 	<tr>
-	<td>${dto.diary_id}</td>
-	<td>${dto.diary_title}</td>
-	<td>${dto.diary_date.substring(0, 10)}</td>
-	<td><img src="./image/${dto.diary_image}" width="70px"/></td>
-	<td>${dto.diary_content}</td>
-	<td><a href="diary_update?update=${dto.diary_id}&dfimage=${dto.diary_image}">✏️</a></td>
-	<td><a href="diary_delete?delete=${dto.diary_id}&dfimage=${dto.diary_image}">🗑️</a></td>
+	<td>${cdto.pet_name}</td>
+	<td>${cdto.cal_title}</td>
+	<td>${cdto.cal_date.substring(0, 10)}</td>
+	<td>${cdto.cal_content}</td>
+	<td><a href="calendar_update?update=${cdto.cal_id}">✏️</a></td>
+	<td><a href="calendar_delete?delete=${cdto.cal_id}">🗑️</a></td>
 	</tr>
 	
 </table>

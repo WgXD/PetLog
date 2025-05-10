@@ -41,4 +41,6 @@ public interface CalService {
 	List<CalDTO> getUpcomingSchedules(@Param("user_id") Integer user_id, 
 							          @Param("startDate") String startDate, 
 							          @Param("endDate") String endDate);
+
+	CalDTO calendar_detail(int cal_id);
 }

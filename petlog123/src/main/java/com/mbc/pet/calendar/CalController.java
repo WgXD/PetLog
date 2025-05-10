@@ -97,8 +97,7 @@ public class CalController {
         		
 		return "calendar_input";
 	}
-	
-	
+
 	@RequestMapping(value = "/cal_save") //직접 추가한 일정 DB에 저장
 	public String cal2(HttpSession session, HttpServletRequest request) {
 		
@@ -125,8 +124,32 @@ public class CalController {
         
         CalService cs = sqlSession.getMapper(CalService.class);
         cs.cal_save(cdto);
+        
+        String[] parts = cal_date.split("-");
+        String year = parts[0];
+        String month = parts[1];
        
-		return "redirect:/calendar_view?pet_id=" +pet_id;
+		return "redirect:/calendar_view?pet_id=" +pet_id + "&year=" + year + "&month=" + month;
 	}
 
+	@RequestMapping(value = "/calendar_detail") //일정 내용 자세히 보기
+	public String cal_d(@RequestParam("cal_id") int cal_id, HttpSession session, Model mo) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+		
+        CalService cs = sqlSession.getMapper(CalService.class);
+        CalDTO cdto = cs.calendar_detail(cal_id);
+        mo.addAttribute("cdto", cdto);
+       
+		return "calendar_detail";
+	}
+
+	
+	
 }
