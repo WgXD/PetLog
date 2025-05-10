@@ -61,7 +61,7 @@
 
   </aside>
 
- <!-- 중앙: 펫 프로필 -->
+<!-- 중앙: 펫 프로필 -->
 <section class="main-content">
   <!-- 펫 프로필 전체 박스 -->
   <div class="content-box large">
@@ -69,12 +69,15 @@
     <div class="profile-cards">
       <c:forEach items="${petdto}" var="dto">
         <div class="card">
-          <img src="${pageContext.request.contextPath}/image/${dto.pet_img}" width="100px"
-               style="border-radius: 50%; margin-bottom: 10px;">
-          <div style="font-size: 16px; font-weight: bold;">${dto.pet_name}</div>
-          <div style="font-size: 13px; color: #777;">🐻 성별: ${dto.pet_bog}</div>
-          <div style="font-size: 13px; color: #777;">✨ 중성화: ${dto.pet_neuter}</div>
-          <div style="font-size: 13px; color: #777;">🎂 생일: ${dto.pet_hbd}</div>
+          <!-- <a> 태그를 클릭할 수 있는 요소로 감싸기 -->
+          <a href="pet_detail?update1=${dto.pet_id}">
+            <img src="${pageContext.request.contextPath}/image/${dto.pet_img}" width="100px"
+                 style="border-radius: 50%; margin-bottom: 10px;">
+            <div style="font-size: 16px; font-weight: bold;">${dto.pet_name}</div>
+            <div style="font-size: 13px; color: #777;">🐻 성별: ${dto.pet_bog}</div>
+            <div style="font-size: 13px; color: #777;">✨ 중성화: ${dto.pet_neuter}</div>
+            <div style="font-size: 13px; color: #777;">🎂 생일: ${dto.pet_hbd}</div>
+          </a>
         </div>
       </c:forEach>
     </div>
@@ -96,7 +99,7 @@
     <ul class="post-list">
       <c:forEach items="${bodto}" var="notice">
         <li class="post-item">
-          <a href="post_detail?post_id=${notice.post_id}" class="post-title">${notice.post_title}</a>
+          <a href="PostDetail?pnum=${notice.post_id}" class="post-title">${notice.post_title}</a>
           <div class="post-meta-right">
           	 ${notice.post_date} 
           </div>
@@ -110,8 +113,7 @@
   <ul class="post-list">
     <c:forEach items="${csdto}" var="post">
       <li class="post-item">
-        <a href="post_detail?post_id=${post.post_id}" class="post-title">
-          ${post.post_title}
+        <a href="PostDetail?pnum=${post.post_id}" class="post-title">${post.post_title}</a>
           <span class="comment-count">(${post.comment_count})</span>
         </a>
       </li>

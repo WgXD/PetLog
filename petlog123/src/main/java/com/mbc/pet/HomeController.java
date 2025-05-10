@@ -101,7 +101,7 @@ public class HomeController {
             // 공지사항 목록 가져오기
             List<CommunityDTO> noticeList = communityService.getRecentNotices(); // 공지사항 목록 가져오기
             model.addAttribute("bodto", noticeList); // 공지사항을 모델에 추가
-
+            
             // 커뮤니티 게시글 목록 가져오기
             List<CommunityDTO> communityList = communityService.getPopularPosts(); // 커뮤니티 게시글 목록 가져오기
             model.addAttribute("csdto", communityList); // 커뮤니티 게시글을 모델에 추가
