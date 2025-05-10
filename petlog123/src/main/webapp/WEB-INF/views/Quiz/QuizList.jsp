@@ -121,7 +121,7 @@ function onSubmitQuiz(form){
 <c:if test="${allDone}">
   <script>
     alert("🎉 모든 퀴즈를 완료했습니다! 홈으로 이동합니다.");
-    window.location.href = "${pageContext.request.contextPath}/";
+    window.location.href = "${pageContext.request.contextPath}/main";
   </script>
 </c:if>
 </body>

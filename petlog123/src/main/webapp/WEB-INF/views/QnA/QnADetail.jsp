@@ -152,7 +152,7 @@
     </tr>
     <tr>
       <th>내용</th>
-      <td class="qna-content">${dto.qna_content}</td>
+      <td id="qna-content">${dto.qna_content}</td>
     </tr>
     <tr>
       <th>상태</th>
@@ -188,7 +188,7 @@
   </c:if>
 
   <div class="btn-wrap">
-    <button onclick="location.href='QnAList.jsp'">목록으로 돌아가기</button>
+    <button onclick="location.href='qnalist'">목록으로 돌아가기</button>
   </div>
 </div>
 
