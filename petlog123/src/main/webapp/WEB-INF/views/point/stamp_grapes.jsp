@@ -137,6 +137,69 @@
     .btn.btn-purple:hover {
         background-color: #a67de0;
     }
+    
+	    .modal {
+	  position: fixed;
+	  z-index: 1000;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  background-color: rgba(0,0,0,0.4);
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	.modal-content {
+	  background: #fff;
+	  padding: 25px 30px;
+	  border-radius: 20px;
+	  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+	  width: 80%;
+	  max-width: 400px;
+	  text-align: center;
+	  font-family: '맑은 고딕', sans-serif;
+	  color: #5b3b89;
+	}
+	
+	.modal-content h3 {
+	  margin-top: 0;
+	  margin-bottom: 15px;
+	}
+	
+	.modal-content ul {
+	  list-style-type: disc;
+	}
+	
+	.close {
+	  position: absolute;
+	  top: 12%;
+	  right: 10%;
+	  font-size: 26px;
+	  font-weight: bold;
+	  cursor: pointer;
+	  color: #555;
+	}
+	
+	.btn-outline-purple {
+  background-color: transparent;
+  color: #9b59b6;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 24px;
+  border: 2px solid #d6b3f5;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.btn-outline-purple:hover {
+  background-color: #f8ebff;
+  color: #7b3fa1;
+  border-color: #caa0f0;
+}
     </style>
 </head>
 
@@ -179,28 +242,54 @@
         <div class="grape-growth-text">
             <c:choose>
                 <c:when test="${grapeCount le 10}">
-                    씨앗이 심어졌어요! 🌱
+                    씨앗을 심었어요! 🌱
                 </c:when>
                 <c:when test="${grapeCount le 40}">
-                    새싹이 나왔어요! 🌱
+                    새싹이 나왔어요! 🌿
                 </c:when>
                 <c:when test="${grapeCount le 60}">
                     포도가 익어가고 있어요! 🎉
                 </c:when>
                 <c:otherwise>
-                    포도가 익었어요! 🍇
+                    포도가 다 익었어요! 🍇
                 </c:otherwise>
             </c:choose>
         </div>
 
-        <div class="grape-count">${grapeCount} / ${maxGrape}개</div>     
+        <div class="grape-count">${grapeCount} / ${maxGrape}알</div> <br>     
 
         <form action="${pageContext.request.contextPath}/items_out" method="get">
             <input type="submit" value="포도 쓰러가기 🍇" class="btn btn-purple">
         </form>
     </div>
-
 </div>
+
+<!-- 모달 띄우는 버튼 -->
+<button onclick="openModal()" class="btn-outline-purple" style="margin: 15px auto 0; display: block;">포도 성장과정 보기 🍇</button>
+
+<!-- 모달 구조 -->
+<div id="grapeModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>🍇 포도는 이렇게 자라요!</h3>
+    <ul style="text-align: center; padding-left: 0; list-style: none;">
+      <li><strong>0 ~ 10알</strong> : 씨앗을 심어요 🌱</li>
+      <li><strong>11 ~ 40알</strong> : 새싹이 나와요 🌿</li>
+      <li><strong>41 ~ 60알</strong> : 포도가 익어가요 🎉</li>   
+      <li><strong>61 ~ 100알</strong> : 포도 재배 성공 🍇</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById("grapeModal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("grapeModal").style.display = "none";
+  }
+</script>
 
 </body>
 </html>
