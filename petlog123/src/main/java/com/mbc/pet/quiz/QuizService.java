@@ -26,5 +26,7 @@ public interface QuizService {
 
 	boolean checkAlreadySolved(@Param("user_id") int user_id, @Param("quiz_id") int quiz_id);
 
+	QuizDTO getLatestUnsolvedQuiz(Integer user_id);
+
 	
 }

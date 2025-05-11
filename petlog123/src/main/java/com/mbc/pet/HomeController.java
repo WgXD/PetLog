@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,14 @@ import com.mbc.pet.calendar.CalService;
 import com.mbc.pet.calendar.CalendarDayDTO;
 import com.mbc.pet.community.CommunityDTO;
 import com.mbc.pet.community.CommunityService;
+import com.mbc.pet.diary.DiaryDTO;
+import com.mbc.pet.diary.DiaryService;
 import com.mbc.pet.pet.PetDTO;
 import com.mbc.pet.pet.PetService;
+import com.mbc.pet.quiz.QuizDTO;
+import com.mbc.pet.quiz.QuizService;
+import com.mbc.pet.snack.SnackDTO;
+import com.mbc.pet.snack.SnackService;
 
 @Controller
 public class HomeController {
@@ -105,6 +112,29 @@ public class HomeController {
             // 커뮤니티 게시글 목록 가져오기
             List<CommunityDTO> communityList = communityService.getPopularPosts(); // 커뮤니티 게시글 목록 가져오기
             model.addAttribute("csdto", communityList); // 커뮤니티 게시글을 모델에 추가
+            
+            //간식레시피 목록 가져오기
+            SnackService snackService = sqlSession.getMapper(SnackService.class);
+            List<SnackDTO> snackList = snackService.getsnackList();
+            model.addAttribute("snackList", snackList);
+            
+            //퀴즈 불러오기
+            QuizService qs = sqlSession.getMapper(QuizService.class);
+            QuizDTO quiz = qs.getLatestUnsolvedQuiz(user_id);
+            
+            if(quiz != null) {
+            	model.addAttribute("quiz", quiz);
+            } else model.addAttribute("noQuiz",true); //퀴즈 없으면 멘트 출력
+            
+            //간식레시피 가져오기
+            List<SnackDTO> preview = snackService.getSnackPreview();
+            Collections.shuffle(preview); // 랜덤 섞기
+            model.addAttribute("popularSnacks", preview.subList(0, 1)); // 하나만 보여주기
+            
+            //최근 일기 보여주기
+            DiaryService diaryService = sqlSession.getMapper(DiaryService.class);
+            DiaryDTO recentDiary = diaryService.getLatestDiary(user_id);
+            model.addAttribute("recentDiary", recentDiary);
         }
         return "main";
     }

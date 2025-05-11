@@ -236,7 +236,7 @@
       c.post_date,
       c.post_type
   )
-  WHERE rn &lt; = 5
+  WHERE rn &lt; = 8
 </select>
   
   
@@ -249,6 +249,6 @@
   		  where post_type = 'notice' 
   		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
   		  order by post_date desc )
-  	where rownum &lt; = 5
+  	where rownum &lt; = 8
   </select>
 </mapper>

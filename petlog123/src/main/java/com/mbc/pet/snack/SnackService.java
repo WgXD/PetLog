@@ -1,6 +1,7 @@
 package com.mbc.pet.snack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -14,13 +15,17 @@ public interface SnackService {
 
 	SnackDTO snack_detail(int dnum);
 	
-	SnackDTO snack_update(int update); //·¹½ÃÇÇ ¼öÁ¤
+	SnackDTO snack_update(int update); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	int snackupdate_save(@Param("dto") SnackDTO dto); //¼öÁ¤ ÈÄ DB¿¡ ÀúÀå
+	int snackupdate_save(@Param("dto") SnackDTO dto); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	SnackDTO snackdelete_check(int delete); //»èÁ¦ Àü È®ÀÎ
+	SnackDTO snackdelete_check(int delete); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È®ï¿½ï¿½
 
-	void delete_recipe(int delete); //»èÁ¦
+	void delete_recipe(int delete); //ï¿½ï¿½ï¿½ï¿½
+
+	List<SnackDTO> getsnackList();
+
+	List<SnackDTO> getSnackPreview();
 	
 
 	

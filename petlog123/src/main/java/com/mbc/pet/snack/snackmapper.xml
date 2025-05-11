@@ -27,6 +27,7 @@
 	        #{snack_recipe},
 	        #{snack_image},
 	        to_date(#{snack_date}, 'yyyy-MM-dd'),
+	        #{get_grape, jdbcType=INTEGER},
 	        #{user_id}
 	    )
 	</insert>
@@ -73,6 +74,24 @@
 	<delete id="delete_recipe" parameterType="int">
 		delete from snack where snack_id = #{param1}
 	</delete>
+	
+	<!-- 간식 레시피 최신글 가져오기 -->
+	<select id="getsnackList" resultType="com.mbc.pet.snack.SnackDTO">
+		select * from 
+		( select s.snack_id, s.snack_title, s.snack_recipe, s.snack_image, to_char(s.snack_date,'yyyy-MM-dd')as snack_date, u.user_id, u.user_login_id
+			from snack s
+			join user1 u on u.user_id = s.user_id
+			order by s.snack_date desc)
+			where rownum &lt; = 5
+	</select>
 
+
+	<!-- 간식 레시피 랜덤 가져오기 -->
+	<select id="getSnackPreview" resultType="com.mbc.pet.snack.SnackDTO">
+		select * from (
+		  select * from snack order by snack_id desc
+		  )
+		where rownum &lt; = 5
+	</select>
 
     </mapper>

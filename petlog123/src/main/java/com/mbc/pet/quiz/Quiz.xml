@@ -60,4 +60,15 @@
 	select case when count(*) > 0 then 1 else 0 end
 	from quiz_result where user_id = #{user_id} and quiz_id = #{quiz_id}
 </select>
+
+<!-- 메인화면 안푼 퀴즈 가져오기 -->
+<select id="getLatestUnsolvedQuiz" resultType="com.mbc.pet.quiz.QuizDTO">
+	select * from 
+		(select * from quiz 
+		where quiz_id not in (
+			select quiz_id from quiz_result where user_id = #{user_id} )
+		order by quiz_id desc
+		)
+	where rownum = 1
+</select>
 </mapper>

@@ -9,9 +9,10 @@ public class SnackDTO {
 	String snack_recipe;
 	String snack_image;
 	String snack_date;
-	
-	UserDTO petuserdto; //user_ID °¡Á®¿À·Á¸é ÇÊ¿ä
+	String get_grape; 
+	UserDTO petuserdto; //user_ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 	int user_id;
+	String user_login_id;
 	
 	public SnackDTO() {     }
 
@@ -69,6 +70,22 @@ public class SnackDTO {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getGet_grape() {
+		return get_grape;
+	}
+
+	public void setGet_grape(String get_grape) {
+		this.get_grape = get_grape;
+	}
+
+	public String getUser_login_id() {
+		return user_login_id;
+	}
+
+	public void setUser_login_id(String user_login_id) {
+		this.user_login_id = user_login_id;
 	}
 	
 }

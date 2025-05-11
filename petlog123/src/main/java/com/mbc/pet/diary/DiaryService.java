@@ -35,6 +35,8 @@ public interface DiaryService {
 
 	ArrayList<DiaryDTO> diary_by_months(@Param("user_id") Integer user_id, @Param("current_year") int current_year, @Param("current_month") int current_month,@Param("pet_id") int pet_id);
 	//로그인한 유저가 작성한 다이어리 달력에 출력하기 용
+
+	DiaryDTO getLatestDiary(Integer user_id);
 	
 
 	

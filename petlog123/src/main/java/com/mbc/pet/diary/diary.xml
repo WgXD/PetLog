@@ -120,5 +120,12 @@
 	 and to_char(diary_date, 'MM') = LPAD(#{current_month},2,'0') 
 	</select>
     
-
+	<select id="getLatestDiary" resultType="com.mbc.pet.diary.DiaryDTO">
+    SELECT * FROM (
+        SELECT * FROM diary 
+        WHERE user_id = #{user_id} 
+        ORDER BY diary_date DESC
+    ) 
+    WHERE ROWNUM = 1
+</select>
     </mapper>
