@@ -173,6 +173,10 @@ public class DiaryController {
 	    //DiaryDTO dto = ds.diary_detail(unum);
 	    DiaryDTO dto = ds.diary_detail(diary_id); //달력에 일기 출력한 거 누르면 -> 자세히 보기로 이동
 	    mo.addAttribute("dto", dto);
+	    
+	    UserService us = sqlSession.getMapper(UserService.class);
+	    UserDTO loginUser = us.getUserById(user_id);
+	    session.setAttribute("loginUser", loginUser);
 
 	    return "diary_detail";
 	}

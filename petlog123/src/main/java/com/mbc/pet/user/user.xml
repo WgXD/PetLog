@@ -101,4 +101,11 @@
 	order by grape_count desc
 </select>
 
+<!-- diary_detail 포도알 갯수 출력용 -->
+<select id="getUserById" resultType="com.mbc.pet.user.UserDTO" parameterType="int">
+	  SELECT * 
+	  FROM user1
+	  WHERE user_id = #{user_id}
+</select>
+
 </mapper>

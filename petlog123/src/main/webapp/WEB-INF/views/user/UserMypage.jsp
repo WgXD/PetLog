@@ -7,10 +7,8 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 body {
-    font-family: 'Nanum Gothic', sans-serif;
     background-color: #ffffff;
     margin: 0;
     padding: 0;
@@ -37,15 +35,31 @@ h3 {
     margin-top: 30px;
 }
 
-.info {
-    text-align: left;
-    margin: 25px 0;
-    font-size: 17px;
-    color: #444;
+.nickname {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f49fb6;
+    background: #fff4f6;
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.info p {
-    margin: 10px 0;
+/* 카드형 회원정보 박스 */
+.info-card {
+    background: #fff6f8;
+    border: 2px solid #ffc1cc;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 25px auto;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    font-size: 16px;
+    color: #444;
+}
+.info-card p {
+    margin: 12px 0;
+    line-height: 1.6;
 }
 
 .btn-group {
@@ -69,7 +83,7 @@ h3 {
     color: #333;
 }
 
-/* 프레임이 이미지 감싸도록 */
+/* 프로필 이미지 프레임 */
 .profile-frame-container {
     position: relative;
     width: 220px;
@@ -88,7 +102,6 @@ h3 {
     z-index: 1;
 }
 
-/* 착용 프레임 이미지 */
 .frame-img {
     position: absolute;
     top: 0;
@@ -100,7 +113,6 @@ h3 {
     border-radius: 50%;
 }
 
-/* 프레임 없을 때만 테두리 */
 .with-border {
     border: 5px solid #ffc1cc;
     border-radius: 50%;
@@ -112,7 +124,7 @@ h3 {
 <body>
 <div class="container">
     <h1>마이페이지</h1>
-        <div class="profile-frame-container">
+    <div class="profile-frame-container">
         <c:choose>
             <c:when test="${empty equippedFrame}">
                 <img src="${pageContext.request.contextPath}/image/${dto.profileimg != null ? dto.profileimg : 'default.png'}"
@@ -130,10 +142,10 @@ h3 {
         </c:if>
     </div>
  
-    <h3>${dto.name}님의 회원정보</h3>
+    <h3><span class="nickname">${dto.name}</span>님의 회원정보</h3>
 
     <!-- 회원 정보 -->
-    <div class="info">
+    <div class="info-card">
         <p><strong>아이디:</strong> ${dto.user_login_id}</p>
         <p><strong>이름:</strong> ${dto.name}</p>
         <p><strong>전화번호:</strong> ${dto.phone}</p>
@@ -143,7 +155,7 @@ h3 {
 
     <!-- 버튼 그룹 -->
     <div class="btn-group">
-    	<a href="pwcheckPage">비밀번호 변경</a>
+        <a href="pwcheckPage">비밀번호 변경</a>
         <a href="UserEditProfile">회원정보 수정</a>
         <a href="petProfile">펫 정보</a>
     </div>
