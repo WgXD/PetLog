@@ -9,8 +9,10 @@ public class SnackDTO {
 	String snack_recipe;
 	String snack_image;
 	String snack_date;
+
 	String get_grape; 
 	UserDTO petuserdto; //user_ID ���������� �ʿ�
+
 	int user_id;
 	String user_login_id;
 	

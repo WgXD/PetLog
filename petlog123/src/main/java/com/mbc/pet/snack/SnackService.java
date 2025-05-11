@@ -15,6 +15,7 @@ public interface SnackService {
 
 	SnackDTO snack_detail(int dnum);
 	
+
 	SnackDTO snack_update(int update); //������ ����
 
 	int snackupdate_save(@Param("dto") SnackDTO dto); //���� �� DB�� ����
@@ -26,7 +27,7 @@ public interface SnackService {
 	List<SnackDTO> getsnackList();
 
 	List<SnackDTO> getSnackPreview();
-	
+
 
 	
 

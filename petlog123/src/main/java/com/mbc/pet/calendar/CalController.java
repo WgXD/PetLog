@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.mbc.pet.diary.DiaryDTO;
 import com.mbc.pet.diary.DiaryService;
@@ -146,10 +147,75 @@ public class CalController {
         CalService cs = sqlSession.getMapper(CalService.class);
         CalDTO cdto = cs.calendar_detail(cal_id);
         mo.addAttribute("cdto", cdto);
+        
+        mo.addAttribute("current_year", cdto.getCal_date().substring(0, 4));
+        mo.addAttribute("current_month", cdto.getCal_date().substring(5, 7));
+        mo.addAttribute("pet_id", cdto.getPet_id());
        
 		return "calendar_detail";
 	}
 
+	@RequestMapping(value = "/calendar_delete")
+	public String cal_delete(HttpSession session, Model mo, HttpServletRequest req,
+							@RequestParam("cal_id") int cal_id,
+				            @RequestParam("year") int year,
+				            @RequestParam("month") int month,
+				            @RequestParam("pet_id") int pet_id) {
+		
+    	// 로그인 체크
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+		
+        CalService cs = sqlSession.getMapper(CalService.class);
+        cs.cal_delete(cal_id);
+        
+        return "redirect:/calendar_view?pet_id=" + pet_id + "&year=" + year + "&month=" + month;
+	}
 	
+	@RequestMapping(value = "/calendar_update") //일정 수정
+	public String cal_update(Model mo, HttpServletRequest req, HttpSession session) {
+
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    int cal_id = Integer.parseInt(req.getParameter("cal_id"));
+	    
+	    CalService cs = sqlSession.getMapper(CalService.class);
+	    CalDTO cdto = cs.calendar_detail(cal_id);
+	    
+	    mo.addAttribute("cdto", cdto);
+
+	    return "calendar_update";
+	}
 	
+	@RequestMapping(value = "/cupdate_save")
+	public String cal_update_save(HttpServletRequest req, HttpSession session) {
+
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    int cal_id = Integer.parseInt(req.getParameter("cal_id"));
+	    String cal_title = req.getParameter("cal_title");
+	    String cal_date = req.getParameter("cal_date");
+	    String cal_content = req.getParameter("cal_content");
+	    int pet_id = Integer.parseInt(req.getParameter("pet_id"));
+
+	    CalService cs = sqlSession.getMapper(CalService.class);
+	    cs.update_save(cal_id, cal_title, cal_date, cal_content, user_id, pet_id);
+
+	    return "redirect:/calendar_view?pet_id=" + pet_id;
+	}
+
 }

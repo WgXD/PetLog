@@ -342,7 +342,6 @@
       <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_update.jsp"/>
     </definition> 
     
-    
    <definition name="calendar_delete" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/calendar/calendar_delete.jsp"/>

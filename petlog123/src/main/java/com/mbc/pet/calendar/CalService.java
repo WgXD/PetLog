@@ -43,4 +43,8 @@ public interface CalService {
 							          @Param("endDate") String endDate);
 
 	CalDTO calendar_detail(int cal_id);
+
+	void cal_delete(int delete);
+
+	void update_save(int cal_id, String cal_title, String cal_date, String cal_content, Integer user_id, int pet_id);
 }
