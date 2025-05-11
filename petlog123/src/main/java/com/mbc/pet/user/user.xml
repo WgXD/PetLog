@@ -108,4 +108,9 @@
 	  WHERE user_id = #{user_id}
 </select>
 
+<!-- 게시판 자세히보기 프로필 이미지 가져오기 -->
+<select id="selectUserById" resultType="com.mbc.pet.user.UserDTO" parameterType="int">
+	select user_id, user_login_id, password, name, phone, email, profileimg, rank, user_role, grape_count
+    from user1 where user_id = #{user_id}
+</select>
 </mapper>

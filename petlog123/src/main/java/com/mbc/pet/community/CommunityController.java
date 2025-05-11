@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.mbc.pet.community.PageDTO;
 import com.mbc.pet.user.UserDTO;
+import com.mbc.pet.user.UserService;
 
 @Controller
 public class CommunityController {
@@ -210,6 +211,11 @@ public class CommunityController {
         CommunityDTO dto = cs.detailview(pnum);
         mo.addAttribute("dto", dto);
         mo.addAttribute("user_id", user_id);
+        
+        //작성자 프로필 이미지 가져오기
+        UserService us = sqlSession.getMapper(UserService.class);
+        UserDTO udto = us.selectUserById(dto.getUser_id());
+        mo.addAttribute("profileimg", udto.getProfileimg());
         
         List<CommentsDTO> comments = cs.getCommentsByPostId(pnum);
         mo.addAttribute("comments", comments);

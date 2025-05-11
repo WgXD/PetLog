@@ -37,4 +37,6 @@ public interface UserService {
 	ArrayList<UserDTO> get_all_users(); //관리자가 어느 회원한테 포도알 줄지 고르는 용
 
 	UserDTO getUserById(Integer user_id);
+
+	UserDTO selectUserById(int user_id); //작성자 정보 조회용, 게시판 프로필 이미지 출력 위해
 }

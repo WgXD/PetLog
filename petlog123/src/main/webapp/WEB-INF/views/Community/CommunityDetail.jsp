@@ -109,6 +109,14 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 30px;
 }
+.profile-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 6px;
+}
 </style>
 </head>
 <body>
@@ -117,7 +125,10 @@
   
   <div class="table-wrapper">
   <table>
-    <caption>${dto.user_login_id}님의 게시물</caption>
+    <caption>
+	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+	${dto.user_login_id}님의 게시물
+	</caption>
   <tr>
   <td colspan="2" style="text-align: right; padding: 5px 10px;">
     <span style="font-size: 15px; color: #8B8386;">👁 ${dto.post_readcnt}</span>
@@ -142,7 +153,7 @@
         <br>
         <img src="./image/${dto.post_image}" style="max-width:80%; height:auto; margin-top:10px; display:block; margin-left:auto; margin-right:auto;">
       </c:if>
-      
+     
     </div>
     <input type="hidden" name="post_content" id="hiddenContent">
   </td>
@@ -216,7 +227,9 @@ function confirmDelete(postId) {
 <c:set var="margin" value="${com.depth * 20}" />
 
 <div style="width: 60%; margin: 0 auto; margin-left: calc(20% + ${margin}px); border-bottom: 1px solid #ddd; padding: 15px 10px; text-align: left; position: relative;">
-<div style="font-weight: bold; margin-bottom: 5px;">👤 ${com.user_login_id}</div>
+<div style="font-weight: bold; margin-bottom: 5px;">
+	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+	${com.user_login_id}</div>
 <div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
 
 <!-- 대댓글 버튼 -->

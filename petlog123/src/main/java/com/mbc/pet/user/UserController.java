@@ -185,19 +185,27 @@ public class UserController {
 	    dto.setRank(originalUser.getRank());
 	    dto.setGrape_count(originalUser.getGrape_count());
 
-	    // 파일 저장할 경로 설정
-	    String uploadPath = request.getSession().getServletContext().getRealPath("/image/");
+	    // 파일 저장할 경로 설정 -> 톰캣 실행 경로에 저장
+	    String uploadPath = request.getServletContext().getRealPath("/image/");
 
 	    if (profileimgfile != null && !profileimgfile.isEmpty()) {
-	        String fileName = profileimgfile.getOriginalFilename();
-	        dto.setProfileimg(fileName); // DTO에 파일 이름 저장
+	        String originalFileName = profileimgfile.getOriginalFilename();
+	        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        
+	        // 파일명 한글 제거용 UUID 적용
+	        String uuidFileName = java.util.UUID.randomUUID().toString() + extension;
+	        
+	        dto.setProfileimg(uuidFileName); // 영어 파일명 DB 저장
 
 	        // 서버에 실제로 파일 저장
-	        File saveFile = new File(uploadPath, fileName);
+	        File saveFile = new File(uploadPath, uuidFileName);
 	        profileimgfile.transferTo(saveFile);
+	               
 	    } else {
-	        dto.setProfileimg(originalUser.getProfileimg()); // 파일 없으면 기존거 유지
+	        dto.setProfileimg(originalUser.getProfileimg()); // 기존 유지
 	    }
+
+	    
 	    us.updateProfile(dto);
 	    return "redirect:/mypage";
 	}

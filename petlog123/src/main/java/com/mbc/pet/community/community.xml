@@ -91,7 +91,7 @@
   <!-- 게시글 상세 -->
   <select id="detailview" resultMap="communityMap">
     select 
-      c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content, 
+      c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content, u.profileimg,
       c.post_image, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') as post_date, 
       c.post_type
     from community c
@@ -161,7 +161,7 @@
 
   <!-- 댓글 조회 -->
   <select id="getCommentsByPostId" resultMap="commentsMap">
-    select cm.com_id, u.user_id, u.user_login_id, cm.post_id, cm.com_com, cm.parent_id, cm.depth
+    select cm.com_id, u.user_id, u.user_login_id, cm.post_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
     from comments cm join user1 u on cm.user_id = u.user_id
     where cm.post_id = #{param1} 
     order by cm.parent_id asc, cm.com_com asc
@@ -240,15 +240,16 @@
 </select>
   
   
-  <!-- 공지사항 최신글 불러오기 -->
-  <select id="getRecentNotices" resultType="com.mbc.pet.community.CommunityDTO">
-  	select * from
-  		( select c.post_id, c.post_title, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') post_date, u.user_id, u.user_login_id
-  		  from community c
-  		  join user1 u on u.user_id = c.user_id
-  		  where post_type = 'notice' 
-  		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
-  		  order by post_date desc )
-  	where rownum &lt; = 8
-  </select>
+<!-- 공지사항 최신글 불러오기 -->
+<select id="getRecentNotices" resultType="com.mbc.pet.community.CommunityDTO">
+	select * from
+		( select c.post_id, c.post_title, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') post_date, u.user_id, u.user_login_id
+		  from community c
+		  join user1 u on u.user_id = c.user_id
+		  where post_type = 'notice' 
+		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
+		  order by post_date desc )
+	where rownum &lt; = 8
+</select>
+  
 </mapper>

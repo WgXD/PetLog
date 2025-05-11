@@ -3,14 +3,15 @@ package com.mbc.pet.community;
 import com.mbc.pet.user.UserDTO;
 
 public class CommentsDTO {
-// ´ñ±Û id,  È¸¿ø id,  °Ô½Ã±Û id,
+// ï¿½ï¿½ï¿½ id,  È¸ï¿½ï¿½ id,  ï¿½Ô½Ã±ï¿½ id,
 int com_id, user_id;
 String user_login_id;
 int post_id;
-String com_com;   //´ñ±Û,
-int parent_id; //ºÎ¸ð´ñ±Û(´ë´ñ±ÛÀ» À§ÇÑ)
+String com_com;   //ï¿½ï¿½ï¿½,
+int parent_id; //ï¿½Î¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 int depth;
- // µé¿©¾²±â
+String profileimg;
+ // ï¿½é¿©ï¿½ï¿½ï¿½ï¿½
 UserDTO psdto;
 CommunityDTO ctdto;
 
@@ -69,5 +70,11 @@ public String getUser_login_id() {
 }
 public void setUser_login_id(String user_login_id) {
 	this.user_login_id = user_login_id;
+}
+public String getProfileimg() {
+	return profileimg;
+}
+public void setProfileimg(String profileimg) {
+	this.profileimg = profileimg;
 }
 }

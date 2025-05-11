@@ -9,8 +9,9 @@ public class CommunityDTO {
  int post_readcnt;
  String post_date;
  String user_login_id;
- int comment_count; // ´ñ±Û ¼ö
- int like_count;    // ÁÁ¾Æ¿ä ¼ö
+ int comment_count; // ï¿½ï¿½ï¿½ ï¿½ï¿½
+ int like_count;    // ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½
+ String profileimg;
  String post_type;
  UserDTO psdto;
  CommentsDTO cmdto;
@@ -95,5 +96,11 @@ public String getUser_login_id() {
 }
 public void setUser_login_id(String user_login_id) {
 	this.user_login_id = user_login_id;
+}
+public String getProfileimg() {
+	return profileimg;
+}
+public void setProfileimg(String profileimg) {
+	this.profileimg = profileimg;
 } 
 }
