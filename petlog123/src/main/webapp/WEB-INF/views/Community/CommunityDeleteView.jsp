@@ -11,7 +11,7 @@
     font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     background-color: #f8f9fa;
     margin: 0;
-    padding: 20px;
+    padding: 0;
   }
   table {
     width: 80%;

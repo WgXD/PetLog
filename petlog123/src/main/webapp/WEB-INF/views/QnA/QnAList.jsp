@@ -11,7 +11,7 @@
     font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     background-color: #ffffff;
     margin: 0;
-    padding: 30px 0;
+    padding: 0;
     text-align: center;
   }
   h2 {

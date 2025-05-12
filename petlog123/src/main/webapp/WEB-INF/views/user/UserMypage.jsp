@@ -157,7 +157,7 @@ h3 {
     <div class="btn-group">
         <a href="pwcheckPage">비밀번호 변경</a>
         <a href="UserEditProfile">회원정보 수정</a>
-        <a href="petProfile">펫 정보</a>
+        <a href="pet_out">펫 정보</a>
     </div>
 </div>
 </body>

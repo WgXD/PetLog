@@ -9,7 +9,7 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f8f8;
     text-align: center;
-    padding: 40px;
+    padding: 0;
 }
 
 h2 {

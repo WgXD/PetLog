@@ -11,8 +11,7 @@
   body {
     font-family: 'Gowun Dodum', 'Malgun Gothic', sans-serif;
     margin: 0;
-    background: linear-gradient(to bottom, #fef6f9 80%, #fff0f5);
-    padding: 60px 20px;
+    padding: 0;
   }
 
   .quiz-box {

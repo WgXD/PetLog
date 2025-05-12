@@ -26,9 +26,8 @@
     <style>
 
         body {
-            background: linear-gradient(to bottom right, #e0f7f6, #ffe9ec);
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
 		table {
@@ -141,6 +140,14 @@
 		  display: inline-block;
 		  font-weight: bold;
 		}
+		
+		th.sun {
+		  color: #f48b94; /* 연한 빨강 */
+		}
+		
+		th.sat {
+		  color: #8bb3f4; /* 연한 파랑 */
+		}
     </style>
 </head>
 <body>
@@ -173,7 +180,7 @@
 </div>
 
 <table>
-    <tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+    <tr><th class="sun">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th class="sat">토</th></tr>
     <tr>
 <%
     int count = 1;

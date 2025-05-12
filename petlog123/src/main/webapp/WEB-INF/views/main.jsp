@@ -158,7 +158,7 @@
       <table class="calendar">
         <thead>
           <tr>
-            <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
           </tr>
         </thead>
        <c:set var="todayStr" value="<%= java.time.LocalDate.now().toString() %>" />

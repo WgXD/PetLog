@@ -10,7 +10,7 @@
  body {
   background-color: #fefefe;
   margin: 0;
-  padding: 50px 0;
+  padding: 0;
   color: #333;
 }
 

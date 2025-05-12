@@ -9,14 +9,18 @@
 </head>
 <body>
 
-<!-- top 영역 -->
-<tiles:insertAttribute name="top" />
+<div class="wrapper">  <%-- 전체 감싸는 래퍼 --%>
 
-<!-- body 영역 -->
-<tiles:insertAttribute name="body" />
+    <div class="content">  <%-- top + body --%>
+        <tiles:insertAttribute name="top" />
+        <tiles:insertAttribute name="body" />
+    </div>
 
-<!-- footer 영역 -->
-<tiles:insertAttribute name="footer" />
+    <footer class="footer">
+        <tiles:insertAttribute name="footer" />
+    </footer>
+
+</div>
 
 </body>
 </html>

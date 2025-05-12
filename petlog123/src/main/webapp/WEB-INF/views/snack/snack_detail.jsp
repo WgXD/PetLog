@@ -11,7 +11,7 @@
   body {
     background-color: #fff8f0;
     text-align: center;
-    padding: 30;
+    padding: 0;
   }
 
   h2 {
