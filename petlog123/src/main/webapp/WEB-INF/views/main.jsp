@@ -55,10 +55,10 @@
               <a href="pet_detail?update1=${dto.pet_id}">
                 <img src="${pageContext.request.contextPath}/image/${dto.pet_img}" width="100px"
                      style="border-radius: 50%; margin-bottom: 10px;">
-                <div style="font-size: 16px; font-weight: bold; text-align: center;">${dto.pet_name}</div>
-                <div style="font-size: 13px; color: #777;">🐻 성별: ${dto.pet_bog}</div>
-                <div style="font-size: 13px; color: #777;">✨ 중성화: ${dto.pet_neuter}</div>
-                <div style="font-size: 13px; color: #777;">🎂 생일: ${dto.pet_hbd}</div>
+                <div style="font-size: px; font-weight: bold; text-align: center;">${dto.pet_name}</div>
+                <div style="font-size: 15px; color: #777;">🐻 성별: ${dto.pet_bog}</div>
+                <div style="font-size: 15px; color: #777;">✨ 중성화: ${dto.pet_neuter}</div>
+                <div style="font-size: 15px; color: #777;">🎂 생일: ${dto.pet_hbd}</div>
               </a>
             </div>
           </c:forEach>
@@ -125,8 +125,9 @@
       </div>
     </div>
   </div>
-
-  <!-- 오른쪽: 인기 간식 레시피 박스 -->
+ 
+ 
+ <!-- 오른쪽: 인기 간식 레시피 박스 -->
 <div class="half-box snack-preview-box">
   <h3>🍪 인기 간식 레시피</h3>
   <c:forEach items="${popularSnacks}" var="snack" begin="0" end="0"> <!-- 하나만 출력 -->
@@ -145,8 +146,6 @@
 </div>
 </div>
 </section>
-
-
 
   <!-- 우측: 통합 캘린더 + 일정 -->
   <!-- 캘린더 박스 (로그인 상태) -->
@@ -227,7 +226,7 @@
 </c:if>
 
 <!-- 오늘의 다이어리 -->
-<div class="half-box diary-box">
+<div class="diary-wrapper-box">
   <h3>📓 오늘의 다이어리</h3>
   <c:if test="${not empty recentDiary}">
     <p class="diary-title">${recentDiary.diary_title}</p>
@@ -249,6 +248,8 @@
 	</div>
     </aside>
 </div>
+
+
 <!-- 커뮤니티, 공지사항 구분 및 바로가기  -->
 <script>
   function switchTab(type) {

@@ -238,7 +238,7 @@
       c.post_date,
       c.post_type
   )
-  WHERE rn &lt; = 8
+  WHERE rn &lt; = 7
 </select>
   
   
@@ -251,7 +251,7 @@
 		  where post_type = 'notice' 
 		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
 		  order by post_date desc )
-	where rownum &lt; = 8
+	where rownum &lt; = 7
 </select>
   
 </mapper>
