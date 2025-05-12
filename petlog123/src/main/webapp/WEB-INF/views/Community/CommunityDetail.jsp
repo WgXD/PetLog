@@ -207,6 +207,7 @@ function confirmDelete(postId) {
   }
 }
 </script>
+
 <!-- 댓글 색션 시작 -->
 <div style="width: 60%; margin: 40px auto 20px auto; padding: 15px 0; text-align: left; border-bottom: 1px solid #ddd;">
     <h3 style="margin-bottom: 20px;">댓글</h3>
