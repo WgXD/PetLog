@@ -134,6 +134,8 @@ body.bg-mint {
 /*========================================= 위 스타일 변경 금지 ========================================= */
 /*========== 기본 네비 스타일 ==========*/
 .navbar {
+  position: relative; /* 추추추 */
+  z-index: 9999;/* 추추추 */
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -161,6 +163,8 @@ body.bg-mint {
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 1000; /*추추추*/
+  position: absolute; /*추추추*/
 }
 
 .navbar .dropdown-menu > li > a {
@@ -189,15 +193,16 @@ body.bg-mint {
   display: flex; 				/*내부 요소들을 flexbox 방식으로 정렬*/
   flex-direction: column;     /* 세로로 정렬 */
   align-items: center;        /* 내부 요소 가로 가운데 */
-  justify-content: flex-start;  /*요소들을 세로 방향 맨 위부터 정렬*/
   width: 120px;  
   height: 900px; 
   background-color: #fff;
   border-radius: 16px;   /*테두리 둥글게*/
-  padding: 15px 0;            /* 위아래 여백만 주기 */
+  padding: 20px 0;            /* 추추추*/
   box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   position: relative;     /* 자식 요소에서 absolute 위치 지정시 기준점, 필요 시 고정 가능 */
   flex-shrink: 0; 			/*flex 항목이 줄어들어도 고정너비 유지*/
+  justify-content: space-between; /*추추추*/
+  z-index: 1; /*추추추*/
 }
 .sidebar-box {
   margin-bottom: 20px;
