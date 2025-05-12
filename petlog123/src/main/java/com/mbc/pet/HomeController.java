@@ -163,6 +163,7 @@ public class HomeController {
         html.append("</ul>");
         return html.toString();
     }
+    
 
     // 월간 달력 데이터를 주차별로 묶는 메서드
     private List<List<CalendarDayDTO>> groupByWeek(ArrayList<CalendarDayDTO> monthData, int year, int month) {

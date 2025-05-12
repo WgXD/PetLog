@@ -148,6 +148,7 @@
           <th>레시피명</th>
           <th>레시피</th>
           <th>이미지</th>
+          <th>작성자</th>
           <th>게시일</th>
         </tr>
       </thead>
@@ -158,6 +159,7 @@
             <td><a href="snack_detail?dnum=${rec.snack_id}">${rec.snack_title}</a></td>
             <td>${rec.snack_recipe}</td>
             <td><img src="./image/${rec.snack_image}" alt="레시피 이미지"></td>
+            <td>${rec.user_login_id}</td>
             <td>${rec.snack_date}</td>
           </tr>
         </c:forEach>

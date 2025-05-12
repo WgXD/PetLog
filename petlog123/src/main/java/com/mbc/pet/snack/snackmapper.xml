@@ -37,19 +37,40 @@
     </select>
     
     <select id="snack_out" resultType="com.mbc.pet.snack.SnackDTO">
-    	select * from (
-    			       SELECT a.*, ROW_NUMBER() OVER (ORDER BY snack_id DESC) AS rnum
-		       FROM (
-		           SELECT snack_id, snack_title, snack_recipe, snack_image, TO_CHAR(snack_date, 'yyyy-MM-dd') AS snack_date, user_id
-		           FROM snack
-		       ) a
-		   )
-		   WHERE rnum BETWEEN #{start} + 1 AND #{end}    
+	    SELECT *
+	    FROM (
+	        SELECT a.*, ROWNUM AS rnum
+	        FROM (
+	            SELECT 
+	                s.snack_id,
+	                s.snack_title,
+	                s.snack_recipe,
+	                s.snack_image,
+	                TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+	                s.user_id,
+	                u.user_login_id
+	            FROM snack s
+	            JOIN user1 u ON s.user_id = u.user_id
+	            ORDER BY s.snack_id DESC
+	        ) a
+	        WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rnum &gt; #{start}
     </select>
 
 	<select id="snack_detail" resultType="com.mbc.pet.snack.SnackDTO">
-		select snack_id, snack_title, snack_recipe, snack_image, to_char(snack_date,'yyyy-MM-dd')snack_date, user_id from snack where snack_id = #{param1}
-	</select>
+			    SELECT 
+	        s.snack_id,
+	        s.snack_title,
+	        s.snack_recipe,
+	        s.snack_image,
+	        TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+	        s.user_id,
+	        u.user_login_id
+	    FROM snack s
+	    JOIN user1 u ON s.user_id = u.user_id
+	    WHERE s.snack_id = #{param1}
+		</select>
 	
 	<select id="snack_update" resultType="com.mbc.pet.snack.SnackDTO">
 		select snack_id,snack_title,snack_recipe,snack_image, to_char(snack_date,'yyyy-MM-dd')snack_date, user_id from snack where snack_id = #{param1}
@@ -87,10 +108,12 @@
 
 	<!-- 간식 레시피 랜덤 가져오기 -->
 	<select id="getSnackPreview" resultType="com.mbc.pet.snack.SnackDTO">
-		select * from (
-		  select * from snack order by snack_id desc
-		  )
-		where rownum &lt; = 5
+		  SELECT s.snack_id, s.snack_title, s.snack_recipe, s.snack_image,
+		         TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+		         s.user_id, u.user_login_id
+		  FROM snack s
+		  JOIN user1 u ON s.user_id = u.user_id
+		  WHERE ROWNUM &lt;= 5
 	</select>
 
     </mapper>

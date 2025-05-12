@@ -78,7 +78,7 @@ body.bg-mint {
 }
 
 .table td.left {
-  text-align: left;
+  text-align: left; 
 }
 
 .table td a {
@@ -191,7 +191,7 @@ body.bg-mint {
   align-items: center;        /* 내부 요소 가로 가운데 */
   justify-content: flex-start;  /*요소들을 세로 방향 맨 위부터 정렬*/
   width: 120px;  
-  height: 810px; 
+  height: 900px; 
   background-color: #fff;
   border-radius: 16px;   /*테두리 둥글게*/
   padding: 15px 0;            /* 위아래 여백만 주기 */
@@ -241,6 +241,8 @@ body.bg-mint {
 
 .content-box.large {
   min-height: 320px;
+  height: 480px;     /* 추추추 */
+  box-sizing: border-box; /* 추추 */
 }
  /*====== 메인, 펫 프로필 ======*/
 .profile-cards {
@@ -344,6 +346,7 @@ body.bg-mint {
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  height: 400px; /*추추*/
 }
 
 /* ====== 탭 헤더 ====== */
@@ -436,9 +439,10 @@ body.bg-mint {
   flex: 3;
   background-color: #fffaf0;
   border-radius: 16px;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;/*추추 원래 20px*/
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-
+  height: 400px; /*추추*/
+  justify-content: space-between;/*추추*/
 }
 
 .snack-card {
@@ -446,6 +450,7 @@ body.bg-mint {
   flex-direction: column;
   align-items: center;
   text-align: left;
+  justify-content: space-between;/*추추*/
 }
 
 .snack-image {
@@ -481,8 +486,9 @@ body.bg-mint {
 }
 
 .snack-more {
-  margin-top: 12px;
+  margin-top: -5px; /*추추 원래 12px*/
   text-align: right;
+  margin-bottom: 10px; /*추추*/
 }
 
 .snack-more a {
@@ -500,7 +506,7 @@ body.bg-mint {
   width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 10px; /*추가 10->0*/
   flex-shrink: 0;
 }
 
@@ -512,7 +518,8 @@ body.bg-mint {
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   margin-bottom: 10px;
   width: 300px;
-  height: 440px;
+  flex: 5;/*추가 5->0.55*/
+  height: 440px;/*추가 440px->100%*/
 }
 
 .calendar {
@@ -619,11 +626,14 @@ body.bg-mint {
 .diary-wrapper-box {
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 20px;
+  padding: 8px 20px 15px 20px; /*추추 원래20px*/
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   margin-bottom: 10px;
   width: 300px;
-  height: 200px;
+  height: 200px; /*추가 200->170*/
+  flex: none; /*추가 2->0.55->none 추추*/
+  margin-top: 0px; /*추추*/
+  align-self: flex-start; /*추추*/
 }
 
 .diary-box {
@@ -631,11 +641,12 @@ body.bg-mint {
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  height: 200px;
+  height: 200px;/*추가 200px->100%*/
 }
 .diary-title {
   font-weight: bold;
   font-size: 16px;
+  margin-top: 0; /*추추*/
 }
 .diary-date {
   font-size: 13px;
@@ -658,10 +669,11 @@ body.bg-mint {
   background-color: #fff6fa;
   border: 2px dashed #f48fb1;
   border-radius: 20px;
-  padding: 20px;
-  
+  padding: 5px 20px 20px 20px; /*추추 원래20px*/
+  flex: 1; /*추가 1->2.5->0.2*/
   text-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  over-flow: hidden;
 }
 .quiz-preview-box h3 {
   font-size: 20px;
