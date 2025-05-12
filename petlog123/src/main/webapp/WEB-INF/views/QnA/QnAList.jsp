@@ -19,7 +19,7 @@
     color: #444;
   }
   table {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
     background-color: #fff;
@@ -48,25 +48,71 @@
   }
   .btn-write {
     padding: 10px 20px;
-    background-color: #d0e8ff;
+    background-color: #ffe1e1;
     color: #333;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 25px;
     transition: background-color 0.3s;
+    text-align: right;
   }
   .btn-write:hover {
     background-color: #a6d1f5;
   }
+  .table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
+.pagination {
+  width: 100%;
+  text-align: center;
+  margin: 40px 0;
+}
+
+.pagination a {
+  margin: 0 6px;
+  padding: 6px 12px;
+  color: #888;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.pagination a.current {
+  background-color: #db7093;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagination a:hover {
+  background-color: #ffe1e1;
+}
+.table-wrapper {
+  background-color: white;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 30px;
+}
 </style>
 </head>
 <body>
+<div class="table-wrapper">
 
 <h2>QnA 목록</h2>
 
-<button class="btn-write" onclick="location.href='QnAinput'">새 문의글 작성</button>
+<div style="text-align: right; margin-bottom: 15px;">
+  <button class="btn-write" onclick="location.href='QnAinput'">새 문의글 작성</button>
+</div>
 
 <table>
   <tr>
@@ -99,6 +145,7 @@
   <c:forEach var="i" begin="1" end="${page_count}">
     <a href="QnAList?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
   </c:forEach>
+</div>
 </div>
 </body>
 </html>

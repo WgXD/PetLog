@@ -91,7 +91,7 @@
   .table-wrapper {
     background-color: white;
     width: 100%;
-    max-width: 5000px;
+    max-width: 1000px;
     margin: 20px auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -104,6 +104,23 @@
     object-fit: cover;
     vertical-align: middle;
     margin-right: 6px;
+  }
+ .reply-btn {
+    font-size: 14px;
+    padding: 2px 10px;
+    background-color: #f8c8dc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
+
+  .reply-btn:hover {
+    background-color: #f4aac9;
   }
 </style>
 </head>
@@ -152,7 +169,7 @@
   </td>
 </tr>
 </table>
-</div>
+
 
 <!-- 좋아요 버튼 -->
 <div style="text-align: center; margin-top: 20px;">
@@ -208,11 +225,8 @@
 <div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
 
 <!-- 대댓글 버튼 -->
-<button type="button" onclick="toggleReplyForm(${com.com_id})"
-	style="position: absolute; top: 15px; right: 10px; font-size: 12px;
-    padding: 4px 8px; background-color: #eee;
-    border: 1px solid #aaa; border-radius: 4px; cursor: pointer;">
-    답글
+<button type="button" class="reply-btn" onclick="toggleReplyForm(${com.com_id})">
+  답글
 </button>
 
 <!-- 대댓글 입력창 -->
@@ -234,6 +248,7 @@
 		작성
 </button></form></div></div>
 </c:forEach>
+</div>
 <!-- 대댓글 폼 토글 -->
 <script>
    function toggleReplyForm(id) {

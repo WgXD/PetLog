@@ -163,7 +163,7 @@
 <!-- 페이징 -->
 <div class="pagination">
   <c:forEach var="i" begin="1" end="${page_count}">
-    <a href="CommunityView?page=${i}" class="${i == page ? 'current' : ''}">
+    <a href="BoardView?page=${i}" class="${i == page ? 'current' : ''}">
       ${i}
     </a>
   </c:forEach>
