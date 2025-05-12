@@ -23,18 +23,6 @@ public class SnackController {
 	
 	@Autowired
 	SqlSession sql;
-	//String path = "C:\\1MBC\\spring\\PetLog\\src\\main\\webapp\\image";
-	
-//	@RequestMapping("/login-temp") //?��?�� 로그?��!!!!!!!!!!!!!!!!
-//	public String hh(HttpSession session) {
-//		
-//	// ?��?���? user_id?? user_login_id�? ?��?�� (?��?��)
-//    session.setAttribute("user_id", 1); // ?��?�� user_id (?��: 1)
-//    session.setAttribute("user_login_id", "tester"); // ?��?�� user_login_id (?��: "tester")
-//
-//    return "redirect:/main"; // ?��?���? 리디?��?��
-//}
-	
 	
 	@RequestMapping(value = "/snack_input")
 	public String snack(HttpSession session) {

@@ -11,7 +11,7 @@ public class SnackDTO {
 	String snack_date;
 
 	String get_grape; 
-	UserDTO petuserdto; //user_ID ���������� �ʿ�
+	UserDTO petuserdto;
 
 	int user_id;
 	String user_login_id;

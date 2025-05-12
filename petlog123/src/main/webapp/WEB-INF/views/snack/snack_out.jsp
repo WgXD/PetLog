@@ -7,12 +7,12 @@
 <title>레시피 보기</title>
 
 <%
-    com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
-    if (loginUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login?error=login_required");
-        return;
-    }
-%>
+	Integer userId = (Integer) session.getAttribute("user_id");
+	if (userId == null) {
+	    response.sendRedirect(request.getContextPath() + "/login?error=login_required");
+	    return;
+	}
+	%>
 
 <style>
   body {
