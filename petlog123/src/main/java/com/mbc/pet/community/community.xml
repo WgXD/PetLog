@@ -107,13 +107,15 @@
   
   <!-- 게시글 삭제 -->
   <select id="deleteview" resultType="com.mbc.pet.community.CommunityDTO">
-    select post_id, post_title, post_content, post_image, post_readcnt,
-    to_char(post_date, 'yyyy-MM-dd') post_date, user_id
-    from community where post_id = #{param1}
+	  select c.post_id, c.post_title, c.post_content, c.post_image, c.post_readcnt,
+	         to_char(c.post_date, 'yyyy-MM-dd') post_date, c.user_id, u.user_login_id
+	  from community c
+	  join user1 u on c.user_id = u.user_id
+	  where c.post_id = #{param1}
   </select>
 
   <delete id="deletePost" parameterType="int">
-    delete from community where post_id = #{param1} and user_id = #{param2}
+    delete from community where post_id = #{param1}
   </delete>
 
   <!-- 게시글 수정 -->
@@ -122,7 +124,7 @@
       post_title = #{post_title}, 
       post_content = #{post_content}, 
       post_image = #{post_image}
-    where post_id = #{post_id} and user_id = #{user_id}
+    where post_id = #{post_id}
   </update>
 
   <select id="modifyview" resultMap="communityMap">

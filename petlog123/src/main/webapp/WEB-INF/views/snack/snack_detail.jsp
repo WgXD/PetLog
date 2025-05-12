@@ -99,7 +99,7 @@
 </div>
 
 <c:set var="isOwnerOrAdmin"
-       value="${sessionScope.user_id == dto.user_id or sessionScope.user_role == 'admin'}" />
+       value="${sessionScope.user_role == 'admin' or sessionScope.user_id == dto.user_id}" />
 
 <table class="dotted-rounded-table">
 <tr>

@@ -22,25 +22,6 @@ public class PointController {
 	
 	@Autowired
 	SqlSession sqlSession;
-	
-//    @RequestMapping(value = "/stamp_grapes") //포도 게이지
-//    public String point(HttpSession session) {
-//
-//        Integer user_id = (Integer) session.getAttribute("user_id");
-//        String user_login_id = (String) session.getAttribute("user_login_id");
-//
-//        if (user_id == null || user_login_id == null) {
-//            return "redirect:/login?error=login_required";
-//        }
-//
-//        if (session.getAttribute("loginUser") == null) {
-//            UserService us = sqlSession.getMapper(UserService.class);
-//            UserDTO loginUser = us.selectUserByLoginId(user_login_id);
-//            session.setAttribute("loginUser", loginUser);
-//        }
-//
-//        return "stamp_grapes";
-//    }
     
     @RequestMapping(value = "/grapes_admin_form", method = RequestMethod.GET) //Get 받기 용
     public String showGrantForm(HttpSession session, Model mo) {

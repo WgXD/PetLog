@@ -9,8 +9,8 @@ public class CommunityDTO {
  int post_readcnt;
  String post_date;
  String user_login_id;
- int comment_count; // ��� ��
- int like_count;    // ���ƿ� ��
+ int comment_count;
+ int like_count;
  String profileimg;
  String post_type;
  UserDTO psdto;
