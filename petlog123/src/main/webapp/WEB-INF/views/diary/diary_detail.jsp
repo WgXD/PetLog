@@ -97,6 +97,7 @@
     <thead>
       <tr>
         <th>글번호</th>
+        <th>이름</th>
         <th>일기 제목</th>
         <th>날짜</th>
         <th>이미지</th>
@@ -108,6 +109,7 @@
     <tbody>
       <tr>
         <td>${dto.diary_id}</td>
+        <td>${dto.pet_name}</td>
         <td>${dto.diary_title}</td>
         <td>${dto.diary_date.substring(0, 10)}</td>
         <td><img src="./image/${dto.diary_image}" alt="일기 이미지" /></td>

@@ -69,21 +69,27 @@
     
     
 	<select id="diary_out" resultType="com.mbc.pet.diary.DiaryDTO">
-		   SELECT * FROM (
-		       SELECT a.*, ROW_NUMBER() OVER (ORDER BY diary_id DESC) AS rnum
-		       FROM (
-		           SELECT diary_id, diary_title, TO_CHAR(diary_date, 'yyyy-MM-dd') AS diary_date,
-		                  diary_image, diary_content, user_id, pet_id
-		           FROM diary
-		           where user_id = #{user_id}
-		       ) a
-		   )
-		   WHERE rnum BETWEEN #{start} + 1 AND #{end}
+		  SELECT * FROM (
+		    SELECT a.*, ROW_NUMBER() OVER (ORDER BY diary_id DESC) AS rnum
+		    FROM (
+		      SELECT d.diary_id, d.diary_title, TO_CHAR(d.diary_date, 'yyyy-MM-dd') AS diary_date,
+		             d.diary_image, d.diary_content, d.user_id, d.pet_id,
+		             p.pet_name
+		      FROM diary d
+		      JOIN pet p ON d.pet_id = p.pet_id
+		      WHERE d.user_id = #{user_id}
+		    ) a
+		  )
+		  WHERE rnum BETWEEN #{start} + 1 AND #{end}
 	</select>
 
 
     <select id="diary_detail" resultType="com.mbc.pet.diary.DiaryDTO">
-		select diary_id, diary_title, to_char(diary_date,'yyyy-MM-dd')diary_date, diary_image, diary_content, get_grape, user_id, pet_id from diary where diary_id=#{param1}
+		 SELECT d.diary_id, d.diary_title, TO_CHAR(d.diary_date,'yyyy-MM-dd') AS diary_date,
+		 d.diary_image, d.diary_content, d.get_grape, d.user_id, d.pet_id, p.pet_name
+		 FROM diary d
+		 JOIN pet p ON d.pet_id = p.pet_id
+		 WHERE d.diary_id = #{param1}
 	</select>
     
     <select id="diary_update" resultType="com.mbc.pet.diary.DiaryDTO">
@@ -121,11 +127,15 @@
 	</select>
     
 	<select id="getLatestDiary" resultType="com.mbc.pet.diary.DiaryDTO">
-    SELECT * FROM (
-        SELECT * FROM diary 
-        WHERE user_id = #{user_id} 
-        ORDER BY diary_date DESC
-    ) 
-    WHERE ROWNUM = 1
-</select>
+	  SELECT * FROM (
+	    SELECT d.diary_id, d.diary_title, TO_CHAR(d.diary_date, 'yyyy-MM-dd') AS diary_date,
+	           d.diary_image, d.diary_content, d.get_grape, d.user_id, d.pet_id,
+	           p.pet_name
+	    FROM diary d
+	    JOIN pet p ON d.pet_id = p.pet_id
+	    WHERE d.user_id = #{user_id}
+	    ORDER BY d.diary_date DESC
+	  )
+	  WHERE ROWNUM = 1
+	</select>
     </mapper>

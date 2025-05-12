@@ -145,6 +145,7 @@
       <thead>
         <tr>
           <th>글번호</th>
+          <th>이름</th>
           <th>일기 제목</th>
           <th>날짜</th>
           <th>이미지</th>
@@ -155,6 +156,7 @@
         <c:forEach items="${list}" var="di">
           <tr>
             <td>${di.diary_id}</td>
+            <td>${di.pet_name}</td>
             <td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a></td>
             <td>${di.diary_date}</td>
             <td><img src="./image/${di.diary_image}" alt="일기 이미지"></td>

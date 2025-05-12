@@ -136,11 +136,12 @@
       <div class="snack-info">
         <div class="snack-meta">
           <span class="snack-title">${snack.snack_title}</span>
+          <span>&nbsp;</span>
           <span class="snack-writer">by ${snack.user_login_id}</span>
         </div>
         <p class="snack-content">${fn:substring(snack.snack_recipe, 0, 30)}...</p>
       </div>
-    </div>
+    </div><br><br>
   </c:forEach>
   <div class="snack-more"><a href="snack_detail?dnum=${rec.snack_id}">전체 보기 →</a></div>
 </div>
@@ -230,9 +231,10 @@
   <h3>📓 오늘의 다이어리</h3>
   <c:if test="${not empty recentDiary}">
     <p class="diary-title">${recentDiary.diary_title}</p>
-    <p class="diary-date">${recentDiary.diary_date}</p>
+    <p class="diary-date">${fn:substringBefore(recentDiary.diary_date, ' ')}</p>
+    <p class="diary-pet">${recentDiary.pet_name}의 일기</p>
     <p class="diary-preview">${fn:substring(recentDiary.diary_content, 0, 30)}...</p>
-    <a href="diary_detail?dnum=${recentDiary.diary_id}" class="diary-link">전체 보기 →</a>
+    <a href="diary_detail?diary_id=${recentDiary.diary_id}" class="diary-link">전체 보기 →</a>
   </c:if>
   <c:if test="${empty recentDiary}">
     <p>작성한 다이어리가 없습니다. 오늘 일기를 써보세요!</p>

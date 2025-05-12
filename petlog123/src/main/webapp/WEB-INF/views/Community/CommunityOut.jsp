@@ -8,7 +8,6 @@
 <title>자유게시판</title>
 <style>
  body {
-  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   background-color: #fefefe;
   margin: 0;
   padding: 50px 0;

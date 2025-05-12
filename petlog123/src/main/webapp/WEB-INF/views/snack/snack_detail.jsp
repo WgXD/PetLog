@@ -103,7 +103,7 @@
 
 <table class="dotted-rounded-table">
 <tr>
-  <th>No.</th> <th>레시피명</th> <th>레시피</th> <th>이미지</th> <th>게시일</th>
+  <th>No.</th> <th>레시피명</th> <th>레시피</th> <th>이미지</th> <th>작성자</th> <th>게시일</th>
   <c:if test="${isOwnerOrAdmin}">
     <th>수정</th> <th>삭제</th>
   </c:if>
@@ -114,6 +114,7 @@
   <td>${dto.snack_title}</td>
   <td>${dto.snack_recipe}</td>
   <td><img src="./image/${dto.snack_image}" width="150px"/></td>
+  <td>${dto.user_login_id}</td>
   <td>${dto.snack_date.substring(0, 10)}</td>
 
   <c:if test="${isOwnerOrAdmin}">

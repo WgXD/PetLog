@@ -9,7 +9,6 @@
 <title>게시물 상세보기</title>
 <style>
   body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
@@ -117,6 +116,13 @@
   vertical-align: middle;
   margin-right: 6px;
 }
+
+#contentDiv img {
+  max-width: 250px !important;
+  height: auto !important;
+  display: block;
+  margin: 20px auto;
+}
 </style>
 </head>
 <body>
@@ -151,7 +157,7 @@
       
       <c:if test="${empty dto.post_content and dto.post_image ne null and not empty dto.post_image}">
         <br>
-        <img src="./image/${dto.post_image}" style="max-width:80%; height:auto; margin-top:10px; display:block; margin-left:auto; margin-right:auto;">
+        <img src="./image/${dto.post_image}">
       </c:if>
      
     </div>

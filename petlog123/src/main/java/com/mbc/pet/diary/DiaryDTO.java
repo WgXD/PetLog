@@ -19,6 +19,8 @@ public class DiaryDTO {
 	int user_id;
 	int pet_id;
 	
+	String pet_name;
+	
 	
 	public DiaryDTO() {          }
 
@@ -102,4 +104,13 @@ public class DiaryDTO {
 		this.petuserdto = petuserdto;
 	}
 
+	public String getPet_name() {
+		return pet_name;
+	}
+
+	public void setPet_name(String pet_name) {
+		this.pet_name = pet_name;
+	}
+
+	
 }
