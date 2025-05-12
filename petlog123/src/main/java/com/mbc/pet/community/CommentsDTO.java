@@ -12,6 +12,7 @@ String com_com;
 int parent_id; 
 int depth;
 String profileimg;
+int snack_id;
  
 UserDTO psdto;
 CommunityDTO ctdto;
@@ -79,10 +80,15 @@ public String getProfileimg() {
 public void setProfileimg(String profileimg) {
 	this.profileimg = profileimg;
 }
+public int getSnack_id() {
+	return snack_id;
+}
+public void setSnack_id(int snack_id) {
+	this.snack_id = snack_id;
+}
 public SnackDTO getSdto() {
 	return sdto;
 }
-
 public void setSdto(SnackDTO sdto) {
 	this.sdto = sdto;
 }

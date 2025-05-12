@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mbc.pet.community.CommentsDTO;
 import com.mbc.pet.user.UserDTO;
+import com.mbc.pet.user.UserService;
 
 @Controller
 public class SnackController {
@@ -58,8 +59,6 @@ public class SnackController {
             return "redirect:/login?error=login_required";
         }
 		
-		//---
-		
 	    String snack_title = request.getParameter("snack_title");
 	    String snack_recipe = request.getParameter("snack_recipe");
 	    String snack_date = request.getParameter("snack_date");
@@ -75,12 +74,6 @@ public class SnackController {
 		dto.setSnack_image(fname);
 		dto.setSnack_date(snack_date);
 		dto.setUser_id(user_id);	
-		
-//	    System.out.println("title: " + snack_title);
-//	    System.out.println("recipe: " + snack_recipe);
-//	    System.out.println("image name: " + fname);
-//	    System.out.println("date: " + snack_date);
-//	    System.out.println("user_id: " + user_id);
 
 		SnackService ss = sql.getMapper(SnackService.class);
 		
@@ -139,15 +132,22 @@ public class SnackController {
     	// 로그인 체크
         Integer user_id = (Integer) session.getAttribute("user_id");
         String user_login_id = (String) session.getAttribute("user_login_id");
-        int dnum=Integer.parseInt(request.getParameter("dnum"));
-        
+
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
-		
+        
+        int dnum=Integer.parseInt(request.getParameter("dnum"));
 		SnackService ss = sql.getMapper(SnackService.class);
+		ss.readcnt(dnum);  //조회수
 		SnackDTO dto = ss.snack_detail(dnum);
 		mo.addAttribute("dto", dto);
+		mo.addAttribute("user_id", user_id);
+	
+        //작성자 프로필 이미지 가져오기
+        UserService us = sql.getMapper(UserService.class);
+        UserDTO udto = us.selectUserById(dto.getUser_id());
+        mo.addAttribute("profileimg", udto.getProfileimg());
 		
 		//좋아요 수 체크
         int result = ss.check_like(user_id, dnum);//
@@ -312,11 +312,11 @@ public class SnackController {
 	    
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("user_id", user_id);
-	    map.put("snack_id", snack_id); // 또는 map.put("post_id", post_id);
+	    map.put("snack_id", snack_id);
 	    map.put("com_com", com_com);
-	    map.put("parent_id", parent_id);
-	    map.put("depth", depth);
-	    ss.insertco(map);
+	    map.put("parent_id", parent_id != null ? parent_id : 0);
+	    map.put("depth", parent_id != null ? depth : 0);
+	    ss.comment_insert(map);
 
 	    return "redirect:/snack_detail?dnum=" + snack_id;
 	}

@@ -157,16 +157,22 @@
 
   <!-- 댓글 등록 -->
   <insert id="insertco" parameterType="com.mbc.pet.community.CommentsDTO">
-    insert into comments values 
-    (comment_seq.nextval, #{psdto.user_id}, #{ctdto.post_id}, #{com_com}, #{parent_id}, #{depth})
+    insert into comments ( com_id, user_id, post_id, com_com, parent_id, depth, snack_id )
+  	values ( comment_seq.nextval, #{psdto.user_id}, #{ctdto.post_id}, #{com_com}, #{parent_id},
+    #{depth}, #{snack_id, jdbcType=INTEGER} )
   </insert>
 
   <!-- 댓글 조회 -->
   <select id="getCommentsByPostId" resultMap="commentsMap">
-    select cm.com_id, u.user_id, u.user_login_id, cm.post_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
-    from comments cm join user1 u on cm.user_id = u.user_id
-    where cm.post_id = #{param1} 
-    order by cm.parent_id asc, cm.com_com asc
+	  select cm.com_id, u.user_id, u.user_login_id,
+	         cm.snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
+	  from comments cm
+	  join user1 u on cm.user_id = u.user_id
+	  where cm.post_id = #{post_id}
+	  order by
+	    case when cm.parent_id = 0 then cm.com_id else cm.parent_id end,
+	    cm.depth asc,
+	    cm.com_id asc
   </select>
 
   <!-- 전체 글 수 -->
@@ -194,23 +200,6 @@
   <select id="getUserRole" resultType="String">
 	SELECT user_role FROM user1 WHERE user_id = #{user_id}
   </select>
-  
-  <!-- 인기 게시물 가져오기, 댓글 많은 순
-  <select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
-  	select * from
-  		(select a.*, row_number() over(order by count a.comments_count desc) as rn from
-	  		(select c.post_id, u.user_id, u.user_login_id, c.post_title,  c.post_image,
-	  		 c.post_readcnt, count(m.com_id) AS comments_count,
-	  		 to_char(c.post_date, 'yyyy-MM-dd') as post_date, c.post_type 
-		     from community c
-		   	 join comments m on c.post_id = m.post_id
-		   	 join user1 u on u.user_id = c.user_id
-		  	 where c.post_type = 'normal'
-		  	 group by c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_image, c.post_readcnt, c.post_date, c.post_type
-		  	) a
-		  )
-  	where rn &lt;= 5
-  </select>  -->
   
 <select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
   SELECT *

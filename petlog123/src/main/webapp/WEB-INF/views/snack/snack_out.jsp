@@ -165,8 +165,8 @@
             <td>${rec.user_login_id}</td>
             <td>${rec.snack_date}</td>
             <td>${rec.snack_readcnt}</td>
-            <td>${rec.comment_count}</td>
-      		<td>${rec.like_count}</td>
+            <td>🗨️ ${rec.comment_count}</td>
+      		<td>❤️ ${rec.like_count}</td>
           </tr>
         </c:forEach>
       </tbody>

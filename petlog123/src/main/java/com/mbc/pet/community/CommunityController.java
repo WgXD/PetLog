@@ -449,8 +449,8 @@ public class CommunityController {
 	    
 	    CommentsDTO dto=new CommentsDTO(); 
 	    dto.setCom_com(com_com);
-	    dto.setParent_id(parent_id == null ? 0 : parent_id);
-	    dto.setDepth(depth);
+	    dto.setParent_id( parent_id != null ? parent_id : 0);
+	    dto.setDepth( parent_id != null ? depth : 0);
 	    dto.setPsdto(user);
 	    dto.setCtdto(post);
 

@@ -180,8 +180,9 @@
 </div>
 </form>
 
-<script>
+
 <!-- form 전송할 때 div 내용 복사해서 숨은 input에 넣기 -->
+<script>
 function beforeSubmit() {
     document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
 }
