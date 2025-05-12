@@ -16,21 +16,19 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
 
 /* 로고 포함하는 상단 전체 wrapper */
 .top-wrapper {
-  padding-top: 15px;
-  padding-bottom: 10px;
-  margin: 0;
+  padding-top: 15px !important;
+  padding-bottom: 10px !important;
+  margin: 0 !important;
 }
 
-/* 로고 부분 */
 .logo-title {
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
-/* 로고 이미지 */
 .logo-img {
-  height: 65px; /* 70~80 중 원하는 대로 OK */
+  height: 65px;  /* 모든 페이지 동일한 높이로 통일 */
   display: inline-block;
   vertical-align: middle;
   margin: 0 auto;
@@ -57,6 +55,19 @@ header, nav {
   padding: 0 !important;
 }
 
+.top-wrapper {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.content {
+  margin-top: 20px;  /* 📌 이걸로 조절: 메뉴바 아래 간격 */
+}
 
 /*========== 포도알 갯수 표시 ==========*/
 .navbar-right li {

@@ -13,7 +13,7 @@
 
     .container {
       max-width: 900px;
-      margin: 100px auto 80px auto; /* ✅ 위에서 100px 내려오게 */
+      margin: 40px auto 80px auto;
       background: #fff;
       padding: 50px 60px;
       border-radius: 12px;

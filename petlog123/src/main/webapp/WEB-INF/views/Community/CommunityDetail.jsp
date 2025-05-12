@@ -103,7 +103,7 @@
   background-color: white;
   width: 100%;
   max-width: 5000px;
-  margin: 20px auto;
+  margin: 40px auto 80px auto;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 30px;

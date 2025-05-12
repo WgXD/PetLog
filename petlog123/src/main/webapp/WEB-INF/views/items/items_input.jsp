@@ -15,7 +15,7 @@
 
   .container {
     max-width: 800px;
-    margin: 100px auto 80px auto;
+    margin: 40px auto 80px auto;
     background: #fff;
     padding: 50px 60px;
     border-radius: 16px;
