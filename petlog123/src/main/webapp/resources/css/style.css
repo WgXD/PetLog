@@ -12,6 +12,18 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
     font-family: 'Dovemayo_gothic', sans-serif !important;
 }
 
+.header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.logo-title {
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 22px;
+  font-weight: bold;
+}
 
 /*========== 포도알 갯수 표시 ==========*/
 .navbar-right li {
@@ -735,4 +747,27 @@ body.bg-mint {
 }
 .quiz-start-button:hover {
   background-color: #ec407a;
+}
+
+/*footer 고정*/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  text-align: center;
+  padding: 12px 0;
+  border-top: none;
 }

@@ -33,7 +33,11 @@
 
 <body>
 <header>
-  <h2>🐶 PetLog 함께하는 반려생활 🐾</h2>
+  <div class="logo-title">
+    <h2>
+    <img src="${pageContext.request.contextPath}/image/logo1.png" style="height:100px; vertical-align: middle; margin-right: 8px;">
+    </h2>
+  </div>
 </header>
 
 <nav class="navbar">
