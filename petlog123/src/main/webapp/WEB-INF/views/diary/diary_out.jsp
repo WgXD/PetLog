@@ -26,7 +26,7 @@
   .table-wrapper {
     width: 90%;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 40px auto 80px auto;
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);

@@ -11,7 +11,7 @@
 
 <div class="wrapper">  <%-- 전체 감싸는 래퍼 --%>
 
-    <div class="content">  <%-- top + body --%>
+    <div class="content" style="margin-top: 30px;">  <%-- top + body --%>
         <tiles:insertAttribute name="top" />
         <tiles:insertAttribute name="body" />
     </div>
