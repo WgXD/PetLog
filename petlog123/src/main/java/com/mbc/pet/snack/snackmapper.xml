@@ -135,19 +135,32 @@
   </update>
   
 <!-- 댓글 등록 -->
-<insert id="insertco" parameterType="com.mbc.pet.community.CommentsDTO">
+<insert id="comment_insert" parameterType="map">
   insert into comments
   (com_id, user_id, post_id, com_com, parent_id, depth)
   values
-  (comment_seq.nextval, #{psdto.user_id}, #{sdto.snack_id}, #{com_com}, #{parent_id}, #{depth})
+  (
+    comment_seq.nextval,
+    #{user_id},
+    #{snack_id},
+    #{com_com},
+    <if test="parent_id != null">
+      #{parent_id}
+    </if>
+    <if test="parent_id == null">
+      null
+    </if>,
+    #{depth}
+  )
 </insert>
 
 <!-- 댓글 조회 -->
-<select id="getCommentsByPostId" resultMap="commentsMap">
-  select cm.com_id, u.user_id, u.user_login_id, cm.post_id as snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
+<select id="getCommentsBySnackId" resultMap="commentsMap">
+  select cm.com_id, u.user_id, u.user_login_id, 
+         cm.snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
   from comments cm
   join user1 u on cm.user_id = u.user_id
-  where cm.post_id = #{param1}
+  where cm.snack_id = #{snack_id}
   order by cm.parent_id asc, cm.com_id asc
 </select>
 
@@ -160,15 +173,26 @@
 </select>
 
 <!-- 좋아요 등록 (snack용) -->
-<insert id="insert_like">
-  INSERT INTO likes (like_id, user_id, post_id, snack_id, user_login_id)
-  VALUES (likesnum_seq.nextval, #{user_id}, NULL, #{snack_id}, #{user_login_id})
+<insert id="insert_like" parameterType="map">
+  INSERT INTO likes (
+    like_id,
+    user_id,
+    <if test="post_id != null">post_id,</if>
+    user_login_id
+    <if test="snack_id != null">, snack_id</if>
+  ) VALUES (
+    likesnum_seq.nextval,
+    #{user_id},
+    <if test="post_id != null">#{post_id},</if>
+    #{user_login_id}
+    <if test="snack_id != null">, #{snack_id}</if>
+  )
 </insert>
 
 <!-- 좋아요 수 조회 (snack용) -->
-<select id="getLikeCount" resultType="int">
+<select id="getLikeCount" resultType="int" parameterType="int">
   SELECT COUNT(*) FROM likes
   WHERE snack_id = #{snack_id}
 </select>
 
-    </mapper>
+</mapper>

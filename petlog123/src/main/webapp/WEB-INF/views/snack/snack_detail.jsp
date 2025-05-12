@@ -55,34 +55,34 @@
     resize: vertical;
   }
   
-	  button,
-	input[type="submit"],
-	input[type="reset"] {
-	  background-color: #d7c9f3; /* 연보라 */
-	  border: none;
-	  color: #5e478e; /* 진보라 텍스트 */
-	  padding: 10px 22px;
-	  margin: 12px 6px;
-	  border-radius: 24px;
-	  font-size: 15px;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: background-color 0.3s ease, transform 0.15s ease;
-	  box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
-	}
-	
-	button:hover,
-	input[type="submit"]:hover,
-	input[type="reset"]:hover {
-	  background-color: #e8defc; /* 좀 더 크리미한 보라 */
-	  transform: scale(1.05);
-	}
-	
-	button:active,
-	input[type="submit"]:active,
-	input[type="reset"]:active {
-	  transform: scale(0.95);
-	}
+     button,
+   input[type="submit"],
+   input[type="reset"] {
+     background-color: #d7c9f3; /* 연보라 */
+     border: none;
+     color: #5e478e; /* 진보라 텍스트 */
+     padding: 10px 22px;
+     margin: 12px 6px;
+     border-radius: 24px;
+     font-size: 15px;
+     font-weight: bold;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.15s ease;
+     box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
+   }
+   
+   button:hover,
+   input[type="submit"]:hover,
+   input[type="reset"]:hover {
+     background-color: #e8defc; /* 좀 더 크리미한 보라 */
+     transform: scale(1.05);
+   }
+   
+   button:active,
+   input[type="submit"]:active,
+   input[type="reset"]:active {
+     transform: scale(0.95);
+   }
 
 </style>
 <meta charset="UTF-8">
@@ -152,15 +152,15 @@
 <input type="hidden" name="snack_id" value="${dto.snack_id}">
 
 <textarea name="com_com" rows="3"
-	style="width: 100%; padding: 10px; font-size: 15px; resize: none;
-	border: none; border-bottom: 1px solid #ccc;
-	background: transparent; outline: none;"
-	placeholder="댓글을 입력하세요" required></textarea>
+   style="width: 100%; padding: 10px; font-size: 15px; resize: none;
+   border: none; border-bottom: 1px solid #ccc;
+   background: transparent; outline: none;"
+   placeholder="댓글을 입력하세요" required></textarea>
 <button type="submit"
-	style="margin-top: 8px; padding: 6px 12px;
-	background-color: #FFE4E1; color: #8B7D7B;
-	border: none; border-radius: 4px;
-	font-size: 14px; cursor: pointer;">
+   style="margin-top: 8px; padding: 6px 12px;
+   background-color: #FFE4E1; color: #8B7D7B;
+   border: none; border-radius: 4px;
+   font-size: 14px; cursor: pointer;">
 댓글 작성
 </button></form></div>
 
@@ -170,13 +170,13 @@
 
 <div style="width: 60%; margin: 0 auto; margin-left: calc(20% + ${margin}px); border-bottom: 1px solid #ddd; padding: 15px 10px; text-align: left; position: relative;">
 <div style="font-weight: bold; margin-bottom: 5px;">
-	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
-	${com.user_login_id}</div>
+   <img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+   ${com.user_login_id}</div>
 <div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
 
 <!-- 대댓글 버튼 -->
 <button type="button" onclick="toggleReplyForm(${com.com_id})"
-	style="position: absolute; top: 15px; right: 10px; font-size: 12px;
+   style="position: absolute; top: 15px; right: 10px; font-size: 12px;
     padding: 4px 8px; background-color: #eee;
     border: 1px solid #aaa; border-radius: 4px; cursor: pointer;">
     답글
@@ -184,12 +184,12 @@
 
 <!-- 대댓글 입력창 -->
 <div id="replyForm${com.com_id}" style="display: none; margin-top: 10px;">
-	<form action="comment_insert" method="post">
+   <form action="comment_insert" method="post">
     <input type="hidden" name="snack_id" value="${dto.snack_id}">
     <input type="hidden" name="parent_id" value="${com.com_id}">
     <input type="hidden" name="depth" value="${com.depth + 1}">
     <textarea name="com_com" rows="2"
-		style="width: 95%; padding: 8px; border: none;
+      style="width: 95%; padding: 8px; border: none;
         border-bottom: 1px solid #ccc;
         background: transparent; resize: none; outline: none;"
         placeholder="답글을 입력하세요" required></textarea>
@@ -198,7 +198,7 @@
         background-color: #FFE4E1; color: #8B7D7B;
         background-color: #e0e0e0; border: 1px solid #bbb;
         border-radius: 4px; font-size: 13px;">
-		작성
+      작성
 </button></form></div></div>
 </c:forEach>
 <!-- 대댓글 폼 토글 -->

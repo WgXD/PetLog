@@ -9,7 +9,6 @@ public class SnackDTO {
 	String snack_recipe;
 	String snack_image;
 	String snack_date;
-	
 	int snack_readcnt;
 	int comment_count;
 	int like_count;

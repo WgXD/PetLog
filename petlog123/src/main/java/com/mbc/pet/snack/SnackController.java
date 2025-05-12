@@ -3,6 +3,9 @@ package com.mbc.pet.snack;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,24 +139,28 @@ public class SnackController {
     	// 로그인 체크
         Integer user_id = (Integer) session.getAttribute("user_id");
         String user_login_id = (String) session.getAttribute("user_login_id");
-
+        int dnum=Integer.parseInt(request.getParameter("dnum"));
+        
         if (user_id == null || user_login_id == null) {
             return "redirect:/login?error=login_required";
         }
 		
-		int dnum = Integer.parseInt(request.getParameter("dnum"));
 		SnackService ss = sql.getMapper(SnackService.class);
-		
-		ss.readcnt(dnum); //
-		
 		SnackDTO dto = ss.snack_detail(dnum);
-		
 		mo.addAttribute("dto", dto);
 		
+		//좋아요 수 체크
         int result = ss.check_like(user_id, dnum);//
         boolean userLiked = result > 0;//
         mo.addAttribute("userLiked", userLiked);//
 		
+        //좋아요 수 넘기기
+        int likeCount = ss.getLikeCount(dnum);
+        mo.addAttribute("likeCount", likeCount);
+        
+        //댓글
+        List<CommentsDTO> comments = ss.getCommentsBySnackId(dnum);
+        mo.addAttribute("comments", comments);
 		return "snack_detail";  
 	}
 		
@@ -224,7 +231,6 @@ public class SnackController {
 	    // DB update
 	    SnackService ss = sql.getMapper(SnackService.class);
 	    int result = ss.snackupdate_save(dto);
-	    System.out.println("수정 처리 결과: " + result);
 
 	    return "redirect:/snack_out";
 	}
@@ -301,28 +307,38 @@ public class SnackController {
 	    SnackDTO snack = new SnackDTO();
 	    snack.setSnack_id(snack_id);
 	    comment.setSdto(snack);
-
+	    
 	    SnackService ss = sql.getMapper(SnackService.class);
-	    ss.insertco(comment);
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("user_id", user_id);
+	    map.put("snack_id", snack_id); // 또는 map.put("post_id", post_id);
+	    map.put("com_com", com_com);
+	    map.put("parent_id", parent_id);
+	    map.put("depth", depth);
+	    ss.insertco(map);
 
 	    return "redirect:/snack_detail?dnum=" + snack_id;
 	}
 
 	// 좋아요 등록
-	@RequestMapping(value = "/like_s", method = RequestMethod.POST)
+	@RequestMapping(value = "/like_s")
 	public String toggleLike(HttpSession session, @RequestParam("snack_id") int snack_id) {
 	    Integer user_id = (Integer) session.getAttribute("user_id");
 	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    
 	    if (user_id == null || user_login_id == null) {
 	        return "redirect:/login?error=login_required";
 	    }
 
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("user_id", user_id);
+	    map.put("snack_id", snack_id);
+	    map.put("user_login_id", user_login_id);
+	    map.put("post_id", null); 
+	    
 	    SnackService ss = sql.getMapper(SnackService.class);
-	    int result = ss.check_like(user_id, snack_id);
-
-	    if (result == 0) {
-	        ss.insert_like(user_id, snack_id, user_login_id);
-	    }
+	    ss.insert_like(map);
 
 	    return "redirect:/snack_detail?dnum=" + snack_id;
 	}

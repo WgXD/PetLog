@@ -2,6 +2,7 @@ package com.mbc.pet.snack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,6 @@ public interface SnackService {
 	ArrayList<SnackDTO> snack_out(@Param("start") int start, @Param("end") int end);
 
 	SnackDTO snack_detail(int dnum);
-	
 
 	SnackDTO snack_update(int update); 
 
@@ -34,11 +34,15 @@ public interface SnackService {
 
 	int check_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id); //likes
 
-	void insertco(CommentsDTO dto);
+	void insertco(Map<String, Object> map);
 
-	void insert_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id, @Param("user_login_id") String user_login_id);
+	//void insert_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id, @Param("user_login_id") String user_login_id);
 
 	int getLikeCount(@Param("snack_id") int snack_id);
+
+	void insert_like(Map<String, Object> map);
+
+	List<CommentsDTO> getCommentsBySnackId(int dnum);
 	
 
 }
