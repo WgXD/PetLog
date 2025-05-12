@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mbc.pet.community.CommentsDTO;
+import com.mbc.pet.user.UserDTO;
+
 @Controller
 public class SnackController {
 	
@@ -140,9 +143,16 @@ public class SnackController {
 		
 		int dnum = Integer.parseInt(request.getParameter("dnum"));
 		SnackService ss = sql.getMapper(SnackService.class);
+		
+		ss.readcnt(dnum); //
+		
 		SnackDTO dto = ss.snack_detail(dnum);
 		
 		mo.addAttribute("dto", dto);
+		
+        int result = ss.check_like(user_id, dnum);//
+        boolean userLiked = result > 0;//
+        mo.addAttribute("userLiked", userLiked);//
 		
 		return "snack_detail";  
 	}
@@ -211,7 +221,7 @@ public class SnackController {
 	    dto.setSnack_date(snack_date);
 	    dto.setUser_id(user_id);
 
-	    // DB update ?��?��
+	    // DB update
 	    SnackService ss = sql.getMapper(SnackService.class);
 	    int result = ss.snackupdate_save(dto);
 	    System.out.println("수정 처리 결과: " + result);
@@ -266,4 +276,55 @@ public class SnackController {
 		return "redirect:/snack_out"; //jsp file name
 	}
 	
+	// 댓글 등록
+	@RequestMapping(value = "/comment_insert", method = RequestMethod.POST)
+	public String insertComment(HttpSession session,
+	                            @RequestParam("snack_id") int snack_id,
+	                            @RequestParam("com_com") String com_com,
+	                            @RequestParam(value = "parent_id", required = false) Integer parent_id,
+	                            @RequestParam(value = "depth", defaultValue = "0") int depth) {
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    CommentsDTO comment = new CommentsDTO();
+	    comment.setCom_com(com_com);
+	    comment.setParent_id(parent_id != null ? parent_id : 0);
+	    comment.setDepth(depth);
+
+	    UserDTO user = new UserDTO();
+	    user.setUser_id(user_id);
+	    comment.setPsdto(user);
+
+	    SnackDTO snack = new SnackDTO();
+	    snack.setSnack_id(snack_id);
+	    comment.setSdto(snack);
+
+	    SnackService ss = sql.getMapper(SnackService.class);
+	    ss.insertco(comment);
+
+	    return "redirect:/snack_detail?dnum=" + snack_id;
+	}
+
+	// 좋아요 등록
+	@RequestMapping(value = "/like_s", method = RequestMethod.POST)
+	public String toggleLike(HttpSession session, @RequestParam("snack_id") int snack_id) {
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    SnackService ss = sql.getMapper(SnackService.class);
+	    int result = ss.check_like(user_id, snack_id);
+
+	    if (result == 0) {
+	        ss.insert_like(user_id, snack_id, user_login_id);
+	    }
+
+	    return "redirect:/snack_detail?dnum=" + snack_id;
+	}
+
 }

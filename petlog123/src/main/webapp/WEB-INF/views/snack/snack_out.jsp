@@ -150,6 +150,9 @@
           <th>이미지</th>
           <th>작성자</th>
           <th>게시일</th>
+          <th>조회수</th>
+          <th>댓글</th>
+          <th>좋아요</th>
         </tr>
       </thead>
       <tbody>
@@ -161,6 +164,9 @@
             <td><img src="./image/${rec.snack_image}" alt="레시피 이미지"></td>
             <td>${rec.user_login_id}</td>
             <td>${rec.snack_date}</td>
+            <td>${rec.snack_readcnt}</td>
+            <td>${rec.comment_count}</td>
+      		<td>${rec.like_count}</td>
           </tr>
         </c:forEach>
       </tbody>

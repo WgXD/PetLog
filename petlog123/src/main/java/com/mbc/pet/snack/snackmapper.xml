@@ -18,7 +18,19 @@
     <result property="grape_count" column="grape_count"/> 
     </resultMap>
     
-    
+    <!-- 댓글 매핑 -->
+  	<resultMap id="commentsMap" type="com.mbc.pet.community.CommentsDTO">
+    <result property="com_id" column="com_id"/>
+    <result property="user_id" column="user_id"/>
+    <result property="user_login_id" column="user_login_id"/>
+    <result property="post_id" column="post_id"/>
+    <result property="com_com" column="com_com"/>
+    <result property="parent_id" column="parent_id"/>
+    <result property="depth" column="depth"/>
+    <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
+    <collection property="sdto" ofType="com.mbc.pet.snack.SnackDTO" resultMap="snackMap"/>
+  	</resultMap>
+  
  	<insert id="snack_save" parameterType="com.mbc.pet.snack.SnackDTO">
 	    insert into snack
 	    values (
@@ -27,7 +39,8 @@
 	        #{snack_recipe},
 	        #{snack_image},
 	        to_date(#{snack_date}, 'yyyy-MM-dd'),
-	        #{user_id}
+	        #{user_id},
+	        0
 	    )
 	</insert>
 
@@ -115,5 +128,47 @@
 		  JOIN user1 u ON s.user_id = u.user_id
 		  WHERE ROWNUM &lt;= 5
 	</select>
+	
+   <!-- 조회수 증가 -->
+  <update id="readcnt">
+   	 	update snack set snack_readcnt = snack_readcnt + 1 where snack_id = #{param1}
+  </update>
+  
+<!-- 댓글 등록 -->
+<insert id="insertco" parameterType="com.mbc.pet.community.CommentsDTO">
+  insert into comments
+  (com_id, user_id, post_id, com_com, parent_id, depth)
+  values
+  (comment_seq.nextval, #{psdto.user_id}, #{sdto.snack_id}, #{com_com}, #{parent_id}, #{depth})
+</insert>
+
+<!-- 댓글 조회 -->
+<select id="getCommentsByPostId" resultMap="commentsMap">
+  select cm.com_id, u.user_id, u.user_login_id, cm.post_id as snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
+  from comments cm
+  join user1 u on cm.user_id = u.user_id
+  where cm.post_id = #{param1}
+  order by cm.parent_id asc, cm.com_id asc
+</select>
+
+<!-- 좋아요 여부 확인 (snack용) -->
+<select id="check_like" resultType="int">
+  SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+  FROM likes
+  WHERE user_id = #{user_id}
+    AND snack_id = #{snack_id}
+</select>
+
+<!-- 좋아요 등록 (snack용) -->
+<insert id="insert_like">
+  INSERT INTO likes (like_id, user_id, post_id, snack_id, user_login_id)
+  VALUES (likesnum_seq.nextval, #{user_id}, NULL, #{snack_id}, #{user_login_id})
+</insert>
+
+<!-- 좋아요 수 조회 (snack용) -->
+<select id="getLikeCount" resultType="int">
+  SELECT COUNT(*) FROM likes
+  WHERE snack_id = #{snack_id}
+</select>
 
     </mapper>

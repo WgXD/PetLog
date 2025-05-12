@@ -1,19 +1,21 @@
 package com.mbc.pet.community;
 
+import com.mbc.pet.snack.SnackDTO;
 import com.mbc.pet.user.UserDTO;
 
 public class CommentsDTO {
-// ��� id,  ȸ�� id,  �Խñ� id,
+
 int com_id, user_id;
 String user_login_id;
 int post_id;
-String com_com;   //���,
-int parent_id; //�θ���(������ ����)
+String com_com;   
+int parent_id; 
 int depth;
 String profileimg;
- // �鿩����
+ 
 UserDTO psdto;
 CommunityDTO ctdto;
+SnackDTO sdto;
 
 public CommentsDTO() {  }
 
@@ -76,5 +78,12 @@ public String getProfileimg() {
 }
 public void setProfileimg(String profileimg) {
 	this.profileimg = profileimg;
+}
+public SnackDTO getSdto() {
+	return sdto;
+}
+
+public void setSdto(SnackDTO sdto) {
+	this.sdto = sdto;
 }
 }

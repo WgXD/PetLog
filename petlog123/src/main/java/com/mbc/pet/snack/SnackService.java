@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.mbc.pet.community.CommentsDTO;
+
 public interface SnackService {
 
 	int snack_save(SnackDTO dto);
@@ -16,19 +18,27 @@ public interface SnackService {
 	SnackDTO snack_detail(int dnum);
 	
 
-	SnackDTO snack_update(int update); //������ ����
+	SnackDTO snack_update(int update); 
 
-	int snackupdate_save(@Param("dto") SnackDTO dto); //���� �� DB�� ����
+	int snackupdate_save(@Param("dto") SnackDTO dto);
 
-	SnackDTO snackdelete_check(int delete); //���� �� Ȯ��
+	SnackDTO snackdelete_check(int delete);
 
-	void delete_recipe(int delete); //����
+	void delete_recipe(int delete);
 
 	List<SnackDTO> getsnackList();
 
 	List<SnackDTO> getSnackPreview();
 
+	void readcnt(int dnum); //조회수
 
+	int check_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id); //likes
+
+	void insertco(CommentsDTO dto);
+
+	void insert_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id, @Param("user_login_id") String user_login_id);
+
+	int getLikeCount(@Param("snack_id") int snack_id);
 	
 
 }

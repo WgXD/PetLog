@@ -104,6 +104,7 @@
 <table class="dotted-rounded-table">
 <tr>
   <th>No.</th> <th>레시피명</th> <th>레시피</th> <th>이미지</th> <th>작성자</th> <th>게시일</th>
+  <th>조회수</th> <th>댓글</th> <th>좋아요</th>
   <c:if test="${isOwnerOrAdmin}">
     <th>수정</th> <th>삭제</th>
   </c:if>
@@ -116,13 +117,97 @@
   <td><img src="./image/${dto.snack_image}" width="150px"/></td>
   <td>${dto.user_login_id}</td>
   <td>${dto.snack_date.substring(0, 10)}</td>
-
+  <td>${dto.snack_readcnt}</td>
+  <td>${dto.comment_count}</td>
+  <td>${dto.like_count}</td> 
+  
   <c:if test="${isOwnerOrAdmin}">
     <td><a href="snack_update?update=${dto.snack_id}&dfimage=${dto.snack_image}">✏️</a></td>
     <td><a href="snack_delete?delete=${dto.snack_id}&dfimage=${dto.snack_image}">🗑️</a></td>
   </c:if>
 </tr>
-
 </table>
+
+<!--   좋아요 기능 -->
+<div style="text-align: center; margin-top: 20px;">
+  <form action="like_s" method="post" style="display: inline;">
+    <input type="hidden" name="snack_id" value="${dto.snack_id}">
+     <c:choose>
+      <c:when test="${userLiked}">
+        <button type="submit" style="color:red; font-size: 20px; border: none; background: none;">❤️ (${LikeCount})</button>
+      </c:when>
+      <c:otherwise>
+        <button type="submit" style="font-size: 20px; border: none; background: none;">🤍 (${LikeCount})</button>
+      </c:otherwise>
+    </c:choose>
+  </form>
+</div>
+
+<!-- 댓글 색션 시작 -->
+<div style="width: 60%; margin: 40px auto 20px auto; padding: 15px 0; text-align: left; border-bottom: 1px solid #ddd;">
+    <h3 style="margin-bottom: 20px;">댓글</h3>
+    
+<!-- 댓글 작성 폼 -->
+<form action="comment_insert" method="post">
+<input type="hidden" name="snack_id" value="${dto.snack_id}">
+
+<textarea name="com_com" rows="3"
+	style="width: 100%; padding: 10px; font-size: 15px; resize: none;
+	border: none; border-bottom: 1px solid #ccc;
+	background: transparent; outline: none;"
+	placeholder="댓글을 입력하세요" required></textarea>
+<button type="submit"
+	style="margin-top: 8px; padding: 6px 12px;
+	background-color: #FFE4E1; color: #8B7D7B;
+	border: none; border-radius: 4px;
+	font-size: 14px; cursor: pointer;">
+댓글 작성
+</button></form></div>
+
+<!-- 댓글 출력 -->
+<c:forEach items="${comments}" var="com">
+<c:set var="margin" value="${com.depth * 20}" />
+
+<div style="width: 60%; margin: 0 auto; margin-left: calc(20% + ${margin}px); border-bottom: 1px solid #ddd; padding: 15px 10px; text-align: left; position: relative;">
+<div style="font-weight: bold; margin-bottom: 5px;">
+	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+	${com.user_login_id}</div>
+<div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
+
+<!-- 대댓글 버튼 -->
+<button type="button" onclick="toggleReplyForm(${com.com_id})"
+	style="position: absolute; top: 15px; right: 10px; font-size: 12px;
+    padding: 4px 8px; background-color: #eee;
+    border: 1px solid #aaa; border-radius: 4px; cursor: pointer;">
+    답글
+</button>
+
+<!-- 대댓글 입력창 -->
+<div id="replyForm${com.com_id}" style="display: none; margin-top: 10px;">
+	<form action="comment_insert" method="post">
+    <input type="hidden" name="snack_id" value="${dto.snack_id}">
+    <input type="hidden" name="parent_id" value="${com.com_id}">
+    <input type="hidden" name="depth" value="${com.depth + 1}">
+    <textarea name="com_com" rows="2"
+		style="width: 95%; padding: 8px; border: none;
+        border-bottom: 1px solid #ccc;
+        background: transparent; resize: none; outline: none;"
+        placeholder="답글을 입력하세요" required></textarea>
+<button type="submit"
+        style="margin-top: 5px; padding: 6px 12px;
+        background-color: #FFE4E1; color: #8B7D7B;
+        background-color: #e0e0e0; border: 1px solid #bbb;
+        border-radius: 4px; font-size: 13px;">
+		작성
+</button></form></div></div>
+</c:forEach>
+<!-- 대댓글 폼 토글 -->
+<script>
+   function toggleReplyForm(id) {
+      const form = document.getElementById('replyForm' + id);
+      form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+   }
+</script>
+
 </body>
 </html>
