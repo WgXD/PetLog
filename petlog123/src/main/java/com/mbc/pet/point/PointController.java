@@ -22,26 +22,6 @@ public class PointController {
 	
 	@Autowired
 	SqlSession sqlSession;
-
-	
-    @RequestMapping(value = "/stamp_grapes") //포도 게이지
-    public String point(HttpSession session) {
-
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        String user_login_id = (String) session.getAttribute("user_login_id");
-
-        if (user_id == null || user_login_id == null) {
-            return "redirect:/login?error=login_required";
-        }
-
-        if (session.getAttribute("loginUser") == null) {
-            UserService us = sqlSession.getMapper(UserService.class);
-            UserDTO loginUser = us.selectUserByLoginId(user_login_id);
-            session.setAttribute("loginUser", loginUser);
-        }
-
-        return "stamp_grapes";
-    }
     
     @RequestMapping(value = "/grapes_admin_form", method = RequestMethod.GET) //Get 받기 용
     public String showGrantForm(HttpSession session, Model mo) {
@@ -72,7 +52,7 @@ public class PointController {
 
         PointService ps = sqlSession.getMapper(PointService.class);
         boolean result = ps.grant_grapes(user_id1,grape_amount);
-        mo.addAttribute("message", result ? "포도알 지급 완료!" : "유저 없음 또는 지급 실패");
+        mo.addAttribute("message", result ? "포도알 적용 완료!" : "유저 없음 또는 지급 실패");
         
         // ✅ 관리자 본인에게 지급했을 경우 세션 loginUser 갱신
         if (user_id.equals(user_id1)) {
@@ -80,6 +60,10 @@ public class PointController {
             UserDTO updatedUser = us.selectUserByLoginId(user_login_id);
             session.setAttribute("loginUser", updatedUser);
         }
+        
+        UserService us = sqlSession.getMapper(UserService.class);
+        ArrayList<UserDTO> list = us.get_all_users();
+        mo.addAttribute("list", list);
 
         return "grapes_admin";
     }

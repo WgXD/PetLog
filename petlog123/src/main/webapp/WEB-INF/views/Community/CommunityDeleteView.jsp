@@ -75,7 +75,7 @@
 <div class="table-wrapper">
     
 <table border="1" width="60%" align="center">
-<caption>${post.user_login_id}님의 삭제 자료를 확인하세요.</caption>
+<caption>${dto.user_login_id}님의 삭제 자료를 확인하세요.</caption>
 
 <tr>
   <th>제목</th>

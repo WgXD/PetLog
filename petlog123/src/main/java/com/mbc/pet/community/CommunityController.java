@@ -269,9 +269,12 @@ public class CommunityController {
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+ 
+        //관리자랑 작성자만 삭제 가능
+        String user_role1 = (String) session.getAttribute("user_role");
+        boolean isAdmin = "admin".equals(user_role1);
 
-        // 작성자 또는 관리자만 삭제 가능
-        if (dto == null || !user_id.equals(dto.getUser_id())) {
+        if (dto == null || (!user_id.equals(dto.getUser_id()) && !isAdmin)) {
             out.println("<script>alert('삭제 권한이 없습니다.'); history.back();</script>");
             return;
         }
@@ -337,8 +340,11 @@ public class CommunityController {
         CommunityDTO dto = cs.getPostById(mnum);
         if (dto == null) return "redirect:/errorPage";
 
-        // 작성자만 수정 가능
-        if (dto == null || !user_id.equals(dto.getUser_id())) {
+        //관리자랑 작성자만 수정 가능
+        String user_role = (String) session.getAttribute("user_role");
+        boolean isAdmin = "admin".equals(user_role);
+
+        if (!user_id.equals(dto.getUser_id()) && !isAdmin) {
             redirectAttributes.addFlashAttribute("msg", "수정 권한이 없습니다.");
             return "redirect:/PostDetail?pnum=" + mnum;
         }

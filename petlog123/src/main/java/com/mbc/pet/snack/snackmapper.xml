@@ -27,7 +27,6 @@
 	        #{snack_recipe},
 	        #{snack_image},
 	        to_date(#{snack_date}, 'yyyy-MM-dd'),
-	        #{get_grape, jdbcType=INTEGER},
 	        #{user_id}
 	    )
 	</insert>

@@ -123,12 +123,12 @@
 
     <div class="form-group">
       <label for="snack_image">이미지 :</label>
-      <input type="file" id="snack_image" name="snack_image">
+      <input type="file" id="snack_image" name="snack_image" required>
     </div>
 
     <div class="form-group">
       <label for="snack_date">게시일 :</label>
-      <input type="date" id="snack_date" name="snack_date">
+      <input type="date" id="snack_date" name="snack_date" required>
     </div>
 
     <div class="form-actions">

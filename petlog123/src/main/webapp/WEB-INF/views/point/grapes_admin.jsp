@@ -4,11 +4,10 @@
 <html lang="utf-8">
 <head>
 <meta charset="UTF-8">
-<title>포도알 지급</title>
+<title>포도알 관리</title>
 
 <style>
   body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     background-color: #fefefe;
     margin: 0;
     padding: 50px 0;
@@ -81,7 +80,7 @@
 
 <div class="table-wrapper">
 
-  <h2>🍇 포도알 지급</h2>
+  <h2>🍇 포도알 관리</h2>
 
   <c:if test="${not empty message}">
     <p class="message">${message}</p>
@@ -98,11 +97,11 @@
       </c:forEach>
     </select>
 
-    <label for="grape_amount">포도알 수</label>
+    <label for="grape_amount">포도알 수 (EX. 1 = 지급, -1 = 차감)</label>
     <input type="number" id="grape_amount" name="grape_amount" required>
 
     <div class="form-actions">
-      <input type="submit" value="지급">
+      <input type="submit" value="적용">
     </div>
   </form>
 	
