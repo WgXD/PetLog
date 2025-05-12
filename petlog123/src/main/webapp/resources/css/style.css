@@ -528,6 +528,7 @@ body.bg-mint {
 }
 
 .calendar {
+  table-layout: fixed; /*추가*/
   width: 100%;
   border-collapse: collapse;
   text-align: center;
@@ -535,8 +536,24 @@ body.bg-mint {
   margin-top: 10px;
 }
 
+.calendar th:first-child {  /* Sun */
+  color: #f48b94;
+}
+
+.calendar th:last-child {   /* Sat */
+  color: #8bb3f4;
+}
+
+.calendar td:first-child {  /* 일요일 날짜 */
+  color: #f48b94;
+}
+
+.calendar td:last-child {   /* 토요일 날짜 */
+  color: #8bb3f4;
+}
+
 .calendar th {
-  padding: 10px 0;
+  padding: 10px 6px;
   font-weight: 600;
   color: #666; /* 요일 글자색 */
 }
@@ -565,16 +582,32 @@ body.bg-mint {
 }
 
 .day-cell.event {
-  background-color: #f29ca4;
-  color: white;
+  background-color: #c4f0e1 !important;
+  color: #4aa397;
   font-weight: bold;
 }
 
 /* ✅ 오늘+일정 둘 다일 때 → 테두리 + 배경색 */
 .day-cell.today.event {
-  background-color: #f29ca4;
-  border: 2px solid white; /* 또는 outline */
-  color: white;
+  background-color: #c4f0e1 !important;
+  border: none;
+  color: #4aa397;
+  font-weight: bold;
+}
+
+/*today*/
+.day-cell.today {
+  position: relative;
+}
+
+.day-cell.today::before {
+  content: "today";
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #f6b9b9; /* 연핑크색 또는 원하는 색 */
   font-weight: bold;
 }
 
