@@ -20,6 +20,7 @@
     background-color: transparent; /* 배경 제거 */
     border: none;
     box-shadow: none; /* 박스 그림자 제거 */
+    
   }
   caption {
     caption-side: top;
@@ -39,7 +40,8 @@
     color: #333;
   }
   th {
-    width: 20%;
+    width: 10%; 
+    white-space: nowrap; /* ✅ 텍스트 줄바꿈 방지 */
     font-weight: 600;
     color: #444;
     background-color: transparent;
@@ -141,6 +143,41 @@
 .reply-btn:hover {
   background-color: #f4aac9;
 }
+/* 제목 input 박스 느낌 제거 */
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+/* 내용 입력창 박스 느낌 제거 */
+#contentDiv {
+  width: 100%;
+  min-height: 300px;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 1em;
+  outline: none;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 선택: 댓글 작성용 textarea도 박스 제거 */
+td textarea, textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  resize: none;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+}
 </style>
 </head>
 <body>
@@ -169,7 +206,7 @@
   <th>내용</th>
   <td>
     <div id="contentDiv" contenteditable="true" 
-         style="width:100%; min-height:300px; border:1px solid #ccc; padding:10px;">
+         style="width:100%; min-height:300px;  padding:10px;">
       
       ${dto.post_content}
       

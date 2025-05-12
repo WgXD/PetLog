@@ -79,6 +79,7 @@
     WHERE rnum BETWEEN #{start} + 1 AND #{end}
 </select>
 
+<!-- 공지, 커뮤니티 갯수 조회 -->
  <select id="totalByType" resultType="int">
    SELECT COUNT(*) FROM community WHERE post_type = #{post_type}
  </select>
