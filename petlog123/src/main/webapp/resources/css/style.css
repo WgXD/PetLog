@@ -628,7 +628,7 @@ body.bg-mint {
 
 .day-cell.event {
   background-color: #c4f0e1 !important;
-  color: #4aa397;
+  color: #4aa397 !important;
   font-weight: bold;
 }
 
@@ -643,6 +643,10 @@ body.bg-mint {
 /*today*/
 .day-cell.today {
   position: relative;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  border: none !important;
+  color: inherit !important;
 }
 
 .day-cell.today::before {
@@ -652,8 +656,8 @@ body.bg-mint {
   left: 50%;
   transform: translateX(-50%);
   font-size: 10px;
-  color: #f6b9b9; /* 연핑크색 또는 원하는 색 */
   font-weight: bold;
+  color: #f6b9b9; 
 }
 
 /*======= 다가올 일정 리스트 =======*/

@@ -133,12 +133,21 @@
 		.weekday { color: #555; }  /* 일반 평일 - 검정 */
 		
 		.today {
-		  background-color: #fff3c4;
+		  display: inline-block;
+		  background-color: #fff3c4;  /* 연노랑 */
 		  border: 1px solid #ffcc80;
 		  border-radius: 8px;
 		  padding: 2px 6px;
-		  display: inline-block;
 		  font-weight: bold;
+		  color: #444;
+		}
+		
+		.today-label {
+		  font-size: 12px;
+		  color: #f6b9b9;
+		  font-weight: bold;
+		  margin-left: 6px;
+		  vertical-align: middle;
 		}
 		
 		th.sun {
@@ -205,7 +214,9 @@
             String dayClass = (i % 7 == 1) ? "sun" : (i % 7 == 0) ? "sat" : "weekday";
             String todayClass = isToday ? " today" : "";
 
-            out.print("<td class='calendar-cell'><div class='cell-content'><span class='date-number " + dayClass + todayClass + "'>" + count + "</span>");
+            out.print("<td class='calendar-cell'><div class='cell-content'>"
+            		+ "<span class='date-number " + dayClass + todayClass + "'>" + count + (isToday ? "<span class='today-label'> today</span>" : "") + "</span>"
+            	);
 
             // ✅ 일정 출력
             if (calList != null) {
