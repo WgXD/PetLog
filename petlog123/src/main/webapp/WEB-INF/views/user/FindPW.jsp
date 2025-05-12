@@ -95,6 +95,23 @@
   .link-box a:hover {
     text-decoration: underline;
   }
+  .email-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.email-row input,
+.email-row select {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
 </style>
 </head>
 <body>
@@ -103,14 +120,32 @@
   <div class="find-box">
     <h2>비밀번호 찾기</h2>
     <form id="findPwForm">
+    
       <div class="input-group">
         <label for="user_login_id">아이디</label>
         <input type="text" id="user_login_id" name="user_login_id" placeholder="아이디를 입력하세요" required>
       </div>
+      
+      <!-- 이메일 아이디 + 도메인 분리 -->
       <div class="input-group">
-        <label for="email">이메일</label>
-        <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" required>
+      <label for="emailId">이메일</label>
+		<div class="email-row">
+		  <input type="text" id="emailId" placeholder="이메일 아이디 입력" required>
+		  <select id="emailDomain">
+		    <option value="@naver.com">@naver.com</option>
+		    <option value="@gmail.com">@gmail.com</option>
+		    <option value="@daum.net">@daum.net</option>
+		    <option value="@kakao.com">@kakao.com</option>
+		  </select>
+		</div>
+		</div>
+		<input type="hidden" name="email" id="fullEmail">
+      
+      <div class="input-group">
+        <label for="phone">전화번호</label>
+        <input type="text" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
       </div>
+      
       <button type="button" onclick="findPw()">임시 비밀번호 받기</button>
     </form>
     <p id="resultMessage"></p>
@@ -124,9 +159,16 @@
 
 <script type="text/javascript">
 function findPw() {
+    // ✅ 이메일 조합
+    const emailId = document.getElementById("emailId").value.trim();
+    const emailDomain = document.getElementById("emailDomain").value;
+    const fullEmail = emailId + emailDomain;
+    document.getElementById("fullEmail").value = fullEmail;
+
+    // ✅ Ajax 요청
 	var formData = {
 		user_login_id: $("#user_login_id").val(),
-		email: $("#email").val()
+		email: fullEmail // 조합된 이메일 사용
 	};
 
 	$.ajax({
@@ -137,11 +179,11 @@ function findPw() {
 			$("#resultMessage").text(data);
 		},
 		error: function(){
+			console.log("Ajax Error:", data);
 			$("#resultMessage").text("오류가 발생했습니다. 다시 시도해 주세요.");
 		}
 	});
 }
 </script>
-
 </body>
 </html>

@@ -116,5 +116,31 @@ input[type="password"]:focus {
     <a href="findPwPage">비밀번호 찾기</a>
   </div>
 </div>
+
+<!-- 비밀번호 일치 검사 -->
+<script>
+function checkPasswordMatch() {
+  const pw = document.getElementById("password").value;
+  const cpw = document.getElementById("confirm_password").value;
+  const msg = document.getElementById("pw-message");
+
+  if (pw !== cpw) {
+    msg.textContent = "비밀번호가 일치하지 않습니다.";
+  } else {
+    msg.textContent = "";
+  }
+}
+
+function validateForm() {
+  const pw = document.getElementById("password").value;
+  const cpw = document.getElementById("confirm_password").value;
+
+  if (pw !== cpw) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return false;
+  }
+  return true;
+}
+</script>
 </body>
 </html>

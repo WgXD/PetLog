@@ -11,8 +11,8 @@
 
 <insert id="insertsignup" parameterType="com.mbc.pet.user.UserDTO">
 	insert into user1 (user_id,user_login_id,password,name,phone,email,profileimg,rank,user_role,grape_count)
-	values(user_id_seq.nextval,#{user_login_id},#{password},#{name},#{phone},#{email},
-	#{profileimg,jdbcType=VARCHAR},#{rank,jdbcType=VARCHAR},#{user_role},#{grape_count,jdbcType=INTEGER})
+	values(user_id_seq.nextval,#{user_login_id},#{password},#{name},#{phone},#{email,jdbcType=VARCHAR},
+	#{profileimg,jdbcType=VARCHAR},#{rank,jdbcType=VARCHAR},#{user_role,jdbcType=VARCHAR},#{grape_count,jdbcType=INTEGER})
 </insert>
 
 <select id="pwsave" parameterType="String" resultType="String">
@@ -44,13 +44,13 @@
 </update>
 
 <!-- 아이디 찾기 -->
-<select id="findIdByEmailName" resultType="String">
+<select id="findIdByEmailName" parameterType="map" resultType="String">
 	select user_login_id from user1 
 	where email=#{email} and name=#{name} and phone=#{phone}
 </select>
 
 <!-- 비밀번호 찾기 -->
-<select id="UserByLoginIdAndEmail" resultType="com.mbc.pet.user.UserDTO">
+<select id="UserByLoginIdAndEmail" parameterType="map" resultType="com.mbc.pet.user.UserDTO">
 	select * from user1
 	where user_login_id=#{user_login_id, jdbcType=VARCHAR} 
 	and email=#{email, jdbcType=VARCHAR}
@@ -112,5 +112,16 @@
 <select id="selectUserById" resultType="com.mbc.pet.user.UserDTO" parameterType="int">
 	select user_id, user_login_id, password, name, phone, email, profileimg, rank, user_role, grape_count
     from user1 where user_id = #{user_id}
+</select>
+
+<!-- 이메일 중복 체크용 -->
+<select id="emailCheck" resultType="int" parameterType="String">
+  select count(*) from user1 where email = #{email}
+</select>
+
+<!-- 회원정보 수정 시 이메일 중복검사 -->
+<select id="emailCheckForUpdate" parameterType="map" resultType="int">
+	select count(*) from user1 where email = #{email}
+	and user_login_id != #{user_login_id}
 </select>
 </mapper>

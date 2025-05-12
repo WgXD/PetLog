@@ -37,12 +37,6 @@ label {
   text-align: left;
 }
 
-/* 아이디 입력창 + 버튼 나란히 */
-.input-row {
-  display: flex;
-  gap: 10px;
-}
-
 /* 텍스트 입력, 패스워드 입력 기본 스타일 */
 input[type="text"],
 input[type="password"] {
@@ -103,6 +97,49 @@ input[type="password"]:focus {
 .button-group input:hover {
   background-color: #f3b3b2;
 }
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* select box 너비 제한 */
+.input-row select {
+  width: 40%;  /* 도메인 선택 박스 너비 조정 */
+  padding: 10px;
+  font-size: 13px;
+  border: 1px solid #d8d2cc;
+  border-radius: 7px;
+}
+
+/* 이메일 아이디+도메인+중복검사 나란히 */
+.input-row input[type="text"] {
+  flex: 5;
+}
+
+.input-row select {
+  flex: 4;  /* 기존 40% 대신 비율로 넓힘 */
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #d8d2cc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.input-row button {
+  flex: 1;
+  height: 44px;
+  font-size: 14px;
+  padding: 0 16px;
+  background-color: #f4a7b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -141,15 +178,20 @@ input[type="password"]:focus {
       <input type="text" id="phone" name="phone" placeholder="숫자만 입력하세요." oninput="formatPhoneNumber(this)" maxlength="13" required>
       <!-- 전화번호 입력시 실시간 하이픈(-) 자동 생성 -->
     </div>
-    <!-- 이메일 입력 -->
-    <div class="form-group">
-      <label for="email">이메일</label>
-      <input type="text" id="email" name="email" placeholder="이메일을 입력하세요.">
-      <!-- 추가 hidden값 (초기 프로필, 등급, 권한) -->
-      <input type="hidden" name="profileimg" value="default.png">
-      <input type="hidden" name="rank" value="브론즈">
-      <input type="hidden" name="user_role" value="user">
-    </div>
+	<!-- 이메일 입력 -->
+	<div class="form-group">
+	  <label for="emailId">이메일</label>
+	  <div class="input-row">
+	    <input type="text" id="emailId" name="emailId" placeholder="이메일 아이디 입력" required />
+	    <select id="emailDomain" name="emailDomain">
+	      <option value="@naver.com">@naver.com</option>
+	      <option value="@gmail.com">@gmail.com</option>
+	      <option value="@daum.net">@daum.net</option>
+	      <option value="@kakao.com">@kakao.com</option>
+	    </select>
+	    <button type="button" class="id-check-button" id="emailCheckBtn">중복확인</button>
+	  </div>
+	</div>
     <!-- 전송/취소 버튼 -->
     <div class="button-group">
       <input type="submit" value="전송">
@@ -210,6 +252,27 @@ function validateForm() {
   return true;
 }
 </script>
+
+<!-- 비밀번호 숫자, 문자 조합 8자 이상 -->
+<script>
+  function validateForm() {
+    const pw = document.getElementById("password").value;
+    const cpw = document.getElementById("confirm_password").value;
+
+    const pattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    if (!pattern.test(pw)) {
+      alert("비밀번호는 영문 + 숫자 조합으로 8자 이상이어야 합니다.");
+      return false;
+    }
+
+    if (pw !== cpw) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
 <!-- 전화번호 하이픈(-) 자동 포맷 -->
 <script>
 function formatPhoneNumber(input) {
@@ -226,5 +289,49 @@ function formatPhoneNumber(input) {
   input.value = formatted;
 }
 </script>
+
+<!-- 이메일 선택 박스 합치기 -->
+<script>
+    function combineEmailAndSubmit() {
+        const emailId = document.getElementById("emailId").value;
+        const emailDomain = document.getElementById("emailDomain").value;
+        const fullEmail = emailId + emailDomain;
+
+        // 숨겨진 input으로 합친 이메일 설정
+        document.getElementById("fullEmail").value = fullEmail;
+
+        // 폼 제출
+        document.getElementById("signupForm").submit();
+    }
+</script>
+
+<!-- 이메일 중복 검사 후 알림창 -->
+<script>
+$(document).ready(function(){
+	  $("#emailCheckBtn").click(function(){
+	    const emailId = $("#emailId").val().trim();
+	    const domain = $("#emailDomain").val();
+	    const fullEmail = emailId + domain;
+
+	    if (emailId === "") {
+	      alert("이메일 아이디를 입력해주세요.");
+	      return;
+	    }
+
+	    $.ajax({
+	      type: "post",
+	      url: "emailcheck",
+	      data: { email: fullEmail },
+	      success: function(data){
+	        if(data === "ok"){
+	          alert("사용 가능한 이메일입니다.");
+	        } else {
+	          alert("이미 사용 중인 이메일입니다.");
+	        }
+	      }
+	    });
+	  });
+	});
+	</script>
 </body>
 </html>

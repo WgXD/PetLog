@@ -39,4 +39,8 @@ public interface UserService {
 	UserDTO getUserById(Integer user_id);
 
 	UserDTO selectUserById(int user_id); //작성자 정보 조회용, 게시판 프로필 이미지 출력 위해
+
+	int emailCheck(String email); //이메일 중복 체크용
+
+	int emailCheckForUpdate(@Param("email") String email,@Param("user_login_id") String user_login_id);
 }

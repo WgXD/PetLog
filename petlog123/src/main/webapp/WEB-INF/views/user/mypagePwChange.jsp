@@ -144,5 +144,27 @@
       });
     }
   </script>
+
+<!-- 비밀번호 숫자, 문자 조합 8자 이상 -->
+<script>
+  function validateForm() {
+    const pw = document.getElementById("password").value;
+    const cpw = document.getElementById("confirm_password").value;
+
+    const pattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    if (!pattern.test(pw)) {
+      alert("비밀번호는 영문 + 숫자 조합으로 8자 이상이어야 합니다.");
+      return false;
+    }
+
+    if (pw !== cpw) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+  
 </body>
 </html>

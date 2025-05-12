@@ -72,5 +72,52 @@
       <p class="error-msg">${errorMsg}</p>
     </c:if>
   </div>
+  
+<!-- 비밀번호 일치 검사 -->
+<script>
+function checkPasswordMatch() {
+  const pw = document.getElementById("password").value;
+  const cpw = document.getElementById("confirm_password").value;
+  const msg = document.getElementById("pw-message");
+
+  if (pw !== cpw) {
+    msg.textContent = "비밀번호가 일치하지 않습니다.";
+  } else {
+    msg.textContent = "";
+  }
+}
+
+function validateForm() {
+  const pw = document.getElementById("password").value;
+  const cpw = document.getElementById("confirm_password").value;
+
+  if (pw !== cpw) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return false;
+  }
+  return true;
+}
+</script>
+
+<!-- 비밀번호 숫자, 문자 조합 8자 이상 -->
+<script>
+  function validateForm() {
+    const pw = document.getElementById("password").value;
+    const cpw = document.getElementById("confirm_password").value;
+
+    const pattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    if (!pattern.test(pw)) {
+      alert("비밀번호는 영문 + 숫자 조합으로 8자 이상이어야 합니다.");
+      return false;
+    }
+
+    if (pw !== cpw) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
 </body>
 </html>
