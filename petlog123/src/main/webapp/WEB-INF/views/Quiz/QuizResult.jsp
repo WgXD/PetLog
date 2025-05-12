@@ -8,9 +8,8 @@
 <style>
   body {
     font-family: 'Malgun Gothic', sans-serif;
-    background: linear-gradient(to bottom right, #fef6f9, #f3fcfb);
     margin: 0;
-    padding: 60px 20px;
+    padding: 0;
     text-align: center;
   }
 

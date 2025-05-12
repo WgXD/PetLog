@@ -11,7 +11,7 @@
     font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     background-color: #ffffff; /* 흰색 배경 유지 */
     margin: 0;
-    padding: 30px 0;
+    padding: 0;
   }
   form {
     width: 70%;

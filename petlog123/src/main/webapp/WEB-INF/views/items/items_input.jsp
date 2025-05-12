@@ -8,7 +8,6 @@
 
 <style>
   body {
-    background: linear-gradient(to right, #e6f7f6, #fff0f4);
     margin: 0;
     padding: 0;
     color: #333;

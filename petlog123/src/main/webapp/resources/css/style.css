@@ -9,21 +9,54 @@
 }
 
 body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, td, th {
-    font-family: 'Dovemayo_gothic', sans-serif !important;
+  font-family: 'Dovemayo_gothic', sans-serif !important;
+  margin: 0;
+  padding: 0;
 }
 
-.header {
-  width: 100%;
-  text-align: center;
-  padding: 20px 0;
+/* 로고 포함하는 상단 전체 wrapper */
+.top-wrapper {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin: 0;
 }
 
+/* 로고 부분 */
 .logo-title {
   text-align: center;
-  padding: 10px 15px;
-  font-size: 22px;
-  font-weight: bold;
+  margin: 0;
+  padding: 0;
 }
+
+/* 로고 이미지 */
+.logo-img {
+  height: 65px; /* 70~80 중 원하는 대로 OK */
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
+/* 네비게이션 초기화 */
+.navbar {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
+}
+
+/* 본문 여백 제거 */
+body, .content, .container, main, section {
+  margin: 0;
+  padding: 0;
+}
+
+/* header, nav 불필요 여백 제거 */
+header, nav {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 
 /*========== 포도알 갯수 표시 ==========*/
 .navbar-right li {

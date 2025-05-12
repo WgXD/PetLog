@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+body {text-align: center;}
+</style>
     <title>아이템 착용</title>
 </head>
 <body>

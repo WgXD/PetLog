@@ -10,7 +10,7 @@
       font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       background-color: #f9f9f9;
       margin: 0;
-      padding: 40px 0;
+      padding: 0;
     }
 
     .qna-box {

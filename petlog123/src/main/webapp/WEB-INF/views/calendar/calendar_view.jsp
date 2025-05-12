@@ -26,9 +26,8 @@
     <style>
 
         body {
-            background: linear-gradient(to bottom right, #e0f7f6, #ffe9ec);
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
 		table {

@@ -9,8 +9,6 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #eafaf9, #fff0f5); /* 민트~핑크 그러데이션 */
-      font-family: 'Malgun Gothic', sans-serif;
     }
 
     .contact-form-container {

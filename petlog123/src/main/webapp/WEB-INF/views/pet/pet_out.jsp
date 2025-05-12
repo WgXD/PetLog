@@ -11,7 +11,7 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f8f8;
     text-align: center;
-    padding: 30px;
+    padding: 0;
 }
 .profile-container {
     display: grid; /* 그리드 레이아웃 활성화 */
