@@ -251,7 +251,7 @@
     <div class="quiz-preview-box">
 	  <h3>🧠 오늘의 퀴즈</h3>
 	  <p class="quiz-question">${quiz.quiz_question}</p>
-	  <p class="quiz-note">※ 전체 보기는 퀴즈에서 확인하세요!</p>
+	  <p class="quiz-note" style="margin-bottom: 10px;">※ 전체 보기는 퀴즈에서 확인하세요!</p>
 	  <a href="${pageContext.request.contextPath}/quiz" class="quiz-start-button">도전하러 가기 →</a>
 	</div>
     </aside>
