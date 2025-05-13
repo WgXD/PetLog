@@ -9,200 +9,177 @@
 <title>게시물 상세보기</title>
 <style>
   body {
-    background-color: #f9f9f9;
+    background-color: #fff6f6;
     margin: 0;
     padding: 0;
+    font-family: 'Pretendard', sans-serif;
+    color: #333;
   }
+
+  .table-wrapper {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto 40px auto;
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 30px;
+  }
+
   table {
-    width: 80%;
-    margin: 50px auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: transparent; /* 배경 제거 */
-    border: none;
-    box-shadow: none; /* 박스 그림자 제거 */
-    
+    background-color: #fff;
+    margin-top: 10px;
+    box-shadow: none;
+    border-radius: 8px;
+    overflow: hidden;
   }
+
   caption {
     caption-side: top;
     text-align: center;
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 20px 10px;
-    background-color: transparent; /* 배경 제거 */
-    color: #222;
-    text-align: left;
+    font-size: 1.6em;
+    font-weight: normal;
+    color: #f48aa5;
+    margin-bottom: 20px;
   }
+
   th, td {
-    padding: 16px 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    background-color: transparent; /* 셀 배경 제거 */
-    color: #333;
-  }
-  th {
-    width: 10%; 
-    white-space: nowrap; /* ✅ 텍스트 줄바꿈 방지 */
-    font-weight: 600;
-    color: #444;
-    background-color: transparent;
-  }
-  td textarea {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
+    padding: 14px 12px;
     font-size: 1em;
-    resize: none;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
   }
-  td img {
+
+  table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  th {
+    width: 17%;
+    background-color: #fff0f4;
+    color: #555;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+    td img {
+    max-width: 70px;
+    height: auto;
+  }
+  
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin-top: 10px;
-    border-radius: 4px;
-    box-shadow: none; /* 이미지도 그림자 제거 가능 */
-    max-width: 100%;
   }
-.btn-group {
-  width: 60%;
-  margin: 20px auto;
-  display: flex;
-  justify-content: flex-end; /* 오른쪽 정렬 */
-  gap: 8px; /* 버튼 간 간격 */
-}
-.btn-group input[type="button"] {
-  padding: 4px 10px;
-  font-size: 13px;
-  background-color: #666;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.btn-group input[type="button"]:hover {
-  background-color: #444;
-}
-.btn-group input[value="수정"] {
-  background-color: #f8c8dc;  
-  color: #fff;
-}
-.btn-group input[value="수정"]:hover {
-  background-color: #f4aac9; 
-}
-.btn-group input[value="삭제"] {
-  background-color: #f8c8dc;
-}
-.btn-group input[value="삭제"]:hover {
-  background-color: #f6a5b4;
-}
-.btn-group input[value="목록"] {
-  background-color: #dcdcdc;
-}
-.btn-group input[value="목록"]:hover {
-  background-color: #aaa;
-}
-.table-wrapper {
-  background-color: white;
-  width: 100%;
-  max-width: 1000px;
-  margin: 40px auto 80px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 30px;
-}
-.profile-img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  vertical-align: middle;
-  margin-right: 6px;
-}
 
-#contentDiv img {
-  max-width: 250px !important;
+  .btn-group input[type="button"] {
+    background-color: #ffe1e1;
+    color: #333;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: normal;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-group input[type="button"]:hover {
+    background-color: #ffd2d2;
+  }
+
+  .profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  .reply-btn {
+    font-size: 14px;
+    padding: 2px 10px;
+    background-color: #f8c8dc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
+
+  .reply-btn:hover {
+    background-color: #f4aac9;
+  }
+
+  .comment-box {
+    margin-top: 5px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: none;
+  }
+
+  .comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+  }
+
+  .comment-form button {
+    margin-top: 10px;
+    background-color: #ffe1e1;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+    .comment-form {
+    text-align: right;
+  }
+  
+  #contentDiv img {
+  max-width: 200px !important;
   height: auto !important;
-  display: block;
-  margin: 20px auto;
-}
-
-.reply-btn {
-   font-size: 14px;
-   padding: 2px 10px;
-   background-color: #f8c8dc;
-   color: #fff;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   transition: background-color 0.2s;
-   position: absolute;
-   top: 15px;
-   right: 10px;
-}
-
-.reply-btn:hover {
-  background-color: #f4aac9;
-}
-/* 제목 input 박스 느낌 제거 */
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 1.1em;
-  font-weight: 500;
-}
-
-/* 내용 입력창 박스 느낌 제거 */
-#contentDiv {
-  width: 100%;
-  min-height: 300px;
-  border: none;
-  background: transparent;
-  padding: 10px;
-  font-size: 1em;
-  outline: none;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* 선택: 댓글 작성용 textarea도 박스 제거 */
-td textarea, textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 1em;
-  resize: none;
-  border: none;
-  background: transparent;
-  border-bottom: 1px solid #ccc;
-  outline: none;
+  display: block !important;
+  margin: 10px auto !important;
+  
 }
 </style>
 </head>
 <body>
-<form action="PostDetail" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="mnum" value="${dto.post_id}" readonly>
-  
-  <div class="table-wrapper">
-  <table>
-    <caption>
-	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
-	${dto.user_login_id}님의 게시물
-	</caption>
-  <tr>
-  <td colspan="2" style="text-align: right; padding: 5px 10px;">
+<div class="table-wrapper">
+<table>
+<h2 style="color: #f48aa5; text-align: center;">  <img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+${dto.user_login_id}님의 게시물</h2>
+
+<tr>
+  <td colspan="2" style="text-align: right; padding: 5px 10px; border-bottom: none;">
     <span style="font-size: 15px; color: #8B8386;">👁 ${dto.post_readcnt}</span>
     <span style="font-size: 15px; color: #e74c3c;">❤️ ${LikeCount}</span>
     &nbsp;&nbsp;
     <span style="font-size: 15px; color: #8B8386;">💬 ${fn:length(comments)}</span>
   </td>     
-  </tr>
-    <tr>
-      <th>제목</th>
-      <td><input type="text" name="post_title" value="${dto.post_title}" style="width:100%; padding:8px;" readonly></td>
-    </tr>
-    <tr>
+</tr>
+<tr>
+  <td colspan="2" style="height: 1px; border-bottom: 1px solid #eee;"></td>
+</tr>
+<tr>
+  <th>제목</th>
+  <td>${dto.post_title}</td>
+</tr>
+<tr>
   <th>내용</th>
   <td>
     <div id="contentDiv" contenteditable="true" 
@@ -214,117 +191,103 @@ td textarea, textarea {
         <br>
         <img src="./image/${dto.post_image}">
       </c:if>
-     
-    </div>
-    <input type="hidden" name="post_content" id="hiddenContent">
+</div>
   </td>
 </tr>
 <tr>
-  <td colspan="2" class="btn-group">
-    <input type="button" value="목록" onclick="location.href='CommunityView'">
-    
-    <c:choose>
-      <c:when test="${fn:trim(dto.post_type) != 'notice' and (user_id == dto.user_id or sessionScope.user_role == 'admin')}">
+  <th>작성자</th>
+  <td>${dto.user_login_id}</td>
+</tr>
+<tr>
+  <th>게시일</th>
+  <td>${dto.post_date.substring(0, 10)}</td>
+</tr>
+
+<!-- 목록 버튼 -->
+<tr>
+  <td colspan="2" style="border-bottom: none;">
+    <div class="btn-group" style="margin-bottom: 6px;">
+      <input type="button" value="목록" onclick="location.href='CommunityView'">
+      <c:if test="${fn:trim(dto.post_type) != 'notice' and (user_id == dto.user_id or sessionScope.user_role == 'admin')}">
         <input type="button" value="수정" onclick="location.href='PostModify?mnum=${dto.post_id}'">
         <input type="button" value="삭제" onclick="confirmDelete('${dto.post_id}')">
-      </c:when>
-    </c:choose>
+      </c:if>
+    </div>
+  </td>
+</tr>
+
+<!-- 좋아요 버튼 -->
+<tr>
+  <td colspan="2" style="text-align: center; padding: 5px 0 0 0;">
+    <form action="like" method="post" style="display: inline;">
+      <input type="hidden" name="post_id" value="${dto.post_id}">
+      <c:choose>
+        <c:when test="${userLiked}">
+          <button type="submit" style="color:red; font-size: 20px; border: none; background: none;">❤️ (${LikeCount})</button>
+        </c:when>
+        <c:otherwise>
+          <button type="submit" style="font-size: 20px; border: none; background: none;">🤍 (${LikeCount})</button>
+        </c:otherwise>
+      </c:choose>
+    </form>
   </td>
 </tr>
 </table>
-</form>
 
+<!-- 댓글 박스는 반드시 테이블 밖에 -->
+<div class="comment-box">
+  <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: left;">
+    <span style="font-size: 22px; margin-right: 5px;">💬</span>댓글
+  </div>
 
-<!-- form 전송할 때 div 내용 복사해서 숨은 input에 넣기 -->
-<script>
-function beforeSubmit() {
-    document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
-}
-</script>
-<!--   좋아요 기능 -->
-<div style="text-align: center; margin-top: 20px;">
-  <form action="like" method="post" style="display: inline;">
-    <input type="hidden" name="post_id" value="${dto.post_id}">
-     <c:choose>
-      <c:when test="${userLiked}">
-        <button type="submit" style="color:red; font-size: 20px; border: none; background: none;">❤️ (${LikeCount})</button>
-      </c:when>
-      <c:otherwise>
-        <button type="submit" style="font-size: 20px; border: none; background: none;">🤍 (${LikeCount})</button>
-      </c:otherwise>
-    </c:choose>
-  </form>
+  <!-- 댓글 작성 -->
+  <div class="comment-form">
+    <form action="commentInsert" method="post">
+      <input type="hidden" name="post_id" value="${dto.post_id}">
+      <textarea name="com_com" rows="3" placeholder="댓글을 입력하세요" required></textarea>
+      <button type="submit">댓글 작성</button>
+    </form>
+  </div>
+
+  <!-- 댓글 목록 -->
+  <c:forEach items="${comments}" var="com">
+    <c:set var="margin" value="${com.depth * 20}" />
+    <div style="margin: 20px 0 0 calc(${margin}px); border-bottom: 1px solid #eee; padding: 10px 0; position: relative;">
+      <div style="font-weight: bold; margin-bottom: 5px;">
+        <img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+        ${com.user_login_id}
+      </div>
+      <div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
+
+      <!-- 대댓글 버튼 -->
+      <button type="button" class="reply-btn" onclick="toggleReplyForm(${com.com_id})">답글</button>
+
+      <!-- 대댓글 입력 -->
+      <div id="replyForm${com.com_id}" style="display: none; margin-top: 10px;">
+        <form action="commentInsert" method="post">
+          <input type="hidden" name="post_id" value="${dto.post_id}">
+          <input type="hidden" name="parent_id" value="${com.com_id}">
+          <input type="hidden" name="depth" value="${com.depth + 1}">
+          <textarea name="com_com" rows="2" placeholder="답글을 입력하세요" required style="width: 100%; padding: 8px; border-radius: 6px;"></textarea>
+          <button type="submit" style="margin-top: 5px; padding: 6px 12px; background-color: #e0e0e0; border: 1px solid #bbb; border-radius: 4px; font-size: 13px;">작성</button>
+        </form>
+      </div>
+    </div>
+  </c:forEach>
 </div>
+</div>
+
 <script>
-function confirmDelete(postId) {
-  if (confirm("정말 삭제하시겠습니까?")) {
-    window.location.href = 'PostDelete?dnum=' + postId;
+  function confirmDelete(postId) {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      window.location.href = 'PostDelete?dnum=' + postId;
+    }
   }
-}
-</script>
 
-<!-- 댓글 색션 시작 -->
-<div style="width: 60%; margin: 40px auto 20px auto; padding: 15px 0; text-align: left; border-bottom: 1px solid #ddd;">
-    <h3 style="margin-bottom: 20px;">댓글</h3>
-    
-<!-- 댓글 작성 폼 -->
-<form action="commentInsert" method="post">
-<input type="hidden" name="post_id" value="${dto.post_id}">
-
-<textarea name="com_com" rows="3"
-	style="width: 100%; padding: 10px; font-size: 15px; resize: none;
-	border: none; border-bottom: 1px solid #ccc;
-	background: transparent; outline: none;"
-	placeholder="댓글을 입력하세요" required></textarea>
-<button type="submit"
-	style="margin-top: 8px; padding: 6px 12px;
-	background-color: #FFE4E1; color: #8B7D7B;
-	border: none; border-radius: 4px;
-	font-size: 14px; cursor: pointer;">
-댓글 작성
-</button></form></div>
-
-<!-- 댓글 출력 -->
-<c:forEach items="${comments}" var="com">
-<c:set var="margin" value="${com.depth * 20}" />
-
-<div style="width: 60%; margin: 0 auto; margin-left: calc(20% + ${margin}px); border-bottom: 1px solid #ddd; padding: 15px 10px; text-align: left; position: relative;">
-<div style="font-weight: bold; margin-bottom: 5px;">
-	<img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
-	${com.user_login_id}</div>
-<div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
-
-<!-- 대댓글 버튼 -->
-<button type="button" class="reply-btn" onclick="toggleReplyForm(${com.com_id})">
-  답글
-</button>
-
-<!-- 대댓글 입력창 -->
-<div id="replyForm${com.com_id}" style="display: none; margin-top: 10px;">
-	<form action="commentInsert" method="post">
-    <input type="hidden" name="post_id" value="${dto.post_id}">
-    <input type="hidden" name="parent_id" value="${com.com_id}">
-    <input type="hidden" name="depth" value="${com.depth + 1}">
-    <textarea name="com_com" rows="2"
-		style="width: 95%; padding: 8px; border: none;
-        border-bottom: 1px solid #ccc;
-        background: transparent; resize: none; outline: none;"
-        placeholder="답글을 입력하세요" required></textarea>
-<button type="submit"
-        style="margin-top: 5px; padding: 6px 12px;
-        background-color: #FFE4E1; color: #8B7D7B;
-        background-color: #e0e0e0; border: 1px solid #bbb;
-        border-radius: 4px; font-size: 13px;">
-		작성
-</button></form></div></div>
-</c:forEach>
-</div>
-<!-- 대댓글 폼 토글 -->
-<script>
-   function toggleReplyForm(id) {
-      const form = document.getElementById('replyForm' + id);
-      form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-   }
+  function toggleReplyForm(id) {
+    const form = document.getElementById('replyForm' + id);
+    form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+  }
 </script>
 </body>
 </html>

@@ -7,35 +7,59 @@
 <title>My 아이템</title>
 <style>
   body {
-    background-color: #fefefe;
+    background-color: #fff6f6;
     margin: 0;
     padding: 0;
+    font-family: 'Pretendard', sans-serif;
     color: #333;
   }
 
   .table-wrapper {
-    width: 90%;
+    background-color: white;
+    width: 100%;
     max-width: 1000px;
     margin: 40px auto 80px auto;
-    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 30px;
   }
 
-  caption {
-    caption-side: top;
-    font-size: 2em;
-    font-weight: bold;
-    padding: 20px;
-    color: #db7093;
+  .back-btn-wrap {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .back-btn {
+    background-color: #ffe1e1;
+    color: #444;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  .back-btn:hover {
+    background-color: #ffd2d2;
+  }
+
+  h2 {
     text-align: center;
+    color: #f48aa5;
+    font-weight: normal;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    margin-top: 0; /* 위 간격 최소화 */
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   th, td {
@@ -48,35 +72,12 @@
   th {
     background-color: #fff0f4;
     color: #555;
-    font-weight: 600;
+    font-weight: bold;
   }
 
   td img {
-    max-width: 80px;
+    max-width: 70px;
     height: auto;
-  }
-
-  .center-text {
-    text-align: center;
-    font-size: 16px;
-    padding: 30px 0;
-  }
-
-  .back-btn {
-    background-color: #ffe1e1;
-    color: #444;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 20px;
-    float: right;
-  }
-
-  .back-btn:hover {
-    background-color: #ffcccc;
   }
 
   .use-btn {
@@ -84,8 +85,9 @@
     color: #234;
     border: none;
     padding: 8px 14px;
-    border-radius: 12px;
-    font-weight: bold;
+    border-radius: 10px;
+    font-weight: normal;
+    font-family: 'Pretendard', sans-serif;
     cursor: pointer;
   }
 
@@ -103,16 +105,18 @@
   .delete-btn:hover {
     opacity: 0.7;
   }
-
 </style>
+
 </head>
 <body>
 
 <div class="table-wrapper">
 
-  <button class="back-btn" onclick="history.back()">⬅ 뒤로가기</button>
+  <div class="back-btn-wrap">
+    <button class="back-btn" onclick="history.back()">⬅ 뒤로가기</button>
+  </div>
 
-  <caption>💝 My 아이템 💝</caption>
+  <h2>💝 My 아이템 💝</h2>
 
   <c:if test="${empty list}">
     <p class="center-text">아직 구매한 아이템이 없습니다.</p>

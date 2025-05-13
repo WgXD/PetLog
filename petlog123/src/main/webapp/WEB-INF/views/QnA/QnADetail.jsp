@@ -7,25 +7,29 @@
   <title>QnA 상세 보기</title>
   <style>
     body {
-      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background-color: #f9f9f9;
+      font-family: "Pretendard", sans-serif;
+      background-color: #fff6f6;
       margin: 0;
       padding: 0;
+      color: #333;
     }
 
     .qna-box {
-      width: 60%;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 800px;
+      margin: 40px auto 80px auto;
       background-color: #fff;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-
+    
     h2 {
       text-align: center;
       margin-bottom: 30px;
-      color: #333;
+      color: #f48aa5;
+      font-weight: normal;
+      font-size: 1.8em;
     }
 
     table {
@@ -45,6 +49,8 @@
       width: 20%;
       font-weight: bold;
       color: #444;
+      background-color: #fff0f4;
+      text-align: center;
     }
 
     td {
@@ -65,9 +71,9 @@
       padding: 8px 16px;
       font-size: 14px;
       border: none;
-      background-color: #f0d7dc;
+      background-color: #ffe3e3;
       color: #333;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.3s;
     }
@@ -76,11 +82,10 @@
       background-color: #e0bfc7;
     }
 
-    /* 관리자 답변 작성 영역 */
     .admin-answer-box {
       margin-top: 40px;
       padding: 25px;
-      background-color: #fff8fb; /* 연한 파스텔 핑크 */
+      background-color: #fff8fb;
       border-radius: 10px;
     }
 
@@ -118,7 +123,7 @@
     .admin-answer-box button {
       margin-top: 15px;
       padding: 8px 20px;
-      background-color: #d8f8f1; /* ✨ 눈에 편한 민트톤 */
+      background-color: #d8f8f1;
       color: #333;
       border: none;
       border-radius: 6px;
@@ -130,12 +135,19 @@
     .admin-answer-box button:hover {
       background-color: #bcebe1;
     }
+    
+    table tr:first-child th,
+table tr:first-child td {
+  border-top: 1px solid #eee;
+}
   </style>
 </head>
 <body>
 
 <div class="qna-box">
-  <h2>문의 상세 보기</h2>
+
+  <!-- 제목 줄 -->
+  <h2>📔 문의 상세 보기</h2>
 
   <table>
     <tr>
@@ -152,7 +164,7 @@
     </tr>
     <tr>
       <th>내용</th>
-      <td id="qna-content">${dto.qna_content}</td>
+      <td class="qna-content">${dto.qna_content}</td>
     </tr>
     <tr>
       <th>상태</th>

@@ -1,157 +1,149 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<style>
-  body {
-    background-color: #fff8f0;
-    text-align: center;
-    padding: 0;
-  }
+  <meta charset="UTF-8">
+  <title>📕 일기 삭제하기</title>
+  <style>
+    body {
+      background-color: #fff6f6;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', sans-serif;
+      color: #333;
+    }
 
-  h2 {
-   color: #5e478e;
-  }
+    .container {
+      max-width: 1000px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 40px 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-  form {
-    display: inline-block;
-    text-align: left;
-  }
+    h2 {
+      text-align: center;
+      color: #f48aa5;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
 
-  .dotted-rounded-table {
-    border-collapse: separate;
-    border: 2px dotted #aaa;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #fff;
-    margin: 0 auto;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-  }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
 
-  .dotted-rounded-table td,
-  .dotted-rounded-table th {
-    border: 1px dotted #ccc;
-    padding: 12px 16px;
-    font-size: 14px;
-  }
+    th, td {
+      padding: 14px 12px;
+      font-size: 15px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
 
-  input[type="text"],
-  input[type="date"],
-  input[type="file"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
+    th {
+      background-color: #fff0f4;
+      color: #555;
+      font-weight: bold;
+      width: 20%;
+      text-align: center;
+    }
 
-  textarea {
-    resize: vertical;
-  }
-  
-	  button,
-	input[type="submit"],
-	input[type="reset"] {
-	  background-color: #d7c9f3; /* 연보라 */
-	  border: none;
-	  color: #5e478e; /* 진보라 텍스트 */
-	  padding: 10px 22px;
-	  margin: 12px 6px;
-	  border-radius: 24px;
-	  font-size: 15px;
-	  font-weight: bold;
-	  cursor: pointer;
-	  transition: background-color 0.3s ease, transform 0.15s ease;
-	  box-shadow: 2px 2px 5px rgba(100, 80, 160, 0.2);
-	}
-	
-	button:hover,
-	input[type="submit"]:hover,
-	input[type="reset"]:hover {
-	  background-color: #e8defc; /* 좀 더 크리미한 보라 */
-	  transform: scale(1.05);
-	}
-	
-	button:active,
-	input[type="submit"]:active,
-	input[type="reset"]:active {
-	  transform: scale(0.95);
-	}
+    td img {
+      max-width: 100px;
+      height: auto;
+      border-radius: 8px;
+    }
 
-</style>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: vertical;
+      font-family: 'Pretendard', sans-serif;
+      font-size: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .form-actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      background-color: #ffe1e1;
+      color: #333;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 0 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: #ffd2d2;
+    }
+  </style>
+  <script>
+    function confirm_delete() {
+      return confirm("정말 삭제하시겠습니까?😥");
+    }
+  </script>
 </head>
 <body>
+  <div class="container">
+    <h2 style="color: #f48aa5">📕 일기 삭제하기</h2>
 
-<script type="text/javascript">
+    <form action="delete_page" method="post" onsubmit="return confirm_delete()" enctype="multipart/form-data">
+      <input type="hidden" name="diary_id" value="${dto.diary_id}">
+      <input type="hidden" name="diary_title" value="${dto.diary_title}">
+      <input type="hidden" name="diary_date" value="${dto.diary_date}">
+      <input type="hidden" name="diary_content" value="${dto.diary_content}">
+      <input type="hidden" name="himage" value="${dto.diary_image}">
 
-function confirm_delete() {
-	
-	return confirm("정말 삭제 하시겠습니까?😥")
-	
-}
+      <table>
+        <tr style="border-top: 1px solid #f0f0f0;">
+          <th>글번호</th>
+          <td><input type="text" value="${dto.diary_id}" readonly></td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" value="${dto.diary_title}" readonly></td>
+        </tr>
+        <tr>
+          <th>날짜</th>
+          <td><input type="text" value="${dto.diary_date}" readonly></td>
+        </tr>
+        <tr>
+          <th>이미지</th>
+          <td>
+            <img src="./image/${dto.diary_image}" alt="일기 이미지">
+          </td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td><textarea rows="6" readonly>${dto.diary_content}</textarea></td>
+        </tr>
+      </table>
 
-</script>
-
-
-<header>일기 삭제하기 📔</header>
-<!-- onsubmit="return confirm_Delete()" =>alert 띄우기 -->
-<form action="delete_page" method="post" enctype="multipart/form-data" onsubmit="return confirm_delete()">
-
-<table class="dotted-rounded-table">
-
-      <tr>
-        <th><label for="diary_id">글번호 : </label></th>
-        <td>
-        <input type="text" id="diary_id" name="diary_id" value="${dto.diary_id}" readonly>
-        <input type="hidden" name="diary_id" value="${dto.diary_id}">
-        </td>
-      </tr>
-      
-      <tr>
-        <th><label for="diary_title">제목 : </label></th>
-        <td>
-        <input type="text" id="diary_title" name="diary_title" value="${dto.diary_title}" readonly>
-        <input type="hidden" name="diary_title" value="${dto.diary_title}">
-        </td>
-      </tr>
-
-      <tr>
-        <th><label for="diary_date">날짜 : </label></th>
-        <td>
-        <input type="text" id="diary_date" name="diary_date_dp" value="${dto.diary_date}" readonly>
-        <input type="hidden" name="diary_date" value="${dto.diary_date}">
-        </td>
-      </tr>
-
-      <tr>
-        <th><label for="diary_image">이미지 : </label></th>
-        <td>
-        <img src="./image/${dto.diary_image}" width="70px">
-        <input type="hidden" name="himage" value="${dto.diary_image}">
-        </td>
-      </tr>
-
-      <tr>
-        <th><label for="diary_content">내용 : </label></th>
-        <td>
-        <textarea rows="10" cols="60" id="diary_content" name="diary_content">${dto.diary_content}</textarea>
-        <input type="hidden" name="diary_content" value="${dto.diary_content}">
-        </td>
-      </tr>
-
-      <tr>
-      <td colspan="2" style="text-align: center">
-      <input type="submit" value="💥 삭제하기">
-      <input type="reset" value="❌ 취소하기" onclick="history.back()"> 
-      <!-- 전 페이지로 return -->
-      </td>
-      </tr>
-
-</table>
-</form>
+      <div class="form-actions">
+        <input type="submit" value="💥 삭제하기">
+        <input type="reset" value="❌ 취소하기" onclick="history.back()">
+      </div>
+    </form>
+  </div>
 </body>
 </html>

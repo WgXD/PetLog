@@ -6,7 +6,6 @@
   <style>
     body {
       text-align: center;
-      font-family: 'Malgun Gothic', sans-serif;
       background-color: #ffffff; /* 배경 제거 */
     }
 
@@ -24,10 +23,11 @@
     }
 
     .btn-top {
-      margin-bottom: 30px;
+      margin-top: 30px;
+      margin-bottom: 15px;
     }
 
-    .btn-green { background-color: #a5d6a7; }   /* 연 민트 */
+    .btn-green { background-color: #f48aa5; border-radius: 16px; }   /* 연 민트 */
     .btn-orange { background-color: #ffcc80; }  /* 파스텔 오렌지 */
     .btn-purple { background-color: #d1c4e9; }  /* 파스텔 보라 */
 

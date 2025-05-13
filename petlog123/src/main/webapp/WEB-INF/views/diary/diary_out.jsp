@@ -16,19 +16,43 @@
 
 <style>
   body {
-    background-color: #fefefe;
+    background-color: #fff6f6;
     margin: 0;
     padding: 0;
+    font-family: 'Pretendard', sans-serif;
     color: #333;
+  }
+
+  h2 {
     text-align: center;
+    color: #d65b7b;
+    font-weight: normal;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    background-color: #ffe1e1;
+    color: #333;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background-color: #ffd2d2;
   }
 
   .table-wrapper {
-    width: 90%;
+    background-color: white;
+    width: 100%;
     max-width: 1000px;
     margin: 40px auto 80px auto;
-    background-color: #fff;
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 30px;
   }
@@ -37,13 +61,10 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-  }
-
-  caption {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #db7093;
-    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   th, td {
@@ -56,12 +77,7 @@
   th {
     background-color: #fff0f4;
     color: #555;
-    font-weight: 600;
-  }
-
-  td img {
-    max-width: 70px;
-    height: auto;
+    font-weight: bold;
   }
 
   td a {
@@ -71,108 +87,94 @@
   }
 
   td a:hover {
-    color: #db7093;
+    color: #d65b7b;
     text-decoration: underline;
   }
 
-  .btn {
-    margin-top: 30px;
-    background-color: #ffe1e1;
-    color: #444;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn:hover {
-    background-color: #ffd2d2;
+  td img {
+    max-width: 70px;
+    height: auto;
   }
 
   .pagination {
-    margin-top: 30px;
+    width: 100%;
     text-align: center;
+    margin: 40px 0;
   }
 
   .pagination a {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 8px 14px;
-    background-color: #f2e9ff;
-    color: #5e478e;
-    border-radius: 10px;
+    margin: 0 6px;
+    padding: 6px 12px;
+    color: #888;
     text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
-
-  .pagination a:hover {
-    background-color: #e0d2f7;
+    border-radius: 4px;
+    transition: all 0.2s;
   }
 
   .pagination a.current {
-    background-color: #d7c9f3;
-    color: white;
+    background-color: #db7093;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .pagination a:hover {
+    background-color: #ffe1e1;
   }
 
   .no-diary {
+    text-align: center;
     color: #c0392b;
     font-weight: bold;
-    padding: 20px 0;
+    padding: 40px 0;
   }
 
+  .button-wrap {
+    text-align: right;
+    margin-bottom: 30px;
+  }
 </style>
 </head>
 <body>
+  <div class="table-wrapper">
+    <h2 style="color: #f48aa5">📔 나의 일기 보기</h2>
 
-<div class="table-wrapper">
-
-  <caption>📔 나의 일기 보기</caption>
-  <c:if test="${empty list}">
-    <p class="no-diary">작성한 일기가 없습니다. ✍️</p>
-    <a href="diary_input" class="btn">일기 쓰러 가기 ✍️</a>
-  </c:if>
-
-  <c:if test="${not empty list}">
-  <div style="text-align: right; margin-bottom: 10px;">
-  <a href="diary_input" class="btn">일기 쓰러 가기 </a>
-  </div>
-    <table>
-      <thead>
-        <tr>
-          <th>글번호</th>
-          <th>이름</th>
-          <th>일기 제목</th>
-          <th>날짜</th>
-          <th>이미지</th>
-          <th>일기 내용</th>
-        </tr>
-      </thead>
-      <tbody>
-        <c:forEach items="${list}" var="di">
-          <tr>
-            <td>${di.diary_id}</td>
-            <td>${di.pet_name}</td>
-            <td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a></td>
-            <td>${di.diary_date}</td>
-            <td><img src="./image/${di.diary_image}" alt="일기 이미지"></td>
-            <td>${di.diary_content}</td>
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-
-    <div class="pagination">
-      <c:forEach var="i" begin="1" end="${page_count}">
-        <a href="diary_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
-      </c:forEach>
+    <!-- 버튼: 항상 보여주되, float + margin으로 간격 확보 -->
+    <div style="overflow: hidden; margin-bottom: 10px;">
+      <a href="diary_input" class="btn" style="float: right;">일기 쓰러 가기</a>
     </div>
-  </c:if>
 
-</div>
+    <!-- 일기 목록이 있을 때만 테이블 출력 -->
+    <c:if test="${not empty list}">
+      <table>
+        <thead>
+          <tr>
+            <th>글번호</th>
+            <th>이름</th>
+            <th>일기 제목</th>
+            <th>날짜</th>
+            <th>이미지</th>
+            <th>일기 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:forEach items="${list}" var="di">
+            <tr>
+              <td>${di.diary_id}</td>
+              <td>${di.pet_name}</td>
+              <td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a></td>
+              <td>${di.diary_date}</td>
+              <td><img src="./image/${di.diary_image}" alt="일기 이미지"></td>
+              <td>${di.diary_content}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
 
+      <div class="pagination">
+        <c:forEach var="i" begin="1" end="${page_count}">
+          <a href="diary_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
+        </c:forEach>
+      </div>
+    </c:if>
+  </div>
 </body>
-</html>

@@ -1,134 +1,159 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<style>
+<meta charset="UTF-8">
+<title>검색 결과</title>
 <style>
   body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #f8f9fa;
+    background-color: #fff6f6;
     margin: 0;
     padding: 0;
+    color: #333;
+  }
+
+  h2 {
+    text-align: center;
+    color: #f48aa5;
+    font-weight: normal;
+    font-size: 1.8em;
+    margin: 40px 0 20px;
+  }
+
+  .table-wrapper {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto 40px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 30px;
   }
 
   table {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-radius: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   }
 
   caption {
     caption-side: top;
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: bold;
-    padding: 20px;
-    background-color: #f1f1f1;
-    color: #333;
+    color: #d65b7b;
+    margin-bottom: 20px;
   }
 
   th, td {
     padding: 14px 12px;
-    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
     text-align: center;
-    font-size: 0.95em;
   }
 
   th {
-    background-color: #f5f5f5;
+    background-color: #fff0f4;
     color: #555;
+    font-weight: bold;
   }
 
   td a {
-    color: #007bff;
+    color: #333;
     text-decoration: none;
+    font-weight: 500;
   }
 
   td a:hover {
+    color: #d65b7b;
     text-decoration: underline;
   }
 
   tr:hover {
-    background-color: #f9f9f9;
+    background-color: #fdf0f5;
   }
 
-  .btn-wrap {
-    text-align: right;
-    width: 80%;
-    margin: 10px auto 20px;
+  .search-form {
+    text-align: center;
+    margin: 30px auto;
   }
 
-  .btn-wrap input[type="button"] {
-    padding: 10px 20px;
-    font-weight: bold;
+  .search-form select,
+  .search-form input[type="text"],
+  .search-form input[type="submit"] {
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin: 0 6px;
+  }
+
+  .search-form input[type="submit"] {
+    background-color: #f48aa5;
+    color: white;
     border: none;
-    background-color: #FFE4E1;
-    color: #DB7093;
-    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
   }
 
-  .btn-wrap input[type="button"]:hover {
-    background-color: #45a049;
+  .search-form input[type="submit"]:hover {
+    background-color: #db7093;
   }
-  .table-wrapper {
-  background-color: white;
-  width: 100%;
-  max-width: 5000px;
-  margin: 40px auto 80px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 30px;
-}
 </style>
-<meta charset="UTF-8">
 </head>
 <body>
-<!-- 메시지 처리 -->
+
 <c:if test="${not empty msg}">
-    <script>
-        alert('${msg}');
-    </script>
+  <script>alert('${msg}');</script>
 </c:if>
+
+<h2>"${keyword}" 에 대한 검색 결과</h2>
+
 <div class="table-wrapper">
-<table>
-<caption>"${keyword}" 에 대한 검색 결과</caption>
-<tr>
-	<th style="width:5%;">No.</th>
-	<th style="width:45%;">제목</th>
-	<th style="width:15%;">작성자</th>
-	<th style="width:20%;">작성일자</th>
-	<th style="width:10%;">조회수</th>
-</tr>
-<c:forEach items="${list}" var="cc">
-<tr>
-	<td>${cc.post_id}</td>
-	<td style="text-align: left;">
-		<a href="PostDetail?pnum=${cc.post_id}">${cc.post_title}</a>
-	</td>
-	<td>${cc.user_id}</td>
-	<td>${cc.post_date}</td>
-	<td>${cc.post_readcnt}</td>
-</tr>
-</c:forEach>
-</table>
+  <table>
+    <caption>검색된 게시글 목록</caption>
+    <thead>
+      <tr>
+        <th style="width:5%;">No.</th>
+        <th style="width:45%;">제목</th>
+        <th style="width:15%;">작성자</th>
+        <th style="width:20%;">작성일자</th>
+        <th style="width:10%;">조회수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach items="${list}" var="cc">
+        <tr>
+          <td>${cc.post_id}</td>
+          <td style="text-align: left;">
+            <a href="PostDetail?pnum=${cc.post_id}">${cc.post_title}</a>
+          </td>
+          <td>${cc.user_id}</td>
+          <td>${cc.post_date}</td>
+          <td>${cc.post_readcnt}</td>
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
 </div>
-	<form action="searchview" method="post">
-	<select name="skey" id="skey">
-		<option value="post_id">작성자</option>
-		<option value="post_title">제목</option>
-		<option value="post_content">내용</option>
-		<option value="post_date">작성일자</option>
-	</select>
-	<label><input type="text" name="keyword" placeholder="검색어를 입력하세요."> </label>
-	<input type="submit" value="검색">
-	<p>${msg}</p>
-</form>
+
+<!-- 검색 폼 -->
+<div class="search-form">
+  <form action="searchview" method="post">
+    <select name="skey" id="skey">
+      <option value="post_id">작성자</option>
+      <option value="post_title">제목</option>
+      <option value="post_content">내용</option>
+      <option value="post_date">작성일자</option>
+    </select>
+    <input type="text" name="keyword" placeholder="검색어를 입력하세요." required>
+    <input type="submit" value="검색">
+  </form>
+</div>
+
 </body>
 </html>

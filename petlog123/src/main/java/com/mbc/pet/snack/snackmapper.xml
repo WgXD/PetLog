@@ -164,7 +164,7 @@
 </insert>
 
 <!-- 댓글 조회 -->
-<select id="getCommentsBySnackId" resultMap="commentsMap">
+<select id="getCommentsBySnackId" parameterType="int" resultMap="commentsMap">
   select cm.com_id, u.user_id, u.user_login_id,
          cm.snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
   from comments cm

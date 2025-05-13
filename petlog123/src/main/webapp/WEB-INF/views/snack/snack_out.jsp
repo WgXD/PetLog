@@ -28,7 +28,7 @@
   h2 {
     text-align: center;
     color: #d65b7b;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 1.8em;
     margin-bottom: 30px;
   }
@@ -70,7 +70,7 @@ th, td {
 
 
   th {
-    background-color: #ffe9ef;
+    background-color: #fff0f4;
     color: #555;
     font-weight: bold;
   }
@@ -135,7 +135,7 @@ th, td {
 </head>
 <body>
 <div class="table-wrapper">
-  <h2>🍩 수제 간식 레시피</h2>
+  <h2 style="color:	#f48aa5">🍩 수제 간식 레시피</h2>
 
   <c:if test="${empty list}">
     <p class="no-recipe">작성된 레시피가 없습니다. 🍪</p>

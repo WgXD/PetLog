@@ -6,37 +6,39 @@
   <title>펫 정보 입력하기 🐾</title>
   <style>
     body {
+      background-color: #fff6f6;
       margin: 0;
       padding: 0;
+      font-family: 'Pretendard', sans-serif;
       color: #333;
     }
 
     .container {
-      max-width: 900px;
-      margin: 40px auto 80px auto;
+      max-width: 1000px;
+      margin: 60px auto 100px auto;
       background: #fff;
-      padding: 50px 60px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e0e0e0;
+      padding: 60px 80px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
       text-align: center;
-      font-size: 28px;
-      color: #d85a8a;
+      font-size: 26px;
+      color: #f48aa5;
+      font-weight: normal;
       margin-top: 0;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .form-group {
       display: flex;
       align-items: center;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .form-group label {
-      flex: 0 0 140px;
+      flex: 0 0 120px;
       font-weight: bold;
       font-size: 15px;
       color: #555;
@@ -46,15 +48,19 @@
     .form-group input[type="date"],
     .form-group input[type="file"] {
       flex: 1;
-      padding: 10px 12px;
+      padding: 12px 16px;
       font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      transition: border-color 0.3s ease;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fffdfd;
+      font-family: 'Pretendard', sans-serif;
+      transition: all 0.2s ease-in-out;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
     .form-group input:focus {
-      border-color: #a3d8cd; /* 민트 포인트 */
+      border-color: #f48aa5;
+      box-shadow: 0 0 0 3px rgba(244, 138, 165, 0.2);
       outline: none;
     }
 
@@ -73,24 +79,37 @@
       text-align: center;
       margin-top: 40px;
     }
+    
+    .radio-group {
+	  display: flex;
+	  gap: 40px;  /* 간격 동일하게 지정 */
+	}
+	
+	.radio-group label {
+	  display: flex;
+	  align-items: center;
+	  gap: 6px;
+	  min-width: 80px;  /* 항목 너비 통일 */
+	  white-space: nowrap;
+	}
 
     input[type="submit"],
     input[type="reset"] {
-      background-color: #d85a8a;
+      background-color: #f48aa5;
       color: white;
       border: none;
       padding: 12px 30px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      margin: 0 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: normal;
+      margin: 0 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     input[type="submit"]:hover,
     input[type="reset"]:hover {
-      background-color: #c14573;
+      background-color: #db7093;
     }
 
     @media screen and (max-width: 768px) {
@@ -101,6 +120,10 @@
 
       .form-group label {
         margin-bottom: 8px;
+      }
+
+      .container {
+        padding: 40px 24px;
       }
     }
   </style>
@@ -117,21 +140,21 @@
         <input type="text" id="pet_name" name="pet_name" required>
       </div>
 
-      <div class="form-group">
-        <label>성별</label>
-        <div class="radio-group">
-          <label><input type="radio" name="pet_bog" value="수컷💙" required> 수컷💙</label>
-          <label><input type="radio" name="pet_bog" value="암컷💛" required> 암컷💛</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>중성화</label>
-        <div class="radio-group">
-          <label><input type="radio" name="pet_neuter" value="⭕" required> ⭕</label>
-          <label><input type="radio" name="pet_neuter" value="❌" required> ❌</label>
-        </div>
-      </div>
+	<div class="form-group">
+	  <label>성별</label>
+	  <div class="radio-group">
+	    <label><input type="radio" name="pet_bog" value="수컷💙"> 수컷💙</label>
+	    <label><input type="radio" name="pet_bog" value="암컷💛"> 암컷💛</label>
+	  </div>
+	</div>
+	
+	<div class="form-group">
+	  <label>중성화</label>
+	  <div class="radio-group">
+	    <label><input type="radio" name="pet_neuter" value="⭕"> ⭕</label>
+	    <label><input type="radio" name="pet_neuter" value="❌"> ❌</label>
+	  </div>
+	</div>
 
       <div class="form-group">
         <label for="pet_hbd">생일</label>
