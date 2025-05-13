@@ -27,6 +27,10 @@ public interface ItemsService {
 	void items_restore(@Param("item_id") int item_id); //판매종료 -> 판매중
 
 	int how_much(int item_id); //아이템 가격 조회
+
+	ItemsDTO items_modify(int modify); //아이템 수정(관리자용)
+
+	void modify_save(int item_id, String item_name, int item_cost, String item_category, String fname);
 	
 	
 

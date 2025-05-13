@@ -63,4 +63,17 @@
 		where item_id = #{item_id}
 	</select>
 	
+	<select id="items_modify" resultType="com.mbc.pet.items.ItemsDTO">
+		select item_id, item_name, item_cost, item_category, item_image from items where item_id = #{param1}
+	</select>
+	
+	<update id="modify_save">
+		update items
+		set item_name = #{param2},
+			item_cost = #{param3},
+			item_category = #{param4},
+			item_image = #{param5}
+		where item_id = #{param1}
+	</update>
+	
     </mapper>
