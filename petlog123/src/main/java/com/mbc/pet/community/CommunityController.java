@@ -108,7 +108,7 @@ public class CommunityController {
             System.out.println("DB 저장 중 예외 발생: " + e.getMessage());
             e.printStackTrace();
         }
-
+        
         return "redirect:/CommunityView";
     }
 
@@ -291,6 +291,10 @@ public class CommunityController {
         if ("notice".equals(dto.getPost_type())) {
             redirectUrl = "NoticeBoard";
         }
+        
+        System.out.println("이미지 삭제 경로: " + path + "\\" + dfname);
+        File oldFile = new File(path + "\\" + dfname);
+        System.out.println("파일 존재? " + oldFile.exists());
 
         out.println("<script>alert('게시글이 삭제되었습니다.'); location.href='" + redirectUrl + "';</script>");
     }
