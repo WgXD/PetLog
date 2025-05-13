@@ -126,16 +126,16 @@
       <th>제목</th>
       <td><input type="text" name="post_title" value="${dto.post_title}" style="width:100%; padding:8px;" readonly></td>
     </tr>
-    <tr>
-      <th>내용</th>
-      <td>
-        <div id="contentDiv" contenteditable="true">
-          ${dto.post_content}
-        </div>
-        <input type="hidden" name="post_content" id="hiddenContent">
-      </td>
-    </tr>
-  </table>
+ 
+	 <tr>
+	  <th>내용</th>
+	  <td>
+	    <div style="white-space: pre-line;">
+	      ${dto.post_content}
+	    </div>
+	  </td>
+	</tr>
+	  </table>
 
   <!-- 버튼 영역 -->
   <div class="btn-section">
