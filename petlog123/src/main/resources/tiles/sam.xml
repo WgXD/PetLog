@@ -176,6 +176,12 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/items/items_detail.jsp"/>
     </definition>  
+    
+    <!-- 아이템 수정(관리자용) -->
+    <definition name="items_modify" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/items/items_modify.jsp"/>
+    </definition>  
    
 	 <!-- 내 아이템 -->
 	<definition name="buy_items" extends="baseLayout">
@@ -255,7 +261,6 @@
       <put-attribute name="body" value="/WEB-INF/views/Community/CommunityModify.jsp"/>
    </definition>  
    
-   <!--  -->
    <definition name="CommunitySearchView" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Community/CommunitySearchView.jsp"/>

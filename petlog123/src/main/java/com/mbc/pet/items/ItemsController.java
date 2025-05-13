@@ -129,6 +129,7 @@ public class ItemsController {
     	mo.addAttribute("page", page);
 		mo.addAttribute("page_count", page_count);
 		mo.addAttribute("page_size", page_size);
+		mo.addAttribute("page_type", "admin");
 		//페이징 3 end
 
 	    return "items_out_admin";  //jsp 이름
@@ -293,4 +294,69 @@ public class ItemsController {
         return "redirect:/put_on_item"; // 다시 프레임 리스트로
     }
     
+    //아이템 수정(관리자용)
+    @RequestMapping(value = "/items_modify")
+    public String modify1(Model mo, HttpServletRequest request, HttpSession session) {
+    	
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+        
+        //예외처리
+        String param = request.getParameter("modify");
+        if (param == null || param.trim().equals("")) {
+            return "redirect:/items_out_admin?error=invalid_id";
+        }
+
+        int modify = Integer.parseInt(request.getParameter("modify"));
+        ItemsService is = sql.getMapper(ItemsService.class);
+        ItemsDTO dto = is.items_modify(modify);
+        mo.addAttribute("dto", dto);
+
+        return "items_modify"; // 다시 프레임 리스트로
+    }
+    
+    //아이템 수정 후 저장(관리자용)
+    @RequestMapping(value = "/modify_save")
+    public String modify2(MultipartHttpServletRequest mul, HttpSession session) throws IllegalStateException, IOException {
+    	
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_login_id = (String) session.getAttribute("user_login_id");
+
+        if (user_id == null || user_login_id == null) {
+            return "redirect:/login?error=login_required";
+        }
+
+        String path = mul.getSession().getServletContext().getRealPath("/image");
+        
+        int item_id = Integer.parseInt(mul.getParameter("item_id"));
+    	String item_name = mul.getParameter("item_name");
+    	int item_cost = Integer.parseInt(mul.getParameter("item_cost"));
+    	String item_category = mul.getParameter("item_category");
+    	MultipartFile mf = mul.getFile("item_image");
+    	String dfimage = mul.getParameter("himage");
+    	
+	    String fname = null;
+
+	    if (mf != null && !mf.isEmpty()) {
+	        fname = UUID.randomUUID().toString() + "_" + mf.getOriginalFilename();
+	        mf.transferTo(new File(path + "\\" + fname));
+
+	        if (dfimage != null && !dfimage.trim().equals("")) {
+	            File ff = new File(path + "\\" + dfimage);
+	            if (ff.exists()) ff.delete();
+	        }
+	    } else {
+	        fname = dfimage;
+	    }
+
+	    ItemsService is = sql.getMapper(ItemsService.class);
+	    
+	    is.modify_save(item_id,item_name,item_cost,item_category,fname);
+
+        return "redirect:/items_out_admin"; // 다시 프레임 리스트로
+    }
 }

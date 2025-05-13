@@ -135,6 +135,7 @@
           <th>포도알</th>
           <th>카테고리</th>
           <th>아이템</th>
+          <th>수정</th>
           <th>상태 변경</th>
         </tr>
       </thead>
@@ -146,6 +147,7 @@
             <td>${it.item_cost}</td>
             <td>${it.item_category}</td>
             <td><img src="${pageContext.request.contextPath}/image/${it.item_image}" alt="아이템 이미지"></td>
+            <td> <a href="items_modify?modify=${it.item_id}&dfimage=${it.item_image}">✏️</a></td>
             <td>
               <form action="${pageContext.request.contextPath}/items_delete_admin" method="post" style="display:inline;">
                 <input type="hidden" name="delete" value="${it.item_id}">
@@ -164,12 +166,18 @@
       </form>
     </div>
 
-    <div class="pagination">
-      <c:forEach var="i" begin="1" end="${page_count}">
-        <a href="items_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
-      </c:forEach>
-    </div>
-  </div>
+	<div class="pagination">
+	  <c:forEach var="i" begin="1" end="${page_count}">
+	    <c:choose>
+	      <c:when test="${page_type eq 'admin'}">
+	        <a href="items_out_admin?page=${i}" class="${i == page ? 'active' : ''}">${i}</a>
+	      </c:when>
+	      <c:otherwise>
+	        <a href="items_out?page=${i}" class="${i == page ? 'active' : ''}">${i}</a>
+	      </c:otherwise>
+	    </c:choose>
+	  </c:forEach>
+	</div>
 
 </body>
 </html>

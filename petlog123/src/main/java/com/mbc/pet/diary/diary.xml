@@ -138,4 +138,10 @@
 	  )
 	  WHERE ROWNUM = 1
 	</select>
+	
+	  <select id="petsbyuser" parameterType="int" resultType="com.mbc.pet.pet.PetDTO">
+	    SELECT pet_id, pet_name, pet_bog, pet_hbd, user_id, pet_img, pet_neuter
+	    FROM pet
+	    WHERE user_id = #{user_id}
+	  </select>
     </mapper>
