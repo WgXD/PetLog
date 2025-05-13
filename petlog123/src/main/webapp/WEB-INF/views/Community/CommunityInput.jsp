@@ -171,7 +171,7 @@
 
     <div class="form-group">
       <label for="post_image">사진 추가</label>
-      <input type="file" id="post_image" accept="image/*" onchange="insertImage()" multiple>
+      <input type="file" id="post_image" name="post_image" accept="image/*" onchange="insertImage()" multiple>
     </div>
 
     <div class="form-actions">
