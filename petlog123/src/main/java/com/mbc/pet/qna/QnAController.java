@@ -54,8 +54,6 @@ public class QnAController {
             return "redirect:/login?error=login_required";
         }
 		
-		//Integer user_id = (Integer) session.getAttribute("user_id");
-        //String user_login_id = (String) session.getAttribute("user_login_id");
         String qna_title = request.getParameter("qna_title");
         String qna_content = request.getParameter("qna_content");
         
