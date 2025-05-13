@@ -131,7 +131,7 @@
       <div class="snack-preview-box">
         <h3> 🦴 인기 레시피</h3>
         <div class="snack-slider-wrapper">
-          <button class="slide-button left" onclick="changeCommentSnack(-1)">←</button>
+    
        <c:forEach items="${topCommentSnacks}" var="snack" varStatus="status">
   <div class="snack-card ${status.index == 0 ? 'active' : ''}" id="comment-snack-${status.index}">		
 		    <img class="snack-image" src="${pageContext.request.contextPath}/image/${snack.snack_image}" />
