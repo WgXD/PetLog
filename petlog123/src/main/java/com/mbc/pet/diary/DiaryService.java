@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.access.method.P;
 
+import com.mbc.pet.pet.PetDTO;
+
 public interface DiaryService {
 
 
@@ -37,6 +39,8 @@ public interface DiaryService {
 	//로그인한 유저가 작성한 다이어리 달력에 출력하기 용
 
 	DiaryDTO getLatestDiary(Integer user_id);
+	
+    public ArrayList<PetDTO> petsbyuser(int user_id);
 	
 
 	
