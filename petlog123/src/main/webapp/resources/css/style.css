@@ -403,11 +403,12 @@ body.bg-mint {
 .tab-box {
   flex: 1;
   background-color: #fff;
-  border: 2px solid #f0d7ff;
+  border: none; /* ✅ 수정: 테두리 제거 */
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.05);
   height: 400px; /*추추*/
+  flex: 7;
 }
 
 /* ====== 탭 헤더 ====== */
@@ -415,7 +416,7 @@ body.bg-mint {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 2px;
 }
 
 .tabs {
@@ -426,7 +427,7 @@ body.bg-mint {
 .tab {
   padding: 6px 14px;
   background-color: #eee;
-  border-radius: 16px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
@@ -437,10 +438,6 @@ body.bg-mint {
 .tab.active {
   background-color: #fce4ec;
   color: #d81b60;
-}
-
-.tab-box {
-  flex: 7;
 }
 
 /* ====== 더보기 링크 ====== */
@@ -457,9 +454,15 @@ body.bg-mint {
 /* ====== 콘텐츠 패널 ====== */
 .tab-content > div {
   display: none;
+  margin: 0 !important; 
 }
 .tab-content > .active {
   display: block;
+}
+
+.tab-pane {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* ====== 중앙 박스 내용 스타일 ====== */
@@ -468,8 +471,11 @@ body.bg-mint {
   padding: 0;
   margin: 0;
 }
+
 .post-item, .snack-item {
   display: flex;
+  text-decoration: none;
+  color: #333; 
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px dashed #eee;
@@ -494,74 +500,127 @@ body.bg-mint {
   margin-left: 4px;
 }
 
-
 /* ===== 인기 간식 레시피 박스 ===== */
 .snack-preview-box {
   flex: 3;
   background-color: #fffaf0;
   border-radius: 16px;
-  padding: 20px 20px 20px 20px;/*추추 원래 20px*/
+  padding: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  height: 400px; /*추추*/
-  justify-content: space-between;/*추추*/
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.snack-slider-wrapper {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .snack-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  justify-content: space-between;/*추추*/
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  width: 95%;
+  height: 100%;
+  background-color: fffaf0;
+  border-radius: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.snack-card.active {
+  display: block;
+  opacity: 1;
 }
 
 .snack-image {
   width: 100%;
-  max-height: 180px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-bottom: 10px;
 }
 
-.snack-meta {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 14px;
-  color: #555;
+.snack-info {
+  padding: 0 5px;
+  text-align: left;
 }
 
 .snack-title {
   font-weight: bold;
-  color: #ff6f61;
+  color: #f57c00;
+  font-size: 15px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .snack-writer {
-  font-style: italic;
-  color: #888;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
 }
 
 .snack-content {
   font-size: 13px;
-  color: #444;
-  margin-top: 8px;
+  color: #333;
+  margin-bottom: 6px;
 }
 
 .snack-more {
-  margin-top: -5px; /*추추 원래 12px*/
+  font-size: 13px;
+  color: #1e88e5;
+  text-decoration: none;
+  display: block;
   text-align: right;
-  margin-bottom: 10px; /*추추*/
+  margin-top: 8px;
 }
 
-.snack-more a {
-  font-size: 13px;
-  text-decoration: none;
-  color: #d48182;
+.snack-button-box {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
 }
-.snack-more a:hover {
+
+/* 버튼 스타일 공통 */
+.slide-button {
+  background-color: rgba(152, 245, 225, 0.6);
+  border: none;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 10%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.2s ease;
+  background-color: #c4f0e1 !important;
+  color: #4aa397 !important;
+}
+
+.slide-button:hover {
+  background-color: rgba(152, 245, 225, 0.8);
+}
+
+.snack-item a {
+  color: #333 !important;          /* 기본 검정색 */
+  text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.snack-item a:hover {
+  color: #f57c00 !important;       /* 호버 시 강조색 */
   text-decoration: underline;
 }
-
-
 /*================ 우측 사이드 바 ================*/
 .right-info {
   width: 300px;
@@ -724,16 +783,19 @@ body.bg-mint {
 .diary-wrapper-box {
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 8px 20px 15px 20px; /*추추 원래20px*/
+  padding: 8px 20px 15px 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   margin-bottom: 10px;
   width: 300px;
-  height: 200px; /*추가 200->170*/
-  flex: none; /*추가 2->0.55->none 추추*/
-  margin-top: 0px; /*추추*/
-  align-self: flex-start; /*추추*/
-}
+  height: 200px;
+  flex: none;
+  margin-top: 20px;
+  align-self: flex-start;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .diary-box {
   background-color: #fff8f4;
   border-radius: 20px;
@@ -765,9 +827,8 @@ body.bg-mint {
 /*===== 퀴즈 =====*/
 .quiz-preview-box {
   background-color: #fff6fa;
-  border: 2px dashed #f48fb1;
   border-radius: 20px;
-  padding: 5px 20px 20px 20px; /*추추 원래20px*/
+  padding: 20px 20px 20px 20px; /*추추 원래20px*/
   flex: 1; /*추가 1->2.5->0.2*/
   text-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -795,6 +856,7 @@ body.bg-mint {
 }
 .quiz-start-button:hover {
   background-color: #ec407a;
+  
 }
 
 /*footer 고정*/

@@ -148,7 +148,7 @@
 
   <div class="pagination">
     <c:forEach var="i" begin="1" end="${page_count}">
-      <a href="QnAList?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
+      <a href="qnalist?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
     </c:forEach>
   </div>
 </div>

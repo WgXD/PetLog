@@ -122,31 +122,10 @@
 		delete from snack where snack_id = #{param1}
 	</delete>
 	
-	<!-- 간식 레시피 최신글 가져오기 -->
-	<select id="getsnackList" resultType="com.mbc.pet.snack.SnackDTO">
-		select * from 
-		( select s.snack_id, s.snack_title, s.snack_recipe, s.snack_image, to_char(s.snack_date,'yyyy-MM-dd')as snack_date, u.user_id, u.user_login_id
-			from snack s
-			join user1 u on u.user_id = s.user_id
-			order by s.snack_date desc)
-			where rownum &lt; = 5
-	</select>
-
-
-	<!-- 간식 레시피 랜덤 가져오기 -->
-	<select id="getSnackPreview" resultType="com.mbc.pet.snack.SnackDTO">
-		  SELECT s.snack_id, s.snack_title, s.snack_recipe, s.snack_image,
-		         TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
-		         s.user_id, u.user_login_id
-		  FROM snack s
-		  JOIN user1 u ON s.user_id = u.user_id
-		  WHERE ROWNUM &lt;= 5
-	</select>
-	
-   <!-- 조회수 증가 -->
-  <update id="readcnt">
-   	 update snack set snack_readcnt = snack_readcnt + 1 where snack_id = #{param1}
-  </update>
+<!-- 조회수 증가 -->
+<update id="readcnt">
+ 	 update snack set snack_readcnt = snack_readcnt + 1 where snack_id = #{param1}
+</update>
   
 <!-- 댓글 등록 -->
 <insert id="comment_insert" parameterType="map">
@@ -201,10 +180,69 @@
   )
 </insert>
 
-<!-- 좋아요 수 조회 (snack용) -->
-<select id="getLikeCount" resultType="int" parameterType="int">
-  SELECT COUNT(*) FROM likes
-  WHERE snack_id = #{snack_id}
+<!-- 좋아요 수 조회 -->
+<select id="getLikeCount" parameterType="int" resultType="int">
+    SELECT COUNT(*) FROM likes WHERE snack_id = #{snack_id}
+</select>
+
+<!-- 댓글 수 조회 -->
+<select id="getSnackCommentCount" resultType="int">
+  SELECT COUNT(*) FROM comments WHERE snack_id = #{param1}
+</select>
+
+<!-- 레시피 좋아요 수 조회 -->
+<select id="getSnackLikeCount" resultType="int">
+  SELECT COUNT(*) FROM likes WHERE snack_id = #{param1}
+</select>
+
+<!-- 간식 레시피 최신글 가져오기 -->
+<select id="getsnackList" resultType="com.mbc.pet.snack.SnackDTO">
+	select * from 
+	( select s.snack_id, s.snack_title, s.snack_recipe, s.snack_image, to_char(s.snack_date,'yyyy-MM-dd')as snack_date, u.user_id, u.user_login_id
+		from snack s
+		join user1 u on u.user_id = s.user_id
+		order by s.snack_date desc)
+		where rownum &lt; = 5
+</select>
+
+<!-- 간식 레시피 랜덤 가져오기 -->
+<select id="getSnackPreview" resultType="com.mbc.pet.snack.SnackDTO">
+	  SELECT s.snack_id, s.snack_title, s.snack_recipe, s.snack_image,
+	         TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+	         s.user_id, u.user_login_id
+	  FROM snack s
+	  JOIN user1 u ON s.user_id = u.user_id
+	  WHERE ROWNUM &lt;= 5
+</select>
+
+<!-- 간식 레시피 좋아요순 top10 → 커뮤니티 박스용 -->
+<select id="getTopSnackByLikes" resultType="com.mbc.pet.snack.SnackDTO">
+  SELECT *
+  FROM (
+    SELECT s.snack_id, s.snack_title, s.snack_recipe, s.snack_image,
+           TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+           s.user_id,
+           (SELECT user_login_id FROM user1 u WHERE u.user_id = s.user_id) AS user_login_id,
+           (SELECT COUNT(*) FROM likes l WHERE l.snack_id = s.snack_id) AS like_count
+    FROM snack s
+    ORDER BY (SELECT COUNT(*) FROM likes l WHERE l.snack_id = s.snack_id) DESC
+  )
+  WHERE ROWNUM &lt;= 10
+</select>
+
+<!-- 간식 레시피 댓글순 top10 → 오른쪽 박스용 (기본) -->
+<select id="getTopSnackByComments" resultType="com.mbc.pet.snack.SnackDTO">
+  SELECT *
+  FROM (
+    SELECT s.snack_id, s.snack_title, s.snack_recipe, s.snack_image,
+           TO_CHAR(s.snack_date, 'yyyy-MM-dd') AS snack_date,
+           s.user_id,
+           (SELECT user_login_id FROM user1 u WHERE u.user_id = s.user_id) AS user_login_id,
+           (SELECT COUNT(*) FROM comments c WHERE c.snack_id = s.snack_id) AS comment_count
+    FROM snack s
+    ORDER BY (SELECT COUNT(*) FROM comments c WHERE c.snack_id = s.snack_id) DESC
+  )
+  WHERE ROWNUM &lt;= 10
 </select>
 
 </mapper>

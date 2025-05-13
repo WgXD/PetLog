@@ -4,57 +4,57 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mbc.pet.community.CommunityService">
 
-  <!-- 댓글 매핑 -->
-  <resultMap id="commentsMap" type="com.mbc.pet.community.CommentsDTO">
-    <result property="com_id" column="com_id"/>
-    <result property="user_id" column="user_id"/>
-    <result property="user_login_id" column="user_login_id"/>
-    <result property="post_id" column="post_id"/>
-    <result property="com_com" column="com_com"/>
-    <result property="parent_id" column="parent_id"/>
-    <result property="depth" column="depth"/>
-    <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
-    <collection property="ctdto" ofType="com.mbc.pet.community.CommunityDTO" resultMap="communityMap"/>
-  </resultMap>
+<!-- 댓글 매핑 -->
+<resultMap id="commentsMap" type="com.mbc.pet.community.CommentsDTO">
+  <result property="com_id" column="com_id"/>
+  <result property="user_id" column="user_id"/>
+  <result property="user_login_id" column="user_login_id"/>
+  <result property="post_id" column="post_id"/>
+  <result property="com_com" column="com_com"/>
+  <result property="parent_id" column="parent_id"/>
+  <result property="depth" column="depth"/>
+  <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
+  <collection property="ctdto" ofType="com.mbc.pet.community.CommunityDTO" resultMap="communityMap"/>
+</resultMap>
 
-  <!-- 유저 매핑 -->
-  <resultMap id="petuserMap" type="com.mbc.pet.user.UserDTO">
-    <result property="user_id" column="user_id"/>
-    <result property="user_login_id" column="user_login_id"/>
-    <result property="user_password" column="user_password"/>
-    <result property="user_name" column="user_name"/>
-    <result property="user_phone" column="user_phone"/>
-    <result property="user_address" column="user_address"/>
-    <result property="profileimg" column="profileimg"/>
-    <result property="badge" column="badge"/>
-    <result property="rank" column="rank"/>
-    <result property="user_role" column="user_role"/>
-  </resultMap>
+<!-- 유저 매핑 -->
+<resultMap id="petuserMap" type="com.mbc.pet.user.UserDTO">
+  <result property="user_id" column="user_id"/>
+  <result property="user_login_id" column="user_login_id"/>
+  <result property="user_password" column="user_password"/>
+  <result property="user_name" column="user_name"/>
+  <result property="user_phone" column="user_phone"/>
+  <result property="user_address" column="user_address"/>
+  <result property="profileimg" column="profileimg"/>
+  <result property="badge" column="badge"/>
+  <result property="rank" column="rank"/>
+  <result property="user_role" column="user_role"/>
+</resultMap>
 
-  <!-- 게시글 매핑 -->
-  <resultMap id="communityMap" type="com.mbc.pet.community.CommunityDTO">
-    <result property="post_id" column="post_id"/>
-    <result property="post_title" column="post_title"/>
-    <result property="post_content" column="post_content"/>
-    <result property="post_image" column="post_image"/>
-    <result property="post_readcnt" column="post_readcnt"/>
-    <result property="post_date" column="post_date"/>
-    <result property="user_id" column="user_id"/>
-    <result property="user_login_id" column="user_login_id"/>
-    <result property="comment_count" column="comment_count"/>
-    <result property="like_count" column="like_count"/>
-    <result property="post_type" column="post_type"/>
-    <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
-    <collection property="cmdto" ofType="com.mbc.pet.community.CommentsDTO" resultMap="commentsMap"/>
-  </resultMap>
+<!-- 게시글 매핑 -->
+<resultMap id="communityMap" type="com.mbc.pet.community.CommunityDTO">
+  <result property="post_id" column="post_id"/>
+  <result property="post_title" column="post_title"/>
+  <result property="post_content" column="post_content"/>
+  <result property="post_image" column="post_image"/>
+  <result property="post_readcnt" column="post_readcnt"/>
+  <result property="post_date" column="post_date"/>
+  <result property="user_id" column="user_id"/>
+  <result property="user_login_id" column="user_login_id"/>
+  <result property="comment_count" column="comment_count"/>
+  <result property="like_count" column="like_count"/>
+  <result property="post_type" column="post_type"/>
+  <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
+  <collection property="cmdto" ofType="com.mbc.pet.community.CommentsDTO" resultMap="commentsMap"/>
+</resultMap>
 
-  <!-- 게시글 등록 -->
-  <insert id="insertc">
-    insert into community
-    values(postnum_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0, sysdate, #{param5})
-  </insert>
+<!-- 게시글 등록 -->
+<insert id="insertc">
+  insert into community
+  values(postnum_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0, sysdate, #{param5})
+</insert>
 
-  <!-- 게시글 목록 (페이징 + 댓글수, 좋아요수 포함) -->
+<!-- 게시글 목록 (페이징 + 댓글수, 좋아요수 포함) -->
   <select id="outviewByType" resultMap="communityMap">
     SELECT * FROM (
         SELECT a.*, ROW_NUMBER() OVER (ORDER BY a.post_id DESC) AS rnum
@@ -80,128 +80,135 @@
 </select>
 
 <!-- 공지, 커뮤니티 갯수 조회 -->
- <select id="totalByType" resultType="int">
-   SELECT COUNT(*) FROM community WHERE post_type = #{post_type}
- </select>
+<select id="totalByType" resultType="int">
+  SELECT COUNT(*) FROM community WHERE post_type = #{post_type}
+</select>
 
-  <!-- 조회수 증가 -->
-  <update id="readcnt">
-    update community set post_readcnt = post_readcnt + 1 where post_id = #{param1}
-  </update>
+ <!-- 조회수 증가 -->
+<update id="readcnt">
+  update community set post_readcnt = post_readcnt + 1 where post_id = #{param1}
+</update>
 
-  <!-- 게시글 상세 -->
-  <select id="detailview" resultMap="communityMap">
-    select 
-      c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content, u.profileimg,
-      c.post_image, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') as post_date, 
-      c.post_type
-    from community c
-    join user1 u on c.user_id = u.user_id 
-    where c.post_id = #{param1}
-  </select>
+<!-- 게시글 상세 -->
+<select id="detailview" resultMap="communityMap">
+  select 
+    c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content, u.profileimg,
+    c.post_image, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') as post_date, 
+    c.post_type
+  from community c
+  join user1 u on c.user_id = u.user_id 
+  where c.post_id = #{param1}
+</select>
 
-  <!-- 수정, 삭제를 위한 유저 아이디 가져오기 -->
-  <select id="getPostById" resultType="com.mbc.pet.community.CommunityDTO">
-  	select post_id, user_id, post_title, post_content, post_image, post_date, post_type
-  	from community where post_id = #{post_id}
-  </select>
+<!-- 수정, 삭제를 위한 유저 아이디 가져오기 -->
+<select id="getPostById" resultType="com.mbc.pet.community.CommunityDTO">
+	select post_id, user_id, post_title, post_content, post_image, post_date, post_type
+	from community where post_id = #{post_id}
+</select>
+
+<!-- 게시글 삭제 -->
+<select id="deleteview" resultType="com.mbc.pet.community.CommunityDTO">
+ select c.post_id, c.post_title, c.post_content, c.post_image, c.post_readcnt,
+        to_char(c.post_date, 'yyyy-MM-dd') post_date, c.user_id, u.user_login_id
+ from community c
+ join user1 u on c.user_id = u.user_id
+ where c.post_id = #{param1}
+</select>
+
+<delete id="deletePost" parameterType="int">
+  delete from community where post_id = #{param1}
+</delete>
+
+<!-- 게시글 수정 -->
+<update id="modify">
+  update community set 
+    post_title = #{post_title}, 
+    post_content = #{post_content}, 
+    post_image = #{post_image}
+  where post_id = #{post_id}
+</update>
+
+<select id="modifyview" resultMap="communityMap">
+  select 
+    c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content,
+    c.post_image, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') as post_date,
+    c.post_type
+  from community c join user1 u on c.user_id = u.user_id 
+  where post_id = #{param1}
+</select>
+
+<!-- 검색 -->
+<select id="searchid" resultType="com.mbc.pet.community.CommunityDTO">
+  select post_id, post_title, post_content, post_readcnt, 
+  to_char(post_date, 'yyyy-MM-dd') post_date, user_id
+  from community where user_id like '%' || #{param1} || '%'
+</select>
+
+<select id="searchtitle" resultType="com.mbc.pet.community.CommunityDTO">
+  select post_id, post_title, post_content, post_readcnt,
+  to_char(post_date, 'yyyy-MM-dd') post_date, user_id
+  from community where post_title like '%' || #{param1} || '%'
+</select>
+
+<select id="searchcontent" resultType="com.mbc.pet.community.CommunityDTO">
+  select post_id, post_title, post_content, post_readcnt,
+  to_char(post_date, 'yyyy-MM-dd') post_date, user_id
+  from community where post_content like '%' || #{param1} || '%'
+</select>
+
+<!-- 댓글 등록 -->
+<insert id="insertco" parameterType="com.mbc.pet.community.CommentsDTO">
+  insert into comments ( com_id, user_id, post_id, com_com, parent_id, depth, snack_id )
+	values ( comment_seq.nextval, #{psdto.user_id}, #{ctdto.post_id}, #{com_com}, #{parent_id},
+  #{depth}, #{snack_id, jdbcType=INTEGER} )
+</insert>
+
+<!-- 댓글 조회 -->
+<select id="getCommentsByPostId" resultMap="commentsMap">
+ select cm.com_id, u.user_id, u.user_login_id,
+        cm.snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
+ from comments cm
+ join user1 u on cm.user_id = u.user_id
+ where cm.post_id = #{post_id}
+ order by
+   case when cm.parent_id = 0 then cm.com_id else cm.parent_id end,
+   cm.depth asc,
+   cm.com_id asc
+</select>
+
+<!-- 전체 글 수 -->
+<select id="total" resultType="int">
+  select count(*) from community
+</select>
+
+<!-- 좋아요 여부 확인 -->
+<select id="check_like" resultType="int">
+  select case when count(*) > 0 then 1 else 0 end 
+  from likes where user_id = #{user_id} and post_id = #{post_id}
+</select>
+
+<!-- 좋아요 등록 -->
+<insert id="insert_like">
+  insert into likes (like_id, user_id, post_id, user_login_id)
+  values (likesnum_seq.nextval, #{param1}, #{param2}, #{param3})
+</insert>
+
+<!-- 게시판 좋아요 수 조회 -->
+<select id="getLikeCount" resultType="int">
+  select count(*) from likes where post_id = #{param1}
+</select>
+
+<!--게시판  댓글 수 조회 -->
+<select id="getSnackCommentCount" resultType="int">
+  SELECT COUNT(*) FROM comments WHERE snack_id = #{param1}
+</select>
+
+
+<select id="getUserRole" resultType="String">
+  SELECT user_role FROM user1 WHERE user_id = #{user_id}
+</select>
   
-  <!-- 게시글 삭제 -->
-  <select id="deleteview" resultType="com.mbc.pet.community.CommunityDTO">
-	  select c.post_id, c.post_title, c.post_content, c.post_image, c.post_readcnt,
-	         to_char(c.post_date, 'yyyy-MM-dd') post_date, c.user_id, u.user_login_id
-	  from community c
-	  join user1 u on c.user_id = u.user_id
-	  where c.post_id = #{param1}
-  </select>
-
-  <delete id="deletePost" parameterType="int">
-    delete from community where post_id = #{param1}
-  </delete>
-
-  <!-- 게시글 수정 -->
-  <update id="modify">
-    update community set 
-      post_title = #{post_title}, 
-      post_content = #{post_content}, 
-      post_image = #{post_image}
-    where post_id = #{post_id}
-  </update>
-
-  <select id="modifyview" resultMap="communityMap">
-    select 
-      c.post_id, u.user_id, u.user_login_id, c.post_title, c.post_content,
-      c.post_image, c.post_readcnt, to_char(c.post_date, 'yyyy-MM-dd') as post_date,
-      c.post_type
-    from community c join user1 u on c.user_id = u.user_id 
-    where post_id = #{param1}
-  </select>
-
-  <!-- 검색 -->
-  <select id="searchid" resultType="com.mbc.pet.community.CommunityDTO">
-    select post_id, post_title, post_content, post_readcnt, 
-    to_char(post_date, 'yyyy-MM-dd') post_date, user_id
-    from community where user_id like '%' || #{param1} || '%'
-  </select>
-
-  <select id="searchtitle" resultType="com.mbc.pet.community.CommunityDTO">
-    select post_id, post_title, post_content, post_readcnt,
-    to_char(post_date, 'yyyy-MM-dd') post_date, user_id
-    from community where post_title like '%' || #{param1} || '%'
-  </select>
-
-  <select id="searchcontent" resultType="com.mbc.pet.community.CommunityDTO">
-    select post_id, post_title, post_content, post_readcnt,
-    to_char(post_date, 'yyyy-MM-dd') post_date, user_id
-    from community where post_content like '%' || #{param1} || '%'
-  </select>
-
-  <!-- 댓글 등록 -->
-  <insert id="insertco" parameterType="com.mbc.pet.community.CommentsDTO">
-    insert into comments ( com_id, user_id, post_id, com_com, parent_id, depth, snack_id )
-  	values ( comment_seq.nextval, #{psdto.user_id}, #{ctdto.post_id}, #{com_com}, #{parent_id},
-    #{depth}, #{snack_id, jdbcType=INTEGER} )
-  </insert>
-
-  <!-- 댓글 조회 -->
-  <select id="getCommentsByPostId" resultMap="commentsMap">
-	  select cm.com_id, u.user_id, u.user_login_id,
-	         cm.snack_id, cm.com_com, cm.parent_id, cm.depth, u.profileimg
-	  from comments cm
-	  join user1 u on cm.user_id = u.user_id
-	  where cm.post_id = #{post_id}
-	  order by
-	    case when cm.parent_id = 0 then cm.com_id else cm.parent_id end,
-	    cm.depth asc,
-	    cm.com_id asc
-  </select>
-
-  <!-- 전체 글 수 -->
-  <select id="total" resultType="int">
-    select count(*) from community
-  </select>
-
-  <!-- 좋아요 여부 확인 -->
-  <select id="check_like" resultType="int">
-    select case when count(*) > 0 then 1 else 0 end 
-    from likes where user_id = #{user_id} and post_id = #{post_id}
-  </select>
-
-  <!-- 좋아요 등록 -->
-  <insert id="insert_like">
-    insert into likes (like_id, user_id, post_id, user_login_id)
-    values (likesnum_seq.nextval, #{param1}, #{param2}, #{param3})
-  </insert>
-
-  <!-- 좋아요 수 조회 -->
-  <select id="getLikeCount" resultType="int">
-    select count(*) from likes where post_id = #{param1}
-  </select>
-
-  <select id="getUserRole" resultType="String">
-	SELECT user_role FROM user1 WHERE user_id = #{user_id}
-  </select>
-  
+ <!-- 인기 게시물 조회 -->
 <select id="getPopularPosts" resultType="com.mbc.pet.community.CommunityDTO">
   SELECT *
   FROM (
@@ -228,7 +235,7 @@
       c.post_date,
       c.post_type
   )
-  WHERE rn &lt; = 7
+  WHERE rn &lt; = 9
 </select>
   
   
@@ -241,7 +248,7 @@
 		  where post_type = 'notice' 
 		  group by c.post_id, c.post_title, c.post_readcnt, c.post_date, u.user_id, u.user_login_id
 		  order by post_date desc )
-	where rownum &lt; = 7
+	where rownum &lt; = 9
 </select>
   
 </mapper>

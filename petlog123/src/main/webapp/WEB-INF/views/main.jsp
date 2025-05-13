@@ -127,27 +127,33 @@
   </div>
  
  
- <!-- 오른쪽: 인기 간식 레시피 박스 -->
-<div class="half-box snack-preview-box">
-  <h3>🍪 인기 간식 레시피</h3>
-  <c:forEach items="${popularSnacks}" var="snack" begin="0" end="0"> <!-- 하나만 출력 -->
-    <div class="snack-card">
-      <img class="snack-image" src="${pageContext.request.contextPath}/image/${snack.snack_image}" alt="snack" />
-      <div class="snack-info">
-        <div class="snack-meta">
-          <span class="snack-title">${snack.snack_title}</span>
-          <span>&nbsp;</span>
-          <span class="snack-writer">by ${snack.user_login_id}</span>
-        </div>
-        <p class="snack-content">${fn:substring(snack.snack_recipe, 0, 30)}...</p>
-      </div>
-    </div><br><br>
-  </c:forEach>
-  <div class="snack-more"><a href="snack_detail?dnum=${rec.snack_id}">전체 보기 →</a></div>
-</div>
-</div>
-</section>
+<!-- 오른쪽: 인기 간식 레시피 박스 -->
+      <div class="snack-preview-box">
+        <h3> 🦴 인기 레시피</h3>
+        <div class="snack-slider-wrapper">
+          <button class="slide-button left" onclick="changeCommentSnack(-1)">←</button>
+       <c:forEach items="${topCommentSnacks}" var="snack" varStatus="status">
+  <div class="snack-card ${status.index == 0 ? 'active' : ''}" id="comment-snack-${status.index}">		
+		    <img class="snack-image" src="${pageContext.request.contextPath}/image/${snack.snack_image}" />
+		    <div class="snack-info">
+		      <div class="snack-title">${snack.snack_title}</div>
+		      <div class="snack-writer">by ${snack.user_login_id}</div>
+		      <p class="snack-content">${fn:substring(snack.snack_recipe, 0, 30)}...</p>
+		      <br>
+		      <a class="snack-more" href="snack_detail?dnum=${snack.snack_id}">전체 보기 →</a>
+		    </div>
+		  </div>
+		</c:forEach>
+		</div>
+ 		
+ 		<div class="snack-button-box">
+		  <button class="slide-button" onclick="changeCommentSnack(-1)">←</button>
+		  <button class="slide-button" onclick="changeCommentSnack(1)">→</button>
+		</div>
 
+      </div>
+    </div>
+  </section>
   <!-- 우측: 통합 캘린더 + 일정 -->
   <!-- 캘린더 박스 (로그인 상태) -->
  <aside class="right-info">
@@ -290,6 +296,7 @@
     }
   }
 </script>
+
 <!-- 캘린더 날짜 클릭 시 일정 표시 -->
 <script>
 function showSchedule(date) {
@@ -299,6 +306,37 @@ function showSchedule(date) {
       document.getElementById("scheduleContent").innerHTML = data;
     });
 }
+</script>
+
+<!-- 인기 간식 레시피 슬라이드용 스크립트 -->
+<script>
+let currentIndex = 0;
+let snackCards;
+
+function showSnack(index) {
+  snackCards.forEach((card, i) => {
+    if (i === index) {
+      card.style.display = 'block';
+      card.style.opacity = 1;
+    } else {
+      card.style.display = 'none';
+      card.style.opacity = 0;
+    }
+  });
+}
+
+function changeCommentSnack(step = 1) {
+  currentIndex = (currentIndex + step + snackCards.length) % snackCards.length;
+  showSnack(currentIndex);
+}
+
+window.onload = function () {
+  snackCards = document.querySelectorAll('.snack-card');
+  if (snackCards.length > 0) {
+    showSnack(currentIndex);
+    setInterval(() => changeCommentSnack(1), 5000);
+  }
+};
 </script>
 </body>
 </html>
