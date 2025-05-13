@@ -28,9 +28,7 @@ public class CommunityController {
 
 	@Autowired
 	SqlSession sqlSession;
-    //개발용 경로
-    //String path = "C:\\MBC12AI\\spring\\PetLog\\PetLog\\src\\main\\webapp\\image"; 
-
+    
     @RequestMapping(value = "/CommunityIn")
     public String cc(HttpSession session) {
     	// 로그인 체크

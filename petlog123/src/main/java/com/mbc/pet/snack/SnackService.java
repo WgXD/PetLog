@@ -28,8 +28,6 @@ public interface SnackService {
 
 	List<SnackDTO> getsnackList();
 
-	List<SnackDTO> getSnackPreview();
-
 	void readcnt(int dnum); //조회수
 
 	int check_like(@Param("user_id") Integer user_id, @Param("snack_id") int snack_id); //likes
@@ -41,6 +39,16 @@ public interface SnackService {
 	List<CommentsDTO> getCommentsBySnackId(int dnum);
 
 	void comment_insert(Map<String, Object> map);
+
+	List<SnackDTO> getTopSnackByLikes();
+
+	List<SnackDTO> getTopSnackByComments();
+
+	List<SnackDTO> getSnackPreview(); //레시피 인기 게시물
+
+
+
+
 	
 
 }

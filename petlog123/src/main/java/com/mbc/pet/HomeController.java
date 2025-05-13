@@ -113,11 +113,6 @@ public class HomeController {
             List<CommunityDTO> communityList = communityService.getPopularPosts(); // 커뮤니티 게시글 목록 가져오기
             model.addAttribute("csdto", communityList); // 커뮤니티 게시글을 모델에 추가
             
-            //간식레시피 목록 가져오기
-            SnackService snackService = sqlSession.getMapper(SnackService.class);
-            List<SnackDTO> snackList = snackService.getsnackList();
-            model.addAttribute("snackList", snackList);
-            
             //퀴즈 불러오기
             QuizService qs = sqlSession.getMapper(QuizService.class);
             QuizDTO quiz = qs.getLatestUnsolvedQuiz(user_id);
@@ -125,11 +120,19 @@ public class HomeController {
             if(quiz != null) {
             	model.addAttribute("quiz", quiz);
             } else model.addAttribute("noQuiz",true); //퀴즈 없으면 멘트 출력
+
+
+            SnackService ss = sqlSession.getMapper(SnackService.class);
             
-            //간식레시피 가져오기
-            List<SnackDTO> preview = snackService.getSnackPreview();
-            Collections.shuffle(preview); // 랜덤 섞기
-            model.addAttribute("popularSnacks", preview.subList(0, 1)); // 하나만 보여주기
+            List<SnackDTO> snackList = ss.getsnackList();
+            model.addAttribute("snackList", snackList);
+            
+	         // 좋아요 순
+	         List<SnackDTO> topLikeSnacks = ss.getTopSnackByLikes();
+	         model.addAttribute("topLikeSnacks", topLikeSnacks);
+	         // 댓글 순
+	         List<SnackDTO> topCommentSnacks = ss.getTopSnackByComments();
+	         model.addAttribute("topCommentSnacks", topCommentSnacks);
             
             //최근 일기 보여주기
             DiaryService diaryService = sqlSession.getMapper(DiaryService.class);
@@ -197,27 +200,40 @@ public class HomeController {
         for (int i = 1; i <= lastDate; i++) {
             dayCal.set(Calendar.DAY_OF_MONTH, i);
             String dateStr = sdf.format(dayCal.getTime());
-
             CalendarDayDTO day = new CalendarDayDTO();
             day.setDay(String.valueOf(i));
             day.setDate(dateStr);
             day.setHasSchedule(scheduleMap.getOrDefault(dateStr, false));
-
             week.add(day);
-
+            
             if (week.size() == 7) {
                 calendar.add(week);
                 week = new ArrayList<>();
             }
         }
-
         if (!week.isEmpty()) {
             while (week.size() < 7) {
                 week.add(new CalendarDayDTO());
             }
             calendar.add(week);
         }
-
         return calendar;
+    }
+    
+    //인기 레시피 출력.. ajax 요청
+    @ResponseBody
+    @RequestMapping(value = "/popular" , produces = "text/html; charset=UTF-8")
+    public void getPopularSnacks(@RequestParam("sort") String sortType) {
+    	SnackService ss = sqlSession.getMapper(SnackService.class);
+    	List<SnackDTO> list;
+    	
+    	if("like".equals(sortType)) {
+    		list = ss.getTopSnackByLikes();  //좋아요순
+    	} else if("comment".equals(sortType)) {
+    		list = ss.getTopSnackByComments(); //댓글순
+    	} else {
+    		list = ss.getSnackPreview();  //기본값(최신 or 무작위)
+    		Collections.shuffle(list);
+    	}
     }
 }
