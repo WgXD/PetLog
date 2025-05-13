@@ -30,9 +30,9 @@
       <div class="sidebar-icon">✏️</div>
       <div class="sidebar-label">다이어리</div>
     </div>
-    <div class="sidebar-box" onclick="location.href='${pageContext.request.contextPath}/calendar_view'">
+    <div class="sidebar-box" onclick="location.href='${pageContext.request.contextPath}/calendar_input'">
       <div class="sidebar-icon">📆</div>
-      <div class="sidebar-label">캘린더</div>
+      <div class="sidebar-label">일정</div>
     </div>
     <div class="sidebar-box" onclick="location.href='${pageContext.request.contextPath}/items/buy_items'">
       <div class="sidebar-icon">🛍️</div>
@@ -169,7 +169,7 @@
         </thead>
        <c:set var="todayStr" value="<%= java.time.LocalDate.now().toString() %>" />
 	
-	<tbody>
+	<tbody style="margin-bottom: 0 !important;">
 	  <c:forEach var="week" items="${calendar}">
 	    <tr>
 	      <c:forEach var="day" items="${week}">
@@ -216,8 +216,7 @@
         </c:otherwise>
       </c:choose>
     </div>
-  </div>
-  </
+</div>
 </c:if>
 
 <!-- 비로그인 상태 -->
@@ -230,6 +229,7 @@
       </div>
     </div>
  </aside>
+ 
 </c:if>
 
 <!-- 오늘의 다이어리 -->

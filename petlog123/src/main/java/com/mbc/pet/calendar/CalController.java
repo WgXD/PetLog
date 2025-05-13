@@ -98,6 +98,28 @@ public class CalController {
         		
 		return "calendar_input";
 	}
+	
+	@RequestMapping(value = "/calendar_input", method = RequestMethod.POST) //modal용
+	public String insertSchedule(HttpServletRequest request, HttpSession session) {
+	    
+	    Integer user_id = (Integer) session.getAttribute("user_id");
+	    String user_login_id = (String) session.getAttribute("user_login_id");
+
+	    if (user_id == null || user_login_id == null) {
+	        return "redirect:/login?error=login_required";
+	    }
+
+	    String cal_title = request.getParameter("cal_title");
+	    String cal_content = request.getParameter("cal_content");
+	    String cal_date = request.getParameter("cal_date"); // yyyy-MM-dd
+	    int pet_id = Integer.parseInt(request.getParameter("pet_id"));
+
+	    CalService cs = sqlSession.getMapper(CalService.class);
+	    cs.insertSchedule(cal_title, cal_content, cal_date, pet_id, user_id);
+
+	    return "redirect:/calendar_view"; // 작성 후 다시 달력으로
+	}
+
 
 	@RequestMapping(value = "/cal_save") //직접 추가한 일정 DB에 저장
 	public String cal2(HttpSession session, HttpServletRequest request) {

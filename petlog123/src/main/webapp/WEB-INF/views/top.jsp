@@ -91,17 +91,17 @@
         <a class="dropdown-toggle" data-toggle="dropdown" >🌸애견동반 핫플레이스 <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="place?category=cafe">카페</a></li>
-          <li class="divider"></li>
+       
           <li><a href="place?category=restaurant">식당</a></li>
-          <li class="divider"></li>
+          
           <li><a href="place?category=park"> 공원</a></li>
-          <li class="divider"></li>
+          
            <li><a href="place?category=playground"> 놀이터</a></li>
-           <li class="divider"></li>
+           
           <li><a href="place?category=camping">캠핑장</a></li>
-          <li class="divider"></li>
+          
           <li><a href="place?category=accommodation">숙소</a></li>
-          <li class="divider"></li>
+          
         </ul>
       </li>
         

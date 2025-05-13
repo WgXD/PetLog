@@ -754,13 +754,15 @@ body.bg-mint {
 .schedule-header {
     font-weight: bold;
     color: #5d5d5d;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .schedule-date {
     font-size: 14px;
     color: #777;
     margin-right: 5px;
+    margin-bottom: 1px;
+    display: inline;
 }
 
 .schedule-pet-name {
@@ -783,6 +785,7 @@ body.bg-mint {
     margin-top: 5px;
     color: #555;
 }
+
 /*===== 다이어리 =====*/
 .diary-wrapper-box {
   background-color: #ffffff;

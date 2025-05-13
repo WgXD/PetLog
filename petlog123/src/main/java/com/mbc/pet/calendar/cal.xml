@@ -102,4 +102,8 @@
 	  WHERE cal_id = #{param1}
 	</update>
 	
+	<insert id="insertSchedule"> <!-- modal -->
+	  INSERT INTO CALENDAR (CAL_ID, CAL_TITLE, CAL_CONTENT, CAL_DATE, PET_ID, USER_ID)
+	  VALUES (CAL_SEQ.NEXTVAL, #{param1}, #{param2}, TO_DATE(#{param3}, 'YYYY-MM-DD'), #{param4}, #{param5})
+	</insert>
 </mapper>

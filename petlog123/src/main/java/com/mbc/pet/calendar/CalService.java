@@ -47,4 +47,6 @@ public interface CalService {
 	void cal_delete(int delete);
 
 	void update_save(int cal_id, String cal_title, String cal_date, String cal_content, Integer user_id, int pet_id);
+
+	void insertSchedule(String cal_title, String cal_content, String cal_date, int pet_id, Integer user_id); //modal
 }
