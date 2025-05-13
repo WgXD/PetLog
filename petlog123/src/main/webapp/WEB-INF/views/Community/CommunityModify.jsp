@@ -4,130 +4,165 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>게시글 수정</title>
+<title>📘 게시글 수정</title>
 <style>
   body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #f8f9fa;
+    background-color: #fff6f6;
     margin: 0;
     padding: 0;
-  }
-  table {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  caption {
-    caption-side: top;
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 20px;
-    background-color: #f1f1f1;
+    font-family: 'Pretendard', sans-serif;
     color: #333;
   }
-  th, td {
-    padding: 14px 12px;
-    border-bottom: 1px solid #ddd;
+
+  .container {
+    max-width: 1000px;
+    margin: 60px auto;
+    background-color: #fff;
+    padding: 50px 60px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
     text-align: center;
-    font-size: 0.95em;
+    font-size: 26px;
+    color: #f48aa5;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 30px;
   }
-  th {
-    background-color: #f5f5f5;
+
+  .form-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    flex: 0 0 120px;
+    font-weight: bold;
+    font-size: 15px;
     color: #555;
+    margin-top: 8px;
   }
+
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group textarea {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fffdfd;
+    font-family: 'Pretendard', sans-serif;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    height: 160px;
+  }
+
   #contentDiv {
-    width: 100%;
-    min-height: 300px;
+    flex: 1;
+    min-height: 200px;
     border: 1px solid #ccc;
+    border-radius: 6px;
     padding: 10px;
+    font-size: 15px;
+    line-height: 1.6;
     background: #fff;
-    text-align: left;
   }
-  .table-wrapper {
-  background-color: white;
-  width: 100%;
-  max-width: 5000px;
-  margin: 40px auto 80px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 30px;
+
+  .form-actions {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  input[type="submit"],
+  input[type="reset"] {
+    background-color: #f48aa5;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 15px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  input[type="submit"]:hover,
+  input[type="reset"]:hover {
+    background-color: #db7093;
+  }
+  
+    #contentDiv img {
+  max-width: 200px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 10px auto !important;
+  
 }
 </style>
 </head>
 <body>
-<form action="PostModifySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
-  <!-- 글 번호 hidden -->
-  <input type="hidden" name="mnum" value="${dto.post_id}">
-  <input type="hidden" name="himage" value="${dto.post_image}">
-  <input type="hidden" name="mid" value="${dto.user_id}">
-  
-  <div class="table-wrapper">
-<table>
-<caption>${dto.user_login_id}님의 수정 자료를 확인하세요.</caption>
-<tr>
-  <th>제목</th>
-  <td><input type="text" name="post_title" value="${dto.post_title}" required style="width:95%;"></td>
-</tr>
+<div class="container">
+  <h2 style="color: #f48aa5">📘 게시글 수정</h2>
+  <form action="PostModifySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
+    <input type="hidden" name="mnum" value="${dto.post_id}">
+    <input type="hidden" name="himage" value="${dto.post_image}">
+    <input type="hidden" name="mid" value="${dto.user_id}">
 
-<tr>
-  <th>내용</th>
-  <td>
-    <div id="contentDiv" contenteditable="true">
-      ${dto.post_content}
+    <div class="form-group">
+      <label for="post_title">제목</label>
+      <input type="text" name="post_title" id="post_title" value="${dto.post_title}" required>
     </div>
-    <input type="hidden" name="post_content" id="hiddenContent">
-  </td>
-</tr>
 
-<tr>
-  <th>사진</th>
-  <td>
-    <c:if test="${dto.post_image ne null and not empty dto.post_image and dto.post_image ne 'noimage.png'}">
-    </c:if>
-    <input type="file" id="post_image" name="post_image" accept="image/*" onchange="insertImage()" multiple>
-  </td>
-</tr>
+    <div class="form-group">
+      <label for="contentDiv">내용</label>
+      <div id="contentDiv" contenteditable="true">${dto.post_content}</div>
+      <input type="hidden" name="post_content" id="hiddenContent">
+    </div>
 
-<tr>
-  <td colspan="2" style="text-align:center;">
-    <input type="submit" value="수정">
-    <input type="reset" value="취소" onclick="history.back()">
-  </td> 
-</tr>
-</table>
+    <div class="form-group">
+      <label for="post_image">사진</label>
+      <input type="file" id="post_image" name="post_image" accept="image/*" onchange="insertImage()" multiple>
+    </div>
+
+    <div class="form-actions">
+      <input type="submit" value="💾 수정">
+      <input type="reset" value="❌ 취소" onclick="history.back()">
+    </div>
+  </form>
 </div>
-</form>
 <script>
-// 폼 전송 전에 div 내용을 hidden input에 복사
 function beforeSubmit() {
-    document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
-    return true;
+  document.getElementById('hiddenContent').value = document.getElementById('contentDiv').innerHTML;
+  return true;
 }
-// 파일 선택 시 이미지 삽입
 function insertImage() {
-    const files = document.getElementById('post_image').files;
-    const contentDiv = document.getElementById('contentDiv');
-    for (let i = 0; i < files.length; i++) {
-        if (files[i].name) { // 파일이 있으면
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.maxWidth = '80%';
-                img.style.height = 'auto';
-                img.style.display = 'block';
-                img.style.marginTop = '10px';
-                img.style.marginLeft = 'auto';
-                img.style.marginRight = 'auto';
-                contentDiv.appendChild(img);
-            }
-            reader.readAsDataURL(files[i]);
-        }
+  const files = document.getElementById('post_image').files;
+  const contentDiv = document.getElementById('contentDiv');
+  for (let i = 0; i < files.length; i++) {
+    if (files[i].name) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.maxWidth = '80%';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        img.style.marginTop = '10px';
+        img.style.marginLeft = 'auto';
+        img.style.marginRight = 'auto';
+        contentDiv.appendChild(img);
+      }
+      reader.readAsDataURL(files[i]);
     }
+  }
 }
 </script>
 </body>

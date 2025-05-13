@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,50 +8,59 @@
 
 <style>
   body {
-    background-color: #fefefe;
-    text-align: center;
-    padding: 0;
+    background-color: #fff6f6;
     margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
     color: #333;
   }
 
-  h2 {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #db7093;
-    margin-bottom: 30px;
-  }
-
-  .btn-back {
-    background-color: #f8d7da;
-    color: #a94442;
-    border: 1px solid #f5c6cb;
-    padding: 6px 14px;
-    font-size: 13px;
-    border-radius: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-
-  .btn-back:hover {
-    background-color: #f5c6cb;
-  }
-
   .table-wrapper {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 16px;
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto 80px auto;
+    border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 30px;
+  }
+
+  .back-btn-wrap {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .back-btn {
+    background-color: #ffe1e1;
+    color: #444;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  .back-btn:hover {
+    background-color: #ffd2d2;
+  }
+
+  h2 {
+    text-align: center;
+    color: #f48aa5;
+    font-weight: normal;
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 30px;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   th, td {
@@ -64,12 +73,7 @@
   th {
     background-color: #fff0f4;
     color: #555;
-    font-weight: 600;
-  }
-
-  td img {
-    max-width: 70px;
-    height: auto;
+    font-weight: bold;
   }
 
   td a {
@@ -79,47 +83,54 @@
   }
 
   td a:hover {
-    color: #db7093;
+    color: #d65b7b;
     text-decoration: underline;
+  }
+
+  td img {
+    max-width: 70px;
+    height: auto;
   }
 </style>
 </head>
 <body>
+  <div class="table-wrapper">
 
-<h2>📔 내 일기</h2>
+    <!-- 뒤로가기 버튼 줄 -->
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="history.back()">⬅ 뒤로가기</button>
+    </div>
 
-<div>
-  <input type="reset" value="⬅ 뒤로가기" onclick="history.back()" class="btn-back">
-</div>
+    <!-- 제목 줄 -->
+    <h2>📔 내 일기</h2>
 
-<div class="table-wrapper">
-  <table>
-    <thead>
-      <tr>
-        <th>글번호</th>
-        <th>이름</th>
-        <th>일기 제목</th>
-        <th>날짜</th>
-        <th>이미지</th>
-        <th>일기 내용</th>
-        <th>수정</th>
-        <th>삭제</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>${dto.diary_id}</td>
-        <td>${dto.pet_name}</td>
-        <td>${dto.diary_title}</td>
-        <td>${dto.diary_date.substring(0, 10)}</td>
-        <td><img src="./image/${dto.diary_image}" alt="일기 이미지" /></td>
-        <td>${dto.diary_content}</td>
-        <td><a href="diary_update?update=${dto.diary_id}&dfimage=${dto.diary_image}">✏️</a></td>
-        <td><a href="diary_delete?delete=${dto.diary_id}&dfimage=${dto.diary_image}">🗑️</a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <table>
+      <thead>
+        <tr>
+          <th>글번호</th>
+          <th>이름</th>
+          <th>일기 제목</th>
+          <th>날짜</th>
+          <th>이미지</th>
+          <th>일기 내용</th>
+          <th>수정</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${dto.diary_id}</td>
+          <td>${dto.pet_name}</td>
+          <td>${dto.diary_title}</td>
+          <td>${dto.diary_date.substring(0, 10)}</td>
+          <td><img src="./image/${dto.diary_image}" alt="일기 이미지" /></td>
+          <td>${dto.diary_content}</td>
+          <td><a href="diary_update?update=${dto.diary_id}&dfimage=${dto.diary_image}">✏️</a></td>
+          <td><a href="diary_delete?delete=${dto.diary_id}&dfimage=${dto.diary_image}">🗑️</a></td>
+        </tr>
+      </tbody>
+    </table>
 
+  </div>
 </body>
 </html>

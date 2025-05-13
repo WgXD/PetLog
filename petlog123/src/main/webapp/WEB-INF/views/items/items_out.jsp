@@ -3,142 +3,154 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Item Shop</title>
+  <meta charset="UTF-8">
+  <title>Item Shop</title>
+  <style>
+    body {
+      background-color: #fff6f6;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', sans-serif;
+      color: #333;
+    }
 
-<style>
-  body {
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #fefefe;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    text-align: center;
-  }
+    h2 {
+      text-align: center;
+      color: #f48aa5;
+      font-weight: normal;
+      font-size: 1.8em;
+      margin-bottom: 30px;
+    }
 
-  .table-wrapper {
-    width: 90%;
-    max-width: 1000px;
-    margin: 40px auto 80px auto;
-    background-color: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    padding: 30px;
-  }
+    .btn {
+      background-color: #ffe1e1;
+      color: #333;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 10px;
+      font-weight: normal;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
 
-  caption {
-    font-size: 2em;
-    font-weight: bold;
-    color: #db7093;
-    margin-bottom: 20px;
-  }
+    .btn:hover {
+      background-color: #ffd2d2;
+    }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
+    .table-wrapper {
+      background-color: white;
+      width: 100%;
+      max-width: 1000px;
+      margin: 40px auto 80px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 30px;
+    }
 
-  th, td {
-    padding: 14px 12px;
-    font-size: 1em;
-    border-bottom: 1px solid #eee;
-    text-align: center;
-  }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-  th {
-    background-color: #fff0f4;
-    color: #555;
-    font-weight: 600;
-  }
+    th, td {
+      padding: 14px 12px;
+      font-size: 1em;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+    }
 
-  td img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 12px;
-  }
+    th {
+      background-color: #fff0f4;
+      color: #555;
+      font-weight: bold;
+    }
 
-  td a {
-    font-size: 20px;
-    text-decoration: none;
-    color: #5e478e;
-  }
+    td img {
+      max-width: 70px;
+      height: auto;
+      border-radius: 12px;
+    }
 
-  td a:hover {
-    text-decoration: underline;
-  }
+    td a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+    }
 
-  .pagination {
-    margin-top: 30px;
-    text-align: center;
-  }
+    td a:hover {
+      color: #d65b7b;
+      text-decoration: underline;
+    }
 
-  .pagination a {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 8px 14px;
-    background-color: #f2e9ff;
-    color: #5e478e;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
+    .pagination {
+      width: 100%;
+      text-align: center;
+      margin: 40px 0;
+    }
 
-  .pagination a:hover {
-    background-color: #e0d2f7;
-  }
+    .pagination a {
+      margin: 0 6px;
+      padding: 6px 12px;
+      color: #888;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
 
-  .pagination a.current {
-    background-color: #d7c9f3;
-    color: white;
-  }
+    .pagination a.current {
+      background-color: #db7093;
+      color: #fff;
+      font-weight: bold;
+    }
 
-  h1 {
-    color: #db7093;
-    font-size: 2em;
-    margin-bottom: 30px;
-  }
-</style>
+    .pagination a:hover {
+      background-color: #ffe1e1;
+    }
+  </style>
 </head>
 <body>
 
-<div class="table-wrapper">
+  <div class="table-wrapper">
+    <h2 style="color: #f48aa5">🎁 Item SHOP 🎁</h2>
 
-  <caption>🎁 Item SHOP 🎁</caption>
-
-  <table>
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>아이템명</th>
-        <th>포도알</th>
-        <th>카테고리</th>
-        <th>아이템</th>
-        <th>아이템 구매</th>
-      </tr>
-    </thead>
-    <tbody>
-      <c:forEach items="${list}" var="it">
+    <table>
+      <thead>
         <tr>
-          <td>${it.item_id}</td>
-          <td>${it.item_name}</td>
-          <td>${it.item_cost}</td>
-          <td>${it.item_category}</td>
-          <td><img src="${pageContext.request.contextPath}/image/${it.item_image}" alt="아이템 이미지"></td>
-          <td><a href="items_detail?num=${it.item_id}">🛒</a></td>
+          <th>No.</th>
+          <th>아이템명</th>
+          <th>포도알</th>
+          <th>카테고리</th>
+          <th>아이템</th>
+          <th>아이템 구매</th>
         </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${list}" var="it">
+          <tr>
+            <td>${it.item_id}</td>
+            <td>${it.item_name}</td>
+            <td>${it.item_cost}</td>
+            <td>${it.item_category}</td>
+            <td><img src="${pageContext.request.contextPath}/image/${it.item_image}" alt="아이템 이미지"></td>
+            <td><a href="items_detail?num=${it.item_id}">🛒</a></td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <c:forEach var="i" begin="1" end="${page_count}">
+        <a href="items_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
       </c:forEach>
-    </tbody>
-  </table>
-
-  <div class="pagination">
-    <c:forEach var="i" begin="1" end="${page_count}">
-      <a href="items_out?page=${i}" class="${i == page ? 'current' : ''}">${i}</a>
-    </c:forEach>
+    </div>
   </div>
-
-</div>
 
 </body>
 </html>

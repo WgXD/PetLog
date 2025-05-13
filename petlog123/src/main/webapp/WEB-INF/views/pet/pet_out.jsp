@@ -60,8 +60,9 @@ body {
     display: block;
     width: 100%;
     text-align: center;
-    background-color: #6d5da7; /* 부드러운 보라색 */
-    color: white;
+    background-color: #6d5da7;
+    transition: background-color 0.3s ease;
+    color: #90cfc3;
     padding: 8px 0;
     border-radius: 20px;
     text-decoration: none;
@@ -70,7 +71,8 @@ body {
     margin-top: 10px;
 }
 .pet-button:hover {
-    background-color: #594789;
+	background-color: #7fbfb3;
+    text-decoration: none;
 }
 .pet-info {
     text-align: left;
@@ -87,7 +89,7 @@ body {
 <title>My pet</title>
 </head>
 <body>
-<header><h2>My pet</h2></header>
+<header><h2>My pet</h2></header><br>
 
 <c:if test="${empty list}">
   <p style="margin-top: 20px; font-weight: bold; color: #c0392b;">등록된 펫이 없습니다. 펫을 등록해주세요 🐾</p>
@@ -117,7 +119,7 @@ body {
             </div>
 
                 <!-- 펫 프로필 보기 버튼 -->
-                <a href="pet_detail?update1=${pet.pet_id}" class="pet-button">펫 프로필 보기</a>
+                <a href="pet_detail?update1=${pet.pet_id}" class="pet-button" style="background-color:  #e5f7f3;">펫 프로필 보기</a>
             </div>
         </c:forEach>
     </div>

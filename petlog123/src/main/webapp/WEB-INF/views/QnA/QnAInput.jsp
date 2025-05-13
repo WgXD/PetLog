@@ -1,74 +1,107 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>문의사항</title>
+  <title>📮 QnA 작성</title>
   <style>
     body {
+      background-color: #fff6f6;
       margin: 0;
       padding: 0;
+      font-family: 'Pretendard', sans-serif;
+      color: #333;
     }
 
-    .contact-form-container {
-      background-color: rgba(255, 255, 255, 0.95);
-      width: 420px;
-      margin: 100px auto;
-      padding: 35px 30px;
-      border-radius: 18px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    .container {
+      max-width: 700px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 50px 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 25px;
-      color: #444;
-      font-size: 24px;
+      font-size: 26px;
+      color: #f48aa5;
+      font-weight: normal;
+      margin-bottom: 30px;
     }
 
-    input, textarea {
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-sizing: border-box;
-      font-size: 14px;
-      transition: 0.3s;
+      padding: 12px 16px;
+      font-size: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fffdfd;
+      font-family: 'Pretendard', sans-serif;
+      transition: all 0.2s ease-in-out;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
-    input:focus, textarea:focus {
+    .form-group textarea {
+      resize: vertical;
+      height: 160px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #f48aa5;
+      box-shadow: 0 0 0 3px rgba(244, 138, 165, 0.2);
       outline: none;
-      border-color: #a0ded7; /* 민트 테두리 */
-      box-shadow: 0 0 5px rgba(160, 222, 215, 0.5);
     }
 
-    button {
-      width: 100%;
-      padding: 13px;
-      background-color: #d8f8f1; /* 파스텔 민트 */
-      color: #333;
+    .form-actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .form-actions button {
+      background-color: #f48aa5;
+      color: white;
       border: none;
+      padding: 12px 30px;
       border-radius: 10px;
       font-size: 15px;
-      font-weight: bold;
+      font-weight: normal;
+      margin: 0 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #bcebe1;
+    .form-actions button:hover {
+      background-color: #db7093;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 40px 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="contact-form-container">
-    <h2>QnA 작성</h2>
+  <div class="container">
+    <h2 style="color: #f48aa5">📮 QnA 작성</h2>
     <form action="submitContact" method="post">
-      <input type="text" name="qna_title" placeholder="제목을 입력하세요." required>
-      <textarea rows="5" name="qna_content" placeholder="내용을 입력하세요." required></textarea>
-      <button type="submit">등록</button>
+      <div class="form-group">
+        <input type="text" name="qna_title" placeholder="제목을 입력하세요." required>
+      </div>
+      <div class="form-group">
+        <textarea name="qna_content" placeholder="내용을 입력하세요." required></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit">💌 등록</button>
+        <button type="reset" onclick="history.back()">❌ 취소</button>
+      </div>
     </form>
   </div>
 </body>

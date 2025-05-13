@@ -36,7 +36,7 @@ public interface SnackService {
 
 	void insert_like(Map<String, Object> map);
 
-	List<CommentsDTO> getCommentsBySnackId(int dnum);
+	List<CommentsDTO> getCommentsBySnackId(@Param("snack_id") int dnum);
 
 	void comment_insert(Map<String, Object> map);
 
