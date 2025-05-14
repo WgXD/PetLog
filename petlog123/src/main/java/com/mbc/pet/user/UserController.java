@@ -61,6 +61,9 @@ public class UserController {
             dto.setEmail("noemail@none.com"); // 비정상 접근 대비
         }
 
+        if (dto.getUser_role() == null || dto.getUser_role().trim().isEmpty()) {
+            dto.setUser_role("user");
+        }
         if (dto.getRank() == null || dto.getRank().trim().isEmpty()) {
             dto.setRank("일반회원");
         }

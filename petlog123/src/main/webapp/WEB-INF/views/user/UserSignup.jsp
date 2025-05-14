@@ -149,7 +149,7 @@ input[type="password"]:focus {
   <!-- 회원가입 form 시작 -->
   <form id="signupForm" action="SignupSave" method="post" onsubmit="return validateForm()">
   	  	  <input type="hidden" name="email" id="fullEmail">
-  	  	  <input type="hidden" name="rank" value="일반회원">
+  	  	  <input type="hidden" name="role" value="일반회원">
   
     <!-- 아이디 입력 + 중복확인 -->
     <div class="form-group">
