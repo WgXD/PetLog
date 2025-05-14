@@ -10,22 +10,20 @@ public class PlaceDTO {
 	String category;
 	String place_latitude;
 	String place_longitude;
-	public int getRate() {
-		return rate;
-	}
-
-	public void setRate(int rate) {
-		this.rate = rate;
-	}
-
 	int place_id;
 	int rate;
 	
 	public PlaceDTO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}vn
+	
+	public int getRate() {
+		return rate;
 	}
-
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
 	public String getPlace_phone() {
 		return place_phone;
 	}
@@ -89,9 +87,4 @@ public class PlaceDTO {
 	public void setPlace_id(int place_id) {
 		this.place_id = place_id;
 	}
-	
-		
-	
-		
-		
 }
