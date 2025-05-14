@@ -146,7 +146,10 @@ input[type="password"]:focus {
 <div class="signup-wrapper">
 <h2>🐾 회원가입 하기</h2>
   <!-- 회원가입 form 시작 -->
-  <form action="SignupSave" method="post" onsubmit="return validateForm()">
+  <form id="signupForm" action="SignupSave" method="post" onsubmit="return validateForm()">
+  	  	  <input type="hidden" name="email" id="fullEmail">
+  	  	  <input type="hidden" name="rank" value="일반회원">
+  
     <!-- 아이디 입력 + 중복확인 -->
     <div class="form-group">
       <label for="id">아이디</label>
@@ -191,6 +194,7 @@ input[type="password"]:focus {
 	    </select>
 	    <button type="button" class="id-check-button" id="emailCheckBtn">중복확인</button>
 	  </div>
+
 	</div>
     <!-- 전송/취소 버튼 -->
     <div class="button-group">
@@ -240,38 +244,32 @@ function checkPasswordMatch() {
     msg.textContent = "";
   }
 }
-
-function validateForm() {
-  const pw = document.getElementById("password").value;
-  const cpw = document.getElementById("confirm_password").value;
-
-  if (pw !== cpw) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return false;
-  }
-  return true;
-}
 </script>
 
 <!-- 비밀번호 숫자, 문자 조합 8자 이상 -->
 <script>
-  function validateForm() {
-    const pw = document.getElementById("password").value;
-    const cpw = document.getElementById("confirm_password").value;
+function validateForm() {
+	  const pw = document.getElementById("password").value;
+	  const cpw = document.getElementById("confirm_password").value;
 
-    const pattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
-    if (!pattern.test(pw)) {
-      alert("비밀번호는 영문 + 숫자 조합으로 8자 이상이어야 합니다.");
-      return false;
-    }
+	  // 이메일 조합 → hidden input에 저장
+	  const emailId = document.getElementById("emailId").value.trim();
+	  const emailDomain = document.getElementById("emailDomain").value;
+	  document.getElementById("fullEmail").value = emailId + emailDomain;
 
-    if (pw !== cpw) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return false;
-    }
+	  const pattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+	  if (!pattern.test(pw)) {
+	    alert("비밀번호는 영문 + 숫자 조합으로 8자 이상이어야 합니다.");
+	    return false;
+	  }
 
-    return true;
-  }
+	  if (pw !== cpw) {
+	    alert("비밀번호가 일치하지 않습니다.");
+	    return false;
+	  }
+
+	  return true;
+	}
 </script>
 <!-- 전화번호 하이픈(-) 자동 포맷 -->
 <script>
