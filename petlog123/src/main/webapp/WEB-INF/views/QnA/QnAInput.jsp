@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>📮 QnA 작성</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -90,7 +90,7 @@
 </head>
 <body>
   <div class="container">
-    <h2 style="color: #f48aa5">📮 QnA 작성</h2>
+    <h2 style="color: #f48aa5">📮 Q&A 작성하기</h2>
     <form action="submitContact" method="post">
       <div class="form-group">
         <input type="text" name="qna_title" placeholder="제목을 입력하세요." required>

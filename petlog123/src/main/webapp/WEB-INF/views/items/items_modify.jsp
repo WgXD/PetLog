@@ -4,7 +4,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>아이템 수정하기</title>
   <style>
     body {
       background-color: #fff6f6;

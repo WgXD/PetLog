@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>애견 동반 장소 목록</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #fff6f6; padding: 40px; }
@@ -66,7 +65,7 @@
 <div class="place-container">
   <div class="header">
     <h2>
-      🐶 애견 동반 
+      🐶 동반 가능 
       <c:choose>
         <c:when test="${category == 'cafe'}">카페</c:when>
         <c:when test="${category == 'restaurant'}">식당</c:when>

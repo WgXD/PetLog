@@ -4,7 +4,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>내 일기</title>
 
 <style>
   body {
@@ -18,7 +17,7 @@
   .table-wrapper {
     background-color: white;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 40px auto 80px auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -104,27 +103,40 @@
     <!-- 제목 줄 -->
     <h2>📔 내 일기</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th>글번호</th>
-          <th>이름</th>
-          <th>일기 제목</th>
-          <th>날짜</th>
-          <th>이미지</th>
-          <th>일기 내용</th>
-          <th>수정</th>
-          <th>삭제</th>
-        </tr>
+      <table>
+
+      <colgroup>
+    <col style="width: 5%;">   <!-- 글번호 -->
+    <col style="width: 10%;">  <!-- 이름 -->
+    <col style="width: 10%;">  <!-- 일기 제목 -->
+    <col style="width: 10%;">  <!-- 날짜 -->
+    <col style="width: 10%;">  <!-- 이미지 -->
+    <col style="width: 45%;">  <!-- 일기 내용 -->
+    <col style="width: 5%;"> 
+    <col style="width: 5%;">  
+  </colgroup>
+  <thead>
+    <tr>
+      <th>이름</th>
+      <th>일기 제목</th>
+      <th>날짜</th>
+      <th>이미지</th>
+      <th>일기 내용</th>
+      <th>수정</th>
+      <th>삭제</th>
+    </tr>
       </thead>
       <tbody>
         <tr>
-          <td>${dto.diary_id}</td>
           <td>${dto.pet_name}</td>
           <td>${dto.diary_title}</td>
           <td>${dto.diary_date.substring(0, 10)}</td>
           <td><img src="./image/${dto.diary_image}" alt="일기 이미지" /></td>
-          <td>${dto.diary_content}</td>
+          <td>
+          <div style="white-space: pre-line; text-align: center; width: 100%; min-height: 100px; padding: 10px;">
+	      ${dto.diary_content}
+          </div>
+          </td>
           <td><a href="diary_update?update=${dto.diary_id}&dfimage=${dto.diary_image}">✏️</a></td>
           <td><a href="diary_delete?delete=${dto.diary_id}&dfimage=${dto.diary_image}">🗑️</a></td>
         </tr>

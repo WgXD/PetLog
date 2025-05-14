@@ -4,7 +4,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>🐶 오늘의 퀴즈 🐱</title>
 
 <style>
   body {

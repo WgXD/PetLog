@@ -5,7 +5,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>아이템 착용</title>
+
 <style>
   body {
     font-family: 'Pretendard', sans-serif;

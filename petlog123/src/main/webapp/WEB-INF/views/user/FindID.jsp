@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
   body {
@@ -118,7 +118,7 @@
 
 <div class="wrapper">
   <div class="find-box">
-    <h2>아이디 찾기</h2>
+    <h2>👩 아이디 찾기</h2>
     <form id="findIdForm">
     
       <div class="input-group">

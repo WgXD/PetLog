@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>펫 정보 입력하기 🐾</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -131,7 +131,7 @@
 <body>
 
   <div class="container">
-    <h2>펫 정보 입력하기 🐾</h2>
+    <h2>🐾 펫 등록하기</h2>
 
     <form action="pet_save" method="post" enctype="multipart/form-data">
 

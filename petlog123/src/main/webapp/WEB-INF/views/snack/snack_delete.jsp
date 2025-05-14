@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>🍪 레시피 삭제하기</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -99,7 +99,7 @@
 </head>
 <body>
   <div class="container">
-    <h2 style="color: #f48aa5">🍪 레시피 삭제하기</h2>
+    <h2 style="color: #f48aa5">🦴 레시피 삭제하기</h2>
 
     <form action="delete_recipe" method="post" enctype="multipart/form-data" onsubmit="return confirm_delete()">
       <input type="hidden" name="snack_id" value="${dto.snack_id}">

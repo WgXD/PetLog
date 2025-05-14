@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>My 아이템</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -116,7 +116,7 @@
     <button class="back-btn" onclick="history.back()">⬅ 뒤로가기</button>
   </div>
 
-  <h2>💝 My 아이템 💝</h2>
+  <h2>💝 내 아이템</h2>
 
   <c:if test="${empty list}">
     <p class="center-text">아직 구매한 아이템이 없습니다.</p>

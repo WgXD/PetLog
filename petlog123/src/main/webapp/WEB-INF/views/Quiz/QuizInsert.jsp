@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>퀴즈 문제 등록</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -105,7 +105,7 @@
 <body>
 
 <div class="container">
-  <h2 style="color: #f48aa5">📄 퀴즈 문제 등록 🐾</h2>
+  <h2 style="color: #f48aa5">📄 퀴즈 등록하기</h2>
 
   <form action="QuizInsertSave" method="post">
     <div class="form-group">

@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>QnA 상세 보기</title>
+
   <style>
     body {
       font-family: "Pretendard", sans-serif;
@@ -147,7 +147,7 @@ table tr:first-child td {
 <div class="qna-box">
 
   <!-- 제목 줄 -->
-  <h2>📔 문의 상세 보기</h2>
+  <h2>📔 Q&A 상세보기</h2>
 
   <table>
     <tr>

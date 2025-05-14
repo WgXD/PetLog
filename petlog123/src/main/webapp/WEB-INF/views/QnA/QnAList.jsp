@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>QnA 목록</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -111,7 +111,7 @@
 </head>
 <body>
 <div class="table-wrapper">
-  <h2>📩 QnA 목록</h2>
+  <h2>📩 Q&A</h2>
 
   <div style="overflow: hidden; margin-bottom: 10px;">
     <a href="QnAinput" class="btn" style="float: right;">새 문의글 작성</a>

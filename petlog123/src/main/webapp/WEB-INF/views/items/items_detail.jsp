@@ -3,7 +3,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>아이템 구매</title>
 
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -113,7 +112,7 @@
 <body>
 
   <div class="table-wrapper">
-    <h2 style="color: #f48aa5">🎁 아이템 구매</h2>
+    <h2 style="color: #f48aa5">🎁 아이템 구매하기</h2>
 
     <table>
       <tr>

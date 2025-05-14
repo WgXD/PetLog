@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>퀴즈 결과</title>
+
   <style>
     body {
       background-color: #fff6f6;

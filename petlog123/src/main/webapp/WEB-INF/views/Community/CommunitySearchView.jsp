@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>검색 결과</title>
+
 <style>
   body {
     background-color: #fff6f6;

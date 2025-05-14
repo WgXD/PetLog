@@ -4,7 +4,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>포도알 랭킹</title>
 
 <style>
   body {

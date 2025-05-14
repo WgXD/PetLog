@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PetLog 메인</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css?v=2">
 </head>
 <body>
@@ -24,7 +23,7 @@
     </div>
     <div class="sidebar-box" onclick="location.href='${pageContext.request.contextPath}/stamp_grapes'">
       <div class="sidebar-icon">🍇</div>
-      <div class="sidebar-label">포도알 ${sessionScope.loginUser.grape_count}개</div>
+      <div class="sidebar-label">내 포도알</div>
     </div>
     <div class="sidebar-box" onclick="location.href='${pageContext.request.contextPath}/diary_out'">
       <div class="sidebar-icon">✏️</div>
@@ -234,7 +233,7 @@
 
 <!-- 오늘의 다이어리 -->
 <div class="diary-wrapper-box">
-  <h3>📓 오늘의 다이어리</h3>
+  <h3>📓 오늘의 일기</h3>
   <c:if test="${not empty recentDiary}">
     <p class="diary-title">${recentDiary.diary_title}</p>
     <p class="diary-date">${fn:substringBefore(recentDiary.diary_date, ' ')}</p>
@@ -243,13 +242,13 @@
     <a href="diary_detail?diary_id=${recentDiary.diary_id}" class="diary-link">전체 보기 →</a>
   </c:if>
   <c:if test="${empty recentDiary}">
-    <p>작성한 다이어리가 없습니다. 오늘 일기를 써보세요!</p>
+    <p>작성한 일기가 없습니다. 오늘 일기를 써보세요!</p>
   </c:if>
 </div>
         
 	<!-- 퀴즈 출력 부분 -->
     <div class="quiz-preview-box">
-	  <h3>🧠 오늘의 퀴즈</h3>
+	  <h3>🧠 오늘의 멍냥 퀴즈</h3>
 	  <p class="quiz-question">${quiz.quiz_question}</p>
 	  <p class="quiz-note" style="margin-bottom: 10px;">※ 전체 보기는 퀴즈에서 확인하세요!</p>
 	  <a href="${pageContext.request.contextPath}/quiz" class="quiz-start-button">도전하러 가기 →</a>

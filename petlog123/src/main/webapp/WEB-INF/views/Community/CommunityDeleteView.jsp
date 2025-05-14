@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>📕 게시글 삭제 확인</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -120,7 +120,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>📕 게시글 삭제 확인</h2>
+    <h2>📕 게시글 삭제하기</h2>
 
     <form action="DetailSave" method="post" enctype="multipart/form-data">
       <input type="hidden" name="post_id" value="${dto.post_id}">

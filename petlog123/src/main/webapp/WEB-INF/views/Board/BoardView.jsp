@@ -5,7 +5,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>PetLog 공지사항</title>
 
 <style>
   body {

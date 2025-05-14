@@ -19,7 +19,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>포도송이 성장 게이지</title>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
     <style>
@@ -242,7 +242,7 @@
 
 <div class="main-box">
     <div class="grape-label-flex">
-        <span class="grape-label-text">내 포도</span>
+        <span class="grape-label-text">🍇 내 포도</span>
     </div><br><br><br>
 
     <div class="grape-bar-wrapper">

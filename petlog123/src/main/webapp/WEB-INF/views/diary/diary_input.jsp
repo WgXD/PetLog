@@ -6,7 +6,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>📔 오늘의 일기 작성</title>
   <style>
     body {
       background-color: #fff6f6;
@@ -129,7 +128,7 @@
 </head>
 <body>
   <div class="container">
-    <h2 style="font-weight: normal">📔 오늘의 일기 작성</h2>
+    <h2 style="font-weight: normal">📔 일기 쓰기</h2>
     <div class="pet-count">
       등록한 반려동물 : <strong style="color:#8dd3c7">${fn:length(list)}마리</strong>
     </div>

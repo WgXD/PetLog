@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>📢 공지사항 작성</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -96,7 +96,7 @@
 <body>
   <div class="container">
     <form action="CommunitySave" method="post" enctype="multipart/form-data">
-      <h2 style="color: #f48aa5">📢 공지사항 작성</h2>
+      <h2 style="color: #f48aa5">📢 공지사항 작성하기</h2>
       <table>
         <c:if test="${sessionScope.user_role eq 'admin'}">
           <tr>

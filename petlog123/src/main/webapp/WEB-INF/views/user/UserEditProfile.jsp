@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원정보수정</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
@@ -95,7 +95,7 @@ h1 {
 </head>
 <body>
 <div class="container">
-    <h1>회원정보수정</h1>
+    <h1>👩 회원정보 수정하기</h1>
     <form action="updateProfile" method="post" enctype="multipart/form-data" onsubmit="return combineEmailBeforeSubmit()">
         <input type="hidden" name="user_login_id" value="${dto.user_login_id}">
 
