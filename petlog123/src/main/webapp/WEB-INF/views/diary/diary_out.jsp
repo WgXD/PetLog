@@ -162,7 +162,7 @@
       <th>이미지</th>
       <th>일기 내용</th>
     </tr>
-
+</thead>
         <tbody>
           <c:forEach items="${list}" var="di">
             <tr>
