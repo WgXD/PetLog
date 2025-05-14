@@ -157,117 +157,6 @@
 		th.sat {
 		  color: #8bb3f4; /* 연한 파랑 */
 		}
-		
-.modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-box-summary {
-  background-color: #e6fbf6; /*민트*/
-  padding: 36px 28px; /*간격*/
-  border-radius: 20px; 
-  width: 420px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  position: relative;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-box-summary h3 {
-  font-size: 22px;
-  color: #6ac9bb; /* 민트 계열 제목 */
-  margin-bottom: 18px; /*간격*/
-  text-align: center;
-}
-
-.modal-box-summary label {
-  display: block;
-  font-weight: bold;
-  margin-top: 4px;
-  margin-bottom: 1px;
-  color: #444;
-  font-size: 14px;
-}
-
-.modal-box-summary input[type="text"],
-.modal-box-summary input[type="date"],
-.modal-box-summary select,
-.modal-box-summary textarea {
-  width: 100%;
-  margin-top: 6px;
-  padding: 8px 12px;
-  margin-bottom: 4px;
-  font-size: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fffefe;
-  font-family: 'Pretendard', sans-serif;
-  box-sizing: border-box;
-}
-
-.modal-box-summary textarea {
-  resize: vertical;
-  height: 70px;
-}
-
-.modal-box-summary .submit-btn {
-  background-color: #88ddd0; /*mint button*/
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  margin-top: 6px;
-  margin-bottom: 2px;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
-}
-
-.modal-box-summary .submit-btn:hover {
-  background-color: #5ec2b1;
-}
-
-.close-btn {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #aaa;
-  transition: 0.2s;
-}
-
-.close-btn:hover {
-  color: #6ac9bb;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-		
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-		
     </style>
 </head>
 <body>
@@ -289,7 +178,7 @@
   </form>
 
   <div style="margin-top: 16px;">
-    <button type="button" class="schedule-add-btn" onclick="openAddScheduleModal()">➕ 일정 추가</button>
+    <a href="calendar_input" class="schedule-add-btn">➕ 일정 추가</a>
   </div>
 </div>
 <br>
@@ -356,55 +245,6 @@
 %>
     </tr>
 </table>
-
-<!-- 일정 추가 모달 -->
-<div id="addScheduleModal" class="modal" style="display:none;">
-  <div class="modal-box-summary">
-    <button class="close-btn" onclick="closeAddScheduleModal()">×</button>
-    <h3>일정 추가</h3>
-    <form action="calendar_input" method="post">
-       <label>반려동물
-        <select name="pet_id" required>
-          <option value="">선택하세요</option>
-          <c:forEach var="pet" items="${petlist}">
-            <option value="${pet.pet_id}">${pet.pet_name}</option>
-          </c:forEach>
-        </select>
-      </label><br>
-      
-      <label>제목 
-        <input type="text" name="cal_title" placeholder="제목 입력" required />
-      </label><br>
-      
-      <label>내용 
-        <textarea name="cal_content" rows="3" placeholder="내용 입력" required></textarea>
-      </label><br>
-      
-      <label>날짜 
-        <input type="date" name="cal_date" required />
-      </label><br>
-      
-      <button type="submit" class="submit-btn">저장</button>
-    </form>
-  </div>
-</div>
-
-<script>
-  function openAddScheduleModal() {
-    document.getElementById("addScheduleModal").style.display = "flex";
-  }
-
-  function closeAddScheduleModal() {
-    document.getElementById("addScheduleModal").style.display = "none";
-  }
-
-  window.onclick = function(event) {
-    const modal = document.getElementById("addScheduleModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-</script>
 
 </body>
 </html>
