@@ -16,7 +16,7 @@ public class PlaceDTO {
 	public PlaceDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}vn
+	}
 	
 	public int getRate() {
 		return rate;
