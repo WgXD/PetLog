@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>문의 완료</title>
+
   <style>
     body {
       text-align: center;
@@ -61,7 +61,7 @@
 <body>
 
   <div class="btn-top">
-    <a href="${pageContext.request.contextPath}/QnAinput" class="btn btn-green">새 QnA</a>
+    <a href="${pageContext.request.contextPath}/QnAinput" class="btn btn-green">새 Q&A</a>
   </div>
 
   <div class="box">

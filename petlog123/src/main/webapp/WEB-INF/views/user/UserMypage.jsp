@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+
 <style>
 
 body {
@@ -123,7 +123,7 @@ h3 {
 </head>
 <body>
 <div class="container">
-    <h1>마이페이지</h1>
+    <h1>🐾 마이페이지</h1>
     <div class="profile-frame-container">
         <c:choose>
             <c:when test="${empty equippedFrame}">

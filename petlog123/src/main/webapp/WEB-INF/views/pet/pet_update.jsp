@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>펫 정보 수정하기 🐾</title>
+ 
   <style>
     body {
       background-color: #fff6f6;
@@ -126,7 +126,7 @@
 <body>
 
   <div class="container">
-    <h2 style="color: #f48aa5">펫 정보 수정하기 🐾</h2>
+    <h2 style="color: #f48aa5">🐾 펫 수정하기</h2>
 
     <form action="pet_update_save" method="post" enctype="multipart/form-data" onsubmit="return confirm_update()">
       <input type="hidden" name="himage" value="${dto.pet_img}">

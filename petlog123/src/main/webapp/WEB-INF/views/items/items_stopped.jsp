@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>판매 종료 아이템</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -86,7 +86,7 @@
 <body>
 
   <div class="table-wrapper">
-    <h2 style="color: #f48aa5">🛑 판매 종료된 아이템 목록</h2>
+    <h2 style="color: #f48aa5">🎈 판매 종료 아이템</h2>
 
     <c:if test="${empty list}">
       <p class="no-data">판매 종료된 아이템이 없습니다.</p>

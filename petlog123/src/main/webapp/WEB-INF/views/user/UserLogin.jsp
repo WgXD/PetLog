@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+
 <style>
 /* 기존 스타일 유지 */
 .login-wrapper {
@@ -94,7 +94,7 @@ input[type="password"]:focus {
 </c:if>
 
 <div class="login-wrapper">
-  <h2>로그인</h2>
+  <h2>🔑 로그인</h2>
   <form action="LoginSave" method="post">
     <div class="form-group">
       <label for="user_login_id">아이디</label>

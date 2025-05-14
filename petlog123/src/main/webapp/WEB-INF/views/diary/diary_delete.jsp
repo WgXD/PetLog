@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>📕 일기 삭제하기</title>
+
   <style>
     body {
       background-color: #fff6f6;

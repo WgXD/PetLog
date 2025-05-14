@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>수제 간식 레시피 공유하기</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -113,7 +113,7 @@
 <body>
 
 <div class="container">
-  <h2>🍪 수제 간식 레시피 공유하기</h2>
+  <h2>🦴 레시피 공유하기</h2>
 
   <form action="snack_save" method="post" enctype="multipart/form-data">
     <div class="form-group">

@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>게시글 작성</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -140,7 +140,7 @@
 <body>
 
 <div class="container">
-  <h2 style="color: #f48aa5">📝 게시글 작성</h2>
+  <h2 style="color: #f48aa5">📝 게시글 작성하기</h2>
 
   <form action="CommunitySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
 

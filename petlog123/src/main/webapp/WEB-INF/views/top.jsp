@@ -6,7 +6,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PetLog</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -47,60 +46,36 @@
         </li>
 
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">🍇 내 포도<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/stamp_grapes">🍇 포도 키우기</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">🦴 수제 간식<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/snack_input">🍖 레시피 공유</a></li>
-            <li><a href="${pageContext.request.contextPath}/snack_out">🍖 레시피 보기</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">🐾 펫 관리<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/pet_input">🐶 펫 등록</a></li>
-            <li><a href="${pageContext.request.contextPath}/pet_out">🐱 펫 보기</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">🗨️ 커뮤니티<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="${pageContext.request.contextPath}/NoticeBoard">📢 PetLog 공지사항</a></li>
             <li><a href="${pageContext.request.contextPath}/CommunityView">📝 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath}/snack_input">🦴 레시피 공유</a></li>
+            <li><a href="${pageContext.request.contextPath}/snack_out">🦴 레시피 보기</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">🧠 멍냥 퀴즈방<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/QuizInput">🐾 오늘의 멍냥</a></li>
-            <c:if test="${sessionScope.user_role eq 'admin'}">
-              <li><a href="QuizInsertPage">📝 퀴즈 등록</a></li>
-            </c:if>
+            <li><a href="${pageContext.request.contextPath}/QuizInput">🐾 오늘의 멍냥 퀴즈</a></li>
           </ul>
         </li>
         
        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" >🌸애견동반 핫플레이스 <span class="caret"></span></a>
+        <a class="dropdown-toggle" data-toggle="dropdown" >🌸 플레이스 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="place?category=cafe">카페</a></li>
+          <li><a href="place?category=cafe">☕ 카페</a></li>
        
-          <li><a href="place?category=restaurant">식당</a></li>
+          <li><a href="place?category=restaurant">🍽️ 식당</a></li>
           
-          <li><a href="place?category=park"> 공원</a></li>
+          <li><a href="place?category=park">🌳 공원</a></li>
           
-           <li><a href="place?category=playground"> 놀이터</a></li>
+           <li><a href="place?category=playground">🎠 놀이터</a></li>
            
-          <li><a href="place?category=camping">캠핑장</a></li>
+          <li><a href="place?category=camping">⛺ 캠핑장</a></li>
           
-          <li><a href="place?category=accommodation">숙소</a></li>
+          <li><a href="place?category=accommodation">🛏️ 숙소</a></li>
           
         </ul>
       </li>
@@ -112,9 +87,11 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">👑 관리자<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="${pageContext.request.contextPath}/items_input">👑 아이템 등록</a></li>
-              <li><a href="${pageContext.request.contextPath}/items_out_admin">👑 아이템 목록</a></li>
-              <li><a href="${pageContext.request.contextPath}/point/grapes_admin_form">👑 포도알 관리</a></li>
+              <li><a href="${pageContext.request.contextPath}/BoardInput">📢 공지사항 작성하기</a></li>
+              <li><a href="${pageContext.request.contextPath}/items_input">🎁 아이템 등록</a></li>
+              <li><a href="${pageContext.request.contextPath}/items_out_admin">🎁 아이템 목록</a></li>
+              <li><a href="${pageContext.request.contextPath}/QuizInsertPage">📄 퀴즈 등록하기</a></li>
+              <li><a href="${pageContext.request.contextPath}/point/grapes_admin_form">🍇 포도알 관리</a></li>
             </ul>
           </li>
         </c:if>
@@ -125,8 +102,7 @@
           <c:when test="${loginstate}">
             <li><a href="${pageContext.request.contextPath}/mypage">${name}님의 마이페이지</a></li>
             <li style="padding-top:15px; color:#9B59B6;">🍇 ${sessionScope.loginUser.grape_count}개</li>
-            <li><a href="${pageContext.request.contextPath}/calendar_view">달력 보기</a></li>
-            <li><a href="${pageContext.request.contextPath}/pet_out">펫 정보</a></li>
+            <li><a href="${pageContext.request.contextPath}/pet_input">펫 등록</a></li>
             <li><a href="${pageContext.request.contextPath}/items/buy_items">내 아이템</a></li>
             <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
           </c:when>

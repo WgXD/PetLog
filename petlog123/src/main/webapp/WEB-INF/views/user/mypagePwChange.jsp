@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 변경</title>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 <style>
@@ -83,7 +83,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>비밀번호 변경</h2>
+    <h2>👩 비밀번호 변경하기</h2>
     <form id="pwChangeForm">
       <div class="input-group">
         <label for="newPw">새 비밀번호</label>

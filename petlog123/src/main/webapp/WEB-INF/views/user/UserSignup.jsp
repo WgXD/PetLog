@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+
 <style>
 /* 전체 폼 감싸는 부분 */
 .signup-wrapper {
@@ -144,7 +144,7 @@ input[type="password"]:focus {
 </head>
 <body>
 <div class="signup-wrapper">
-<h2>회원가입</h2>
+<h2>🐾 회원가입 하기</h2>
   <!-- 회원가입 form 시작 -->
   <form action="SignupSave" method="post" onsubmit="return validateForm()">
     <!-- 아이디 입력 + 중복확인 -->

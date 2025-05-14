@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>📅 일정 등록</title>
 
 <style>
   body {
@@ -116,7 +115,7 @@
 </c:if>
 
 <div class="container">
-  <h2>📅 일정 등록</h2>
+  <h2>📅 일정 등록하기</h2>
 
   <form action="cal_save" method="post">
 

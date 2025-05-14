@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일정 수정</title>
 
 <style>
   body {

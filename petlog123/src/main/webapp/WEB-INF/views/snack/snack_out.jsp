@@ -5,7 +5,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>수제 간식 레시피</title>
 
 <%
 	Integer userId = (Integer) session.getAttribute("user_id");
@@ -135,7 +134,7 @@ th, td {
 </head>
 <body>
 <div class="table-wrapper">
-  <h2 style="color:	#f48aa5">🍩 수제 간식 레시피</h2>
+  <h2 style="color:	#f48aa5">🦴 레시피 보기</h2>
 
   <c:if test="${empty list}">
     <p class="no-recipe">작성된 레시피가 없습니다. 🍪</p>

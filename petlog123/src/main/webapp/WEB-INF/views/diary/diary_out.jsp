@@ -4,7 +4,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>일기 보기</title>
 
 <%
     com.mbc.pet.user.UserDTO loginUser = (com.mbc.pet.user.UserDTO) session.getAttribute("loginUser");
@@ -50,21 +49,24 @@
   .table-wrapper {
     background-color: white;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 40px auto 80px auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 30px;
+    align-items: center; 
   }
 
   table {
     width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
     margin-top: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     border-radius: 8px;
     overflow: hidden;
+    text-align: center;
   }
 
   th, td {
@@ -136,7 +138,7 @@
 </head>
 <body>
   <div class="table-wrapper">
-    <h2 style="color: #f48aa5">📔 나의 일기 보기</h2>
+    <h2 style="color: #f48aa5">📔 일기 보기</h2>
 
     <!-- 버튼: 항상 보여주되, float + margin으로 간격 확보 -->
     <div style="overflow: hidden; margin-bottom: 10px;">
@@ -146,25 +148,35 @@
     <!-- 일기 목록이 있을 때만 테이블 출력 -->
     <c:if test="${not empty list}">
       <table>
-        <thead>
-          <tr>
-            <th>글번호</th>
-            <th>이름</th>
-            <th>일기 제목</th>
-            <th>날짜</th>
-            <th>이미지</th>
-            <th>일기 내용</th>
-          </tr>
-        </thead>
+
+      <colgroup>
+    <col style="width: 10%;">  <!-- 이름 -->
+    <col style="width: 20%;">  <!-- 일기 제목 -->
+    <col style="width: 10%;">  <!-- 날짜 -->
+    <col style="width: 15%;">  <!-- 이미지 -->
+    <col style="width: 45%;">  <!-- 일기 내용 -->
+  </colgroup>
+  <thead>
+    <tr>
+      <th>이름</th>
+      <th>일기 제목</th>
+      <th>날짜</th>
+      <th>이미지</th>
+      <th>일기 내용</th>
+    </tr>
+</thead>
         <tbody>
           <c:forEach items="${list}" var="di">
             <tr>
-              <td>${di.diary_id}</td>
               <td>${di.pet_name}</td>
               <td><a href="diary_detail?diary_id=${di.diary_id}">${di.diary_title}</a></td>
               <td>${di.diary_date}</td>
               <td><img src="./image/${di.diary_image}" alt="일기 이미지"></td>
-              <td>${di.diary_content}</td>
+	          <td>
+	          <div style="white-space: pre-line; text-align: center; width: 100%; min-height: 100px; padding: 10px;">
+		      ${di.diary_content}
+	          </div>
+	          </td>
             </tr>
           </c:forEach>
         </tbody>

@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>게시물 상세보기</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -182,15 +182,13 @@ ${dto.user_login_id}님의 게시물</h2>
 <tr>
   <th>내용</th>
   <td>
-    <div id="contentDiv"
-         style="width:100%; min-height:300px;  padding:10px;">
-      
-      ${dto.post_content}
-      
-      <c:if test="${empty dto.post_content and dto.post_image ne null and not empty dto.post_image}">
-        <br>
-        <img src="./image/${dto.post_image}">
-      </c:if>
+	    <div style="white-space: pre-line; text-align: center; width: 100%; min-height: 300px; padding: 10px;">
+	      ${dto.post_content}
+
+  <c:if test="${empty dto.post_content and dto.post_image ne null and not empty dto.post_image}">
+    <br>
+    <img src="./image/${dto.post_image}">
+  </c:if>
 </div>
   </td>
 </tr>

@@ -4,7 +4,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>아이템 등록</title>
   <style>
     body {
       background-color: #fff6f6;
@@ -133,7 +132,7 @@
 %>
 
 <div class="container">
-  <h2 style="color: #f48aa5">🎈 아이템 등록</h2>
+  <h2 style="color: #f48aa5">🎈 아이템 등록하기</h2>
 
   <form action="items_save" method="post" enctype="multipart/form-data">
 

@@ -4,7 +4,6 @@
 <html lang="utf-8">
 <head>
 <meta charset="UTF-8">
-<title>포도알 관리</title>
 
 <style>
   body {

@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Item Shop</title>
+
   <style>
     body {
       background-color: #fff6f6;
@@ -118,7 +118,7 @@
 <body>
 
   <div class="table-wrapper">
-    <h2 style="color: #f48aa5">🎁 Item SHOP 🎁</h2>
+    <h2 style="color: #f48aa5">🎁 아이템 상점</h2>
 
     <table>
       <thead>

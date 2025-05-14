@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>📘 게시글 수정</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -110,7 +110,7 @@
 </head>
 <body>
 <div class="container">
-  <h2 style="color: #f48aa5">📘 게시글 수정</h2>
+  <h2 style="color: #f48aa5">📘 게시글 수정하기</h2>
   <form action="PostModifySave" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmit()">
     <input type="hidden" name="mnum" value="${dto.post_id}">
     <input type="hidden" name="himage" value="${dto.post_image}">

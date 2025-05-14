@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>간식 레시피 상세보기</title>
+
 <style>
   body {
     background-color: #fff6f6;
@@ -154,7 +154,7 @@
 <table>
 <caption>
   <img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
-  ${dto.user_login_id}님의 간식 레시피
+  ${dto.user_login_id}님의 간식 레시피 🦴
 </caption>
 
 <tr>
@@ -174,11 +174,15 @@
 </tr>
 <tr>
   <th>레시피 내용</th>
-  <td>${dto.snack_recipe}</td>
+	  <td>
+	    <div style="white-space: pre-line;">
+	      ${dto.snack_recipe}
+	    </div>
+	  </td>
 </tr>
 <tr>
   <th>이미지</th>
-  <td><img src="./image/${dto.snack_image}" width="200px"/></td>
+  <td><img src="./image/${dto.snack_image}" width="300px"/></td>
 </tr>
 <tr>
   <th>작성자</th>
