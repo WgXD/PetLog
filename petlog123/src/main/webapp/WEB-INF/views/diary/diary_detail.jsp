@@ -106,9 +106,8 @@
       <table>
 
       <colgroup>
-    <col style="width: 5%;">   <!-- 글번호 -->
     <col style="width: 10%;">  <!-- 이름 -->
-    <col style="width: 10%;">  <!-- 일기 제목 -->
+    <col style="width: 15%;">  <!-- 일기 제목 -->
     <col style="width: 10%;">  <!-- 날짜 -->
     <col style="width: 10%;">  <!-- 이미지 -->
     <col style="width: 45%;">  <!-- 일기 내용 -->

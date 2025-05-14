@@ -54,16 +54,19 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     padding: 30px;
+    align-items: center; 
   }
 
   table {
     width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
     margin-top: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     border-radius: 8px;
     overflow: hidden;
+    text-align: center;
   }
 
   th, td {
@@ -147,9 +150,8 @@
       <table>
 
       <colgroup>
-    <col style="width: 5%;">   <!-- 글번호 -->
     <col style="width: 10%;">  <!-- 이름 -->
-    <col style="width: 15%;">  <!-- 일기 제목 -->
+    <col style="width: 20%;">  <!-- 일기 제목 -->
     <col style="width: 10%;">  <!-- 날짜 -->
     <col style="width: 15%;">  <!-- 이미지 -->
     <col style="width: 45%;">  <!-- 일기 내용 -->
