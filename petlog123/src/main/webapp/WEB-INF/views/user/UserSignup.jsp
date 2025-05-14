@@ -6,13 +6,14 @@
 <style>
 /* 전체 폼 감싸는 부분 */
 .signup-wrapper {
-  max-width: 400px; /* ★ 작게 조정 */
+  max-width: 700px; /* ★ 작게 조정 */
   width: 90%;
   margin: 40px auto;
   background-color: #ffffff;
-  padding: 0; /* ★ padding 줄여서 더 아담하게 */
+  padding: 60px; /* ★ padding 줄여서 더 아담하게 */
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  align-items: center;
 }
 
 /* 제목 스타일 */
