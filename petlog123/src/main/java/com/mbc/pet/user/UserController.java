@@ -57,10 +57,13 @@ public class UserController {
         if (dto.getProfileimg() == null || dto.getProfileimg().trim().isEmpty()) {
             dto.setProfileimg("default.png");
         }
+        if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+            dto.setEmail("noemail@none.com"); // 비정상 접근 대비
+        }
+
         if (dto.getRank() == null || dto.getRank().trim().isEmpty()) {
             dto.setRank("일반회원");
         }
-
         PasswordEncoder pe = new BCryptPasswordEncoder();
         dto.setPassword(pe.encode(dto.getPassword()));
 
