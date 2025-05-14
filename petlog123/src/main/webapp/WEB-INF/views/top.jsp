@@ -62,6 +62,7 @@
           </ul>
         </li>
         
+<!--       
        <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" >🌸 플레이스 <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -79,7 +80,7 @@
           
         </ul>
       </li>
-        
+  -->         
 
         <li><a href="${pageContext.request.contextPath}/qnalist">❓ Q&A</a></li>
 
