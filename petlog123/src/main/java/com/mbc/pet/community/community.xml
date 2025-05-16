@@ -13,6 +13,7 @@
   <result property="com_com" column="com_com"/>
   <result property="parent_id" column="parent_id"/>
   <result property="depth" column="depth"/>
+  <result property="profileimg" column="profileimg"/>
   <collection property="psdto" ofType="com.mbc.pet.user.UserDTO" resultMap="petuserMap"/>
   <collection property="ctdto" ofType="com.mbc.pet.community.CommunityDTO" resultMap="communityMap"/>
 </resultMap>

@@ -252,7 +252,7 @@ ${dto.user_login_id}님의 게시물</h2>
     <c:set var="margin" value="${com.depth * 20}" />
     <div style="margin: 20px 0 0 calc(${margin}px); border-bottom: 1px solid #eee; padding: 10px 0; position: relative;">
       <div style="font-weight: bold; margin-bottom: 5px;">
-        <img src="${pageContext.request.contextPath}/image/${profileimg}" class="profile-img" />
+        <img src="${pageContext.request.contextPath}/image/${com.profileimg}" class="profile-img" />
         ${com.user_login_id}
       </div>
       <div style="margin-bottom: 10px;">💬 ${com.com_com}</div>
