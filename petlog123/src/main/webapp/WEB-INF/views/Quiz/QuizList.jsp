@@ -103,9 +103,11 @@
 </head>
 <body>
 
-<div class="quiz-insert-wrapper">
-  <a href="QuizInsertPage" class="quiz-insert-link">➕ 퀴즈 등록</a>
-</div>
+<c:if test="${sessionScope.user_role eq 'admin'}">
+  <div class="quiz-insert-wrapper">
+    <a href="QuizInsertPage" class="quiz-insert-link">➕ 퀴즈 등록</a>
+  </div>
+</c:if>
 
 <!-- ✅ 퀴즈 출력 -->
 <c:forEach items="${dto}" var="quiz">

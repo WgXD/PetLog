@@ -138,7 +138,6 @@ public class QuizController {
             point.setPoint_action("quiz"); // 적립 타입
             point.setPoint_action_id(quiz_id); // 퀴즈 ID 기준
             point.setPoint_earned_grapes(3); // 지급량
-
             ps.insert_point(point);
 
             // 유저 테이블 포도알 +3 업데이트
@@ -154,13 +153,17 @@ public class QuizController {
 	        int MyRank = qs.time_rank(quiz_id, user_id);
 	        redto.setResult_rank(MyRank);
 	        mo.addAttribute("redto", redto);
-	        mo.addAttribute("top10", qs.top10rank(quiz_id));  //top10 가져오기
         } else {
-        	mo.addAttribute("redto", null); //오답일 경우 순위 계산 x
-        	mo.addAttribute("top10", null); //오답일 경우 top10 결과 저장 x
+            mo.addAttribute("redto", null); // 오답일 경우 개인 기록은 null
         }
+
+        // ✅ 오답이더라도 TOP 10 랭킹은 항상 전달
+        mo.addAttribute("top10", qs.top10rank(quiz_id));
+
+        // 정답 여부 및 퀴즈 정보 전달
         mo.addAttribute("isCorrect", isCorrect);
-        mo.addAttribute("quiz", dbQuiz);  //퀴즈 오답시 정답 알려주기 dasom
+        mo.addAttribute("quiz", dbQuiz);
+
 
         return "QuizResult";
     }

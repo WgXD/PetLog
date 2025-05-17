@@ -120,7 +120,7 @@
 		  <c:when test="${empty sessionScope.user_id}">
 		    <p class="no-data-message">🔒 로그인 후 인기 게시물을 확인할 수 있습니다.</p>
 		  </c:when>
-		  <c:when test="${empty bodto}">
+		  <c:when test="${empty csdto}">
 		    <p class="no-data-message">📭 인기 게시물이 없습니다.</p>
 		  </c:when>
 		</c:choose>
@@ -141,7 +141,7 @@
 		  <c:when test="${empty sessionScope.user_id}">
 		    <p class="no-data-message">🔒 로그인 후 간식레시피를 확인할 수 있습니다.</p>
 		  </c:when>
-		  <c:when test="${empty bodto}">
+		  <c:when test="${empty snackList}">
 		    <p class="no-data-message">📭 등록 된 게시물이 없습니다.</p>
 		  </c:when>
 		</c:choose>
@@ -308,7 +308,7 @@
 	  <c:otherwise>
 	  <p class="quiz-question">${quiz.quiz_question}</p>
 	  <p class="quiz-note" style="margin-bottom: 10px;">※ 전체 보기는 퀴즈에서 확인하세요!</p>
-	  <a href="${pageContext.request.contextPath}/quiz" class="quiz-start-button">도전하러 가기 →</a>
+	  <a href="${pageContext.request.contextPath}/QuizInput" class="quiz-start-button">도전하러 가기 →</a>
 	  </c:otherwise>
 	 </c:choose>
 	</div>

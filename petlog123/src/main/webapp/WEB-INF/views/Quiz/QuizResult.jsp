@@ -137,71 +137,72 @@
 
 <div class="result-wrapper">
   <div class="result-box">
+  <c:choose>
+    <c:when test="${isCorrect}">
+      <p class="info">⌛ <strong>${redto.result_time}초 만에 풀었어요!</strong></p>
+      <p class="info">🏅 현재 순위: <strong>${redto.result_rank}위</strong></p>
+    </c:when>
+    <c:otherwise>
+      <p class="info">정답은 
+        <strong>
+          ${quiz.quiz_answer}번 - 
+          <c:choose>
+            <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
+            <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
+            <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
+            <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
+          </c:choose>
+        </strong> 입니다.
+      </p>
+    </c:otherwise>
+  </c:choose>
+</div>
+
+<!-- ✅ 정답/오답 상관없이 항상 출력되는 TOP10 -->
+<h3>🏆 TOP 10</h3>
+<table>
+  <tr>
+    <th>순위</th>
+    <th>유저</th>
+    <th>풀이시간</th>
+  </tr>
+  <c:forEach items="${top10}" var="row">
     <c:choose>
-      <c:when test="${isCorrect}">
-        <p class="info">⌛ <strong>${redto.result_time}초 만에 풀었어요!</strong></p>
-        <p class="info">🏅 현재 순위: <strong>${redto.result_rank}위</strong></p>
+      <c:when test="${row.result_rank == 1}">
+        <tr class="rank-gold">
+          <td>🥇 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:when>
+      <c:when test="${row.result_rank == 2}">
+        <tr class="rank-silver">
+          <td>🥈 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
+      </c:when>
+      <c:when test="${row.result_rank == 3}">
+        <tr class="rank-bronze">
+          <td>🥉 ${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
       </c:when>
       <c:otherwise>
-        <p class="info">정답은 
-          <strong>
-            ${quiz.quiz_answer}번 - 
-            <c:choose>
-              <c:when test="${quiz.quiz_answer == '1'}">${quiz.quiz_option1}</c:when>
-              <c:when test="${quiz.quiz_answer == '2'}">${quiz.quiz_option2}</c:when>
-              <c:when test="${quiz.quiz_answer == '3'}">${quiz.quiz_option3}</c:when>
-              <c:when test="${quiz.quiz_answer == '4'}">${quiz.quiz_option4}</c:when>
-            </c:choose>
-          </strong>
-          입니다.
-        </p>
+        <tr>
+          <td>${row.result_rank}위</td>
+          <td>${row.user_login_id}</td>
+          <td>${row.result_time}초</td>
+        </tr>
       </c:otherwise>
     </c:choose>
-  </div>
-
-  <h3>🏆 TOP 10</h3>
-  <table>
-    <tr>
-      <th>순위</th>
-      <th>유저</th>
-      <th>풀이시간</th>
-    </tr>
-    <c:forEach items="${top10}" var="row">
-      <c:choose>
-        <c:when test="${row.result_rank == 1}">
-          <tr class="rank-gold">
-            <td>🥇 ${row.result_rank}위</td>
-            <td>${row.user_login_id}</td>
-            <td>${row.result_time}초</td>
-          </tr>
-        </c:when>
-        <c:when test="${row.result_rank == 2}">
-          <tr class="rank-silver">
-            <td>🥈 ${row.result_rank}위</td>
-            <td>${row.user_login_id}</td>
-            <td>${row.result_time}초</td>
-          </tr>
-        </c:when>
-        <c:when test="${row.result_rank == 3}">
-          <tr class="rank-bronze">
-            <td>🥉 ${row.result_rank}위</td>
-            <td>${row.user_login_id}</td>
-            <td>${row.result_time}초</td>
-          </tr>
-        </c:when>
-        <c:otherwise>
-          <tr>
-            <td>${row.result_rank}위</td>
-            <td>${row.user_login_id}</td>
-            <td>${row.result_time}초</td>
-          </tr>
-        </c:otherwise>
-      </c:choose>
-    </c:forEach>
-  </table>
+  </c:forEach>
+</table>
 
   <a href="./QuizInput" class="btn-next">다음 문제 풀기 ➡</a>
 </div>
+
 
 </body>
 </html>

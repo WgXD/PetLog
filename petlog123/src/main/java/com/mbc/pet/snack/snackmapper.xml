@@ -203,7 +203,7 @@
 		from snack s
 		join user1 u on u.user_id = s.user_id
 		order by s.snack_date desc)
-		where rownum &lt; = 5
+		where rownum &lt; = 10
 </select>
 
 <!-- 간식 레시피 랜덤 가져오기 -->

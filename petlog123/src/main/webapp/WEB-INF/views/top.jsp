@@ -98,22 +98,32 @@
         </c:if>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <c:choose>
-          <c:when test="${loginstate}">
-            <li><a href="${pageContext.request.contextPath}/mypage">${name}님의 마이페이지</a></li>
-            <li style="padding-top:15px; color:#9B59B6;">🍇 ${sessionScope.loginUser.grape_count}개</li>
-            <li><a href="${pageContext.request.contextPath}/pet_input">펫 등록</a></li>
-            <li><a href="${pageContext.request.contextPath}/items/buy_items">내 아이템</a></li>
-            <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-          </c:when>
-          <c:otherwise>
-            <li><a href="${pageContext.request.contextPath}/userlogin">회원가입</a></li>
-            <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
-          </c:otherwise>
-        </c:choose>
-      </ul>
+<ul class="nav navbar-nav navbar-right">
+  <c:choose>
+    
+    <c:when test="${loginstate}">
+         
+      <c:if test="${sessionScope.user_role eq 'admin'}">
+        <li><a href="${pageContext.request.contextPath}/mypage">관리자 정보변경</a></li>
+        <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+      </c:if>
 
+      <c:if test="${sessionScope.user_role ne 'admin'}">
+        <li><a href="${pageContext.request.contextPath}/mypage">${name}님의 마이페이지</a></li>
+        <li style="padding-top:15px; color:#9B59B6;">🍇 ${sessionScope.loginUser.grape_count}개</li>
+        <li><a href="${pageContext.request.contextPath}/pet_input">펫 등록</a></li>
+        <li><a href="${pageContext.request.contextPath}/items/buy_items">내 아이템</a></li>
+        <li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+      </c:if>
+    </c:when>
+    
+    <c:otherwise>
+      <li><a href="${pageContext.request.contextPath}/userlogin">회원가입</a></li>
+      <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
+    </c:otherwise>
+
+  </c:choose>
+</ul>
     </div>
   </nav>
 </div>
