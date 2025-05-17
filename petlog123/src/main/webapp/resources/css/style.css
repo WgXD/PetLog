@@ -285,6 +285,13 @@ body.bg-mint {
   transform: translateY(-0.5px);
 }
 /*================ 중앙 콘텐츠 영역 ================*/
+.no-data-message {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
 .main-content {
   flex: 1.2;
   display: flex;  /*요소 안의 자식들을 flexbox로 레이아웃 배치*/

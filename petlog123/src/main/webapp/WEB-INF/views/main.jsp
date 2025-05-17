@@ -49,6 +49,11 @@
       <div class="content-box large">
         <h2>🐻 펫 프로필</h2>
         <div class="profile-cards">
+        <c:choose>
+        <c:when test="${empty petdto}">
+          <p class="no-data-message">📭 등록된 펫 정보가 없습니다.</p>
+        </c:when>
+        <c:otherwise>
           <c:forEach items="${petdto}" var="dto">
             <div class="card">
               <a href="pet_detail?update1=${dto.pet_id}">
@@ -61,6 +66,8 @@
               </a>
             </div>
           </c:forEach>
+          </c:otherwise>
+          </c:choose>
         </div>
       </div>
     </c:if>
@@ -68,7 +75,7 @@
     <c:if test="${empty sessionScope.user_id}">
       <div class="content-box large">
         <h2>🐾 펫 프로필</h2>
-        <p>로그인 후 펫 프로필을 확인하고 관리할 수 있습니다</p>
+        <p class="no-data-message">🔒 로그인 후 펫 프로필을 확인하고 관리할 수 있습니다.</p>
       </div>
     </c:if>
 
@@ -89,6 +96,14 @@
       <!-- 공지사항 콘텐츠 -->
       <div id="notice-content" class="tab-pane active">
         <ul class="post-list">
+        <c:choose>
+		  <c:when test="${empty sessionScope.user_id}">
+		    <p class="no-data-message">🔒 로그인 후 공지사항을 확인할 수 있습니다.</p>
+		  </c:when>
+		  <c:when test="${empty bodto}">
+		    <p class="no-data-message">📭 등록된 공지사항이 없습니다.</p>
+		  </c:when>
+		</c:choose>
           <c:forEach items="${bodto}" var="notice">
             <li class="post-item">
               <a href="PostDetail?pnum=${notice.post_id}" class="post-title">${notice.post_title}</a>
@@ -101,6 +116,14 @@
       <!-- 커뮤니티 콘텐츠 -->
       <div id="community-content" class="tab-pane">
         <ul class="post-list">
+        <c:choose>
+		  <c:when test="${empty sessionScope.user_id}">
+		    <p class="no-data-message">🔒 로그인 후 인기 게시물을 확인할 수 있습니다.</p>
+		  </c:when>
+		  <c:when test="${empty bodto}">
+		    <p class="no-data-message">📭 인기 게시물이 없습니다.</p>
+		  </c:when>
+		</c:choose>
           <c:forEach items="${csdto}" var="post">
             <li class="post-item">
               <a href="PostDetail?pnum=${post.post_id}" class="post-title">
@@ -114,6 +137,14 @@
       <!-- 간식 레시피 콘텐츠 -->
       <div id="snack-content" class="snack-pane">
         <ul class="post-list">
+        <c:choose>
+		  <c:when test="${empty sessionScope.user_id}">
+		    <p class="no-data-message">🔒 로그인 후 간식레시피를 확인할 수 있습니다.</p>
+		  </c:when>
+		  <c:when test="${empty bodto}">
+		    <p class="no-data-message">📭 등록 된 게시물이 없습니다.</p>
+		  </c:when>
+		</c:choose>
           <c:forEach items="${snackList}" var="snack">
             <li class="snack-item">
               <a href="snack_detail?dnum=${snack.snack_id}">${snack.snack_title}</a>
@@ -128,7 +159,7 @@
  
 <!-- 오른쪽: 인기 간식 레시피 박스 -->
       <div class="snack-preview-box">
-        <h3> 🦴 인기 레시피</h3>
+        <h2> 🦴 인기 레시피</h2>
         <div class="snack-slider-wrapper">
     
        <c:forEach items="${topCommentSnacks}" var="snack" varStatus="status">
@@ -143,6 +174,14 @@
 		    </div>
 		  </div>
 		</c:forEach>
+		<c:choose>
+		  <c:when test="${empty sessionScope.user_id}">
+		    <p class="no-data-message">🔒 로그인 후 간식 레시피를 확인할 수 있습니다.</p>
+		  </c:when>
+		  <c:when test="${empty snackList}">
+		    <p class="no-data-message">📭 등록 된 간식 레시피가 없습니다.</p>
+		  </c:when>
+		</c:choose>
 		</div>
  		
  		<div class="snack-button-box">
@@ -153,6 +192,7 @@
       </div>
     </div>
   </section>
+  
   <!-- 우측: 통합 캘린더 + 일정 -->
   <!-- 캘린더 박스 (로그인 상태) -->
  <aside class="right-info">
@@ -233,29 +273,46 @@
 
 <!-- 오늘의 다이어리 -->
 <div class="diary-wrapper-box">
-  <h3>📓 오늘의 일기</h3>
-  <c:if test="${not empty recentDiary}">
+  <h2>📓 오늘의 일기</h2>
+    <c:choose>
+    <c:when test="${empty sessionScope.user_id}">
+      <p class="no-data-message">🔒 로그인 후 오늘의 일기를 확인할 수 있습니다.</p>
+    </c:when>
+
+    <c:when test="${empty recentDiary}">
+      <p class="no-data-message">📭 작성한 일기가 없습니다. 오늘 일기를 써보세요!</p>
+    </c:when>
+    
+    <c:otherwise>
     <p class="diary-title">${recentDiary.diary_title}</p>
     <p class="diary-date">${fn:substringBefore(recentDiary.diary_date, ' ')}</p>
     <p class="diary-pet">${recentDiary.pet_name}의 일기</p>
     <p class="diary-preview">${fn:substring(recentDiary.diary_content, 0, 30)}...</p>
     <a href="diary_detail?diary_id=${recentDiary.diary_id}" class="diary-link">전체 보기 →</a>
-  </c:if>
-  <c:if test="${empty recentDiary}">
-    <p>작성한 일기가 없습니다. 오늘 일기를 써보세요!</p>
-  </c:if>
+  </c:otherwise>
+ </c:choose>
 </div>
         
 	<!-- 퀴즈 출력 부분 -->
     <div class="quiz-preview-box">
-	  <h3>🧠 오늘의 멍냥 퀴즈</h3>
+	  <h2>🧠 오늘의 멍냥 퀴즈 </h2>
+	   <c:choose>
+	    <c:when test="${empty sessionScope.user_id}">
+	      <p class="no-data-message">🔒 로그인 후 오늘의 퀴즈를 확인할 수 있습니다.</p>
+	    </c:when>
+	
+	    <c:when test="${empty quiz}">
+	      <p class="no-data-message">📭 오늘의 퀴즈가 아직 등록되지 않았습니다.</p>
+	    </c:when>
+	  
+	  <c:otherwise>
 	  <p class="quiz-question">${quiz.quiz_question}</p>
 	  <p class="quiz-note" style="margin-bottom: 10px;">※ 전체 보기는 퀴즈에서 확인하세요!</p>
 	  <a href="${pageContext.request.contextPath}/quiz" class="quiz-start-button">도전하러 가기 →</a>
+	  </c:otherwise>
+	 </c:choose>
 	</div>
     </aside>
-</div>
-
 
 <!-- 커뮤니티, 공지사항 구분 및 바로가기  -->
 <script>
