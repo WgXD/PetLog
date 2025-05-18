@@ -2,6 +2,9 @@
 package com.mbc.pet.quiz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
@@ -9,8 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mbc.pet.community.CommunityDTO;
+import com.mbc.pet.community.CommunityService;
+import com.mbc.pet.community.PageDTO;
 import com.mbc.pet.point.PointDTO;
 import com.mbc.pet.point.PointService;
 import com.mbc.pet.user.UserDTO;
@@ -51,7 +60,7 @@ public class QuizController {
     	
         QuizService qs=sqlSession.getMapper(QuizService.class);
         qs.insertQuiz(dto);
-        return "QuizList";
+        return "QuizView";
     }
     
     //퀴즈 풀기
@@ -184,4 +193,57 @@ public class QuizController {
     
         return "QuizResult";
     }
+    
+    //퀴즈 목록
+    @RequestMapping("/Quiz_admin")
+    public String quizupdate(Model mo, PageDTO dto, @RequestParam(defaultValue = "1") int page) {
+    	QuizService qs= sqlSession.getMapper(QuizService.class);
+    	
+    	// 페이징 기본 설정
+        int page_size = 10; // 한 페이지당 퀴즈 수
+        int start = (page - 1) * page_size;
+        int end = page_size;
+
+        // 전체 퀴즈 개수 구하기
+        int total_count = qs.getQuizCount(); // 새로 만들어야 할 메서드
+        int page_count = (int) Math.ceil((double) total_count / page_size);
+
+        // 퀴즈 목록 조회 (start부터 page_size개 조회)
+        List<QuizDTO> list = qs.getQuizListByPage(start, end);
+     
+        mo.addAttribute("list", list);
+        mo.addAttribute("page", page);
+        mo.addAttribute("page_count", page_count);
+        mo.addAttribute("page_size", page_size);
+        mo.addAttribute("optionFields", Arrays.asList("quiz_option1", "quiz_option2", "quiz_option3", "quiz_option4"));
+        return "Quiz_admin";
+    }
+    
+ // 퀴즈 수정 페이지 이동
+    @RequestMapping("/quiz_admin/edit/{quiz_id}")
+    public String quizEdit(@PathVariable("quiz_id") int quiz_id, Model model) {
+        QuizService qs = sqlSession.getMapper(QuizService.class);
+        QuizDTO dto = qs.getQuizById(quiz_id);
+        model.addAttribute("dto", dto);
+        return "Quiz_edit";
+    }
+
+    // 퀴즈 수정 처리
+    @RequestMapping("/quiz_admin/update")
+    public String quizUpdate(QuizDTO dto, RedirectAttributes rttr) {
+        QuizService qs = sqlSession.getMapper(QuizService.class);
+        qs.updateQuiz(dto);
+        rttr.addFlashAttribute("msg", "퀴즈가 수정되었습니다.");
+        return "redirect:/Quiz_admin";
+    }
+
+    // 퀴즈 삭제 처리
+    @RequestMapping("/quiz_admin/delete/{quiz_id}")
+    public String quizDelete(@PathVariable("quiz_id") int quiz_id, RedirectAttributes rttr) {
+        QuizService qs = sqlSession.getMapper(QuizService.class);
+        qs.deleteQuiz(quiz_id);
+        rttr.addFlashAttribute("msg", "퀴즈가 삭제되었습니다.");
+        return "redirect:/Quiz_admin";
+    }
+    
 }

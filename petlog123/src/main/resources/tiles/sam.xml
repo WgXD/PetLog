@@ -297,6 +297,16 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/Quiz/QuizResult.jsp"/>
    </definition>
+   
+   <definition name="Quiz_admin" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/Quiz_admin.jsp"/>
+   </definition>
+   
+      <definition name="Quiz_edit" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/Quiz/Quiz_edit.jsp"/>
+   </definition>
 
    <definition name="quiz_done" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
@@ -322,6 +332,11 @@
    <definition name="QnADetail" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/QnA/QnADetail.jsp"/>
+   </definition>
+   
+      <definition name="QnA_edit" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/QnA/QnA_edit.jsp"/>
    </definition>
    
    <!-- 달력 보기 -->

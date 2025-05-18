@@ -16,4 +16,10 @@ public interface QnAService {
 
 	int totalByType();
 
+	void updateQnA(QnADTO dto);
+
+	QnADTO getQnAById(int qna_id);
+
+	void deleteQnA(int qna_id);
+
 }

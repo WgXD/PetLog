@@ -61,26 +61,7 @@
             <li><a href="${pageContext.request.contextPath}/QuizInput">🐾 오늘의 멍냥 퀴즈</a></li>
           </ul>
         </li>
-        
-<!--       
-       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" >🌸 플레이스 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="place?category=cafe">☕ 카페</a></li>
-       
-          <li><a href="place?category=restaurant">🍽️ 식당</a></li>
-          
-          <li><a href="place?category=park">🌳 공원</a></li>
-          
-           <li><a href="place?category=playground">🎠 놀이터</a></li>
-           
-          <li><a href="place?category=camping">⛺ 캠핑장</a></li>
-          
-          <li><a href="place?category=accommodation">🛏️ 숙소</a></li>
-          
-        </ul>
-      </li>
-  -->         
+            
 
         <li><a href="${pageContext.request.contextPath}/qnalist">❓ Q&A</a></li>
 
@@ -91,7 +72,7 @@
               <li><a href="${pageContext.request.contextPath}/BoardInput">📢 공지사항 작성하기</a></li>
               <li><a href="${pageContext.request.contextPath}/items_input">🎁 아이템 등록</a></li>
               <li><a href="${pageContext.request.contextPath}/items_out_admin">🎁 아이템 목록</a></li>
-              <li><a href="${pageContext.request.contextPath}/QuizInsertPage">📄 퀴즈 등록하기</a></li>
+              <li><a href="${pageContext.request.contextPath}/Quiz_admin">📄 퀴즈 관리</a></li>
               <li><a href="${pageContext.request.contextPath}/point/grapes_admin_form">🍇 포도알 관리</a></li>
             </ul>
           </li>

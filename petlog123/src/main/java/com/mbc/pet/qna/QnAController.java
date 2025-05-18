@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -112,8 +113,6 @@ public class QnAController {
             return "redirect:/login?error=login_required";
         }
         
-		//Integer user_id = (Integer) session.getAttribute("user_id");
-	    //String user_login_id = (String) session.getAttribute("user_login_id");
 	    String user_role = (String)session.getAttribute("user_role");
 	    Integer qnum = Integer.parseInt(request.getParameter("qnum"));
 
@@ -159,4 +158,65 @@ public class QnAController {
 		redirectAttr.addFlashAttribute("alertMsg", "답변이 등록되었습니다.");
 		return "redirect:/qnalist";
 	}
+	
+	// 수정 폼 이동
+	@RequestMapping("/qna/edit/{qna_id}")
+	public String editQnA(@PathVariable int qna_id, HttpSession session, Model model, RedirectAttributes ra) {
+	    QnAService service = sqlSession.getMapper(QnAService.class);
+	    QnADTO dto = service.getQnAById(qna_id);
+	    int loginUserId = Integer.parseInt(session.getAttribute("user_id").toString());
+
+	    if (dto.getUser_id() != loginUserId) {
+	        ra.addFlashAttribute("msg", "본인 글만 수정할 수 있습니다.");
+	        return "redirect:/qnalist";
+	    }
+	    model.addAttribute("dto", dto);
+	    return "QnA/QnA_edit";
+	}
+
+	// 수정 처리
+	@RequestMapping("/qna/update")
+	public String updateQnA(QnADTO dto, HttpSession session, RedirectAttributes ra) {
+		 // ✔ 로그인 체크
+	    Object userIdAttr = session.getAttribute("user_id");
+	    if (userIdAttr == null) {
+	        ra.addFlashAttribute("alertMsg", "로그인 후 이용해주세요.");
+	        return "redirect:/login";
+	    }
+	    
+	    int loginUserId = Integer.parseInt(session.getAttribute("user_id").toString());
+	    if (dto.getUser_id() != loginUserId) {
+	        ra.addFlashAttribute("alertMsg", "수정 권한이 없습니다.");
+	        return "redirect:/qnalist";
+	    }
+	    if ("완료".equals(dto.getQna_status())) {
+	        ra.addFlashAttribute("alertMsg", "답변이 달린 글은 수정할 수 없습니다.");
+	        return "redirect:/qnalist";
+	    }
+	    QnAService service = sqlSession.getMapper(QnAService.class);
+	    service.updateQnA(dto);
+	    ra.addFlashAttribute("alertMsg", "수정 완료!");
+	    return "redirect:/qnalist";
+	}
+
+	// 삭제 처리
+	@RequestMapping("/qna/delete/{qna_id}")
+	public String deleteQnA(@PathVariable int qna_id, HttpSession session, RedirectAttributes ra) {
+	    QnAService service = sqlSession.getMapper(QnAService.class);
+	    QnADTO dto = service.getQnAById(qna_id);
+	    int loginUserId = Integer.parseInt(session.getAttribute("user_id").toString());
+
+	    if (dto.getUser_id() != loginUserId) {
+	        ra.addFlashAttribute("alertMsg", "삭제 권한이 없습니다.");
+	        return "redirect:/qnalist";
+	    }
+	    if (dto.getQna_status().equals("완료")) {
+	        ra.addFlashAttribute("alertMsg", "답변이 달린 글은 삭제할 수 없습니다.");
+	        return "redirect:/qnalist";
+	    }
+	    service.deleteQnA(qna_id);
+	    ra.addFlashAttribute("alertMsg", "삭제 완료!");
+	    return "redirect:/qnalist";
+	}
+
 }

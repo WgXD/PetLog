@@ -71,4 +71,40 @@
 		)
 	where rownum = 1
 </select>
+
+<select id="getQuizCount" resultType="int">
+    SELECT COUNT(*) FROM quiz
+</select>
+
+<select id="getQuizListByPage" resultType="com.mbc.pet.quiz.QuizDTO">
+    SELECT * FROM (
+        SELECT q.*, ROWNUM rn FROM (
+            SELECT * FROM quiz ORDER BY quiz_id DESC
+        ) q
+        WHERE ROWNUM &lt;= #{end}
+    )
+    WHERE rn &gt; #{start}
+</select>
+
+<!-- 퀴즈 하나 조회 -->
+<select id="getQuizById" parameterType="int" resultType="com.mbc.pet.quiz.QuizDTO">
+    SELECT * FROM quiz WHERE quiz_id = #{quiz_id}
+</select>
+
+<!-- 퀴즈 수정 -->
+<update id="updateQuiz" parameterType="com.mbc.pet.quiz.QuizDTO">
+    UPDATE quiz SET 
+        quiz_question = #{quiz_question},
+        quiz_option1 = #{quiz_option1},
+        quiz_option2 = #{quiz_option2},
+        quiz_option3 = #{quiz_option3},
+        quiz_option4 = #{quiz_option4},
+        quiz_answer = #{quiz_answer}
+    WHERE quiz_id = #{quiz_id}
+</update>
+
+<!-- 퀴즈 삭제 -->
+<delete id="deleteQuiz" parameterType="int">
+    DELETE FROM quiz WHERE quiz_id = #{quiz_id}
+</delete>
 </mapper>

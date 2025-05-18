@@ -105,7 +105,8 @@
 
 <c:if test="${sessionScope.user_role eq 'admin'}">
   <div class="quiz-insert-wrapper">
-    <a href="QuizInsertPage" class="quiz-insert-link">➕ 퀴즈 등록</a>
+    <a href="QuizInsertPage" class="quiz-insert-link">퀴즈 등록</a>
+    <a href="Quizview" class="quiz-insert-link">퀴즈 목록</a>
   </div>
 </c:if>
 

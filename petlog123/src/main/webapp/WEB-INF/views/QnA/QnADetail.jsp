@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-
   <style>
     body {
       font-family: "Pretendard", sans-serif;
@@ -144,9 +144,13 @@ table tr:first-child td {
 </head>
 <body>
 
-<div class="qna-box">
+<c:if test="${not empty alertMsg}">
+  <script>
+    alert("${fn:escapeXml(alertMsg)}");
+  </script>
+</c:if>
 
-  <!-- 제목 줄 -->
+<div class="qna-box">
   <h2>📔 Q&A 상세보기</h2>
 
   <table>
@@ -170,39 +174,72 @@ table tr:first-child td {
       <th>상태</th>
       <td>${dto.qna_status}</td>
     </tr>
+  </table>   
 
-    <c:if test="${not empty dto.qna_answer}">
-      <tr>
-        <th>관리자 답변</th>
-        <td class="qna-content">${dto.qna_answer}</td>
-      </tr>
-    </c:if>
-  </table>
 
-  <c:if test="${sessionScope.user_role eq 'admin'}">
-    <div class="admin-answer-box">
-      <h3>📬 <span style="margin-left: 5px;">관리자 답변 작성</span></h3>
-      <form action="updateAnswer" method="post">
-        <input type="hidden" name="qna_id" value="${dto.qna_id}" />
-
-        <label for="qna_answer">답변 내용</label>
-        <textarea name="qna_answer" id="qna_answer" rows="5">${dto.qna_answer}</textarea>
-
-        <label for="qna_status">문의 상태</label>
-        <select name="qna_status" id="qna_status">
-          <option value="처리중" ${dto.qna_status eq '처리중' ? 'selected' : ''}>처리중</option>
-          <option value="완료" ${dto.qna_status eq '완료' ? 'selected' : ''}>완료</option>
-        </select>
-
-        <button type="submit">답변 등록</button>
-      </form>
+<!-- ✅ 답변이 있으면 모두에게 보여주기 -->
+<c:if test="${not empty dto.qna_answer}">
+  <div style="margin-top: 40px; padding: 20px;  border: 1px solid #f4c6d2; border-radius: 10px;">
+    <h3 style="color: #d66b7d; font-size: 18px; margin-bottom: 10px;">
+      <img src="./image/${dto._image}" style="width: 20px; vertical-align: middle; margin-right: 5px;">
+      관리자 답변
+    </h3>
+    <div style="white-space: pre-wrap; line-height: 1.6; font-size: 14px; color: #444;">
+      ${dto.qna_answer}
     </div>
-  </c:if>
+  </div>
+</c:if>
 
-  <div class="btn-wrap">
+
+<c:if test="${sessionScope.user_role eq 'admin'}">
+  <div class="admin-answer-box">
+    <!-- 답변 작성 폼 -->
+    <h3 style="color: #f48aa5; font-size: 17px; margin-bottom: 10px;">
+      <img src="./image/default.png" style="width: 18px; vertical-align: middle; margin-right: 5px;">
+      관리자 답변 작성
+    </h3>
+    <form action="updateAnswer" method="post">
+      <input type="hidden" name="qna_id" value="${dto.qna_id}" />
+
+      <label for="qna_answer">답변 내용</label>
+      <textarea name="qna_answer" id="qna_answer" rows="5">${dto.qna_answer}</textarea>
+
+      <label for="qna_status">문의 상태</label>
+      <select name="qna_status" id="qna_status">
+        <option value="처리중" ${dto.qna_status eq '처리중' ? 'selected' : ''}>처리중</option>
+        <option value="완료" ${dto.qna_status eq '완료' ? 'selected' : ''}>완료</option>
+      </select>
+
+      <button type="submit">답변 등록</button>
+    </form>
+  </div>
+</c:if>
+
+<div class="btn-wrap">
+
+  <c:if test="${sessionScope.user_id == dto.user_id}">
+  <c:choose>
+    <c:when test="${dto.qna_status eq '완료'}">
+      <button onclick="alert('답변이 달린 글은 수정할 수 없습니다.'); return false;">✏️ 수정</button>
+    </c:when>
+    <c:otherwise>
+      <button onclick="location.href='${pageContext.request.contextPath}/qna/edit/${dto.qna_id}'">✏️ 수정</button>
+    </c:otherwise>
+  </c:choose>
+</c:if>
+
+  <c:choose>
+  <c:when test="${dto.qna_status eq '완료'}">
+    <button onclick="alert('답변이 달린 글은 삭제할 수 없습니다.'); return false;">🗑 삭제</button>
+  </c:when>
+  <c:otherwise>
+    <button onclick="if(confirm('삭제하시겠습니까?')) location.href='${pageContext.request.contextPath}/qna/delete/${dto.qna_id}'">🗑 삭제</button>
+  </c:otherwise>
+</c:choose>
+
     <button onclick="location.href='qnalist'">목록으로 돌아가기</button>
   </div>
-</div>
+
 
 </body>
 </html>

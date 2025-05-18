@@ -31,7 +31,7 @@
 
 <!-- 자세히보기 -->
 <select id="qnadetail" resultType="com.mbc.pet.qna.QnADTO">
-	select q.qna_id, q.qna_title, q.qna_content, q.qna_date, q.qna_status, q.user_id, u.user_login_id
+	select q.qna_id, q.qna_title, q.qna_content, q.qna_date, q.qna_status, q.user_id, u.user_login_id, q.qna_answer
 	from qna q
 	join user1 u on q.user_id = u.user_id
 	where qna_id = #{qna_id}
@@ -41,4 +41,24 @@
 <update id="updateqnswer" parameterType="com.mbc.pet.qna.QnADTO">
 	update qna set qna_answer = #{qna_answer}, qna_status=#{qna_status} where qna_id = #{qna_id}
 </update>
+
+<!-- QnA 수정 -->
+<update id="updateQnA" parameterType="com.mbc.pet.qna.QnADTO">
+    UPDATE qna
+    SET qna_title = #{qna_title},
+        qna_content = #{qna_content}
+    WHERE qna_id = #{qna_id}
+</update>
+
+<!-- QnA 삭제 -->
+<delete id="deleteQnA" parameterType="int">
+    DELETE FROM qna
+    WHERE qna_id = #{qna_id}
+</delete>
+
+<!-- QnA 상세 -->
+<select id="getQnAById" parameterType="int" resultType="com.mbc.pet.qna.QnADTO">
+    SELECT * FROM qna WHERE qna_id = #{qna_id}
+</select>
+
 </mapper>

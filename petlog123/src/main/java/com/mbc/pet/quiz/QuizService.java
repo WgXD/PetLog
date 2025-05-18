@@ -1,6 +1,7 @@
 package com.mbc.pet.quiz;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -27,6 +28,16 @@ public interface QuizService {
 	boolean checkAlreadySolved(@Param("user_id") int user_id, @Param("quiz_id") int quiz_id);
 
 	QuizDTO getLatestUnsolvedQuiz(Integer user_id);
+
+	int getQuizCount();
+
+	List<QuizDTO> getQuizListByPage(@Param("start") int start, @Param("end") int end);
+
+	QuizDTO getQuizById(int quiz_id);
+
+	void updateQuiz(QuizDTO dto);
+
+	void deleteQuiz(int quiz_id);
 
 	
 }
