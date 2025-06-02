@@ -50,10 +50,6 @@
     color: #555;
     font-weight: bold;
   }
-  td img {
-    max-width: 70px;
-    height: auto;
-  }
   #contentDiv {
     padding: 8px;
     border: 1px solid #ccc;
@@ -127,12 +123,17 @@
       <td><input type="text" name="post_title" value="${dto.post_title}" style="width:100%; padding:8px;" readonly></td>
     </tr>
  
-	 <tr>
+	<tr>
 	  <th>내용</th>
 	  <td>
-	    <div style="white-space: pre-line;">
-	      ${dto.post_content}
-	    </div>
+    <div style="white-space: pre-line;">
+      ${dto.post_content}
+	
+	  <c:if test="${empty dto.post_content and dto.post_image ne null and not empty dto.post_image}">
+	    <br>
+	    <img src="./image/${dto.post_image}" style=width=50px height=50px">
+	  </c:if>
+	</div>
 	  </td>
 	</tr>
 	  </table>

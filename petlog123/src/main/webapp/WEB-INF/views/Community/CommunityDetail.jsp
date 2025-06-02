@@ -187,7 +187,7 @@ ${dto.user_login_id}님의 게시물</h2>
 
   <c:if test="${empty dto.post_content and dto.post_image ne null and not empty dto.post_image}">
     <br>
-    <img src="./image/${dto.post_image}">
+    <img src="./image/${dto.post_image}" width="50px" height="50px">
   </c:if>
 </div>
   </td>

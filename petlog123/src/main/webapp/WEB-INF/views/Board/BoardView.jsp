@@ -122,14 +122,13 @@
   <script>alert('${msg}');</script>
 </c:if>
 
-<div class="btn-wrap">
+<div class="table-wrapper">
+  <table>
+  <div class="btn-wrap">
   <c:if test="${sessionScope.user_role eq 'admin'}">
     <button type="button" onclick="location.href='BoardInput'">📢 공지사항 작성</button>
   </c:if>
 </div>
-
-<div class="table-wrapper">
-  <table>
     <caption>📢 PetLog 공지사항</caption>
     <thead>
       <tr>
